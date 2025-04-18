@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://kcqha4xx46r7"]
+
+[ext_resource type="Script" uid="uid://b2oqcghmenmfd" path="res://scripts/enemy.gd" id="1_7p1mj"]
+[ext_resource type="Script" uid="uid://bjwn8mansrw1v" path="res://components/effectable/movement.gd" id="2_md0e3"]
+[ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://components/hitbox.gd" id="3_4ra3w"]
+[ext_resource type="Script" uid="uid://da606deregrbs" path="res://components/effectable/health.gd" id="4_5uy6h"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8tegq"]
+radius = 16.0
+
+[node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
+script = ExtResource("1_7p1mj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_8tegq")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+scale = Vector2(2.38374, 2.68171)
+color = Color(0.625677, 0, 0.0021088, 1)
+offset = Vector2(2.755, 0)
+antialiased = true
+polygon = PackedVector2Array(8, 0, -8, -8, -8, 8)
+
+[node name="Movement" type="Node" parent="."]
+script = ExtResource("2_md0e3")
+initial_speed = 150.0
+metadata/_custom_type_script = "uid://bjwn8mansrw1v"
+
+[node name="Hitbox" type="Node" parent="."]
+script = ExtResource("3_4ra3w")
+metadata/_custom_type_script = "uid://wwqkkrfhwiyn"
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("4_5uy6h")
+metadata/_custom_type_script = "uid://da606deregrbs"

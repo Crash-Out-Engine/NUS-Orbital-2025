@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=3 uid="uid://ytw0s5xnqwvt"]
+
+[ext_resource type="Script" uid="uid://c8f8kowfp34yp" path="res://scripts/player.gd" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://bjwn8mansrw1v" path="res://components/effectable/movement.gd" id="2_g2els"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
+radius = 18.2857
+height = 53.4112
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_3vyb7")
+
+[node name="Polygon2D2" type="Polygon2D" parent="."]
+position = Vector2(-13.2944, 0)
+scale = Vector2(0.547556, 0.556367)
+color = Color(0.349056, 0.447572, 0.506568, 1)
+antialiased = true
+polygon = PackedVector2Array(32, -8, 120, -16, 120, 16, 32, 8)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(-13.2944, -4.38094e-06)
+scale = Vector2(2.81601, 4.38139)
+color = Color(0.0463088, 0.326656, 0.210825, 1)
+antialiased = true
+polygon = PackedVector2Array(-9.4835, -6.09524, -9.4835, 6.09524, 9.48351, 3.04762, 9.48351, -3.04762)
+uv = PackedVector2Array(-40, -39, -42, 102, 174, 75, 178, -13)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-13.2944, -5.68434e-14)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_g2els")
+
+[node name="Barrel" type="Node2D" parent="."]
+position = Vector2(48, 0)
+scale = Vector2(0.556367, 0.556367)
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="Movement" type="Node" parent="."]
+script = ExtResource("2_g2els")
+lerp_weight = 0.1
+metadata/_custom_type_script = "uid://bjwn8mansrw1v"
