@@ -3,9 +3,6 @@ class_name Movement extends Effectable
 @export var initial_speed: float = 200.0
 @export var lerp_weight: float = 1.0
 
-@onready var barrel = $Barrel
-@onready var shoot_timer = $ShootTimer
-
 func _ready() -> void:
 	assert(get_parent() is CharacterBody2D, "Movement's parent should be a CharacterBody2D.")
 	assert(get_parent().direction is Callable, "Movement's parent should have a direction.")

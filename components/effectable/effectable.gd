@@ -1,10 +1,12 @@
 class_name Effectable extends Node
 
-var effect: Effect = null
+var effects: Array[Effect] = []
 
 var value
 
-func _should_be_effected(effect: Effect) -> bool:
+var _counter: int
+
+func _should_be_effected(_effect: Effect) -> bool:
 	return false
 	
 func _apply_effect(effect: Effect) -> void:
@@ -25,17 +27,17 @@ func _apply_effect(effect: Effect) -> void:
 			return
 				
 		else: # effect.repeat != 0 and effect.timer != null
-			var counter = effect.repeat
+			_counter = effect.repeat
 			effect.timer.stop()
 			effect.timer.one_shot = false
 			effect.timer.timeout.connect(
 				func():
-					if counter == 0:
+					if _counter == 0:
 						effect.timer.one_shot = true
 						effect.timer.stop()
 					else:
 						value += actual_factor
 						value = max(value, 0)
-						counter -= 1
+						_counter -= 1
 					)
 			effect.timer.start()

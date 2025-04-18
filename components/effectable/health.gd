@@ -14,7 +14,7 @@ func _should_be_effected(effect: Effect) -> bool:
 	return effect is HealthEffect
 
 var prev_value: float
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if value <= 0 and !health_emptied:
 		health_just_emptied.emit()
 		health_emptied = true

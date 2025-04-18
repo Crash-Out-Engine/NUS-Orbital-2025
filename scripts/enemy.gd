@@ -4,7 +4,7 @@ var explosion_scene = preload("res://scenes/explosion.tscn")
 
 @onready var player = $/root/Game/Player
 
-var direction: Callable = func(delta: float) -> Vector2:
+var direction: Callable = func(_delta: float) -> Vector2:
 	return global_position.direction_to(player.global_position)
 
 const SPEED = 100
@@ -13,7 +13,7 @@ func _ready() -> void:
 	$Health.health_just_emptied.connect(die)
 	$Health.health_just_dropped.connect(bleed)
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	look_at(player.global_position)
 
 func die():
