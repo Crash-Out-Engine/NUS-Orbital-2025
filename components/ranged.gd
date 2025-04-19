@@ -12,11 +12,12 @@ var bullet_scene = preload("res://scenes/bullet.tscn")
 	set(value):
 		barrel = value
 		update_configuration_warnings()
-@export var target: Node2D
+@export var targeting: Targeting = null
+@export var aim_at_mouse: bool = false
 @export var group: String
 @export var effects: Array[Effect] = []
 
-var _is_active: bool = false
+@export var active: bool = false
 
 func _ready() -> void:
 	assert(get_parent() is Node2D, "Parent must extend Node2D.")
@@ -31,15 +32,15 @@ func _get_configuration_warnings() -> PackedStringArray:
 		warnings.append("Barrel must be specified.")
 	return warnings
 
-func set_active(active: bool):
-	_is_active = active
-
 func _physics_process(_delta: float) -> void:
-	if _is_active and ranged_cooldown.try_ranged():
+	var target = targeting.get_target(get_parent().global_position, group) if targeting != null else null
+	if active and (target != null or aim_at_mouse) and ranged_cooldown.try_ranged():
 		var bullet = bullet_scene.instantiate()
 		bullet.effects.append_array(effects)
 		bullet.group = group
 		bullet.global_position = barrel.global_position
-		bullet.direction = get_parent().global_position.angle_to_point(target.global_position if target != null else get_global_mouse_position())
+		bullet.direction = get_parent().global_position.angle_to_point(
+			get_global_mouse_position() if aim_at_mouse else target.global_position
+			)
 
 		$/root/Game.add_child(bullet)

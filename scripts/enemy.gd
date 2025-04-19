@@ -2,8 +2,9 @@ extends CharacterBody2D
 
 var explosion_scene = preload("res://scenes/explosion.tscn")
 
-@onready var player = $/root/Game/Player
-@onready var ranged = $Ranged
+@onready var player: Player = $/root/Game/Allies/Player
+@onready var ranged: Ranged = $Ranged
+@onready var targeting: Targeting = $Targeting
 
 var direction: Callable = func(_delta: float) -> Vector2:
 	return global_position.direction_to(player.global_position)
@@ -13,11 +14,12 @@ const SPEED = 100
 func _ready() -> void:
 	$Health.just_emptied.connect(die)
 	$Health.just_reduced.connect(bleed)
-	$Ranged.target = $/root/Game/Player
-	$Ranged.set_active(true)
+	$Ranged.active = false
 
 func _physics_process(_delta: float) -> void:
-	look_at(player.global_position)
+	var target = targeting.get_target(global_position, "enemies")
+	if target != null:
+		look_at(target.global_position)
 
 func die():
 	queue_free()

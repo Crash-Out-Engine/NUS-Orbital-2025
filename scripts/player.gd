@@ -25,15 +25,15 @@ func _physics_process(_delta: float) -> void:
 	look_at(get_global_mouse_position())
 	
 	if Input.is_action_just_pressed("shoot"):
-		ranged.set_active(true)
+		ranged.active = true
 	if Input.is_action_just_released("shoot"):
-		ranged.set_active(false)
+		ranged.active = false
 		
 	if Input.is_action_just_pressed("add turret"):
 		current_turret = turret_scene.instantiate()
 		current_turret.set_collidable(false)
 		current_turret.global_position = get_global_mouse_position()
-		$/root/Game.add_child(current_turret)
+		$/root/Game/Allies.add_child(current_turret)
 	
 	if Input.is_action_pressed("add turret"):
 		if current_turret != null:
