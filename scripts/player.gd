@@ -9,7 +9,6 @@ var direction: Callable = func(_delta: float) -> Vector2:
 		)
 
 @onready var barrel = $Barrel
-@onready var shoot_timer = $ShootTimer
 @onready var ranged = $Ranged
 
 var current_turret = null

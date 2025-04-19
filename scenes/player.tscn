@@ -38,10 +38,6 @@ shape = SubResource("CapsuleShape2D_g2els")
 position = Vector2(48, 0)
 scale = Vector2(0.556367, 0.556367)
 
-[node name="ShootTimer" type="Timer" parent="."]
-wait_time = 0.1
-one_shot = true
-
 [node name="Movement" type="Node" parent="."]
 script = ExtResource("2_g2els")
 lerp_weight = 0.9

@@ -18,8 +18,13 @@ var bullet_scene = preload("res://scenes/bullet.tscn")
 
 var _is_active: bool = false
 
+func _ready() -> void:
+	assert(get_parent() is Node2D, "Parent must extend Node2D.")
+
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings = []
+	if not get_parent() is Node2D:
+		warnings.append("Parent must extend Node2D.")
 	if ranged_cooldown == null:
 		warnings.append("Ranged Cooldown must be specified.")
 	if barrel == null:
@@ -35,6 +40,6 @@ func _physics_process(_delta: float) -> void:
 		bullet.effects.append_array(effects)
 		bullet.group = group
 		bullet.global_position = barrel.global_position
-		bullet.direction = global_position.angle_to_point(target.global_position if target != null else get_global_mouse_position())
+		bullet.direction = get_parent().global_position.angle_to_point(target.global_position if target != null else get_global_mouse_position())
 
 		$/root/Game.add_child(bullet)
