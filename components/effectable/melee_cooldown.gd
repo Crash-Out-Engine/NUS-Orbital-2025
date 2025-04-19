@@ -1,11 +1,11 @@
-class_name MeleeRate extends Effectable
+class_name MeleeCooldown extends Effectable
 
-@export var melee_rate: float = 0.5
+@export var melee_cooldown: float = 0.5
 
 var timer: Timer = Timer.new()
 
 func _ready() -> void:
-	value = melee_rate
+	value = melee_cooldown
 	timer.one_shot = true
 	timer.stop()
 	add_child(timer)

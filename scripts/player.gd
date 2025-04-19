@@ -31,13 +31,14 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("add turret"):
 		current_turret = turret_scene.instantiate()
 		current_turret.set_collidable(false)
+		current_turret.global_position = get_global_mouse_position()
 		$/root/Game.add_child(current_turret)
 	
-	if Input.is_action_pressed("place"):
+	if Input.is_action_pressed("add turret"):
 		if current_turret != null:
 			current_turret.global_position = get_global_mouse_position()
 
-	if Input.is_action_just_released("place"):
+	if Input.is_action_just_released("add turret"):
 		if current_turret != null:
 			current_turret.set_collidable(true)
 			current_turret = null

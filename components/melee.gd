@@ -1,6 +1,6 @@
 class_name Melee extends Node
 
-@export var melee_rate: MeleeRate
+@export var melee_cooldown: MeleeCooldown
 @export var melee_damage: MeleeDamage
 
 func _ready() -> void:
@@ -14,5 +14,5 @@ func _physics_process(_delta: float) -> void:
 		if (collider != null and 
 				collider.is_in_group("allies") and 
 				collider.get_node_or_null(^"./Hitbox") != null and 
-				melee_rate.try_melee()):
+				melee_cooldown.try_melee()):
 			collider.get_node_or_null(^"./Hitbox").trigger(melee_damage.get_effect())

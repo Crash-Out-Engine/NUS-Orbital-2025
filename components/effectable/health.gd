@@ -1,7 +1,6 @@
 class_name Health extends Effectable
 
 @export var health_capacity: float = 20.0;
-@export var recovery_rate: float = 0.0;
 
 var health_emptied: bool
 
