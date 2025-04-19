@@ -1,6 +1,5 @@
 class_name Player extends CharacterBody2D
 
-var bullet_scene = preload("res://scenes/bullet.tscn")
 var turret_scene = preload("res://scenes/turret.tscn")
 
 var direction: Callable = func(_delta: float) -> Vector2:
@@ -11,6 +10,7 @@ var direction: Callable = func(_delta: float) -> Vector2:
 
 @onready var barrel = $Barrel
 @onready var shoot_timer = $ShootTimer
+@onready var ranged = $Ranged
 
 var current_turret = null
 
@@ -20,13 +20,10 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	look_at(get_global_mouse_position())
 	
-	if Input.is_action_pressed("shoot") and shoot_timer.is_stopped():
-		var bullet = bullet_scene.instantiate()
-		bullet.global_position = barrel.global_position
-		bullet.direction = global_position.angle_to_point(get_global_mouse_position())
-		
-		shoot_timer.start()
-		$/root/Game.add_child(bullet)
+	if Input.is_action_just_pressed("shoot"):
+		ranged.set_active(true)	
+	if Input.is_action_just_released("shoot"):
+		ranged.set_active(false)
 		
 	if Input.is_action_just_pressed("add turret"):
 		current_turret = turret_scene.instantiate()
@@ -50,4 +47,4 @@ func _on_health_just_emptied() -> void:
 	
 signal healthChanged(new_ratio: float)
 func _on_health_just_changed(_old_value: float, new_value: float) -> void:
-	healthChanged.emit(new_value / $"./Health".health_capacity)
+	healthChanged.emit(new_value / $Health.health_capacity)

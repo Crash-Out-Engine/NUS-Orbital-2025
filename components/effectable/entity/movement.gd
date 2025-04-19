@@ -14,7 +14,7 @@ class_name Movement extends Effectable
 
 func _ready() -> void:
 	assert(get_parent() is CharacterBody2D, "Movement's parent should be a CharacterBody2D.")
-	assert(get_parent().direction is Callable, "Movement's parent should have a direction.")
+	#assert(get_parent().direction is Callable, "Movement's parent should have a direction.")
 	
 	value = initial_speed
 

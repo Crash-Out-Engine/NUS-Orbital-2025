@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://ytw0s5xnqwvt"]
+[gd_scene load_steps=8 format=3 uid="uid://ytw0s5xnqwvt"]
 
 [ext_resource type="Script" uid="uid://c8f8kowfp34yp" path="res://scripts/player.gd" id="1_3vyb7"]
-[ext_resource type="Script" uid="uid://bjwn8mansrw1v" path="res://components/effectable/movement.gd" id="2_g2els"]
-[ext_resource type="Script" uid="uid://da606deregrbs" path="res://components/effectable/health.gd" id="3_qhqgy"]
+[ext_resource type="Script" uid="uid://bjwn8mansrw1v" path="res://components/effectable/entity/movement.gd" id="2_g2els"]
+[ext_resource type="Script" uid="uid://da606deregrbs" path="res://components/effectable/entity/health.gd" id="3_qhqgy"]
 [ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://components/hitbox.gd" id="4_dqkch"]
+[ext_resource type="Script" uid="uid://bqsxrr4x407ln" path="res://components/ranged.gd" id="5_qlg0r"]
+[ext_resource type="Script" uid="uid://bacaht0aiera8" path="res://components/effectable/entity/ranged_cooldown.gd" id="6_tuyoq"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
 radius = 18.2857
@@ -53,6 +55,19 @@ metadata/_custom_type_script = "uid://da606deregrbs"
 [node name="Hitbox" type="Node" parent="."]
 script = ExtResource("4_dqkch")
 metadata/_custom_type_script = "uid://wwqkkrfhwiyn"
+
+[node name="Ranged" type="Node2D" parent="." node_paths=PackedStringArray("ranged_cooldown", "barrel")]
+visible = false
+script = ExtResource("5_qlg0r")
+ranged_cooldown = NodePath("../RangedCooldown")
+barrel = NodePath("../Barrel")
+group = "allies"
+metadata/_custom_type_script = "uid://bqsxrr4x407ln"
+
+[node name="RangedCooldown" type="Node" parent="."]
+script = ExtResource("6_tuyoq")
+ranged_cooldown = 0.1
+metadata/_custom_type_script = "uid://bacaht0aiera8"
 
 [connection signal="just_changed" from="Health" to="." method="_on_health_just_changed"]
 [connection signal="just_emptied" from="Health" to="." method="_on_health_just_emptied"]

@@ -4,6 +4,8 @@ const SPEED = 10
 
 var direction: float
 
+var group: String
+
 var effects: Array[Effect] = [
 	MovementEffect.create_freeze(1.0),
 	HealthEffect.create_lasting(6, 4, 1),
@@ -18,7 +20,7 @@ func _on_timer_timeout() -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	if body.get_node_or_null(^"./Hitbox") != null:
+	if body.get_node_or_null(^"./Hitbox") != null and not body.is_in_group(group):
 		for effect in effects:
 			body.get_node_or_null(^"./Hitbox").trigger(effect)
 		queue_free()
