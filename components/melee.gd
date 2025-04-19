@@ -11,5 +11,8 @@ func _physics_process(_delta: float) -> void:
 		var collision = get_parent().get_slide_collision(i)
 		var collider = collision.get_collider()
 		
-		if collider.is_in_group("allies") and collider.get_node_or_null(^"./Hitbox") != null and melee_rate.try_melee():
+		if (collider != null and 
+				collider.is_in_group("allies") and 
+				collider.get_node_or_null(^"./Hitbox") != null and 
+				melee_rate.try_melee()):
 			collider.get_node_or_null(^"./Hitbox").trigger(melee_damage.get_effect())

@@ -6,7 +6,7 @@ class_name Effect extends Node
 
 var _counter: int
 
-func _can_effect(property: Effectable) -> bool:
+func _can_effect(_property: Effectable) -> bool:
 	return false
 	
 func _apply_effect(property: Effectable) -> void:

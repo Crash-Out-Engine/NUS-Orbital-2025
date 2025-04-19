@@ -24,6 +24,12 @@ offset = Vector2(2.755, 0)
 antialiased = true
 polygon = PackedVector2Array(8, 0, -8, -8, -8, 8)
 
+[node name="Melee" type="Node" parent="." node_paths=PackedStringArray("melee_rate", "melee_damage")]
+script = ExtResource("5_nenq2")
+melee_rate = NodePath("../MeleeRate")
+melee_damage = NodePath("../MeleeDamage")
+metadata/_custom_type_script = "uid://bx0i0x84j70ct"
+
 [node name="Movement" type="Node" parent="."]
 script = ExtResource("2_md0e3")
 initial_speed = 150.0
@@ -35,13 +41,8 @@ metadata/_custom_type_script = "uid://wwqkkrfhwiyn"
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("4_5uy6h")
+recovery_rate = 1.5
 metadata/_custom_type_script = "uid://da606deregrbs"
-
-[node name="Melee" type="Node" parent="." node_paths=PackedStringArray("melee_rate", "melee_damage")]
-script = ExtResource("5_nenq2")
-melee_rate = NodePath("../MeleeRate")
-melee_damage = NodePath("../MeleeDamage")
-metadata/_custom_type_script = "uid://bx0i0x84j70ct"
 
 [node name="MeleeRate" type="Node" parent="."]
 script = ExtResource("6_md484")
