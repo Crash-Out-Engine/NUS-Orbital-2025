@@ -10,8 +10,8 @@ var direction: Callable = func(_delta: float) -> Vector2:
 const SPEED = 100
 
 func _ready() -> void:
-	$Health.health_just_emptied.connect(die)
-	$Health.health_just_dropped.connect(bleed)
+	$Health.just_emptied.connect(die)
+	$Health.just_reduced.connect(bleed)
 
 func _physics_process(_delta: float) -> void:
 	look_at(player.global_position)
@@ -25,10 +25,9 @@ func die():
 	explosion.lifetime = randf_range(0.5, 0.7)
 	$/root/Game.add_child(explosion)
 		
-func bleed():	
+func bleed(amount: float):
 	var explosion = explosion_scene.instantiate()
 	explosion.global_position = global_position
 	explosion.emitting = true
-	explosion.lifetime = randf_range(0.1, 0.3)
+	explosion.lifetime = 0.1 + randf_range(0.2, 0.5) * (amount / $Health.health_capacity)
 	$/root/Game.add_child(explosion)
-		

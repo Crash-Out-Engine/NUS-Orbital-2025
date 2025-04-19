@@ -1,7 +1,16 @@
+## The [Movement] node is responsible for controlling the movement of its parent.
+## 
+## The parent should extend [CharacterBody2D] to allow movements, and have a
+## property [code]direction: (delta: float) -> [Vector2][/code] that specifies 
+## its ongoing direction.
 class_name Movement extends Effectable
 
+## The initial speed of the entity.
 @export var initial_speed: float = 200.0
-@export var lerp_weight: float = 1.0
+## The lerp weight between calculated velocity and actual velocity.
+## [code]0.0[/code] means to use calculated velocity.
+## [code]1.0[/code] means to use actual velocity (i.e. calculated velocity has no effect).
+@export var lerp_weight: float = 0.0
 
 func _ready() -> void:
 	assert(get_parent() is CharacterBody2D, "Movement's parent should be a CharacterBody2D.")
@@ -10,12 +19,9 @@ func _ready() -> void:
 	value = initial_speed
 
 func _physics_process(delta: float) -> void:
-	var parent = get_parent()
+	var parent: CharacterBody2D = get_parent()
 	
 	parent.velocity = parent.direction.call(delta).normalized() * value
-	parent.velocity = lerp(parent.get_real_velocity(), parent.velocity, lerp_weight)
+	parent.velocity = lerp(parent.velocity, parent.get_real_velocity(), lerp_weight)
 	
 	parent.move_and_slide()
-
-func _should_be_effected(effect: Effect) -> bool:
-	return effect is MovementEffect

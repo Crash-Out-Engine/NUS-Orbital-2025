@@ -1,4 +1,4 @@
-extends CharacterBody2D
+class_name Player extends CharacterBody2D
 
 var bullet_scene = preload("res://scenes/bullet.tscn")
 
@@ -11,6 +11,9 @@ var direction: Callable = func(_delta: float) -> Vector2:
 @onready var barrel = $Barrel
 @onready var shoot_timer = $ShootTimer
 
+func _ready() -> void:
+	healthChanged.emit(1.0)
+
 func _physics_process(_delta: float) -> void:
 	look_at(get_global_mouse_position())
 	
@@ -21,3 +24,11 @@ func _physics_process(_delta: float) -> void:
 		
 		shoot_timer.start()
 		$/root/Game.add_child(bullet)
+
+func _on_health_just_emptied() -> void:
+	print("died")
+	get_tree().reload_current_scene()
+	
+signal healthChanged(new_ratio: float)
+func _on_health_just_changed(_old_value: float, new_value: float) -> void:
+	healthChanged.emit(new_value / $"./Health".health_capacity)

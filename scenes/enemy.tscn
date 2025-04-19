@@ -1,9 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://kcqha4xx46r7"]
+[gd_scene load_steps=9 format=3 uid="uid://kcqha4xx46r7"]
 
 [ext_resource type="Script" uid="uid://b2oqcghmenmfd" path="res://scripts/enemy.gd" id="1_7p1mj"]
 [ext_resource type="Script" uid="uid://bjwn8mansrw1v" path="res://components/effectable/movement.gd" id="2_md0e3"]
 [ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://components/hitbox.gd" id="3_4ra3w"]
 [ext_resource type="Script" uid="uid://da606deregrbs" path="res://components/effectable/health.gd" id="4_5uy6h"]
+[ext_resource type="Script" uid="uid://bx0i0x84j70ct" path="res://components/melee.gd" id="5_nenq2"]
+[ext_resource type="Script" uid="uid://ddw1gxb25j8io" path="res://components/effectable/melee_rate.gd" id="6_md484"]
+[ext_resource type="Script" uid="uid://4u7ojuepy3ur" path="res://components/effectable/melee_damage.gd" id="7_ipns3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8tegq"]
 radius = 16.0
@@ -33,3 +36,16 @@ metadata/_custom_type_script = "uid://wwqkkrfhwiyn"
 [node name="Health" type="Node" parent="."]
 script = ExtResource("4_5uy6h")
 metadata/_custom_type_script = "uid://da606deregrbs"
+
+[node name="Melee" type="Node" parent="." node_paths=PackedStringArray("melee_rate", "melee_damage")]
+script = ExtResource("5_nenq2")
+melee_rate = NodePath("../MeleeRate")
+melee_damage = NodePath("../MeleeDamage")
+metadata/_custom_type_script = "uid://bx0i0x84j70ct"
+
+[node name="MeleeRate" type="Node" parent="."]
+script = ExtResource("6_md484")
+melee_rate = 1.0
+
+[node name="MeleeDamage" type="Node" parent="."]
+script = ExtResource("7_ipns3")

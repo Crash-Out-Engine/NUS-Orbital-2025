@@ -4,10 +4,10 @@ const SPEED = 10
 
 var direction: float
 
-var effects: Array[Callable] = [
-	func(body: Node): return MovementEffect.create_freeze(body, 1.0),
-	func(body: Node): return HealthEffect.create_lasting(body, 6, 4, 1),
-	func(_body: Node): return HealthEffect.create_instant(3.0),
+var effects: Array[Effect] = [
+	MovementEffect.create_freeze(1.0),
+	HealthEffect.create_lasting(6, 4, 1),
+	HealthEffect.create_instant(3.0),
 ]
 
 func _physics_process(_delta: float) -> void:
@@ -18,7 +18,7 @@ func _on_timer_timeout() -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	if body.is_in_group("enemies") and body.get_node_or_null(^"./Hitbox") != null:
+	if body.get_node_or_null(^"./Hitbox") != null:
 		for effect in effects:
-			body.get_node_or_null(^"./Hitbox").trigger(effect.call(body))
+			body.get_node_or_null(^"./Hitbox").trigger(effect)
 		queue_free()

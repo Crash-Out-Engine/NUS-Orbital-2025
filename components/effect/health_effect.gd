@@ -4,15 +4,15 @@ func _init(_timer: Timer, _factor: float, _repeat: int) -> void:
 	timer = _timer
 	factor = _factor
 	repeat = _repeat
+	
+func _can_effect(property: Effectable) -> bool:
+	return property is Health
 
 static func create_instant(damage: float = 0.0) -> HealthEffect:
 	return HealthEffect.new(null, -damage, 0)
 
-static func create_lasting(body: Node, damage: float, total_duration: float = 0.0, interval: float = 0.0) -> HealthEffect:
-	var health_effect = HealthEffect.new(null, -damage, int(total_duration / interval))
+static func create_lasting(damage: float, total_duration: float = 0.0, interval: float = 0.0) -> HealthEffect:	
+	var _timer = Timer.new()
+	_timer.wait_time = interval
 	
-	health_effect.timer = Timer.new()
-	health_effect.timer.wait_time = interval
-	body.add_child(health_effect.timer)
-	
-	return health_effect
+	return HealthEffect.new(_timer, -damage, int(total_duration / interval))

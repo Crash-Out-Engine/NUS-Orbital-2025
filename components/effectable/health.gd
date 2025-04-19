@@ -9,21 +9,21 @@ func _ready() -> void:
 	value = health_capacity
 	prev_value = value
 	health_emptied = false
-	
-func _should_be_effected(effect: Effect) -> bool:
-	return effect is HealthEffect
 
 var prev_value: float
 func _physics_process(_delta: float) -> void:
 	if value <= 0 and !health_emptied:
-		health_just_emptied.emit()
+		just_emptied.emit()
 		health_emptied = true
 		
 	if value != prev_value and !health_emptied:
-		health_just_dropped.emit()
+		just_reduced.emit(prev_value - value)
+		just_changed.emit(prev_value, value)
 		
 	prev_value = value
 
-signal health_just_emptied
+signal just_emptied
 
-signal health_just_dropped
+signal just_reduced(by: float)
+
+signal just_changed(old_value: float, new_value: float)
