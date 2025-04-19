@@ -10,6 +10,7 @@ var effects: Array[Effect] = []
 
 func _physics_process(_delta: float) -> void:
 	global_position += Vector2.from_angle(direction) * SPEED
+	global_rotation = direction
 
 func _on_timer_timeout() -> void:
 	queue_free()

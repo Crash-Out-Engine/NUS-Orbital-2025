@@ -37,6 +37,7 @@ metadata/_custom_type_script = "uid://bx0i0x84j70ct"
 [node name="Movement" type="Node" parent="."]
 script = ExtResource("2_md0e3")
 initial_speed = 150.0
+lerp_weight = 0.1
 metadata/_custom_type_script = "uid://bjwn8mansrw1v"
 
 [node name="Hitbox" type="Node" parent="."]
