@@ -4,7 +4,7 @@ var turret_scene = preload("res://scenes/turret.tscn")
 
 var direction: Callable = func(_delta: float) -> Vector2:
 	return Vector2(
-		Input.get_axis("left", "right"), 
+		Input.get_axis("left", "right"),
 		Input.get_axis("up", "down")
 		)
 
@@ -16,12 +16,17 @@ var current_turret = null
 
 func _ready() -> void:
 	healthChanged.emit(1.0)
+	ranged.effects.append_array([
+		MovementEffect.create_freeze(1.0),
+		HealthEffect.create_lasting(6, 4, 1),
+		HealthEffect.create_instant(3.0),
+	])
 
 func _physics_process(_delta: float) -> void:
 	look_at(get_global_mouse_position())
 	
 	if Input.is_action_just_pressed("shoot"):
-		ranged.set_active(true)	
+		ranged.set_active(true)
 	if Input.is_action_just_released("shoot"):
 		ranged.set_active(false)
 		

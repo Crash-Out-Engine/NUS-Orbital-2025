@@ -3,6 +3,7 @@ extends CharacterBody2D
 var explosion_scene = preload("res://scenes/explosion.tscn")
 
 @onready var player = $/root/Game/Player
+@onready var ranged = $Ranged
 
 var direction: Callable = func(_delta: float) -> Vector2:
 	return global_position.direction_to(player.global_position)
@@ -12,6 +13,8 @@ const SPEED = 100
 func _ready() -> void:
 	$Health.just_emptied.connect(die)
 	$Health.just_reduced.connect(bleed)
+	$Ranged.target = $/root/Game/Player
+	$Ranged.set_active(true)
 
 func _physics_process(_delta: float) -> void:
 	look_at(player.global_position)
