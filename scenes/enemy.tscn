@@ -53,13 +53,13 @@ script = ExtResource("6_nenq2")
 [node name="MeleeDamage" type="Node" parent="."]
 script = ExtResource("7_ipns3")
 
-[node name="Ranged" type="Node2D" parent="." node_paths=PackedStringArray("ranged_cooldown", "barrel", "targeting")]
+[node name="Ranged" type="Node2D" parent="." node_paths=PackedStringArray("ranged_cooldown", "barrel", "targeting", "target_priority")]
 script = ExtResource("8_md484")
 ranged_cooldown = NodePath("../RangedCooldown")
 ranged_damage = 0.1
 barrel = NodePath("..")
 targeting = NodePath("../Targeting")
-group = "enemies"
+target_priority = NodePath("../TargetPriority")
 metadata/_custom_type_script = "uid://bqsxrr4x407ln"
 
 [node name="Targeting" type="Node" parent="."]
@@ -73,5 +73,5 @@ metadata/_custom_type_script = "uid://bacaht0aiera8"
 
 [node name="TargetPriority" type="Node" parent="."]
 script = ExtResource("11_w8i8w")
-group = "enemies"
+team = "enemies"
 metadata/_custom_type_script = "uid://37nea431wead"

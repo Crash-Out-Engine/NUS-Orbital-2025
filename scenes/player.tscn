@@ -54,13 +54,13 @@ metadata/_custom_type_script = "uid://da606deregrbs"
 script = ExtResource("4_dqkch")
 metadata/_custom_type_script = "uid://wwqkkrfhwiyn"
 
-[node name="Ranged" type="Node2D" parent="." node_paths=PackedStringArray("ranged_cooldown", "barrel")]
+[node name="Ranged" type="Node2D" parent="." node_paths=PackedStringArray("ranged_cooldown", "barrel", "target_priority")]
 visible = false
 script = ExtResource("5_qlg0r")
 ranged_cooldown = NodePath("../RangedCooldown")
 barrel = NodePath("../Barrel")
 aim_at_mouse = true
-group = "allies"
+target_priority = NodePath("../TargetPriority")
 metadata/_custom_type_script = "uid://bqsxrr4x407ln"
 
 [node name="RangedCooldown" type="Node" parent="."]
@@ -70,7 +70,7 @@ metadata/_custom_type_script = "uid://bacaht0aiera8"
 
 [node name="TargetPriority" type="Node" parent="."]
 script = ExtResource("7_fjrip")
-group = "allies"
+team = "allies"
 metadata/_custom_type_script = "uid://37nea431wead"
 
 [connection signal="just_changed" from="Health" to="." method="_on_health_just_changed"]

@@ -12,9 +12,9 @@ var bullet_scene = preload("res://scenes/bullet.tscn")
 	set(value):
 		barrel = value
 		update_configuration_warnings()
-@export var targeting: Targeting = null
+@export var targeting: Targeting
 @export var aim_at_mouse: bool = false
-@export var group: String
+@export var target_priority: TargetPriority = null
 @export var effects: Array[Effect] = []
 
 @export var active: bool = false
@@ -33,14 +33,17 @@ func _get_configuration_warnings() -> PackedStringArray:
 	return warnings
 
 func _physics_process(_delta: float) -> void:
-	var target = targeting.get_target(get_parent().global_position, group) if targeting != null else null
+	var target = targeting.get_target(get_parent().global_position, target_priority.team if target_priority != null else "") if targeting != null else null
 	if active and (target != null or aim_at_mouse) and ranged_cooldown.try_ranged():
 		var bullet = bullet_scene.instantiate()
 		bullet.effects.append_array(effects)
-		bullet.group = group
+		bullet.team = target_priority.team if target_priority != null else ""
 		bullet.global_position = barrel.global_position
 		bullet.direction = get_parent().global_position.angle_to_point(
 			get_global_mouse_position() if aim_at_mouse else target.global_position
 			)
+		bullet.direction = (get_parent().global_position.angle_to_point(get_global_mouse_position())
+			if aim_at_mouse else
+			barrel.global_position.angle_to_point(target.global_position))
 
 		$/root/Game.add_child(bullet)

@@ -5,6 +5,7 @@ var explosion_scene = preload("res://scenes/explosion.tscn")
 @onready var player: Player = $/root/Game/Allies/Player
 @onready var ranged: Ranged = $Ranged
 @onready var targeting: Targeting = $Targeting
+@onready var target_priority: TargetPriority = $TargetPriority
 
 var direction: Callable = func(_delta: float) -> Vector2:
 	return global_position.direction_to(player.global_position)
@@ -17,7 +18,7 @@ func _ready() -> void:
 	$Ranged.active = false
 
 func _physics_process(_delta: float) -> void:
-	var target = targeting.get_target(global_position, "enemies")
+	var target = targeting.get_target(global_position, target_priority.team)
 	if target != null:
 		look_at(target.global_position)
 

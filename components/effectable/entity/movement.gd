@@ -32,7 +32,7 @@ func _physics_process(delta: float) -> void:
 		var target_priority: TargetPriority = parent.get_node_or_null(^"TargetPriority")
 
 		if targeting != null and target_priority != null:
-			var target = targeting.get_target(parent.global_position, target_priority.group)
+			var target = targeting.get_target(parent.global_position, target_priority.team)
 			if target != null:
 				parent.velocity = parent.global_position.direction_to(target.global_position).normalized() * value
 			parent.velocity = lerp(parent.velocity, parent.get_real_velocity(), lerp_weight)
