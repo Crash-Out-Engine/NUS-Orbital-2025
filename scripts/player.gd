@@ -13,6 +13,8 @@ var direction: Callable = func(_delta: float) -> Vector2:
 
 signal turret_spawned(turret: Node2D)
 
+var target_provider: TargetProvider = null
+
 var current_turret = null
 
 func _ready() -> void:

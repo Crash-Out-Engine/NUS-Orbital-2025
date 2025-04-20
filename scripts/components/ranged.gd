@@ -1,4 +1,3 @@
-@tool
 class_name Ranged extends Node2D
 
 var bullet_scene = preload("res://scenes/bullet.tscn")
@@ -17,12 +16,14 @@ var bullet_scene = preload("res://scenes/bullet.tscn")
 @export var effects: Array[Effect] = []
 @export var active: bool = false
 
-var target_provider: TargetProvider = null
-
 signal bullet_spawned(bullet: Node2D)
 
 func _ready() -> void:
-	assert(get_parent() is Node2D, "Parent must extend Node2D.")
+	var parent = get_parent()
+	assert(parent is Node2D, "Parent must extend Node2D.")
+	assert(
+		parent.get_property_list().any(func (x): return x["name"] == "target_provider"),
+		"Parent must have property target_provider: TargetProvider.")
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings = []
@@ -35,6 +36,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 	return warnings
 
 func _physics_process(_delta: float) -> void:
+	var target_provider: TargetProvider = get_parent().target_provider
 	var target = target_provider.get_target(get_parent().global_position, target_priority.team if target_priority != null else "") if target_provider != null else null
 	if active and (target != null or aim_at_mouse) and ranged_cooldown.try_ranged():
 		var bullet = bullet_scene.instantiate()

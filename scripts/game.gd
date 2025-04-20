@@ -25,7 +25,7 @@ func _on_timer_timeout() -> void:
 func try_connect_ranged(entity):
 	var ranged: Ranged = entity.get_node_or_null(^"Ranged")
 	if ranged != null:
-		ranged.target_provider = target_provider
+		entity.target_provider = target_provider
 		ranged.bullet_spawned.connect(add_entity)
 			
 func add_entity(entity: Node2D) -> void:

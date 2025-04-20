@@ -69,6 +69,7 @@ metadata/_custom_type_script = "uid://bacaht0aiera8"
 
 [node name="TargetPriority" type="Node" parent="."]
 script = ExtResource("7_fjrip")
+initial_priority = 2.0
 team = "allies"
 metadata/_custom_type_script = "uid://37nea431wead"
 

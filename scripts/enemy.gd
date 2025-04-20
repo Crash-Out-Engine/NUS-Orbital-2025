@@ -5,6 +5,8 @@ var explosion_scene = preload("res://scenes/explosion.tscn")
 @onready var ranged: Ranged = $Ranged
 @onready var target_priority: TargetPriority = $TargetPriority
 
+var target_provider: TargetProvider = null
+
 signal vfx_emitted(Node2D)
 
 func _ready() -> void:
@@ -12,7 +14,7 @@ func _ready() -> void:
 	$Health.just_reduced.connect(bleed)
 
 func _physics_process(_delta: float) -> void:
-	var target = ranged.target_provider.get_target(global_position, target_priority.team) if ranged.target_provider != null else null
+	var target = target_provider.get_target(global_position, target_priority.team) if target_provider != null else null
 	if target != null:
 		look_at(target.global_position)
 

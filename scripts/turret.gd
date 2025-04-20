@@ -2,6 +2,8 @@ extends StaticBody2D
 
 @onready var ranged: Ranged = $Ranged
 
+var target_provider: TargetProvider = null
+
 func _ready() -> void:
 	ranged.active = true
 	ranged.effects.append_array([
