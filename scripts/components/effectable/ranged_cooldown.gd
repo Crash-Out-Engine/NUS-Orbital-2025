@@ -16,3 +16,9 @@ func try_ranged() -> bool:
 		return true
 	else:
 		return false
+
+func can_ranged() -> bool:
+	return timer.is_stopped()
+	
+func do_ranged() -> void:
+	timer.start(value)

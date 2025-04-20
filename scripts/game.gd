@@ -8,7 +8,6 @@ var enemy_scene = preload("res://scenes/enemy.tscn")
 func _ready() -> void:
 	try_connect_ranged(player)
 	player.turret_spawned.connect(add_entity)
-	player.turret_spawned.connect(try_connect_ranged)
 
 
 func _on_timer_timeout() -> void:
@@ -18,8 +17,7 @@ func _on_timer_timeout() -> void:
 	enemy.global_position += get_viewport_rect().size.length() * 0.6 * Vector2.from_angle(randf_range(0, 2 * PI))
 	
 	enemy.look_at(player.global_position)
-	$Entities.add_child(enemy)
-	try_connect_ranged(enemy)
+	add_entity(enemy)
 	enemy.vfx_emitted.connect(add_misc)
 
 func try_connect_ranged(entity):
@@ -30,6 +28,17 @@ func try_connect_ranged(entity):
 			
 func add_entity(entity: Node2D) -> void:
 	$Entities.add_child(entity)
+	try_connect_ranged(entity)
 	
 func add_misc(misc: Node2D) -> void:
 	$Misc.add_child(misc)
+
+
+func _on_entities_child_entered_tree(node: Node) -> void:
+	if target_provider != null:
+		target_provider.refresh()
+
+
+func _on_entities_child_exiting_tree(node: Node) -> void:
+	if target_provider != null:
+		target_provider.refresh()

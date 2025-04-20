@@ -51,11 +51,11 @@ script = ExtResource("6_nenq2")
 
 [node name="MeleeDamage" type="Node" parent="."]
 script = ExtResource("7_ipns3")
+damage = 0.0
 
 [node name="Ranged" type="Node2D" parent="." node_paths=PackedStringArray("ranged_cooldown", "barrel", "target_priority")]
 script = ExtResource("8_md484")
 ranged_cooldown = NodePath("../RangedCooldown")
-ranged_damage = 0.1
 barrel = NodePath("..")
 target_priority = NodePath("../TargetPriority")
 metadata/_custom_type_script = "uid://bqsxrr4x407ln"

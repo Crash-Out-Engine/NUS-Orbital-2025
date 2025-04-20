@@ -46,3 +46,5 @@ process_callback = 0
 position_smoothing_enabled = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="child_entered_tree" from="Entities" to="." method="_on_entities_child_entered_tree"]
+[connection signal="child_exiting_tree" from="Entities" to="." method="_on_entities_child_exiting_tree"]
