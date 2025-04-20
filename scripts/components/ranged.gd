@@ -6,7 +6,6 @@ var bullet_scene = preload("res://scenes/bullet.tscn")
 	set(value):
 		ranged_cooldown = value
 		update_configuration_warnings()
-@export var ranged_damage: float = 0.0
 @export var barrel: Node2D:
 	set(value):
 		barrel = value
@@ -36,24 +35,29 @@ func _get_configuration_warnings() -> PackedStringArray:
 	return warnings
 
 func _physics_process(_delta: float) -> void:
+	if !active or !ranged_cooldown.can_ranged():
+		return
+	
 	var target_provider: TargetProvider = get_parent().target_provider
-	var target = target_provider.get_target(get_parent().global_position, target_priority.team if target_priority != null else "") if target_provider != null else null
-	if active and (target != null or aim_at_mouse) and ranged_cooldown.try_ranged():
-		var bullet: Bullet = bullet_scene.instantiate()
-		bullet.effects.assign(
-			effect_mods
-			.map(func (effect_mod: EffectMod): return effect_mod.get_effects())
-			.reduce(func(acc, e): 
-				acc.append_array(e)
-				return acc,
-				[])) # TODO: Consider whether to deep copy effects (to preserve them in the event the entity despawns)
-		bullet.team = target_priority.team if target_priority != null else ""
-		bullet.global_position = barrel.global_position
-		bullet.direction = get_parent().global_position.angle_to_point(
-			get_global_mouse_position() if aim_at_mouse else target.global_position
-			)
-		bullet.direction = (get_parent().global_position.angle_to_point(get_global_mouse_position())
-			if aim_at_mouse else
-			barrel.global_position.angle_to_point(target.global_position))
-
-		bullet_spawned.emit(bullet)
+	var target = null
+	if !aim_at_mouse:
+		target = target_provider.get_target(get_parent().global_position, target_priority.team if target_priority != null else "") if target_provider != null else null
+		if target == null:
+			return
+			
+	var bullet: Bullet = bullet_scene.instantiate()
+	bullet.effects.assign(
+		effect_mods
+		.map(func (effect_mod: EffectMod): return effect_mod.get_effects())
+		.reduce(func(acc, e): 
+			acc.append_array(e)
+			return acc,
+			[])) # TODO: Consider whether to deep copy effects (to preserve them in the event the entity despawns)
+	bullet.team = target_priority.team if target_priority != null else ""
+	bullet.global_position = barrel.global_position
+	bullet.direction = (get_parent().global_position.angle_to_point(get_global_mouse_position())
+		if aim_at_mouse else
+		barrel.global_position.angle_to_point(target.global_position))
+	
+	ranged_cooldown.do_ranged()
+	bullet_spawned.emit(bullet)

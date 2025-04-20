@@ -1,9 +1,5 @@
 class_name EffectModPreset extends EffectMod
 
-var _current_effects: Dictionary[String, Effect] = {
-	"HealthEffect": _create_effect("HealthEffect", -1, 0, -3.0)
-}
-
 @export var mod_name: String
 
 func _ready() -> void:

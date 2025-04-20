@@ -20,10 +20,6 @@ autostart = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_yqjtg")
 
-[node name="Allies" type="Node" parent="."]
-
-[node name="Enemies" type="Node" parent="."]
-
 [node name="Misc" type="Node" parent="."]
 
 [node name="Entities" type="Node" parent="."]
@@ -46,3 +42,5 @@ process_callback = 0
 position_smoothing_enabled = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="child_entered_tree" from="Entities" to="." method="_on_entities_child_entered_tree"]
+[connection signal="child_exiting_tree" from="Entities" to="." method="_on_entities_child_exiting_tree"]
