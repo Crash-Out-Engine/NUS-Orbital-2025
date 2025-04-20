@@ -22,12 +22,18 @@ environment = SubResource("Environment_yqjtg")
 
 [node name="Allies" type="Node" parent="."]
 
-[node name="Player" parent="Allies" instance=ExtResource("1_uwrxv")]
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Misc" type="Node" parent="."]
+
+[node name="Entities" type="Node" parent="."]
+
+[node name="Player" parent="Entities" instance=ExtResource("1_uwrxv")]
 position = Vector2(283, 272)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="Allies/Player"]
+[node name="CanvasLayer" type="CanvasLayer" parent="Entities/Player"]
 
-[node name="HealthBar" type="ProgressBar" parent="Allies/Player/CanvasLayer" node_paths=PackedStringArray("player")]
+[node name="HealthBar" type="ProgressBar" parent="Entities/Player/CanvasLayer" node_paths=PackedStringArray("player")]
 offset_right = 498.0
 offset_bottom = 27.0
 show_percentage = false
@@ -35,10 +41,8 @@ script = ExtResource("3_lnu2h")
 player = NodePath("../..")
 metadata/_edit_use_anchors_ = true
 
-[node name="Camera2D" type="Camera2D" parent="Allies/Player"]
+[node name="Camera2D" type="Camera2D" parent="Entities/Player"]
 process_callback = 0
 position_smoothing_enabled = true
-
-[node name="Enemies" type="Node" parent="."]
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

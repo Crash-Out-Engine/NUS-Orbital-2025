@@ -11,10 +11,12 @@ var direction: Callable = func(_delta: float) -> Vector2:
 @onready var barrel = $Barrel
 @onready var ranged = $Ranged
 
+signal turret_spawned(turret: Node2D)
+
 var current_turret = null
 
 func _ready() -> void:
-	healthChanged.emit(1.0)
+	health_changed.emit(1.0)
 	ranged.effects.append_array([
 		MovementEffect.create_freeze(1.0),
 		HealthEffect.create_lasting(6, 4, 1),
@@ -33,7 +35,7 @@ func _physics_process(_delta: float) -> void:
 		current_turret = turret_scene.instantiate()
 		current_turret.set_collidable(false)
 		current_turret.global_position = get_global_mouse_position()
-		$/root/Game/Allies.add_child(current_turret)
+		turret_spawned.emit(current_turret)
 	
 	if Input.is_action_pressed("add turret"):
 		if current_turret != null:
@@ -49,6 +51,6 @@ func _on_health_just_emptied() -> void:
 	print("died")
 	get_tree().reload_current_scene()
 	
-signal healthChanged(new_ratio: float)
+signal health_changed(new_ratio: float)
 func _on_health_just_changed(_old_value: float, new_value: float) -> void:
-	healthChanged.emit(new_value / $Health.health_capacity)
+	health_changed.emit(new_value / $Health.health_capacity)

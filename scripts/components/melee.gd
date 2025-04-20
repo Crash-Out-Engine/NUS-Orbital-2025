@@ -3,7 +3,7 @@ class_name Melee extends Node
 
 @export var melee_cooldown: MeleeCooldown
 @export var melee_damage: MeleeDamage
-@export var team: String
+@onready var team: String = $"../TargetPriority".team if $"../TargetPriority" != null else ""
 
 func _ready() -> void:
 	assert(get_parent() is CharacterBody2D, "Parent should be a CharacterBody2D.")

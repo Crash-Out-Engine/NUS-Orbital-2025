@@ -1,12 +1,12 @@
 [gd_scene load_steps=9 format=3 uid="uid://ytw0s5xnqwvt"]
 
 [ext_resource type="Script" uid="uid://c8f8kowfp34yp" path="res://scripts/player.gd" id="1_3vyb7"]
-[ext_resource type="Script" uid="uid://bjwn8mansrw1v" path="res://components/effectable/entity/movement.gd" id="2_g2els"]
-[ext_resource type="Script" uid="uid://da606deregrbs" path="res://components/effectable/entity/health.gd" id="3_qhqgy"]
-[ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://components/hitbox.gd" id="4_dqkch"]
-[ext_resource type="Script" uid="uid://bqsxrr4x407ln" path="res://components/ranged.gd" id="5_qlg0r"]
-[ext_resource type="Script" uid="uid://bacaht0aiera8" path="res://components/effectable/entity/ranged_cooldown.gd" id="6_tuyoq"]
-[ext_resource type="Script" uid="uid://37nea431wead" path="res://components/effectable/entity/target_priority.gd" id="7_fjrip"]
+[ext_resource type="Script" uid="uid://bjwn8mansrw1v" path="res://scripts/components/effectable/entity/movement.gd" id="2_g2els"]
+[ext_resource type="Script" uid="uid://da606deregrbs" path="res://scripts/components/effectable/entity/health.gd" id="3_qhqgy"]
+[ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox.gd" id="4_dqkch"]
+[ext_resource type="Script" uid="uid://bqsxrr4x407ln" path="res://scripts/components/ranged.gd" id="5_qlg0r"]
+[ext_resource type="Script" uid="uid://bacaht0aiera8" path="res://scripts/components/effectable/entity/ranged_cooldown.gd" id="6_tuyoq"]
+[ext_resource type="Script" uid="uid://37nea431wead" path="res://scripts/components/effectable/entity/target_priority.gd" id="7_fjrip"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
 radius = 18.2857
@@ -55,7 +55,6 @@ script = ExtResource("4_dqkch")
 metadata/_custom_type_script = "uid://wwqkkrfhwiyn"
 
 [node name="Ranged" type="Node2D" parent="." node_paths=PackedStringArray("ranged_cooldown", "barrel", "target_priority")]
-visible = false
 script = ExtResource("5_qlg0r")
 ranged_cooldown = NodePath("../RangedCooldown")
 barrel = NodePath("../Barrel")

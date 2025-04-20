@@ -2,23 +2,17 @@ extends CharacterBody2D
 
 var explosion_scene = preload("res://scenes/explosion.tscn")
 
-@onready var player: Player = $/root/Game/Allies/Player
 @onready var ranged: Ranged = $Ranged
-@onready var targeting: Targeting = $Targeting
 @onready var target_priority: TargetPriority = $TargetPriority
 
-var direction: Callable = func(_delta: float) -> Vector2:
-	return global_position.direction_to(player.global_position)
-
-const SPEED = 100
+signal vfx_emitted(Node2D)
 
 func _ready() -> void:
 	$Health.just_emptied.connect(die)
 	$Health.just_reduced.connect(bleed)
-	$Ranged.active = false
 
 func _physics_process(_delta: float) -> void:
-	var target = targeting.get_target(global_position, target_priority.team)
+	var target = ranged.target_provider.get_target(global_position, target_priority.team) if ranged.target_provider != null else null
 	if target != null:
 		look_at(target.global_position)
 
@@ -29,11 +23,11 @@ func die():
 	explosion.global_position = global_position
 	explosion.emitting = true
 	explosion.lifetime = randf_range(0.5, 0.7)
-	$/root/Game.add_child(explosion)
+	vfx_emitted.emit(explosion)
 		
 func bleed(amount: float):
 	var explosion = explosion_scene.instantiate()
 	explosion.global_position = global_position
 	explosion.emitting = true
 	explosion.lifetime = 0.1 + randf_range(0.2, 0.5) * (amount / $Health.health_capacity)
-	$/root/Game.add_child(explosion)
+	vfx_emitted.emit(explosion)

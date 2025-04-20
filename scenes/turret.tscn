@@ -1,11 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://iqyedsof74fp"]
+[gd_scene load_steps=7 format=3 uid="uid://iqyedsof74fp"]
 
 [ext_resource type="Script" uid="uid://d8jbrtwr3jw" path="res://scripts/turret.gd" id="1_x3mc5"]
-[ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://components/hitbox.gd" id="2_el7wl"]
-[ext_resource type="Script" uid="uid://bacaht0aiera8" path="res://components/effectable/entity/ranged_cooldown.gd" id="3_pp6j5"]
-[ext_resource type="Script" uid="uid://bqsxrr4x407ln" path="res://components/ranged.gd" id="4_6fjxm"]
-[ext_resource type="Script" uid="uid://c6gdbuct43ynn" path="res://components/targeting.gd" id="5_6fjxm"]
-[ext_resource type="Script" uid="uid://37nea431wead" path="res://components/effectable/entity/target_priority.gd" id="6_dirdf"]
+[ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox.gd" id="2_el7wl"]
+[ext_resource type="Script" uid="uid://bacaht0aiera8" path="res://scripts/components/effectable/entity/ranged_cooldown.gd" id="3_pp6j5"]
+[ext_resource type="Script" uid="uid://bqsxrr4x407ln" path="res://scripts/components/ranged.gd" id="4_6fjxm"]
+[ext_resource type="Script" uid="uid://37nea431wead" path="res://scripts/components/effectable/entity/target_priority.gd" id="6_dirdf"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fowog"]
 radius = 12.0
@@ -38,17 +37,13 @@ script = ExtResource("3_pp6j5")
 ranged_cooldown = 0.2
 metadata/_custom_type_script = "uid://bacaht0aiera8"
 
-[node name="Ranged" type="Node2D" parent="." node_paths=PackedStringArray("ranged_cooldown", "barrel", "targeting", "target_priority")]
+[node name="Ranged" type="Node2D" parent="." node_paths=PackedStringArray("ranged_cooldown", "barrel", "target_priority")]
 script = ExtResource("4_6fjxm")
 ranged_cooldown = NodePath("../RangedCooldown")
 barrel = NodePath("../Polygon2D2")
-targeting = NodePath("../Targeting")
 target_priority = NodePath("../TargetPriority")
+active = true
 metadata/_custom_type_script = "uid://bqsxrr4x407ln"
-
-[node name="Targeting" type="Node" parent="."]
-script = ExtResource("5_6fjxm")
-metadata/_custom_type_script = "uid://c6gdbuct43ynn"
 
 [node name="TargetPriority" type="Node" parent="."]
 script = ExtResource("6_dirdf")
