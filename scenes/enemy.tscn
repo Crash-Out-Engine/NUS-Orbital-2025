@@ -1,15 +1,15 @@
 [gd_scene load_steps=12 format=3 uid="uid://kcqha4xx46r7"]
 
 [ext_resource type="Script" uid="uid://b2oqcghmenmfd" path="res://scripts/enemy.gd" id="1_7p1mj"]
-[ext_resource type="Script" uid="uid://bjwn8mansrw1v" path="res://scripts/components/effectable/entity/movement.gd" id="2_md0e3"]
+[ext_resource type="Script" uid="uid://cndl5nak0qpxp" path="res://scripts/components/effectable/movement.gd" id="2_md0e3"]
 [ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox.gd" id="3_4ra3w"]
-[ext_resource type="Script" uid="uid://da606deregrbs" path="res://scripts/components/effectable/entity/health.gd" id="4_5uy6h"]
+[ext_resource type="Script" uid="uid://bg2iinlcp53aa" path="res://scripts/components/effectable/health.gd" id="4_5uy6h"]
 [ext_resource type="Script" uid="uid://bx0i0x84j70ct" path="res://scripts/components/melee.gd" id="5_nenq2"]
-[ext_resource type="Script" uid="uid://dg8nexsbyn4fv" path="res://scripts/components/effectable/entity/melee_cooldown.gd" id="6_nenq2"]
-[ext_resource type="Script" uid="uid://4u7ojuepy3ur" path="res://scripts/components/effectable/entity/melee_damage.gd" id="7_ipns3"]
+[ext_resource type="Script" uid="uid://cu55fh5hl5rxd" path="res://scripts/components/effectable/melee_cooldown.gd" id="6_nenq2"]
+[ext_resource type="Script" uid="uid://dve6ix5ogwfw" path="res://scripts/components/effectable/melee_damage.gd" id="7_ipns3"]
 [ext_resource type="Script" uid="uid://bqsxrr4x407ln" path="res://scripts/components/ranged.gd" id="8_md484"]
-[ext_resource type="Script" uid="uid://bacaht0aiera8" path="res://scripts/components/effectable/entity/ranged_cooldown.gd" id="9_ipns3"]
-[ext_resource type="Script" uid="uid://37nea431wead" path="res://scripts/components/effectable/entity/target_priority.gd" id="11_w8i8w"]
+[ext_resource type="Script" uid="uid://cwdm3dvyba0l3" path="res://scripts/components/effectable/ranged_cooldown.gd" id="9_ipns3"]
+[ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/components/effectable/target_priority.gd" id="11_w8i8w"]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_w8i8w"]
 points = PackedVector2Array(-4.5, -21, 33, 0, -4.5, 21)
@@ -38,7 +38,6 @@ metadata/_custom_type_script = "uid://bx0i0x84j70ct"
 script = ExtResource("2_md0e3")
 initial_speed = 150.0
 lerp_weight = 0.1
-metadata/_custom_type_script = "uid://bjwn8mansrw1v"
 
 [node name="Hitbox" type="Node" parent="."]
 script = ExtResource("3_4ra3w")
@@ -46,7 +45,6 @@ metadata/_custom_type_script = "uid://wwqkkrfhwiyn"
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("4_5uy6h")
-metadata/_custom_type_script = "uid://da606deregrbs"
 
 [node name="MeleeCooldown" type="Node" parent="."]
 script = ExtResource("6_nenq2")
@@ -60,15 +58,12 @@ ranged_cooldown = NodePath("../RangedCooldown")
 ranged_damage = 0.1
 barrel = NodePath("..")
 target_priority = NodePath("../TargetPriority")
-active = true
 metadata/_custom_type_script = "uid://bqsxrr4x407ln"
 
 [node name="RangedCooldown" type="Node" parent="."]
 script = ExtResource("9_ipns3")
 ranged_cooldown = 1.5
-metadata/_custom_type_script = "uid://bacaht0aiera8"
 
 [node name="TargetPriority" type="Node" parent="."]
 script = ExtResource("11_w8i8w")
 team = "enemies"
-metadata/_custom_type_script = "uid://37nea431wead"
