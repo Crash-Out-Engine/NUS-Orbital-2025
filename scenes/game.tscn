@@ -20,10 +20,6 @@ autostart = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_yqjtg")
 
-[node name="Allies" type="Node" parent="."]
-
-[node name="Enemies" type="Node" parent="."]
-
 [node name="Misc" type="Node" parent="."]
 
 [node name="Entities" type="Node" parent="."]
