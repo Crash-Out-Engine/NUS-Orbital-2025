@@ -6,7 +6,7 @@ var target_provider: TargetProvider = null
 
 func _ready() -> void:
 	ranged.active = true
-	ranged.effects.append_array([
+	ranged.effect_mods.append_array([
 		HealthEffect.create_instant(1.0),
 	])
 

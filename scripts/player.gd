@@ -19,11 +19,11 @@ var current_turret = null
 
 func _ready() -> void:
 	health_changed.emit(1.0)
-	ranged.effects.append_array([
-		MovementEffect.create_freeze(1.0),
-		HealthEffect.create_lasting(6, 4, 1),
-		HealthEffect.create_instant(3.0),
-	])
+	# ranged.effects.append_array([
+	# 	MovementEffect.create_freeze(1.0),
+	# 	HealthEffect.create_lasting(6, 4, 1),
+	# 	HealthEffect.create_instant(3.0),
+	# ])
 
 func _physics_process(_delta: float) -> void:
 	look_at(get_global_mouse_position())

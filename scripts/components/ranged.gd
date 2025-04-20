@@ -13,7 +13,7 @@ var bullet_scene = preload("res://scenes/bullet.tscn")
 		update_configuration_warnings()
 @export var aim_at_mouse: bool = false
 @export var target_priority: TargetPriority = null
-@export var effects: Array[Effect] = []
+@export var effect_mods: Array[EffectMod] = []
 @export var active: bool = false
 
 signal bullet_spawned(bullet: Node2D)
@@ -39,8 +39,14 @@ func _physics_process(_delta: float) -> void:
 	var target_provider: TargetProvider = get_parent().target_provider
 	var target = target_provider.get_target(get_parent().global_position, target_priority.team if target_priority != null else "") if target_provider != null else null
 	if active and (target != null or aim_at_mouse) and ranged_cooldown.try_ranged():
-		var bullet = bullet_scene.instantiate()
-		bullet.effects.append_array(effects)
+		var bullet: Bullet = bullet_scene.instantiate()
+		bullet.effects.assign(
+			effect_mods
+			.map(func (effect_mod: EffectMod): return effect_mod.get_effects())
+			.reduce(func(acc, e): 
+				acc.append_array(e)
+				return acc,
+				[])) # TODO: Consider whether to deep copy effects (to preserve them in the event the entity despawns)
 		bullet.team = target_priority.team if target_priority != null else ""
 		bullet.global_position = barrel.global_position
 		bullet.direction = get_parent().global_position.angle_to_point(
