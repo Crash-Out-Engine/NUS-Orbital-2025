@@ -1,4 +1,4 @@
-class_name Effect extends Node
+class_name Effect extends RefCounted
 
 ## Interval between repetitions (if any) in seconds.
 ## Taken to be equivalent to null if a non-positive value is supplied.

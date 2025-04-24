@@ -4,9 +4,11 @@ class_name EffectModPreset extends EffectMod
 
 func _ready() -> void:
 	var config = ConfigFile.new()
-	var err = config.load("res://configs/effect_mods/" + mod_name + ".cfg")
+	var path = "res://configs/effect_mods/" + mod_name + ".cfg"
+	var err = config.load(path)
 	
 	if err != OK:
+		assert(false, "Could not find " + path + " , check that the mod \"" + mod_name + "\" exists.")
 		return
 		
 	for effect in config.get_sections():
