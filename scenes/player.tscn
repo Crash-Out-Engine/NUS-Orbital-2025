@@ -42,7 +42,6 @@ scale = Vector2(0.556367, 0.556367)
 
 [node name="Movement" type="Node" parent="."]
 script = ExtResource("2_g2els")
-lerp_weight = 0.9
 is_player = true
 
 [node name="Health" type="Node" parent="."]

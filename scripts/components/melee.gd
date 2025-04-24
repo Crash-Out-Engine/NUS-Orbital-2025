@@ -6,20 +6,18 @@ class_name Melee extends Node
 @onready var team: String = $"../TargetPriority".team if $"../TargetPriority" != null else ""
 
 func _ready() -> void:
-	assert(get_parent() is CharacterBody2D, "Parent should be a CharacterBody2D.")
+	assert(get_parent() is RigidBody2D, "Parent should be a RigidBody2D.")
 	
 func _get_configuration_warnings() -> PackedStringArray:
-	if not get_parent() is CharacterBody2D:
-		return ["Parent should be a CharacterBody2D."]
+	if not get_parent() is RigidBody2D:
+		return ["Parent should be a RigidBody2D."]
 	return []
 
 func _physics_process(_delta: float) -> void:
-	for i in range(get_parent().get_slide_collision_count()):
-		var collision = get_parent().get_slide_collision(i)
-		var collider = collision.get_collider()
+	for collider in get_parent().get_colliding_bodies():
 		
 		if (collider != null and 
-				not collider.is_in_group(team) and  # TODO: Don't rely on godot groups
+				#not collider.is_in_group(team) and  # TODO: Don't rely on godot groups
 				collider.get_node_or_null(^"./Hitbox") != null and 
 				melee_cooldown.try_melee()):
 			collider.get_node_or_null(^"./Hitbox").trigger(melee_damage.get_effect())

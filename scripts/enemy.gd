@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends RigidBody2D
 
 var explosion_scene = preload("res://scenes/explosion.tscn")
 
