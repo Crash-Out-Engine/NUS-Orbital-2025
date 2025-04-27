@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bbtrde7tvkisy"]
+[gd_scene load_steps=6 format=3 uid="uid://bbtrde7tvkisy"]
 
 [ext_resource type="PackedScene" uid="uid://ytw0s5xnqwvt" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://d2o1hku0svi7t" path="res://scripts/game.gd" id="1_yqjtg"]
 [ext_resource type="Script" uid="uid://b28oqqe8l3wkc" path="res://scripts/health_bar.gd" id="3_lnu2h"]
+[ext_resource type="Script" uid="uid://d05ojyvqdl0s7" path="res://scripts/camera_2d.gd" id="4_lbhrr"]
 
 [sub_resource type="Environment" id="Environment_yqjtg"]
 background_mode = 3
@@ -40,6 +41,7 @@ metadata/_edit_use_anchors_ = true
 [node name="Camera2D" type="Camera2D" parent="Entities/Player"]
 process_callback = 0
 position_smoothing_enabled = true
+script = ExtResource("4_lbhrr")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="child_entered_tree" from="Entities" to="." method="_on_entities_child_entered_tree"]
