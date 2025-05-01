@@ -2,10 +2,11 @@ extends Node2D
 
 var enemy_scene = preload("res://scenes/enemy.tscn")
 
-@onready var player: Player = $Entities/Player as Player
-@onready var target_provider = TargetProvider.new(func (): return $Entities)
+@onready var player := $Entities/Player as Player
+@onready var target_provider := load("res://resources/target_provider.tres") as TargetProvider
 
 func _ready() -> void:
+	target_provider.set_get_entities(func(): return $Entities)
 	try_connect_ranged(player)
 	player.turret_spawned.connect(add_entity)
 
@@ -21,9 +22,8 @@ func _on_timer_timeout() -> void:
 	enemy.vfx_emitted.connect(add_misc)
 
 func try_connect_ranged(entity):
-	var ranged: Ranged = entity.get_node_or_null(^"Ranged")
+	var ranged: RangedBase = entity.get_node_or_null(^"Ranged") # HACK: Take away reliance on the node being named "Ranged"
 	if ranged != null:
-		entity.target_provider = target_provider
 		ranged.bullet_spawned.connect(add_entity)
 			
 func add_entity(entity: Node2D) -> void:

@@ -26,11 +26,11 @@ func _physics_process(delta: float) -> void:
 	
 	else:
 		var parent: RigidBody2D = get_parent()
-		var ranged: Ranged = parent.get_node_or_null(^"Ranged")
 		var target_priority: TargetPriority = parent.get_node_or_null(^"TargetPriority")
+		var target_provider := load("res://resources/target_provider.tres")
 
-		if ranged != null and target_priority != null and parent.target_provider:
-			var target = parent.target_provider.get_target(parent.global_position, target_priority.team)
+		if target_priority != null:
+			var target = target_provider.get_target(parent.global_position, target_priority.team)
 			if target != null:
 				var impulse = parent.global_position.direction_to(target.global_position).normalized() * parent.mass * value
 				parent.apply_central_impulse(impulse - parent.linear_velocity * parent.mass)

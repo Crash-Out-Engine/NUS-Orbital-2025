@@ -1,11 +1,10 @@
-@tool
-class_name TargetProvider extends Node
+class_name TargetProvider extends Resource
 
-var _get_entities: Callable
+var _get_entities: Callable = func(): return []
 
 var entities_cache: Dictionary[String, Array] = {}
 
-func _init(get_entities: Callable) -> void:
+func set_get_entities(get_entities: Callable) -> void:
 	_get_entities = get_entities
 	refresh()
 
@@ -13,7 +12,7 @@ func get_target(from: Vector2, team: String) -> Node2D:
 	var min_target: Node2D = null
 	var min_weightage: float = INF
 	
-	var not_teams = entities_cache.keys().filter(func (t): return t != team)
+	var not_teams = entities_cache.keys().filter(func(t): return t != team)
 	for not_team in not_teams:
 		for target in entities_cache.get(not_team):
 			if target != null:
@@ -30,9 +29,9 @@ func refresh() -> void:
 	var valid_entities = (_get_entities
 		.call()
 		.get_children()
-		.filter(func (entity): 
-			return (entity is Node2D and 
-				entity.get_node_or_null(^"TargetPriority") != null and 
+		.filter(func(entity):
+			return (entity is Node2D and
+				entity.get_node_or_null(^"TargetPriority") != null and
 				entity.get_node_or_null(^"TargetPriority").team != null
 				)
 			)

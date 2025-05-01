@@ -1,15 +1,16 @@
-[gd_scene load_steps=12 format=3 uid="uid://kcqha4xx46r7"]
+[gd_scene load_steps=13 format=3 uid="uid://kcqha4xx46r7"]
 
 [ext_resource type="Script" uid="uid://b2oqcghmenmfd" path="res://scripts/enemy.gd" id="1_7p1mj"]
-[ext_resource type="Script" uid="uid://cndl5nak0qpxp" path="res://scripts/components/effectable/movement.gd" id="2_md0e3"]
+[ext_resource type="Script" uid="uid://cndl5nak0qpxp" path="res://scripts/effectables/movement.gd" id="2_md0e3"]
+[ext_resource type="Resource" uid="uid://ccmxdw1jyhvcb" path="res://resources/target_provider.tres" id="2_w8i8w"]
 [ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox.gd" id="3_4ra3w"]
-[ext_resource type="Script" uid="uid://bg2iinlcp53aa" path="res://scripts/components/effectable/health.gd" id="4_5uy6h"]
+[ext_resource type="Script" uid="uid://bg2iinlcp53aa" path="res://scripts/effectables/health.gd" id="4_5uy6h"]
 [ext_resource type="Script" uid="uid://bx0i0x84j70ct" path="res://scripts/components/melee.gd" id="5_nenq2"]
-[ext_resource type="Script" uid="uid://cu55fh5hl5rxd" path="res://scripts/components/effectable/melee_cooldown.gd" id="6_nenq2"]
-[ext_resource type="Script" uid="uid://dve6ix5ogwfw" path="res://scripts/components/effectable/melee_damage.gd" id="7_ipns3"]
-[ext_resource type="Script" uid="uid://bqsxrr4x407ln" path="res://scripts/components/ranged.gd" id="8_md484"]
-[ext_resource type="Script" uid="uid://cwdm3dvyba0l3" path="res://scripts/components/effectable/ranged_cooldown.gd" id="9_ipns3"]
-[ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/components/effectable/target_priority.gd" id="11_w8i8w"]
+[ext_resource type="Script" uid="uid://cu55fh5hl5rxd" path="res://scripts/effectables/melee_cooldown.gd" id="6_nenq2"]
+[ext_resource type="Script" uid="uid://dve6ix5ogwfw" path="res://scripts/effectables/melee_damage.gd" id="7_ipns3"]
+[ext_resource type="Script" uid="uid://bhi7w6ril3da2" path="res://scripts/components/ranged_AI.gd" id="8_8qclf"]
+[ext_resource type="Script" uid="uid://cwdm3dvyba0l3" path="res://scripts/effectables/ranged_cooldown.gd" id="9_ipns3"]
+[ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/effectables/target_priority.gd" id="11_w8i8w"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8qclf"]
 radius = 16.0312
@@ -17,6 +18,7 @@ radius = 16.0312
 [node name="Enemy" type="RigidBody2D" groups=["enemies"]]
 contact_monitor = true
 script = ExtResource("1_7p1mj")
+target_provider = ExtResource("2_w8i8w")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 scale = Vector2(2.38374, 2.68171)
@@ -52,11 +54,12 @@ script = ExtResource("6_nenq2")
 script = ExtResource("7_ipns3")
 damage = 0.0
 
-[node name="Ranged" type="Node2D" parent="." node_paths=PackedStringArray("ranged_cooldown", "target_priority")]
-script = ExtResource("8_md484")
+[node name="Ranged" type="Node2D" parent="." node_paths=PackedStringArray("ranged_cooldown", "barrel", "target_priority")]
+script = ExtResource("8_8qclf")
 ranged_cooldown = NodePath("../RangedCooldown")
+barrel = NodePath("..")
 target_priority = NodePath("../TargetPriority")
-metadata/_custom_type_script = "uid://bqsxrr4x407ln"
+metadata/_custom_type_script = "uid://bhi7w6ril3da2"
 
 [node name="RangedCooldown" type="Node" parent="."]
 script = ExtResource("9_ipns3")

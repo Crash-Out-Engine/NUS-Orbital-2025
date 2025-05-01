@@ -2,10 +2,10 @@ extends RigidBody2D
 
 var explosion_scene = preload("res://scenes/explosion.tscn")
 
-@onready var ranged: Ranged = $Ranged
+@onready var ranged: RangedAI = $Ranged
 @onready var target_priority: TargetPriority = $TargetPriority
 
-var target_provider: TargetProvider = null
+@export var target_provider := load("res://resources/target_provider.tres") as TargetProvider
 
 signal vfx_emitted(Node2D)
 
@@ -14,7 +14,8 @@ func _ready() -> void:
 	$Health.just_reduced.connect(bleed)
 
 func _physics_process(_delta: float) -> void:
-	var target = target_provider.get_target(global_position, target_priority.team) if target_provider != null else null
+	var target = null
+	target = target_provider.get_target(global_position, target_priority.team)
 	if target != null:
 		look_at(target.global_position)
 

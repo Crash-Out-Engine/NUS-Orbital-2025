@@ -8,7 +8,7 @@ func _ready() -> void:
 	var err = config.load(path)
 	
 	if err != OK:
-		assert(false, "Could not find " + path + " , check that the mod \"" + mod_name + "\" exists.")
+		assert(false, "Could not find " + path + " , check that mod file \"" + mod_name + ".cfg\" exists.")
 		return
 		
 	for effect in config.get_sections():

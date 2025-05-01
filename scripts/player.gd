@@ -13,12 +13,11 @@ var direction: Callable = func(_delta: float) -> Vector2:
 
 signal turret_spawned(turret: Node2D)
 
-var target_provider: TargetProvider = null
-
 var current_turret = null
 
 func _ready() -> void:
 	health_changed.emit(1.0)
+	ranged.active = false
 	# ranged.effects.append_array([
 	# 	MovementEffect.create_freeze(1.0),
 	# 	HealthEffect.create_lasting(6, 4, 1),

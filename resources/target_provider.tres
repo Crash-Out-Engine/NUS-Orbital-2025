@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="TargetProvider" load_steps=2 format=3 uid="uid://ccmxdw1jyhvcb"]
+
+[ext_resource type="Script" uid="uid://dwa5r0yedpqkw" path="res://scripts/target_provider.gd" id="1_yakif"]
+
+[resource]
+script = ExtResource("1_yakif")
+metadata/_custom_type_script = "uid://dwa5r0yedpqkw"
