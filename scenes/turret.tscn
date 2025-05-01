@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://bhi7w6ril3da2" path="res://scripts/components/ranged_AI.gd" id="5_mqfwu"]
 [ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/effectables/target_priority.gd" id="6_dirdf"]
 [ext_resource type="Script" uid="uid://qxcwl20lyaga" path="res://scripts/effect_mod.gd" id="6_mqfwu"]
-[ext_resource type="Resource" uid="uid://dl56w1h7wf83j" path="res://configs/effect_mods/base_damage.tres" id="7_mqfwu"]
+[ext_resource type="Resource" uid="uid://dl56w1h7wf83j" path="res://resources/effect_mods/base_damage.tres" id="7_mqfwu"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fowog"]
 radius = 12.0

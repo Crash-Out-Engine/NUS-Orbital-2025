@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/effectables/target_priority.gd" id="7_fjrip"]
 [ext_resource type="Script" uid="uid://s08wfqwqu2jn" path="res://scripts/components/ranged_player.gd" id="7_smehm"]
 [ext_resource type="Script" uid="uid://qxcwl20lyaga" path="res://scripts/effect_mod.gd" id="8_y4r1p"]
-[ext_resource type="Resource" uid="uid://dl56w1h7wf83j" path="res://configs/effect_mods/base_damage.tres" id="9_ur7pv"]
+[ext_resource type="Resource" uid="uid://dl56w1h7wf83j" path="res://resources/effect_mods/base_damage.tres" id="9_ur7pv"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
 radius = 18.2857

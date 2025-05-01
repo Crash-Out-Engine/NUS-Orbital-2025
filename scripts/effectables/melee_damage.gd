@@ -6,6 +6,6 @@ func _ready() -> void:
 	value = damage
 
 func get_effect() -> HealthEffect:
-	var effect = load("res://configs/effects/health.tres")
+	var effect = load("res://resources/effects/health.tres")
 	effect.factor = -damage
 	return effect
