@@ -1,11 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://iqyedsof74fp"]
+[gd_scene load_steps=9 format=3 uid="uid://iqyedsof74fp"]
 
 [ext_resource type="Script" uid="uid://d8jbrtwr3jw" path="res://scripts/turret.gd" id="1_x3mc5"]
 [ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox.gd" id="2_el7wl"]
 [ext_resource type="Script" uid="uid://cwdm3dvyba0l3" path="res://scripts/effectables/ranged_cooldown.gd" id="3_pp6j5"]
-[ext_resource type="Script" uid="uid://b2im78b7p3db5" path="res://scripts/effect_mod_preset.gd" id="5_dirdf"]
 [ext_resource type="Script" uid="uid://bhi7w6ril3da2" path="res://scripts/components/ranged_AI.gd" id="5_mqfwu"]
 [ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/effectables/target_priority.gd" id="6_dirdf"]
+[ext_resource type="Script" uid="uid://qxcwl20lyaga" path="res://scripts/effect_mod.gd" id="6_mqfwu"]
+[ext_resource type="Resource" uid="uid://dl56w1h7wf83j" path="res://configs/effect_mods/base_damage.tres" id="7_mqfwu"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fowog"]
 radius = 12.0
@@ -41,16 +42,11 @@ ranged_cooldown = 0.2
 script = ExtResource("6_dirdf")
 team = "allies"
 
-[node name="Ranged" type="Node2D" parent="." node_paths=PackedStringArray("ranged_cooldown", "barrel", "target_priority", "effect_mods")]
+[node name="Ranged" type="Node2D" parent="." node_paths=PackedStringArray("ranged_cooldown", "barrel", "target_priority")]
 script = ExtResource("5_mqfwu")
 active = true
 ranged_cooldown = NodePath("../RangedCooldown")
 barrel = NodePath("../Polygon2D2")
 target_priority = NodePath("../TargetPriority")
-effect_mods = [NodePath("EffectModPreset")]
+effect_mods = Array[ExtResource("6_mqfwu")]([ExtResource("7_mqfwu")])
 metadata/_custom_type_script = "uid://bhi7w6ril3da2"
-
-[node name="EffectModPreset" type="Node" parent="Ranged"]
-script = ExtResource("5_dirdf")
-mod_name = "base damage"
-metadata/_custom_type_script = "uid://b2im78b7p3db5"

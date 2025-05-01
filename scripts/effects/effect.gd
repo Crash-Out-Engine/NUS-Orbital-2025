@@ -1,10 +1,10 @@
-class_name Effect extends RefCounted
+class_name Effect extends Resource
 
 ## Interval between repetitions (if any) in seconds.
 ## Taken to be equivalent to null if a non-positive value is supplied.
 @export var _interval: float
-@export var _factor: float
 @export var _repeat: int
+@export var _factor: float
 
 var _counter: int
 

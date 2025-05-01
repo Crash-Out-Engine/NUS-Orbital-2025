@@ -1,6 +1,6 @@
-class_name EffectMod extends Node
+class_name EffectMod extends Resource
 
-var effects: Array[Effect] = []
+@export var effects: Array[Effect] = []
 
 func get_effects():
 	return effects
