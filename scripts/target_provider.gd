@@ -1,11 +1,12 @@
 class_name TargetProvider extends Resource
 
-var _get_entities: Callable = func(): return []
+var _entity_container: Node = null
 
 var entities_cache: Dictionary[String, Array] = {}
 
-func set_get_entities(get_entities: Callable) -> void:
-	_get_entities = get_entities
+func set_entity_container(entity_container: Node) -> void:
+	_entity_container = entity_container
+	_entity_container.child_order_changed.connect(refresh)
 	refresh()
 
 func get_target(from: Vector2, team: String) -> Node2D:
@@ -26,8 +27,7 @@ func get_target(from: Vector2, team: String) -> Node2D:
 
 func refresh() -> void:
 	entities_cache.clear()
-	var valid_entities = (_get_entities
-		.call()
+	var valid_entities = (_entity_container
 		.get_children()
 		.filter(func(entity):
 			return (entity is Node2D and

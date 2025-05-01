@@ -2,11 +2,11 @@ extends Node2D
 
 var enemy_scene = preload("res://scenes/enemy.tscn")
 
-@onready var player := $Entities/Player as Player
+@onready var player := $EntityContainer/Player as Player
 @onready var target_provider := load("res://resources/target_provider.tres") as TargetProvider
 
 func _ready() -> void:
-	target_provider.set_get_entities(func(): return $Entities)
+	target_provider.set_entity_container($EntityContainer)
 	try_connect_ranged(player)
 	player.turret_spawned.connect(add_entity)
 
@@ -27,18 +27,8 @@ func try_connect_ranged(entity):
 		ranged.bullet_spawned.connect(add_entity)
 			
 func add_entity(entity: Node2D) -> void:
-	$Entities.add_child(entity)
+	$EntityContainer.add_child(entity)
 	try_connect_ranged(entity)
 	
 func add_misc(misc: Node2D) -> void:
-	$Misc.add_child(misc)
-
-
-func _on_entities_child_entered_tree(node: Node) -> void:
-	if target_provider != null:
-		target_provider.refresh()
-
-
-func _on_entities_child_exiting_tree(node: Node) -> void:
-	if target_provider != null:
-		target_provider.refresh()
+	$MiscContainer.add_child(misc)

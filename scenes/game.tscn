@@ -21,16 +21,16 @@ autostart = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_yqjtg")
 
-[node name="Misc" type="Node" parent="."]
+[node name="MiscContainer" type="Node" parent="."]
 
-[node name="Entities" type="Node" parent="."]
+[node name="EntityContainer" type="Node" parent="."]
 
-[node name="Player" parent="Entities" instance=ExtResource("1_uwrxv")]
+[node name="Player" parent="EntityContainer" instance=ExtResource("1_uwrxv")]
 position = Vector2(283, 272)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="Entities/Player"]
+[node name="CanvasLayer" type="CanvasLayer" parent="EntityContainer/Player"]
 
-[node name="HealthBar" type="ProgressBar" parent="Entities/Player/CanvasLayer" node_paths=PackedStringArray("player")]
+[node name="HealthBar" type="ProgressBar" parent="EntityContainer/Player/CanvasLayer" node_paths=PackedStringArray("player")]
 offset_right = 498.0
 offset_bottom = 27.0
 show_percentage = false
@@ -38,11 +38,11 @@ script = ExtResource("3_lnu2h")
 player = NodePath("../..")
 metadata/_edit_use_anchors_ = true
 
-[node name="Camera2D" type="Camera2D" parent="Entities/Player"]
+[node name="Camera2D" type="Camera2D" parent="EntityContainer/Player"]
 process_callback = 0
 position_smoothing_enabled = true
 script = ExtResource("4_lbhrr")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="child_entered_tree" from="Entities" to="." method="_on_entities_child_entered_tree"]
-[connection signal="child_exiting_tree" from="Entities" to="." method="_on_entities_child_exiting_tree"]
+[connection signal="child_entered_tree" from="EntityContainer" to="." method="_on_entities_child_entered_tree"]
+[connection signal="child_exiting_tree" from="EntityContainer" to="." method="_on_entities_child_exiting_tree"]
