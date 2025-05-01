@@ -1,6 +1,6 @@
 class_name Bullet extends Area2D
 
-const SPEED = 10
+const SPEED = 700
 
 var direction: float
 
@@ -8,8 +8,8 @@ var team: String
 
 var effects: Array[Effect] = []
 
-func _physics_process(_delta: float) -> void:
-	global_position += Vector2.from_angle(direction) * SPEED
+func _physics_process(delta: float) -> void:
+	global_position += Vector2.from_angle(direction) * SPEED * delta
 	global_rotation = direction
 
 func _on_timer_timeout() -> void:
