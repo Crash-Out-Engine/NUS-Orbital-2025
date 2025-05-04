@@ -82,6 +82,6 @@ esc={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method.mobile="gl_compatibility"
 anti_aliasing/quality/msaa_2d=2
-environment/defaults/default_clear_color=Color(1, 0.835769, 0.67724, 1)
