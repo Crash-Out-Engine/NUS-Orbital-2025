@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://bbtrde7tvkisy"]
+[gd_scene load_steps=16 format=3 uid="uid://bbtrde7tvkisy"]
 
 [ext_resource type="PackedScene" uid="uid://ytw0s5xnqwvt" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://d2o1hku0svi7t" path="res://scripts/game.gd" id="1_yqjtg"]
@@ -112,7 +112,6 @@ metadata/_edit_use_anchors_ = true
 
 [node name="ChunkTileMap" type="TileMapLayer" parent="."]
 z_index = -100
-tile_map_data = PackedByteArray("AAAAAAAAAAACAAEAAAABAAAAAAACAAEAAAABAP//AAACAAEAAAACAP//AAACAAEAAAADAP//AAACAAEAAAADAAAAAAACAAEAAAACAAEAAAACAAEAAAABAAEAAAACAAEAAAAAAAEAAAACAAEAAAD//wEAAAACAAEAAAD//wIAAAACAAEAAAD+/wEAAAACAAEAAAD9/wEAAAACAAEAAAD9/wAAAAACAAEAAAD+/wAAAAACAAEAAAD+////AAACAAEAAAD/////AAACAAEAAAAAAP7/AAACAAEAAAABAP7/AAACAAEAAAACAAAAAAACAAEAAAD//wAAAAACAAEAAAD9////AAACAAEAAAD///7/AAACAAEAAAAAAP//AAACAAEAAAD+//7/AAACAAAAAAADAP7/AAABAAAAAAACAP7/AAACAAEAAAADAP3/AAACAAEAAAACAP3/AAACAAEAAAABAP3/AAACAAEAAAAAAP3/AAACAAEAAAD///3/AAACAAEAAAD+//3/AAACAAEAAAD9//3/AAACAAEAAAD9//7/AAACAAEAAAD8//7/AAACAAEAAAA=")
 tile_set = SubResource("TileSet_dinhu")
 script = ExtResource("9_vtaks")
 noise = SubResource("FastNoiseLite_vtaks")
