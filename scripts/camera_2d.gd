@@ -1,6 +1,6 @@
 extends Camera2D
 
-const ZOOM_FACTOR: float = 1.2
+const ZOOM_FACTOR: float = sqrt(2.0)
 
 const SMOOTHING_FACTOR: float = 0.9
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bbtrde7tvkisy"]
+[gd_scene load_steps=17 format=3 uid="uid://bbtrde7tvkisy"]
 
 [ext_resource type="PackedScene" uid="uid://ytw0s5xnqwvt" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://d2o1hku0svi7t" path="res://scripts/game.gd" id="1_yqjtg"]
@@ -7,8 +7,9 @@
 [ext_resource type="Script" uid="uid://dixn701xl56vv" path="res://scripts/spawner.gd" id="5_iywne"]
 [ext_resource type="Script" uid="uid://bcocptbr3821k" path="res://scripts/pause_menu.gd" id="5_p57ef"]
 [ext_resource type="Script" uid="uid://brohp3alww54k" path="res://scripts/ui.gd" id="5_u5sy4"]
-[ext_resource type="Texture2D" uid="uid://bf665d108xq1k" path="res://assets/tilesheets/tilemap.png" id="8_0tnpc"]
+[ext_resource type="Texture2D" uid="uid://dthjnrt2y15oq" path="res://assets/tilesheets/tilesheet.png" id="8_0tnpc"]
 [ext_resource type="Script" uid="uid://6avt386x6skk" path="res://scripts/tile_map.gd" id="9_vtaks"]
+[ext_resource type="Script" uid="uid://dlfl58jvcogf5" path="res://scripts/chunk_debug.gd" id="10_vtaks"]
 
 [sub_resource type="Environment" id="Environment_yqjtg"]
 background_mode = 3
@@ -18,14 +19,14 @@ glow_hdr_threshold = 0.93
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kvpfn"]
 texture = ExtResource("8_0tnpc")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(128, 128)
 0:0/0 = 0
 1:0/0 = 0
 0:1/0 = 0
 1:1/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_dinhu"]
-tile_size = Vector2i(64, 64)
+tile_size = Vector2i(128, 128)
 sources/0 = SubResource("TileSetAtlasSource_kvpfn")
 
 [sub_resource type="Gradient" id="Gradient_kvuet"]
@@ -49,7 +50,6 @@ environment = SubResource("Environment_yqjtg")
 [node name="EntityContainer" type="Node" parent="."]
 
 [node name="Player" parent="EntityContainer" instance=ExtResource("1_uwrxv")]
-position = Vector2(283, 272)
 
 [node name="Camera2D" type="Camera2D" parent="EntityContainer/Player"]
 process_callback = 0
@@ -111,10 +111,13 @@ metadata/_edit_use_anchors_ = true
 
 [node name="TileMap" type="TileMapLayer" parent="."]
 z_index = -100
-scale = Vector2(2, 2)
 tile_set = SubResource("TileSet_dinhu")
 script = ExtResource("9_vtaks")
 noise_height_texture = SubResource("NoiseTexture2D_ir15t")
+
+[node name="ChunkDebug" type="Node2D" parent="TileMap"]
+z_index = 100
+script = ExtResource("10_vtaks")
 
 [connection signal="child_entered_tree" from="EntityContainer" to="." method="_on_entities_child_entered_tree"]
 [connection signal="child_exiting_tree" from="EntityContainer" to="." method="_on_entities_child_exiting_tree"]
