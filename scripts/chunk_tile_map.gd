@@ -1,18 +1,15 @@
 class_name ChunkTileMap extends TileMapLayer
 
-@export var noise_height_texture: NoiseTexture2D
+@export var noise: Noise
+@export var curve: Curve
 
 @onready var player: Player = $"/root/Game/EntityContainer/Player"
 
-var noise: Noise
 var chunk_radius := 4
 var chunk_size := Vector2i(16, 16)
 
 var loaded_chunks: Array[Vector2i] = []
 
-func _ready() -> void:
-	noise = noise_height_texture.noise
-	
 var _prev_player_chunk_position: Vector2i = Vector2i.MIN
 func _process(_delta: float) -> void:
 	var player_chunk_position := floor(
@@ -30,13 +27,16 @@ func generate_chunk(at_chunk: Vector2i) -> void:
 		for y in range(chunk_size.y):
 			var tile_coords = at_chunk * chunk_size + Vector2i(x, y)
 				
-			var noise_value = noise.get_noise_2d(
-				tile_coords.x,
-				tile_coords.y)
+			var noise_value = curve.sample(
+				noise.get_noise_2d(
+					tile_coords.x,
+					tile_coords.y
+					)
+				)
 			
-			var tile_value = floor((noise_value + 1) * 2) as int
+			var tile_value = floor((noise_value) * 6) as int
 				
-			set_cell(tile_coords, 0, Vector2i(tile_value / 2, tile_value % 2))
+			set_cell(tile_coords, 0, Vector2i(tile_value % 3, tile_value / 3))
 			loaded_chunks.append(at_chunk)
 
 func load_chunks(player_chunk_position: Vector2i) -> void:

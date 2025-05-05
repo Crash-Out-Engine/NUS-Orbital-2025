@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bbtrde7tvkisy"]
+[gd_scene load_steps=16 format=4 uid="uid://bbtrde7tvkisy"]
 
 [ext_resource type="PackedScene" uid="uid://ytw0s5xnqwvt" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://d2o1hku0svi7t" path="res://scripts/game.gd" id="1_yqjtg"]
@@ -7,8 +7,8 @@
 [ext_resource type="Script" uid="uid://dixn701xl56vv" path="res://scripts/spawner.gd" id="5_iywne"]
 [ext_resource type="Script" uid="uid://bcocptbr3821k" path="res://scripts/pause_menu.gd" id="5_p57ef"]
 [ext_resource type="Script" uid="uid://brohp3alww54k" path="res://scripts/ui.gd" id="5_u5sy4"]
-[ext_resource type="Texture2D" uid="uid://dthjnrt2y15oq" path="res://assets/tilesheets/tilesheet.png" id="8_0tnpc"]
-[ext_resource type="Script" uid="uid://6avt386x6skk" path="res://scripts/tile_map.gd" id="9_vtaks"]
+[ext_resource type="Texture2D" uid="uid://b6pmnbom60pi5" path="res://assets/tilesheets/tilesheet_alt.png" id="8_vtaks"]
+[ext_resource type="Script" uid="uid://6avt386x6skk" path="res://scripts/chunk_tile_map.gd" id="9_vtaks"]
 [ext_resource type="Script" uid="uid://dlfl58jvcogf5" path="res://scripts/chunk_debug.gd" id="10_vtaks"]
 
 [sub_resource type="Environment" id="Environment_yqjtg"]
@@ -18,26 +18,27 @@ glow_blend_mode = 0
 glow_hdr_threshold = 0.93
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kvpfn"]
-texture = ExtResource("8_0tnpc")
+texture = ExtResource("8_vtaks")
 texture_region_size = Vector2i(128, 128)
 0:0/0 = 0
 1:0/0 = 0
 0:1/0 = 0
 1:1/0 = 0
+2:0/0 = 0
+2:1/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_dinhu"]
 tile_size = Vector2i(128, 128)
 sources/0 = SubResource("TileSetAtlasSource_kvpfn")
 
-[sub_resource type="Gradient" id="Gradient_kvuet"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_vtaks"]
+noise_type = 0
+frequency = 1.0
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_trtic"]
-frequency = 0.3235
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ir15t"]
-seamless = true
-color_ramp = SubResource("Gradient_kvuet")
-noise = SubResource("FastNoiseLite_trtic")
+[sub_resource type="Curve" id="Curve_kvpfn"]
+_limits = [0.0, 1.0, -1.0, 1.0]
+_data = [Vector2(-1, 0), 0.0, 6.25, 0, 1, Vector2(-0.84, 1), 6.25, -6.25, 1, 1, Vector2(-0.68, 0), -6.25, 6.25, 1, 1, Vector2(-0.52, 1), 6.25, -6.25, 1, 1, Vector2(-0.36, 0), -6.25, 6.1875, 1, 1, Vector2(-0.2, 0.99), 6.1875, 0.0, 1, 1, Vector2(1, 0.99), 0.0, 0.0, 0, 0]
+point_count = 7
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_yqjtg")
@@ -109,13 +110,15 @@ script = ExtResource("3_lnu2h")
 player = NodePath("../../EntityContainer/Player")
 metadata/_edit_use_anchors_ = true
 
-[node name="TileMap" type="TileMapLayer" parent="."]
+[node name="ChunkTileMap" type="TileMapLayer" parent="."]
 z_index = -100
+tile_map_data = PackedByteArray("AAAAAAAAAAACAAEAAAABAAAAAAACAAEAAAABAP//AAACAAEAAAACAP//AAACAAEAAAADAP//AAACAAEAAAADAAAAAAACAAEAAAACAAEAAAACAAEAAAABAAEAAAACAAEAAAAAAAEAAAACAAEAAAD//wEAAAACAAEAAAD//wIAAAACAAEAAAD+/wEAAAACAAEAAAD9/wEAAAACAAEAAAD9/wAAAAACAAEAAAD+/wAAAAACAAEAAAD+////AAACAAEAAAD/////AAACAAEAAAAAAP7/AAACAAEAAAABAP7/AAACAAEAAAACAAAAAAACAAEAAAD//wAAAAACAAEAAAD9////AAACAAEAAAD///7/AAACAAEAAAAAAP//AAACAAEAAAD+//7/AAACAAAAAAADAP7/AAABAAAAAAACAP7/AAACAAEAAAADAP3/AAACAAEAAAACAP3/AAACAAEAAAABAP3/AAACAAEAAAAAAP3/AAACAAEAAAD///3/AAACAAEAAAD+//3/AAACAAEAAAD9//3/AAACAAEAAAD9//7/AAACAAEAAAD8//7/AAACAAEAAAA=")
 tile_set = SubResource("TileSet_dinhu")
 script = ExtResource("9_vtaks")
-noise_height_texture = SubResource("NoiseTexture2D_ir15t")
+noise = SubResource("FastNoiseLite_vtaks")
+curve = SubResource("Curve_kvpfn")
 
-[node name="ChunkDebug" type="Node2D" parent="TileMap"]
+[node name="ChunkDebug" type="Node2D" parent="ChunkTileMap"]
 z_index = 100
 script = ExtResource("10_vtaks")
 
