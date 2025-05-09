@@ -175,16 +175,6 @@ shape = SubResource("CapsuleShape2D_g2els")
 
 [node name="Gun" type="Node2D" parent="."]
 
-[node name="Barrel" type="Node2D" parent="Gun"]
-position = Vector2(44, 0)
-
-[node name="GunSprite" type="AnimatedSprite2D" parent="Gun"]
-position = Vector2(28, 0)
-scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_pf23h")
-animation = &"idle"
-offset = Vector2(0, 1)
-
 [node name="Movement" type="Node" parent="."]
 script = ExtResource("2_g2els")
 is_player = true
@@ -206,15 +196,24 @@ script = ExtResource("7_fjrip")
 initial_priority = 2.0
 team = "allies"
 
-[node name="Ranged" type="Node2D" parent="." node_paths=PackedStringArray("ranged_cooldown", "barrel", "gun_anim", "target_priority")]
+[node name="Ranged" type="Node2D" parent="." node_paths=PackedStringArray("ranged_cooldown", "barrel", "target_priority")]
 script = ExtResource("7_smehm")
 active = true
 ranged_cooldown = NodePath("../RangedCooldown")
-barrel = NodePath("../Gun/Barrel")
-gun_anim = NodePath("../Gun/GunSprite")
+barrel = NodePath("Barrel")
 target_priority = NodePath("../TargetPriority")
 effect_mods = Array[ExtResource("8_y4r1p")]([ExtResource("9_ur7pv")])
 metadata/_custom_type_script = "uid://s08wfqwqu2jn"
+
+[node name="Barrel" type="Node2D" parent="Ranged"]
+position = Vector2(44, 0)
+
+[node name="GunSprite" type="AnimatedSprite2D" parent="Ranged"]
+position = Vector2(28, 0)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_pf23h")
+animation = &"idle"
+offset = Vector2(0, 1)
 
 [connection signal="just_changed" from="Health" to="." method="_on_health_just_changed"]
 [connection signal="just_emptied" from="Health" to="." method="_on_health_just_emptied"]

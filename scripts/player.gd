@@ -9,9 +9,6 @@ var direction: Callable = func(_delta: float) -> Vector2:
 		)
 
 @onready var anim = $PlayerSprite
-@onready var gun = $Gun
-@onready var barrel = $Gun/Barrel
-@onready var gun_anim = $Gun/GunSprite
 @onready var ranged = $Ranged
 
 signal turret_spawned(turret: Node2D)
@@ -26,20 +23,17 @@ func _process(_delta: float) -> void:
 	var horizontal_dir = Input.get_axis("left", "right")
 	if horizontal_dir != 0:
 		anim.flip_h = horizontal_dir < 0
+	if Vector2(Input.get_axis("left", "right"), Input.get_axis("up", "down")):
 		anim.play("running")
 	else:
 		anim.play("idle")
 	
-	gun.look_at(get_global_mouse_position())
-	gun_anim.flip_v = get_global_mouse_position() < global_position
-	gun_anim.offset.y = -1 if (get_global_mouse_position() < global_position) else 1
 
 func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("shoot"):
 		ranged.active = true
 	if Input.is_action_just_released("shoot"):
 		ranged.active = false
-		gun_anim.play("idle")
 	
 	if Input.is_action_just_pressed("add turret"):
 		current_turret = turret_scene.instantiate()
