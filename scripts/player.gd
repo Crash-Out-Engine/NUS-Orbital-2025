@@ -8,10 +8,10 @@ var direction: Callable = func(_delta: float) -> Vector2:
 		Input.get_axis("up", "down")
 		)
 
-@onready var anim = $playerSprite
+@onready var anim = $PlayerSprite
 @onready var gun = $Gun
 @onready var barrel = $Gun/Barrel
-@onready var gunAnim = $Gun/Barrel/gunSprite
+@onready var gun_anim = $Gun/GunSprite
 @onready var ranged = $Ranged
 
 signal turret_spawned(turret: Node2D)
@@ -21,31 +21,25 @@ var current_turret = null
 func _ready() -> void:
 	health_changed.emit(1.0)
 	ranged.active = false
-	# ranged.effects.append_array([
-	# 	MovementEffect.create_freeze(1.0),
-	# 	HealthEffect.create_lasting(6, 4, 1),
-	# 	HealthEffect.create_instant(3.0),
-	# ])
-
-func _physics_process(_delta: float) -> void:
-	# Movement code
-	#look_at(get_global_mouse_position()) # old movement method
-	var dir = Vector2(Input.get_axis("left", "right"), Input.get_axis("up", "down"))
-	if dir:
-		if dir.x:
-			anim.flip_h = dir.x < 0
+	
+func _process(_delta: float) -> void:
+	var horizontal_dir = Input.get_axis("left", "right")
+	if horizontal_dir != 0:
+		anim.flip_h = horizontal_dir < 0
 		anim.play("running")
 	else:
 		anim.play("idle")
-	gun.look_at(get_global_mouse_position())
-	gunAnim.flip_v = get_global_mouse_position() < global_position
-	gunAnim.offset.y = -1 if (get_global_mouse_position() < global_position) else 1
 	
+	gun.look_at(get_global_mouse_position())
+	gun_anim.flip_v = get_global_mouse_position() < global_position
+	gun_anim.offset.y = -1 if (get_global_mouse_position() < global_position) else 1
+
+func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("shoot"):
 		ranged.active = true
 	if Input.is_action_just_released("shoot"):
 		ranged.active = false
-		gunAnim.play("idle")
+		gun_anim.play("idle")
 	
 	if Input.is_action_just_pressed("add turret"):
 		current_turret = turret_scene.instantiate()

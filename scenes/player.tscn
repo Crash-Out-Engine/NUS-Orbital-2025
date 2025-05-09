@@ -164,24 +164,7 @@ animations = [{
 [node name="Player" type="CharacterBody2D" groups=["allies"]]
 script = ExtResource("1_3vyb7")
 
-[node name="Polygon2D2" type="Polygon2D" parent="."]
-visible = false
-position = Vector2(-13.2944, 0)
-scale = Vector2(0.547556, 0.556367)
-color = Color(0.349056, 0.447572, 0.506568, 1)
-antialiased = true
-polygon = PackedVector2Array(32, -8, 120, -16, 120, 16, 32, 8)
-
-[node name="Polygon2D" type="Polygon2D" parent="."]
-visible = false
-position = Vector2(-13.2944, -4.38094e-06)
-scale = Vector2(2.81601, 4.38139)
-color = Color(0.0463088, 0.326656, 0.210825, 1)
-antialiased = true
-polygon = PackedVector2Array(-9.4835, -6.09524, -9.4835, 6.09524, 9.48351, 3.04762, 9.48351, -3.04762)
-uv = PackedVector2Array(-40, -39, -42, 102, 174, 75, 178, -13)
-
-[node name="playerSprite" type="AnimatedSprite2D" parent="."]
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_4ni07")
 animation = &"running"
@@ -195,8 +178,8 @@ shape = SubResource("CapsuleShape2D_g2els")
 [node name="Barrel" type="Node2D" parent="Gun"]
 position = Vector2(44, 0)
 
-[node name="gunSprite" type="AnimatedSprite2D" parent="Gun/Barrel"]
-position = Vector2(-16, 0)
+[node name="GunSprite" type="AnimatedSprite2D" parent="Gun"]
+position = Vector2(28, 0)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_pf23h")
 animation = &"idle"
@@ -223,12 +206,12 @@ script = ExtResource("7_fjrip")
 initial_priority = 2.0
 team = "allies"
 
-[node name="Ranged" type="Node2D" parent="." node_paths=PackedStringArray("ranged_cooldown", "barrel", "gunAnim", "target_priority")]
+[node name="Ranged" type="Node2D" parent="." node_paths=PackedStringArray("ranged_cooldown", "barrel", "gun_anim", "target_priority")]
 script = ExtResource("7_smehm")
 active = true
 ranged_cooldown = NodePath("../RangedCooldown")
 barrel = NodePath("../Gun/Barrel")
-gunAnim = NodePath("../Gun/Barrel/gunSprite")
+gun_anim = NodePath("../Gun/GunSprite")
 target_priority = NodePath("../TargetPriority")
 effect_mods = Array[ExtResource("8_y4r1p")]([ExtResource("9_ur7pv")])
 metadata/_custom_type_script = "uid://s08wfqwqu2jn"
