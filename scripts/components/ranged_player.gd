@@ -10,6 +10,10 @@ func _physics_process(_delta: float) -> void:
 	if target_priority != null:
 		team = target_priority.team
 			
+	
+	gunAnim.sprite_frames.set_animation_speed("fire", 4/ranged_cooldown.ranged_cooldown)
+	gunAnim.play("fire")
+	
 	var bullet: Bullet = _bullet_scene.instantiate()
 	bullet.effects.assign(
 		effect_mods
@@ -23,4 +27,6 @@ func _physics_process(_delta: float) -> void:
 	bullet.direction = get_parent().global_position.angle_to_point(get_global_mouse_position())
 	
 	ranged_cooldown.do_ranged()
+	
 	bullet_spawned.emit(bullet)
+	
