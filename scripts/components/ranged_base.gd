@@ -3,7 +3,7 @@ class_name RangedBase extends Node2D
 @export var active: bool = false
 @export var ranged_cooldown: RangedCooldown
 @export var barrel: Node2D
-@export var gunAnim: AnimatedSprite2D
+@export var gun_anim: AnimatedSprite2D
 @export var target_priority: TargetPriority = null
 @export var effect_mods: Array[EffectMod] = []
 

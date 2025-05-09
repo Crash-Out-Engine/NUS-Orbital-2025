@@ -18,10 +18,8 @@ script = ExtResource("1_mkf8s")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 z_index = -1
-position = Vector2(5.76096e-06, -0.500001)
-scale = Vector2(2.41632, 3.62448)
 texture = SubResource("GradientTexture2D_y25gk")
-polygon = PackedVector2Array(2.48311, -0.413852, 2.48311, 0.689754, -2.48311, 0.689754, -2.48311, -0.413852)
+polygon = PackedVector2Array(6, -2, 6, 2, -6, 2, -6, -2)
 uv = PackedVector2Array(64, 1.19209e-07, 64, 64, 0, 64, 4.76837e-06, 4.76837e-07)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
