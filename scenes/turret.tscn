@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://iqyedsof74fp"]
+[gd_scene load_steps=16 format=3 uid="uid://iqyedsof74fp"]
 
 [ext_resource type="Script" uid="uid://d8jbrtwr3jw" path="res://scripts/turret.gd" id="1_x3mc5"]
 [ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox.gd" id="2_el7wl"]
@@ -7,28 +7,84 @@
 [ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/effectables/target_priority.gd" id="6_dirdf"]
 [ext_resource type="Script" uid="uid://qxcwl20lyaga" path="res://scripts/effect_mod.gd" id="6_mqfwu"]
 [ext_resource type="Resource" uid="uid://dl56w1h7wf83j" path="res://resources/effect_mods/base_damage.tres" id="7_mqfwu"]
+[ext_resource type="Texture2D" uid="uid://06sdtfwasbao" path="res://assets/sprites/Turret Sprites.png" id="8_0dv4j"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fowog"]
-radius = 12.0
-height = 48.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_0dv4j"]
+radius = 18.0278
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0dv4j"]
+atlas = ExtResource("8_0dv4j")
+region = Rect2(0, 36, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tg0ex"]
+atlas = ExtResource("8_0dv4j")
+region = Rect2(36, 36, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eo4u0"]
+atlas = ExtResource("8_0dv4j")
+region = Rect2(72, 36, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6k4ik"]
+atlas = ExtResource("8_0dv4j")
+region = Rect2(108, 36, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fp1kq"]
+atlas = ExtResource("8_0dv4j")
+region = Rect2(36, 0, 36, 36)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_eo4u0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0dv4j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tg0ex")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eo4u0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6k4ik")
+}],
+"loop": false,
+"name": &"fire",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fp1kq")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 0.0
+}]
 
 [node name="Turret" type="StaticBody2D" groups=["allies"]]
 script = ExtResource("1_x3mc5")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
+visible = false
 scale = Vector2(1.38583, 1.47059)
 color = Color(0.756034, 0.795543, 0.816676, 1)
 polygon = PackedVector2Array(-8, -24, -16, 8, 16, 8, 8, -24)
 
 [node name="Polygon2D2" type="Polygon2D" parent="."]
+visible = false
 position = Vector2(-7.62939e-06, -40)
 scale = Vector2(1.38583, 1.47059)
 color = Color(0.343323, 0.123762, 4.81308e-08, 1)
 polygon = PackedVector2Array(-11.5454, -5.43999, -11.5454, 5.43999, 11.5454, 5.43999, 11.5454, -5.43999)
 
+[node name="BaseSprite" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("8_0dv4j")
+hframes = 4
+vframes = 2
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
-shape = SubResource("CapsuleShape2D_fowog")
+shape = SubResource("CircleShape2D_0dv4j")
 
 [node name="Hitbox" type="Node" parent="."]
 script = ExtResource("2_el7wl")
@@ -46,7 +102,15 @@ team = "allies"
 script = ExtResource("5_mqfwu")
 active = true
 ranged_cooldown = NodePath("../RangedCooldown")
-barrel = NodePath("../Polygon2D2")
+barrel = NodePath("Barrel")
 target_priority = NodePath("../TargetPriority")
 effect_mods = Array[ExtResource("6_mqfwu")]([ExtResource("7_mqfwu")])
 metadata/_custom_type_script = "uid://bhi7w6ril3da2"
+
+[node name="Barrel" type="Node2D" parent="Ranged"]
+position = Vector2(26, 0)
+
+[node name="GunSprite" type="AnimatedSprite2D" parent="Ranged"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_eo4u0")
+animation = &"idle"

@@ -38,6 +38,7 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("add turret"):
 		current_turret = turret_scene.instantiate()
 		current_turret.set_collidable(false)
+		current_turret.set_built_visual(false)
 		current_turret.global_position = get_global_mouse_position()
 		turret_spawned.emit(current_turret)
 	
@@ -47,7 +48,7 @@ func _physics_process(_delta: float) -> void:
 
 	if Input.is_action_just_released("add turret"):
 		if current_turret != null:
-			current_turret.set_collidable(true)
+			current_turret.build()
 			current_turret = null
 		
 
