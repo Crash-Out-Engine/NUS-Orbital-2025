@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bbtrde7tvkisy"]
+[gd_scene load_steps=17 format=3 uid="uid://bbtrde7tvkisy"]
 
 [ext_resource type="PackedScene" uid="uid://ytw0s5xnqwvt" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://d2o1hku0svi7t" path="res://scripts/game.gd" id="1_yqjtg"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://dixn701xl56vv" path="res://scripts/spawner.gd" id="5_iywne"]
 [ext_resource type="Script" uid="uid://bcocptbr3821k" path="res://scripts/pause_menu.gd" id="5_p57ef"]
 [ext_resource type="Script" uid="uid://brohp3alww54k" path="res://scripts/ui.gd" id="5_u5sy4"]
+[ext_resource type="Script" uid="uid://fgcioam4v36c" path="res://scripts/inventory.gd" id="8_kvpfn"]
 [ext_resource type="Texture2D" uid="uid://b6pmnbom60pi5" path="res://assets/tilesheets/tilesheet_alt.png" id="8_vtaks"]
 [ext_resource type="Script" uid="uid://6avt386x6skk" path="res://scripts/chunk_tile_map.gd" id="9_vtaks"]
 [ext_resource type="Script" uid="uid://dlfl58jvcogf5" path="res://scripts/chunk_debug.gd" id="10_vtaks"]
@@ -102,13 +103,46 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Restart"
 
-[node name="HealthBar" type="ProgressBar" parent="UI" node_paths=PackedStringArray("player")]
+[node name="HUD" type="Control" parent="UI"]
+custom_minimum_size = Vector2(1152, 648)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HealthBar" type="ProgressBar" parent="UI/HUD" node_paths=PackedStringArray("player")]
 offset_right = 498.0
 offset_bottom = 27.0
 show_percentage = false
 script = ExtResource("3_lnu2h")
-player = NodePath("../../EntityContainer/Player")
+player = NodePath("../../../EntityContainer/Player")
 metadata/_edit_use_anchors_ = true
+
+[node name="Inventory" type="Control" parent="UI"]
+custom_minimum_size = Vector2(1152, 648)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("8_kvpfn")
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/Inventory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+offset_top = 48.0
+offset_right = -64.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="UI/Inventory/PanelContainer"]
+layout_mode = 2
+text = "THIS IS AN INVENTORY PLACEHOLDER"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ChunkTileMap" type="TileMapLayer" parent="."]
 z_index = -100
