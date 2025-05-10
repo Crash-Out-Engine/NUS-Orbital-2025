@@ -2,10 +2,12 @@ class_name RangedAI extends RangedBase
 
 var _bullet_scene = preload("res://scenes/bullet.tscn")
 
-@onready var gun_anim = $GunSprite
+var has_gun_anim
 
 func _ready() -> void:
-	bullet_spawned.connect(animate_fire)
+	has_gun_anim = has_node('GunSprite')
+	if(has_gun_anim):
+		bullet_spawned.connect(animate_fire)
 
 func _physics_process(_delta: float) -> void:
 	if !active or !ranged_cooldown.can_ranged():
@@ -18,9 +20,9 @@ func _physics_process(_delta: float) -> void:
 	var target = target_provider.get_target(get_parent().global_position, team)
 	if target == null:
 		return
-	
-	look_at(target.global_position)
-	gun_anim.flip_v = target.global_position < global_position
+	if(has_gun_anim):
+		look_at(target.global_position)
+		$GunSprite.flip_v = target.global_position < global_position
 	
 	var bullet: Bullet = _bullet_scene.instantiate()
 	bullet.effects.assign(
@@ -38,5 +40,5 @@ func _physics_process(_delta: float) -> void:
 	bullet_spawned.emit(bullet)
 
 func animate_fire(_bullet):
-	gun_anim.sprite_frames.set_animation_speed("fire", 4.0 / ranged_cooldown.value)
-	gun_anim.play("fire")
+	$GunSprite.sprite_frames.set_animation_speed("fire", 4.0 / ranged_cooldown.value)
+	$GunSprite.play("fire")
