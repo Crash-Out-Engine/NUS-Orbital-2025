@@ -15,6 +15,8 @@ signal turret_spawned(turret: Node2D)
 
 var current_turret = null
 
+const PICKUP_RANGE = 125
+
 func _ready() -> void:
 	health_changed.emit(1.0)
 	ranged.active = false
