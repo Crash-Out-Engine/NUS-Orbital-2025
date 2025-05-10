@@ -1,12 +1,16 @@
 extends StaticBody2D
 
+var turret_active
+
 func _ready() -> void:
 	$Ranged.active = false
+	turret_active = false
 	$BaseSprite.rotation = randf_range(0.0, 360.0)
 
 func build() -> void:
 	set_collidable(true)
 	$Ranged.active = true
+	turret_active = true
 	set_visual_modulate(1, 1, 1, 1)
 
 func set_collidable(value: bool) -> void:

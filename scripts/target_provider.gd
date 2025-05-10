@@ -32,7 +32,8 @@ func refresh() -> void:
 		.filter(func(entity):
 			return (entity is Node2D and
 				entity.get_node_or_null(^"TargetPriority") != null and
-				entity.get_node_or_null(^"TargetPriority").team != null
+				entity.get_node_or_null(^"TargetPriority").team != null and
+				(!"turret_active" in entity or entity.turret_active)
 				)
 			)
 		)
