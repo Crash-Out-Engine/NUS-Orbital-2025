@@ -7,13 +7,20 @@ func _ready() -> void:
 func build() -> void:
 	set_collidable(true)
 	$Ranged.active = true
-	set_built_visual(true)
+	set_visual_modulate(1, 1, 1, 1)
 
 func set_collidable(value: bool) -> void:
 	$CollisionShape2D.set_deferred("disabled", not value)
 
-func set_built_visual(value: bool) -> void:
-	$BaseSprite.self_modulate.a = 1 if value else 0.5
-	$BaseSprite.self_modulate.r = 1 if value else 0
-	$Ranged/GunSprite.self_modulate.a = 1 if value else 0.5
-	$Ranged/GunSprite.self_modulate.r = 1 if value else 0
+func set_visual_modulate(r: float, g: float, b: float, a: float) -> void:
+	$BaseSprite.self_modulate.r = r
+	$BaseSprite.self_modulate.g = g
+	$BaseSprite.self_modulate.b = b
+	$BaseSprite.self_modulate.a = a
+	$Ranged/GunSprite.self_modulate.r = r
+	$Ranged/GunSprite.self_modulate.g = g
+	$Ranged/GunSprite.self_modulate.b = b
+	$Ranged/GunSprite.self_modulate.a = a
+
+func is_overlapping() -> bool:
+	return $Area2D.get_overlapping_bodies().any(func (body): return body.get_node_or_null(^"Hitbox") != null)

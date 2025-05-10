@@ -40,17 +40,25 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("add turret"):
 		current_turret = turret_scene.instantiate()
 		current_turret.set_collidable(false)
-		current_turret.set_built_visual(false)
+		current_turret.set_visual_modulate(0, 1, 1, 0.5)
 		current_turret.global_position = get_global_mouse_position()
 		turret_spawned.emit(current_turret)
 	
 	if Input.is_action_pressed("add turret"):
 		if current_turret != null:
 			current_turret.global_position = get_global_mouse_position()
+			if(current_turret.is_overlapping()):
+				current_turret.set_visual_modulate(1, 0, 0, 0.5)
+			else:
+				current_turret.set_visual_modulate(0, 1, 1, 0.5)
+
 
 	if Input.is_action_just_released("add turret"):
 		if current_turret != null:
-			current_turret.build()
+			if(!current_turret.is_overlapping()):
+				current_turret.build()
+			else:
+				current_turret.queue_free()
 			current_turret = null
 		
 

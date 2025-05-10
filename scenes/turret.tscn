@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://iqyedsof74fp"]
+[gd_scene load_steps=17 format=3 uid="uid://iqyedsof74fp"]
 
 [ext_resource type="Script" uid="uid://d8jbrtwr3jw" path="res://scripts/turret.gd" id="1_x3mc5"]
 [ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox.gd" id="2_el7wl"]
@@ -60,6 +60,9 @@ animations = [{
 "speed": 0.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_tg0ex"]
+radius = 38.0132
+
 [node name="Turret" type="StaticBody2D" groups=["allies"]]
 script = ExtResource("1_x3mc5")
 
@@ -77,6 +80,7 @@ color = Color(0.343323, 0.123762, 4.81308e-08, 1)
 polygon = PackedVector2Array(-11.5454, -5.43999, -11.5454, 5.43999, 11.5454, 5.43999, 11.5454, -5.43999)
 
 [node name="BaseSprite" type="Sprite2D" parent="."]
+rotation = 5.35642
 scale = Vector2(2, 2)
 texture = ExtResource("8_0dv4j")
 hframes = 4
@@ -114,3 +118,9 @@ position = Vector2(26, 0)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_eo4u0")
 animation = &"idle"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 2)
+shape = SubResource("CircleShape2D_tg0ex")
