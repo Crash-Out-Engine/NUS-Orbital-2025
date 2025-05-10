@@ -13,12 +13,14 @@ signal vfx_emitted(Node2D)
 func _ready() -> void:
 	$Health.just_emptied.connect(die)
 	$Health.just_reduced.connect(bleed)
+	$BodySprite/FlamesSprite.play("default")
+	$BodySprite/LegsSprite.play("default")
 
 func _physics_process(_delta: float) -> void:
 	var target = null
 	target = target_provider.get_target(global_position, target_priority.team)
 	if target != null:
-		look_at(target.global_position)
+		$BodySprite.scale.x = 2 if target.global_position.x > global_position.x else -2
 
 func die():
 	queue_free()

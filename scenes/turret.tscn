@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/effectables/target_priority.gd" id="6_dirdf"]
 [ext_resource type="Script" uid="uid://qxcwl20lyaga" path="res://scripts/effect_mod.gd" id="6_mqfwu"]
 [ext_resource type="Resource" uid="uid://dl56w1h7wf83j" path="res://resources/effect_mods/base_damage.tres" id="7_mqfwu"]
-[ext_resource type="Texture2D" uid="uid://06sdtfwasbao" path="res://assets/sprites/Turret Sprites.png" id="8_0dv4j"]
+[ext_resource type="Texture2D" uid="uid://06sdtfwasbao" path="res://assets/sprites/turret_spritesheet.png" id="8_0dv4j"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0dv4j"]
 radius = 18.0278

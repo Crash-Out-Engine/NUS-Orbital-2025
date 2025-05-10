@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://kcqha4xx46r7"]
+[gd_scene load_steps=24 format=3 uid="uid://kcqha4xx46r7"]
 
 [ext_resource type="Script" uid="uid://b2oqcghmenmfd" path="res://scripts/enemy.gd" id="1_7p1mj"]
 [ext_resource type="Script" uid="uid://cndl5nak0qpxp" path="res://scripts/effectables/movement.gd" id="2_md0e3"]
 [ext_resource type="Resource" uid="uid://ccmxdw1jyhvcb" path="res://resources/target_provider.tres" id="2_w8i8w"]
 [ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox.gd" id="3_4ra3w"]
+[ext_resource type="Texture2D" uid="uid://csa25hojkjg65" path="res://assets/sprites/enemy_spritesheet.png" id="3_otmr2"]
 [ext_resource type="Script" uid="uid://bg2iinlcp53aa" path="res://scripts/effectables/health.gd" id="4_5uy6h"]
 [ext_resource type="Script" uid="uid://bx0i0x84j70ct" path="res://scripts/components/melee.gd" id="5_nenq2"]
 [ext_resource type="Script" uid="uid://cu55fh5hl5rxd" path="res://scripts/effectables/melee_cooldown.gd" id="6_nenq2"]
@@ -12,20 +13,108 @@
 [ext_resource type="Script" uid="uid://cwdm3dvyba0l3" path="res://scripts/effectables/ranged_cooldown.gd" id="9_ipns3"]
 [ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/effectables/target_priority.gd" id="11_w8i8w"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_wtq4b"]
+atlas = ExtResource("3_otmr2")
+region = Rect2(0, 0, 36, 36)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j0cyh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wtq4b")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g0wcc"]
+atlas = ExtResource("3_otmr2")
+region = Rect2(0, 36, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s1ycm"]
+atlas = ExtResource("3_otmr2")
+region = Rect2(36, 36, 36, 36)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_shcg2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g0wcc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s1ycm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ile5s"]
+atlas = ExtResource("3_otmr2")
+region = Rect2(0, 72, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1x4g4"]
+atlas = ExtResource("3_otmr2")
+region = Rect2(36, 72, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2pwtc"]
+atlas = ExtResource("3_otmr2")
+region = Rect2(72, 72, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rogs8"]
+atlas = ExtResource("3_otmr2")
+region = Rect2(108, 72, 36, 36)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wrm80"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ile5s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1x4g4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2pwtc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rogs8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_8qclf"]
-radius = 16.0312
+radius = 20.0
 
 [node name="Enemy" type="RigidBody2D" groups=["enemies"]]
+lock_rotation = true
 contact_monitor = true
 script = ExtResource("1_7p1mj")
 target_provider = ExtResource("2_w8i8w")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
+visible = false
 scale = Vector2(2.38374, 2.68171)
 color = Color(0.625677, 0, 0.0021088, 1)
 offset = Vector2(2.755, 0)
 antialiased = true
 polygon = PackedVector2Array(8, 0, -8, -8, -8, 8)
+
+[node name="BodySprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 10)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_j0cyh")
+
+[node name="FlamesSprite" type="AnimatedSprite2D" parent="BodySprite"]
+sprite_frames = SubResource("SpriteFrames_shcg2")
+frame_progress = 0.934823
+
+[node name="LegsSprite" type="AnimatedSprite2D" parent="BodySprite"]
+sprite_frames = SubResource("SpriteFrames_wrm80")
+frame_progress = 0.896492
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_8qclf")

@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cqq2h867dq6v3"]
+[gd_scene load_steps=6 format=3 uid="uid://cqq2h867dq6v3"]
 
 [ext_resource type="Script" uid="uid://byjtyhf2tnuyx" path="res://scripts/loot.gd" id="1_xofgn"]
+[ext_resource type="Texture2D" uid="uid://b2tks1tuu2rsb" path="res://assets/sprites/loot_spritesheet.png" id="2_o0pg5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5os5r"]
-radius = 8.0
+radius = 6.0
 
 [sub_resource type="Gradient" id="Gradient_xofgn"]
 offsets = PackedFloat32Array(0.676806, 0.703422)
@@ -23,10 +24,15 @@ script = ExtResource("1_xofgn")
 shape = SubResource("CircleShape2D_5os5r")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
+visible = false
 position = Vector2(-8, -8)
 scale = Vector2(0.25, 0.25)
 texture = SubResource("GradientTexture2D_o0pg5")
 polygon = PackedVector2Array(0, 0, 64, 0, 64, 64, 0, 64, 0, 0)
 uv = PackedVector2Array(8, 0, 0, 0, 16, 0, 16, 16, 0, 16, 0, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("2_o0pg5")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

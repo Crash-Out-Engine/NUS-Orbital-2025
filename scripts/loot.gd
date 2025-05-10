@@ -7,6 +7,9 @@ const SPEED = 800
 
 var _velocity := Vector2.ZERO
 
+func _ready() -> void:
+	rotation = randf_range(0.0, 360.0)
+
 func _physics_process(delta: float) -> void:
 	if(global_position.distance_to(player.global_position) <= player.PICKUP_RANGE):
 		var direction = global_position.angle_to_point(player.global_position)

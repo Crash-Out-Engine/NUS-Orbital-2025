@@ -9,8 +9,8 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	look_at(get_global_mouse_position())
-	gun_anim.flip_v = get_global_mouse_position() < global_position
-	gun_anim.offset.y = -1 if (get_global_mouse_position() < global_position) else 1
+	gun_anim.flip_v = get_global_mouse_position().x < global_position.x
+	gun_anim.offset.y = -1 if (get_global_mouse_position().x < global_position.x) else 1
 	
 	if !active or !ranged_cooldown.can_ranged():
 		return

@@ -2,6 +2,10 @@ class_name Player extends CharacterBody2D
 
 var turret_scene = preload("res://scenes/turret.tscn")
 
+const GUN_ITEM = 0
+const WRENCH_ITEM = 1
+var held_item = GUN_ITEM
+
 var direction: Callable = func(_delta: float) -> Vector2:
 	return Vector2(
 		Input.get_axis("left", "right"),
@@ -33,11 +37,15 @@ func _process(_delta: float) -> void:
 
 func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("shoot"):
-		ranged.active = true
+		if(held_item == GUN_ITEM):
+			ranged.active = true
+	
 	if Input.is_action_just_released("shoot"):
 		ranged.active = false
 	
 	if Input.is_action_just_pressed("add turret"):
+		held_item = WRENCH_ITEM
+		$Ranged/GunSprite.play("wrench")
 		current_turret = turret_scene.instantiate()
 		current_turret.set_collidable(false)
 		current_turret.set_visual_modulate(0, 1, 1, 0.5)
@@ -60,12 +68,15 @@ func _physics_process(_delta: float) -> void:
 			else:
 				current_turret.queue_free()
 			current_turret = null
+		held_item = GUN_ITEM
+		$Ranged/GunSprite.play("idle")
+
 		
 
 func _on_health_just_emptied() -> void:
 	print("died")
 	get_tree().reload_current_scene()
-	
+
 signal health_changed(new_ratio: float)
 func _on_health_just_changed(_old_value: float, new_value: float) -> void:
 	health_changed.emit(new_value / $Health.health_capacity)
