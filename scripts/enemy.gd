@@ -1,8 +1,8 @@
 extends RigidBody2D
 
-var explosion_scene = preload("res://scenes/explosion.tscn")
+#var explosion_scene = preload("res://scenes/explosion.tscn")
 var loot_scene = preload("res://scenes/loot.tscn")
-
+@onready var timer: Timer = $Timer
 @onready var ranged: RangedAI = $Ranged
 @onready var target_priority: TargetPriority = $TargetPriority
 
@@ -23,21 +23,26 @@ func _physics_process(_delta: float) -> void:
 		$BodySprite.scale.x = 2 if target.global_position.x > global_position.x else -2
 
 func die():
+	$BodySprite.modulate.v = 100000000
 	queue_free()
 	
-	var explosion = explosion_scene.instantiate()
-	explosion.global_position = global_position
-	explosion.emitting = true
-	explosion.lifetime = randf_range(0.5, 0.7)
-	vfx_emitted.emit(explosion)
+	#var explosion = explosion_scene.instantiate()
+	#explosion.global_position = global_position
+	#explosion.emitting = true
+	#explosion.lifetime = randf_range(0.5, 0.7)
+	#vfx_emitted.emit(explosion)
 	
 	var loot = loot_scene.instantiate()
 	loot.global_position = global_position
 	vfx_emitted.emit(loot)
 		
-func bleed(amount: float):
-	var explosion = explosion_scene.instantiate()
-	explosion.global_position = global_position
-	explosion.emitting = true
-	explosion.lifetime = 0.1 + randf_range(0.2, 0.5) * (amount / $Health.health_capacity)
-	vfx_emitted.emit(explosion)
+
+func bleed(_amount: float):
+	$BodySprite.modulate.v = 100000000
+	await get_tree().create_timer(0.12).timeout
+	$BodySprite.modulate.v = 1
+	#var explosion = explosion_scene.instantiate()
+	#explosion.global_position = global_position
+	#explosion.emitting = true
+	#explosion.lifetime = 0.1 + randf_range(0.2, 0.5) * (amount / $Health.health_capacity)
+	#vfx_emitted.emit(explosion)

@@ -1,8 +1,12 @@
 class_name Bullet extends Area2D
 
+var explosion_scene = preload("res://scenes/bullet_explosion.tscn")
+
 const SPEED = 700
 
 var direction: float
+
+signal vfx_emitted(Node2D)
 
 var team: String
 
@@ -20,4 +24,8 @@ func _on_body_entered(body: Node2D) -> void:
 	if body.get_node_or_null(^"./Hitbox") != null and not body.is_in_group(team): # TODO: Don't rely on godot groups
 		for effect in effects:
 			body.get_node_or_null(^"./Hitbox").trigger(effect)
+		var explosion = explosion_scene.instantiate()
+		explosion.global_position = global_position
+		explosion.explode()
+		vfx_emitted.emit(explosion)
 		queue_free()

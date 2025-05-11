@@ -111,6 +111,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="HealthBar" type="ProgressBar" parent="UI/HUD" node_paths=PackedStringArray("player")]
+layout_mode = 0
 offset_right = 498.0
 offset_bottom = 27.0
 show_percentage = false

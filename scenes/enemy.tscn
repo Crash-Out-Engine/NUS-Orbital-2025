@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://kcqha4xx46r7"]
+[gd_scene load_steps=28 format=3 uid="uid://kcqha4xx46r7"]
 
 [ext_resource type="Script" uid="uid://b2oqcghmenmfd" path="res://scripts/enemy.gd" id="1_7p1mj"]
 [ext_resource type="Script" uid="uid://cndl5nak0qpxp" path="res://scripts/effectables/movement.gd" id="2_md0e3"]
@@ -28,6 +28,8 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g0wcc"]
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_g0wcc"]
 atlas = ExtResource("3_otmr2")
 region = Rect2(0, 36, 36, 36)
@@ -49,6 +51,8 @@ animations = [{
 "name": &"default",
 "speed": 15.0
 }]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s1ycm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ile5s"]
 atlas = ExtResource("3_otmr2")
@@ -86,6 +90,14 @@ animations = [{
 "speed": 1.0
 }]
 
+[sub_resource type="Animation" id="Animation_otmr2"]
+resource_name = "bleed"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wtq4b"]
+_data = {
+&"bleed": SubResource("Animation_otmr2")
+}
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_8qclf"]
 radius = 20.0
 
@@ -109,12 +121,21 @@ scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_j0cyh")
 
 [node name="FlamesSprite" type="AnimatedSprite2D" parent="BodySprite"]
+material = SubResource("ShaderMaterial_g0wcc")
+use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_shcg2")
 frame_progress = 0.934823
 
 [node name="LegsSprite" type="AnimatedSprite2D" parent="BodySprite"]
+material = SubResource("ShaderMaterial_s1ycm")
+use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_wrm80")
 frame_progress = 0.896492
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BodySprite"]
+libraries = {
+&"": SubResource("AnimationLibrary_wtq4b")
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_8qclf")
@@ -157,3 +178,5 @@ ranged_cooldown = 1.5
 [node name="TargetPriority" type="Node" parent="."]
 script = ExtResource("11_w8i8w")
 team = "enemies"
+
+[node name="Timer" type="Timer" parent="."]
