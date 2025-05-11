@@ -5,6 +5,7 @@ var loot_scene = preload("res://scenes/loot.tscn")
 @onready var timer: Timer = $Timer
 @onready var ranged: RangedAI = $Ranged
 @onready var target_priority: TargetPriority = $TargetPriority
+@onready var body_sprite = $BodySprite
 
 @export var target_provider := load("res://resources/target_provider.tres") as TargetProvider
 
@@ -40,13 +41,13 @@ func die():
 	vfx_emitted.emit(loot)
 
 func _process(delta: float) -> void:
-	if($BodySprite.modulate.v > 1):
-		$BodySprite.modulate.v -= V_MODULATE * delta / BLEED_TIME
-		if($BodySprite.modulate.v <= 1):
-			$BodySprite.modulate.v = 1
+	if(body_sprite.modulate.v > 1):
+		body_sprite.modulate.v -= V_MODULATE * delta / BLEED_TIME
+		if(body_sprite.modulate.v <= 1):
+			body_sprite.modulate.v = 1
 
 func bleed(_amount: float):
-	$BodySprite.modulate.v = V_MODULATE
+	body_sprite.modulate.v = V_MODULATE
 	#var explosion = explosion_scene.instantiate()
 	#explosion.global_position = global_position
 	#explosion.emitting = true

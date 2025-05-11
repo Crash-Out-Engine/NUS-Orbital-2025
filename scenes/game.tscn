@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bbtrde7tvkisy"]
+[gd_scene load_steps=20 format=3 uid="uid://bbtrde7tvkisy"]
 
 [ext_resource type="PackedScene" uid="uid://ytw0s5xnqwvt" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://d2o1hku0svi7t" path="res://scripts/game.gd" id="1_yqjtg"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://dixn701xl56vv" path="res://scripts/spawner.gd" id="5_iywne"]
 [ext_resource type="Script" uid="uid://bcocptbr3821k" path="res://scripts/pause_menu.gd" id="5_p57ef"]
 [ext_resource type="Script" uid="uid://brohp3alww54k" path="res://scripts/ui.gd" id="5_u5sy4"]
+[ext_resource type="Texture2D" uid="uid://brlj7tpqcwcbt" path="res://assets/sprites/ui_spritesheet.png" id="7_dinhu"]
 [ext_resource type="Script" uid="uid://fgcioam4v36c" path="res://scripts/inventory.gd" id="8_kvpfn"]
 [ext_resource type="Texture2D" uid="uid://b6pmnbom60pi5" path="res://assets/tilesheets/tilesheet_alt.png" id="8_vtaks"]
 [ext_resource type="Script" uid="uid://6avt386x6skk" path="res://scripts/chunk_tile_map.gd" id="9_vtaks"]
@@ -17,6 +18,14 @@ background_mode = 3
 glow_enabled = true
 glow_blend_mode = 0
 glow_hdr_threshold = 0.93
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kvuet"]
+atlas = ExtResource("7_dinhu")
+region = Rect2(0, 0, 144, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_trtic"]
+atlas = ExtResource("7_dinhu")
+region = Rect2(144, 0, 144, 144)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kvpfn"]
 texture = ExtResource("8_vtaks")
@@ -110,11 +119,16 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="HealthBar" type="ProgressBar" parent="UI/HUD" node_paths=PackedStringArray("player")]
-layout_mode = 0
-offset_right = 498.0
+[node name="HealthBar" type="TextureProgressBar" parent="UI/HUD" node_paths=PackedStringArray("player")]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.125
+anchor_bottom = 0.180556
 offset_bottom = 27.0
-show_percentage = false
+value = 100.0
+fill_mode = 3
+texture_under = SubResource("AtlasTexture_kvuet")
+texture_progress = SubResource("AtlasTexture_trtic")
 script = ExtResource("3_lnu2h")
 player = NodePath("../../../EntityContainer/Player")
 metadata/_edit_use_anchors_ = true
