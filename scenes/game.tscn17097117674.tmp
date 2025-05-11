@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bbtrde7tvkisy"]
+[gd_scene load_steps=22 format=3 uid="uid://bbtrde7tvkisy"]
 
 [ext_resource type="PackedScene" uid="uid://ytw0s5xnqwvt" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://d2o1hku0svi7t" path="res://scripts/game.gd" id="1_yqjtg"]
@@ -12,7 +12,6 @@
 [ext_resource type="FontFile" uid="uid://cj53anigafm5t" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="9_kvuet"]
 [ext_resource type="Script" uid="uid://6avt386x6skk" path="res://scripts/chunk_tile_map.gd" id="9_vtaks"]
 [ext_resource type="Texture2D" uid="uid://0s5snf5jmy5j" path="res://assets/tilesheets/tilesheet_v3.png" id="10_dinhu"]
-[ext_resource type="Script" uid="uid://00ptaqelvbr5" path="res://scripts/timer_label.gd" id="10_trtic"]
 [ext_resource type="Script" uid="uid://dlfl58jvcogf5" path="res://scripts/chunk_debug.gd" id="10_vtaks"]
 
 [sub_resource type="Environment" id="Environment_yqjtg"]
@@ -20,13 +19,6 @@ background_mode = 3
 glow_enabled = true
 glow_blend_mode = 0
 glow_hdr_threshold = 0.93
-
-[sub_resource type="LabelSettings" id="LabelSettings_ir15t"]
-font = ExtResource("9_kvuet")
-font_size = 48
-shadow_size = 8
-shadow_color = Color(0, 0, 0, 0.74902)
-shadow_offset = Vector2(2, 2)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kvuet"]
 atlas = ExtResource("7_dinhu")
@@ -38,10 +30,9 @@ region = Rect2(144, 0, 144, 144)
 
 [sub_resource type="LabelSettings" id="LabelSettings_trtic"]
 font = ExtResource("9_kvuet")
-font_size = 36
+font_size = 24
 shadow_size = 6
 shadow_color = Color(0, 0, 0, 0.74902)
-shadow_offset = Vector2(2, 2)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kvpfn"]
 texture = ExtResource("10_dinhu")
@@ -97,48 +88,6 @@ autostart = true
 process_mode = 3
 script = ExtResource("5_u5sy4")
 
-[node name="HUD" type="Control" parent="UI"]
-custom_minimum_size = Vector2(1152, 648)
-layout_mode = 3
-anchors_preset = 0
-offset_right = 1152.0
-offset_bottom = 648.0
-
-[node name="TimerLabel" type="Label" parent="UI/HUD"]
-layout_mode = 0
-offset_right = 113.0
-offset_bottom = 43.0
-text = "0:00"
-label_settings = SubResource("LabelSettings_ir15t")
-horizontal_alignment = 1
-vertical_alignment = 1
-script = ExtResource("10_trtic")
-
-[node name="HealthBar" type="TextureProgressBar" parent="UI/HUD" node_paths=PackedStringArray("player")]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.125
-anchor_bottom = 0.180556
-offset_bottom = 27.0
-value = 100.0
-fill_mode = 3
-texture_under = SubResource("AtlasTexture_kvuet")
-texture_progress = SubResource("AtlasTexture_trtic")
-script = ExtResource("3_lnu2h")
-player = NodePath("../../../EntityContainer/Player")
-metadata/_edit_use_anchors_ = true
-
-[node name="Label" type="Label" parent="UI/HUD/HealthBar"]
-layout_mode = 0
-offset_left = 29.0
-offset_top = 51.0
-offset_right = 120.0
-offset_bottom = 88.0
-text = "fdsads"
-label_settings = SubResource("LabelSettings_trtic")
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="PauseMenu" type="Control" parent="UI"]
 process_mode = 2
 layout_mode = 3
@@ -173,12 +122,44 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Restart"
 
+[node name="HUD" type="Control" parent="UI"]
+custom_minimum_size = Vector2(1152, 648)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HealthBar" type="TextureProgressBar" parent="UI/HUD" node_paths=PackedStringArray("player")]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.125
+anchor_bottom = 0.180556
+offset_bottom = 27.0
+value = 100.0
+fill_mode = 3
+texture_under = SubResource("AtlasTexture_kvuet")
+texture_progress = SubResource("AtlasTexture_trtic")
+script = ExtResource("3_lnu2h")
+player = NodePath("../../../EntityContainer/Player")
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="UI/HUD/HealthBar"]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 51.0
+offset_right = 120.0
+offset_bottom = 88.0
+text = "fdsads"
+label_settings = SubResource("LabelSettings_trtic")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Inventory" type="Control" parent="UI"]
 custom_minimum_size = Vector2(1152, 648)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 1152.0
-offset_bottom = 648.0
+offset_right = 40.0
+offset_bottom = 40.0
 script = ExtResource("8_kvpfn")
 
 [node name="PanelContainer" type="PanelContainer" parent="UI/Inventory"]
@@ -210,6 +191,8 @@ curve = SubResource("Curve_kvpfn")
 [node name="ChunkDebug" type="Node2D" parent="ChunkTileMap"]
 z_index = 100
 script = ExtResource("10_vtaks")
+
+[node name="Timer" type="Timer" parent="."]
 
 [connection signal="child_entered_tree" from="EntityContainer" to="." method="_on_entities_child_entered_tree"]
 [connection signal="child_exiting_tree" from="EntityContainer" to="." method="_on_entities_child_exiting_tree"]
