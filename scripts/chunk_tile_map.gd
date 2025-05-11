@@ -10,6 +10,8 @@ var chunk_size := Vector2i(16, 16)
 
 var loaded_chunks: Array[Vector2i] = []
 
+const TILE_COUNT = 9
+
 var _prev_player_chunk_position: Vector2i = Vector2i.MIN
 func _process(_delta: float) -> void:
 	var player_chunk_position := floor(
@@ -34,7 +36,7 @@ func generate_chunk(at_chunk: Vector2i) -> void:
 					)
 				)
 			
-			var tile_value = floor((noise_value) * 6) as int
+			var tile_value = floor((noise_value) * TILE_COUNT) as int
 				
 			set_cell(tile_coords, 0, Vector2i(tile_value % 3, tile_value / 3))
 			loaded_chunks.append(at_chunk)

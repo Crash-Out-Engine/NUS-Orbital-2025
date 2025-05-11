@@ -9,8 +9,8 @@
 [ext_resource type="Script" uid="uid://brohp3alww54k" path="res://scripts/ui.gd" id="5_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://brlj7tpqcwcbt" path="res://assets/sprites/ui_spritesheet.png" id="7_dinhu"]
 [ext_resource type="Script" uid="uid://fgcioam4v36c" path="res://scripts/inventory.gd" id="8_kvpfn"]
-[ext_resource type="Texture2D" uid="uid://b6pmnbom60pi5" path="res://assets/tilesheets/tilesheet_alt.png" id="8_vtaks"]
 [ext_resource type="Script" uid="uid://6avt386x6skk" path="res://scripts/chunk_tile_map.gd" id="9_vtaks"]
+[ext_resource type="Texture2D" uid="uid://0s5snf5jmy5j" path="res://assets/tilesheets/tilesheet_v3.png" id="10_dinhu"]
 [ext_resource type="Script" uid="uid://dlfl58jvcogf5" path="res://scripts/chunk_debug.gd" id="10_vtaks"]
 
 [sub_resource type="Environment" id="Environment_yqjtg"]
@@ -28,17 +28,20 @@ atlas = ExtResource("7_dinhu")
 region = Rect2(144, 0, 144, 144)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kvpfn"]
-texture = ExtResource("8_vtaks")
-texture_region_size = Vector2i(128, 128)
+texture = ExtResource("10_dinhu")
+texture_region_size = Vector2i(144, 144)
 0:0/0 = 0
 1:0/0 = 0
 0:1/0 = 0
 1:1/0 = 0
 2:0/0 = 0
 2:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_dinhu"]
-tile_size = Vector2i(128, 128)
+tile_size = Vector2i(144, 144)
 sources/0 = SubResource("TileSetAtlasSource_kvpfn")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_vtaks"]
@@ -161,6 +164,7 @@ vertical_alignment = 1
 
 [node name="ChunkTileMap" type="TileMapLayer" parent="."]
 z_index = -100
+tile_map_data = PackedByteArray(0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 255, 255, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0)
 tile_set = SubResource("TileSet_dinhu")
 script = ExtResource("9_vtaks")
 noise = SubResource("FastNoiseLite_vtaks")
