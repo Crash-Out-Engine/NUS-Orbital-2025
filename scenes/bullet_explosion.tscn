@@ -50,7 +50,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"default",
-"speed": 12.0
+"speed": 30.0
 }]
 
 [node name="BulletExplosion" type="AnimatedSprite2D"]

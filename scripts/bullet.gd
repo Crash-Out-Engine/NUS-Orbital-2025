@@ -6,8 +6,6 @@ const SPEED = 700
 
 var direction: float
 
-signal vfx_emitted(Node2D)
-
 var team: String
 
 var effects: Array[Effect] = []
@@ -26,6 +24,6 @@ func _on_body_entered(body: Node2D) -> void:
 			body.get_node_or_null(^"./Hitbox").trigger(effect)
 		var explosion = explosion_scene.instantiate()
 		explosion.global_position = global_position
+		get_parent().add_child(explosion)
 		explosion.explode()
-		vfx_emitted.emit(explosion)
 		queue_free()
