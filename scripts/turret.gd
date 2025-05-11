@@ -2,6 +2,9 @@ extends StaticBody2D
 
 var turret_active
 
+const BLEED_TIME = 0.125
+const V_MODULATE = 100000000
+
 func _ready() -> void:
 	$Ranged.active = false
 	turret_active = false
@@ -28,3 +31,12 @@ func set_visual_modulate(r: float, g: float, b: float, a: float) -> void:
 
 func is_overlapping() -> bool:
 	return $Area2D.get_overlapping_bodies().any(func (body): return body.get_node_or_null(^"Hitbox") != null)
+
+func _process(delta: float) -> void:
+	if($BodySprite.modulate.v > 1):
+		$BodySprite.modulate.v -= V_MODULATE * delta / BLEED_TIME
+		if($BodySprite.modulate.v <= 1):
+			$BodySprite.modulate.v = 1
+
+func bleed(_amount: float):
+	$BodySprite.modulate.v = V_MODULATE

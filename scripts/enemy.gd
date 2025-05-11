@@ -10,6 +10,9 @@ var loot_scene = preload("res://scenes/loot.tscn")
 
 signal vfx_emitted(Node2D)
 
+const BLEED_TIME = 0.125
+const V_MODULATE = 100000000
+
 func _ready() -> void:
 	$Health.just_emptied.connect(die)
 	$Health.just_reduced.connect(bleed)
@@ -23,7 +26,7 @@ func _physics_process(_delta: float) -> void:
 		$BodySprite.scale.x = 2 if target.global_position.x > global_position.x else -2
 
 func die():
-	$BodySprite.modulate.v = 100000000
+	$BodySprite.modulate.v = V_MODULATE
 	queue_free()
 	
 	#var explosion = explosion_scene.instantiate()
@@ -35,12 +38,15 @@ func die():
 	var loot = loot_scene.instantiate()
 	loot.global_position = global_position
 	vfx_emitted.emit(loot)
-		
+
+func _process(delta: float) -> void:
+	if($BodySprite.modulate.v > 1):
+		$BodySprite.modulate.v -= V_MODULATE * delta / BLEED_TIME
+		if($BodySprite.modulate.v <= 1):
+			$BodySprite.modulate.v = 1
 
 func bleed(_amount: float):
-	$BodySprite.modulate.v = 100000000
-	await get_tree().create_timer(0.12).timeout
-	$BodySprite.modulate.v = 1
+	$BodySprite.modulate.v = V_MODULATE
 	#var explosion = explosion_scene.instantiate()
 	#explosion.global_position = global_position
 	#explosion.emitting = true
