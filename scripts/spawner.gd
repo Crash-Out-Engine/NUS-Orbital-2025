@@ -6,6 +6,8 @@ extends Node2D
 
 var enemy_scene = preload("res://scenes/enemy.tscn")
 
+
+
 func _on_spawn_timer_timeout() -> void:
 	if active:
 		var enemy = enemy_scene.instantiate()
@@ -16,3 +18,5 @@ func _on_spawn_timer_timeout() -> void:
 #		enemy.look_at(player.global_position)
 		get_parent().add_entity(enemy)
 		enemy.vfx_emitted.connect(get_parent().add_misc)
+	
+	
