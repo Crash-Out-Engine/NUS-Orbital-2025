@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bbtrde7tvkisy"]
+[gd_scene load_steps=26 format=3 uid="uid://bbtrde7tvkisy"]
 
 [ext_resource type="PackedScene" uid="uid://ytw0s5xnqwvt" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://d2o1hku0svi7t" path="res://scripts/game.gd" id="1_yqjtg"]
@@ -14,6 +14,8 @@
 [ext_resource type="Texture2D" uid="uid://0s5snf5jmy5j" path="res://assets/tilesheets/tilesheet_v3.png" id="10_dinhu"]
 [ext_resource type="Script" uid="uid://00ptaqelvbr5" path="res://scripts/timer_label.gd" id="10_trtic"]
 [ext_resource type="Script" uid="uid://dlfl58jvcogf5" path="res://scripts/chunk_debug.gd" id="10_vtaks"]
+[ext_resource type="AudioStream" uid="uid://d0bs4frau5lf8" path="res://assets/audio/sound_effects/pause_sound.wav" id="11_ca42v"]
+[ext_resource type="AudioStream" uid="uid://c3lyo02lbnyxw" path="res://assets/audio/songs/8_bit_mimic.wav" id="15_ir15t"]
 
 [sub_resource type="Environment" id="Environment_yqjtg"]
 background_mode = 3
@@ -173,6 +175,9 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Restart"
 
+[node name="PauseSound" type="AudioStreamPlayer" parent="UI/PauseMenu"]
+stream = ExtResource("11_ca42v")
+
 [node name="Inventory" type="Control" parent="UI"]
 custom_minimum_size = Vector2(1152, 648)
 layout_mode = 3
@@ -209,6 +214,10 @@ curve = SubResource("Curve_kvpfn")
 [node name="ChunkDebug" type="Node2D" parent="ChunkTileMap"]
 z_index = 100
 script = ExtResource("10_vtaks")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_ir15t")
+autoplay = true
 
 [connection signal="child_entered_tree" from="EntityContainer" to="." method="_on_entities_child_entered_tree"]
 [connection signal="child_exiting_tree" from="EntityContainer" to="." method="_on_entities_child_exiting_tree"]

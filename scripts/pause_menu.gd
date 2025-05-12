@@ -8,6 +8,7 @@ func resume():
 	get_tree().paused = false
 	
 func pause():
+	$PauseSound.play()
 	get_tree().paused = true
 	visible = true
 
