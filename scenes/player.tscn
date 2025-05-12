@@ -202,7 +202,7 @@ metadata/_custom_type_script = "uid://wwqkkrfhwiyn"
 
 [node name="RangedCooldown" type="Node" parent="."]
 script = ExtResource("6_tuyoq")
-ranged_cooldown = 1.0
+ranged_cooldown = 0.2
 
 [node name="TargetPriority" type="Node" parent="."]
 script = ExtResource("7_fjrip")
