@@ -11,7 +11,7 @@ var loot_scene = preload("res://scenes/loot.tscn")
 
 signal vfx_emitted(Node2D)
 
-const BLEED_TIME = 0.125
+const BLEED_TIME = 0.04
 const V_MODULATE = 100000000
 
 func _ready() -> void:
