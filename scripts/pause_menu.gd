@@ -9,11 +9,8 @@ extends Control
 
 func _ready() -> void:
 	visible = get_tree().paused
-	master_vol_slider.value_changed.connect(_on_master_volume_slider_value_changed)
 	master_vol_slider.value = db_to_linear(AudioServer.get_bus_volume_db(master_bus))
-	music_vol_slider.value_changed.connect(_on_music_volume_slider_value_changed)
 	music_vol_slider.value = db_to_linear(AudioServer.get_bus_volume_db(music_bus))
-	sfx_vol_slider.value_changed.connect(_on_sfx_volume_slider_value_changed)
 	sfx_vol_slider.value = db_to_linear(AudioServer.get_bus_volume_db(sfx_bus))
 
 func resume():
@@ -35,11 +32,9 @@ func try_esc():
 		resume()
 
 func _on_resume_pressed() -> void:
-	print("resume")
 	resume()
 
 func _on_restart_pressed() -> void:	
-	print("restart")
 	resume()
 	restart()
 

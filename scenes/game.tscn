@@ -224,6 +224,7 @@ value = 1.0
 
 [node name="PauseSound" type="AudioStreamPlayer" parent="UI/PauseMenu"]
 stream = ExtResource("11_ca42v")
+bus = &"SFX"
 
 [node name="Inventory" type="Control" parent="UI"]
 visible = false
