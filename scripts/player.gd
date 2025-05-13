@@ -72,6 +72,7 @@ func _physics_process(_delta: float) -> void:
 		current_turret.set_collidable(false)
 		current_turret.set_visual_modulate(0, 1, 1, 0.5)
 		current_turret.global_position = get_global_mouse_position()
+		current_turret.player = self
 		turret_spawned.emit(current_turret)
 	
 	if Input.is_action_pressed("add turret"):
@@ -88,7 +89,7 @@ func _physics_process(_delta: float) -> void:
 				current_turret.build()
 				scrap -= turret_cost
 				turrets_placed += 1
-				turret_cost += (turrets_placed + 1) * 5
+				turret_cost = (turrets_placed + 1) * turrets_placed * 5 / 2
 				scrap_changed.emit()
 			else:
 				$ErrorSound.play()

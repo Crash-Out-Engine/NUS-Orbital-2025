@@ -1,8 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://iqyedsof74fp"]
+[gd_scene load_steps=19 format=3 uid="uid://iqyedsof74fp"]
 
 [ext_resource type="Script" uid="uid://d8jbrtwr3jw" path="res://scripts/turret.gd" id="1_x3mc5"]
 [ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox.gd" id="2_el7wl"]
 [ext_resource type="Script" uid="uid://cwdm3dvyba0l3" path="res://scripts/effectables/ranged_cooldown.gd" id="3_pp6j5"]
+[ext_resource type="Script" uid="uid://bg2iinlcp53aa" path="res://scripts/effectables/health.gd" id="4_eo4u0"]
 [ext_resource type="Script" uid="uid://bhi7w6ril3da2" path="res://scripts/components/ranged_AI.gd" id="5_mqfwu"]
 [ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/effectables/target_priority.gd" id="6_dirdf"]
 [ext_resource type="Script" uid="uid://qxcwl20lyaga" path="res://scripts/effect_mod.gd" id="6_mqfwu"]
@@ -94,6 +95,11 @@ shape = SubResource("CircleShape2D_0dv4j")
 [node name="Hitbox" type="Node" parent="."]
 script = ExtResource("2_el7wl")
 metadata/_custom_type_script = "uid://wwqkkrfhwiyn"
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("4_eo4u0")
+health_capacity = 200.0
+metadata/_custom_type_script = "uid://bg2iinlcp53aa"
 
 [node name="RangedCooldown" type="Node" parent="."]
 script = ExtResource("3_pp6j5")

@@ -2,6 +2,7 @@ extends StaticBody2D
 
 var turret_active
 @onready var body_sprite = $Ranged/GunSprite
+var player: Player
 
 const BLEED_TIME = 0.125
 const V_MODULATE = 100000000
@@ -10,6 +11,8 @@ func _ready() -> void:
 	$Ranged.active = false
 	turret_active = false
 	$BaseSprite.rotation = randf_range(0.0, 360.0)
+	$Health.just_emptied.connect(die)
+	$Health.just_reduced.connect(bleed)
 
 func build() -> void:
 	set_collidable(true)
@@ -38,6 +41,12 @@ func _process(delta: float) -> void:
 		body_sprite.modulate.v -= V_MODULATE * delta / BLEED_TIME
 		if(body_sprite.modulate.v <= 1):
 			body_sprite.modulate.v = 1
+
+func die():
+	body_sprite.modulate.v = V_MODULATE
+	if(player != null):
+		player.turrets_placed -= 1
+	queue_free()
 
 func bleed(_amount: float):
 	body_sprite.modulate.v = V_MODULATE
