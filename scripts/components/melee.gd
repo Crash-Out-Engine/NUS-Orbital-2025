@@ -20,4 +20,5 @@ func _physics_process(_delta: float) -> void:
 				not collider.is_in_group(team) and  # TODO: Don't rely on godot groups
 				collider.get_node_or_null(^"./Hitbox") != null and 
 				melee_cooldown.try_melee()):
-			collider.get_node_or_null(^"./Hitbox").trigger(melee_damage.get_effect())
+			collider.get_node_or_null(^"./Hitbox").trigger(melee_damage.get_effect(), get_parent())
+			$HitSound.play()

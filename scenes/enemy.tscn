@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://kcqha4xx46r7"]
+[gd_scene load_steps=29 format=3 uid="uid://kcqha4xx46r7"]
 
 [ext_resource type="Script" uid="uid://b2oqcghmenmfd" path="res://scripts/enemy.gd" id="1_7p1mj"]
 [ext_resource type="Script" uid="uid://cndl5nak0qpxp" path="res://scripts/effectables/movement.gd" id="2_md0e3"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://csa25hojkjg65" path="res://assets/sprites/enemy_spritesheet.png" id="3_otmr2"]
 [ext_resource type="Script" uid="uid://bg2iinlcp53aa" path="res://scripts/effectables/health.gd" id="4_5uy6h"]
 [ext_resource type="Script" uid="uid://bx0i0x84j70ct" path="res://scripts/components/melee.gd" id="5_nenq2"]
+[ext_resource type="AudioStream" uid="uid://dn6k75a1tyl8k" path="res://assets/audio/sound_effects/hit_sound.wav" id="5_wtq4b"]
 [ext_resource type="Script" uid="uid://cu55fh5hl5rxd" path="res://scripts/effectables/melee_cooldown.gd" id="6_nenq2"]
 [ext_resource type="Script" uid="uid://dve6ix5ogwfw" path="res://scripts/effectables/melee_damage.gd" id="7_ipns3"]
 [ext_resource type="Script" uid="uid://bhi7w6ril3da2" path="res://scripts/components/ranged_AI.gd" id="8_8qclf"]
@@ -147,6 +148,10 @@ script = ExtResource("5_nenq2")
 melee_cooldown = NodePath("../MeleeCooldown")
 melee_damage = NodePath("../MeleeDamage")
 metadata/_custom_type_script = "uid://bx0i0x84j70ct"
+
+[node name="HitSound" type="AudioStreamPlayer" parent="Melee"]
+stream = ExtResource("5_wtq4b")
+bus = &"SFX"
 
 [node name="Movement" type="Node" parent="."]
 script = ExtResource("2_md0e3")

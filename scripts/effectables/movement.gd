@@ -21,7 +21,7 @@ func _physics_process(delta: float) -> void:
 	
 	if is_player:
 		var parent: CharacterBody2D = get_parent()
-		parent.velocity = parent.direction.call(delta).normalized() * value
+		parent.velocity = parent.direction.call(delta).normalized() * value + parent.knockback * parent.knockback_direction
 		parent.move_and_collide(parent.velocity * delta)
 	
 	else:

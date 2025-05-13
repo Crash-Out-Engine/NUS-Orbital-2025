@@ -4,6 +4,8 @@ var turret_scene = preload("res://scenes/turret.tscn")
 
 const GUN_ITEM = 0
 const WRENCH_ITEM = 1
+const V_MODULATE = 100000000
+const BLEED_TIME = 2.0/30.0
 var held_item = GUN_ITEM
 
 var direction: Callable = func(_delta: float) -> Vector2:
@@ -11,6 +13,11 @@ var direction: Callable = func(_delta: float) -> Vector2:
 		Input.get_axis("left", "right"),
 		Input.get_axis("up", "down")
 		)
+
+var knockback = 0.0
+var knockback_direction = Vector2(0, 0)
+const KNOCKBACK_DURATION = 0.5
+const KNOCKBACK_AMOUNT = 800.0
 
 @onready var anim = $PlayerSprite
 @onready var ranged = $Ranged
@@ -25,8 +32,9 @@ const PICKUP_RANGE = 125
 func _ready() -> void:
 	health_changed.emit(1.0)
 	ranged.active = false
+	$Health.just_reduced.connect(bleed)
 	
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	var horizontal_dir = Input.get_axis("left", "right")
 	if horizontal_dir != 0:
 		anim.flip_h = horizontal_dir < 0
@@ -37,7 +45,14 @@ func _process(_delta: float) -> void:
 	else:
 		anim.play("idle")
 		footstep_sounds.stop()
-	
+	if knockback > 0:
+		knockback -= KNOCKBACK_AMOUNT * delta/KNOCKBACK_DURATION
+	elif knockback < 0:
+		knockback = 0
+	if(anim.modulate.v > 1):
+		anim.modulate.v -= V_MODULATE * delta / BLEED_TIME
+		if(anim.modulate.v <= 1):
+			anim.modulate.v = 1
 
 func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("shoot"):
@@ -88,3 +103,10 @@ func _on_health_just_changed(_old_value: float, new_value: float) -> void:
 
 func get_health() -> int:
 	return $Health.value
+
+func get_knockedback(source: Node2D) -> void:
+	knockback_direction = (global_position - source.global_position).normalized()
+	knockback = KNOCKBACK_AMOUNT
+	
+func bleed(_amount: float):
+	anim.modulate.v = V_MODULATE
