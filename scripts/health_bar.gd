@@ -10,3 +10,4 @@ func _ready() -> void:
 	
 func update(new_ratio: float) -> void:
 	value = 100 * new_ratio
+	label.text = str(player.get_health())

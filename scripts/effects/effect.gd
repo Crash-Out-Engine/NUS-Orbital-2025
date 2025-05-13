@@ -10,7 +10,10 @@ var _counter: int
 
 func _can_effect(_property: Effectable) -> bool:
 	return false
-	
+
+func _change_factor(value: float) -> void:
+	_factor = value
+
 func _apply_effect(property: Effectable) -> void:
 	if _can_effect(property):
 		var timer: Timer

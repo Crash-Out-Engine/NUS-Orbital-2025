@@ -14,8 +14,8 @@ func _get_configuration_warnings() -> PackedStringArray:
 	return []
 
 func _physics_process(_delta: float) -> void:
+	
 	for collider in get_parent().get_colliding_bodies():
-		
 		if (collider != null and 
 				not collider.is_in_group(team) and  # TODO: Don't rely on godot groups
 				collider.get_node_or_null(^"./Hitbox") != null and 

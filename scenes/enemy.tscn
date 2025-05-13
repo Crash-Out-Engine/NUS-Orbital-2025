@@ -103,7 +103,9 @@ radius = 20.0
 
 [node name="Enemy" type="RigidBody2D" groups=["enemies"]]
 lock_rotation = true
+continuous_cd = 1
 contact_monitor = true
+max_contacts_reported = 620
 script = ExtResource("1_7p1mj")
 target_provider = ExtResource("2_w8i8w")
 

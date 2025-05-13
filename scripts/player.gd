@@ -82,6 +82,7 @@ func _on_health_just_emptied() -> void:
 	get_tree().reload_current_scene()
 
 signal health_changed(new_ratio: float)
+
 func _on_health_just_changed(_old_value: float, new_value: float) -> void:
 	health_changed.emit(new_value / $Health.health_capacity)
 

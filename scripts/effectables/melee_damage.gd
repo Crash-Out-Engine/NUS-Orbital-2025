@@ -5,7 +5,7 @@ class_name MeleeDamage extends Effectable
 func _ready() -> void:
 	value = damage
 
-func get_effect() -> HealthEffect:
+func get_effect() -> Effect:
 	var effect = load("res://resources/effects/health.tres").duplicate()
-	effect.factor = -damage
+	effect._change_factor(-damage)
 	return effect
