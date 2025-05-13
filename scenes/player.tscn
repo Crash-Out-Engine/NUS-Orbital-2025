@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://ytw0s5xnqwvt"]
+[gd_scene load_steps=35 format=3 uid="uid://ytw0s5xnqwvt"]
 
 [ext_resource type="Script" uid="uid://c8f8kowfp34yp" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://cndl5nak0qpxp" path="res://scripts/effectables/movement.gd" id="2_g2els"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://qxcwl20lyaga" path="res://scripts/effect_mod.gd" id="8_y4r1p"]
 [ext_resource type="Resource" uid="uid://dl56w1h7wf83j" path="res://resources/effect_mods/base_damage.tres" id="9_ur7pv"]
 [ext_resource type="AudioStream" uid="uid://dc66si5kieoq4" path="res://assets/audio/sound_effects/laser_gunshot.wav" id="12_3v2ag"]
+[ext_resource type="AudioStream" uid="uid://ciu1er752oye4" path="res://assets/audio/sound_effects/sand_steps.wav" id="13_jej6c"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d2wvv"]
 atlas = ExtResource("2_y4r1p")
@@ -230,6 +231,15 @@ offset = Vector2(0, 1)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Ranged"]
 stream = ExtResource("12_3v2ag")
+volume_db = -5.0
+pitch_scale = 2.0
+bus = &"SFX"
+
+[node name="FootstepsPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_jej6c")
+volume_db = -18.0
+pitch_scale = 0.6
+bus = &"SFX"
 
 [connection signal="just_changed" from="Health" to="." method="_on_health_just_changed"]
 [connection signal="just_emptied" from="Health" to="." method="_on_health_just_emptied"]

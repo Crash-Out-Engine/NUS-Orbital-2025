@@ -14,6 +14,7 @@ var direction: Callable = func(_delta: float) -> Vector2:
 
 @onready var anim = $PlayerSprite
 @onready var ranged = $Ranged
+@onready var footstep_sounds = $FootstepsPlayer
 
 signal turret_spawned(turret: Node2D)
 
@@ -31,8 +32,11 @@ func _process(_delta: float) -> void:
 		anim.flip_h = horizontal_dir < 0
 	if Vector2(Input.get_axis("left", "right"), Input.get_axis("up", "down")):
 		anim.play("running")
+		if(!footstep_sounds.playing):
+			footstep_sounds.play()
 	else:
 		anim.play("idle")
+		footstep_sounds.stop()
 	
 
 func _physics_process(_delta: float) -> void:

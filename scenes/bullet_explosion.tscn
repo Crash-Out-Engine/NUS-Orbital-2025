@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://bln0t65nfuiau"]
+[gd_scene load_steps=11 format=3 uid="uid://bln0t65nfuiau"]
 
 [ext_resource type="Texture2D" uid="uid://iabxnxum3fjv" path="res://assets/sprites/explosion_spritesheet.png" id="1_7ype4"]
 [ext_resource type="Script" uid="uid://kkoxnhs8fhnx" path="res://scripts/bullet_explosion.gd" id="2_3cu60"]
+[ext_resource type="AudioStream" uid="uid://dn6k75a1tyl8k" path="res://assets/audio/sound_effects/hit_sound.wav" id="3_3cu60"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7ype4"]
 atlas = ExtResource("1_7ype4")
@@ -57,3 +58,7 @@ animations = [{
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_h0wgm")
 script = ExtResource("2_3cu60")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_3cu60")
+bus = &"SFX"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://iqyedsof74fp"]
+[gd_scene load_steps=18 format=3 uid="uid://iqyedsof74fp"]
 
 [ext_resource type="Script" uid="uid://d8jbrtwr3jw" path="res://scripts/turret.gd" id="1_x3mc5"]
 [ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox.gd" id="2_el7wl"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://qxcwl20lyaga" path="res://scripts/effect_mod.gd" id="6_mqfwu"]
 [ext_resource type="Resource" uid="uid://dl56w1h7wf83j" path="res://resources/effect_mods/base_damage.tres" id="7_mqfwu"]
 [ext_resource type="Texture2D" uid="uid://06sdtfwasbao" path="res://assets/sprites/turret_spritesheet.png" id="8_0dv4j"]
+[ext_resource type="AudioStream" uid="uid://dc66si5kieoq4" path="res://assets/audio/sound_effects/laser_gunshot.wav" id="9_tg0ex"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0dv4j"]
 radius = 18.0278
@@ -118,6 +119,12 @@ position = Vector2(26, 0)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_eo4u0")
 animation = &"idle"
+
+[node name="GunSound" type="AudioStreamPlayer" parent="Ranged"]
+stream = ExtResource("9_tg0ex")
+volume_db = -8.0
+pitch_scale = 2.0
+bus = &"SFX"
 
 [node name="Area2D" type="Area2D" parent="."]
 
