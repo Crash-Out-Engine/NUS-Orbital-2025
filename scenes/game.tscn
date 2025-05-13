@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bbtrde7tvkisy"]
+[gd_scene load_steps=29 format=3 uid="uid://bbtrde7tvkisy"]
 
 [ext_resource type="PackedScene" uid="uid://ytw0s5xnqwvt" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://d2o1hku0svi7t" path="res://scripts/game.gd" id="1_yqjtg"]
@@ -12,6 +12,7 @@
 [ext_resource type="FontFile" uid="uid://cj53anigafm5t" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="9_kvuet"]
 [ext_resource type="Script" uid="uid://6avt386x6skk" path="res://scripts/chunk_tile_map.gd" id="9_vtaks"]
 [ext_resource type="Texture2D" uid="uid://0s5snf5jmy5j" path="res://assets/tilesheets/tilesheet_v3.png" id="10_dinhu"]
+[ext_resource type="Script" uid="uid://dtjpju6vch1iy" path="res://scenes/scrap_counter.gd" id="10_rysoc"]
 [ext_resource type="Script" uid="uid://00ptaqelvbr5" path="res://scripts/timer_label.gd" id="10_trtic"]
 [ext_resource type="Script" uid="uid://dlfl58jvcogf5" path="res://scripts/chunk_debug.gd" id="10_vtaks"]
 [ext_resource type="AudioStream" uid="uid://d0bs4frau5lf8" path="res://assets/audio/sound_effects/pause_sound.wav" id="11_ca42v"]
@@ -42,6 +43,17 @@ region = Rect2(144, 0, 144, 144)
 font = ExtResource("9_kvuet")
 font_size = 36
 shadow_size = 6
+shadow_color = Color(0, 0, 0, 0.74902)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ca42v"]
+atlas = ExtResource("7_dinhu")
+region = Rect2(36, 180, 72, 72)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ca42v"]
+font = ExtResource("9_kvuet")
+font_size = 48
+shadow_size = 8
 shadow_color = Color(0, 0, 0, 0.74902)
 shadow_offset = Vector2(2, 2)
 
@@ -139,6 +151,28 @@ offset_bottom = 88.0
 text = "fdsads"
 label_settings = SubResource("LabelSettings_trtic")
 horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrapCounter" type="HBoxContainer" parent="UI/HUD" node_paths=PackedStringArray("player")]
+layout_direction = 3
+layout_mode = 0
+offset_left = 3.0
+offset_top = 2.0
+offset_right = 163.0
+offset_bottom = 74.0
+alignment = 2
+script = ExtResource("10_rysoc")
+player = NodePath("../../../EntityContainer/Player")
+
+[node name="Icon" type="TextureRect" parent="UI/HUD/ScrapCounter"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_ca42v")
+
+[node name="Label" type="Label" parent="UI/HUD/ScrapCounter"]
+layout_mode = 2
+text = "0/5"
+label_settings = SubResource("LabelSettings_ca42v")
+horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="PauseMenu" type="Control" parent="UI"]

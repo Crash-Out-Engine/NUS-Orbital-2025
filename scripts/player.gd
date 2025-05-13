@@ -27,6 +27,9 @@ signal turret_spawned(turret: Node2D)
 
 var current_turret = null
 
+var scrap = 0
+var turrets_placed = 0 # temporary for lift-off proof of concept
+var turret_cost = 5 # ditto
 const PICKUP_RANGE = 125
 
 func _ready() -> void:
@@ -74,23 +77,27 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_pressed("add turret"):
 		if current_turret != null:
 			current_turret.global_position = get_global_mouse_position()
-			if(current_turret.is_overlapping()):
+			if(!can_place_turret()):
 				current_turret.set_visual_modulate(1, 0, 0, 0.5)
 			else:
 				current_turret.set_visual_modulate(0, 1, 1, 0.5)
-
-
+	
 	if Input.is_action_just_released("add turret"):
 		if current_turret != null:
-			if(!current_turret.is_overlapping()):
+			if(can_place_turret()):
 				current_turret.build()
+				scrap -= turret_cost
+				turrets_placed += 1
+				turret_cost += (turrets_placed + 1) * 5
+				scrap_changed.emit()
 			else:
 				current_turret.queue_free()
 			current_turret = null
 		held_item = GUN_ITEM
 		$Ranged/GunSprite.play("idle")
 
-		
+func can_place_turret() -> bool:
+	return current_turret != null and !current_turret.is_overlapping() and turret_cost <= scrap
 
 func _on_health_just_emptied() -> void:
 	print("died")
@@ -110,3 +117,10 @@ func get_knockedback(source: Node2D) -> void:
 	
 func bleed(_amount: float):
 	anim.modulate.v = V_MODULATE
+	
+
+signal scrap_changed()
+
+func gain_scrap(amount: int) -> void:
+	scrap += amount
+	scrap_changed.emit()
