@@ -14,6 +14,10 @@ config/name="a godot game"
 run/main_scene="uid://bbtrde7tvkisy"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 
+[audio]
+
+buses/default_bus_layout="res://resources/default_bus_layout.tres"
+
 [debug]
 
 gdscript/warnings/integer_division=0

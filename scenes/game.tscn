@@ -12,7 +12,7 @@
 [ext_resource type="FontFile" uid="uid://cj53anigafm5t" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="9_kvuet"]
 [ext_resource type="Script" uid="uid://6avt386x6skk" path="res://scripts/chunk_tile_map.gd" id="9_vtaks"]
 [ext_resource type="Texture2D" uid="uid://0s5snf5jmy5j" path="res://assets/tilesheets/tilesheet_v3.png" id="10_dinhu"]
-[ext_resource type="Script" uid="uid://dtjpju6vch1iy" path="res://scenes/scrap_counter.gd" id="10_rysoc"]
+[ext_resource type="Script" uid="uid://dtjpju6vch1iy" path="res://scripts/scrap_counter.gd" id="10_rysoc"]
 [ext_resource type="Script" uid="uid://00ptaqelvbr5" path="res://scripts/timer_label.gd" id="10_trtic"]
 [ext_resource type="Script" uid="uid://dlfl58jvcogf5" path="res://scripts/chunk_debug.gd" id="10_vtaks"]
 [ext_resource type="AudioStream" uid="uid://d0bs4frau5lf8" path="res://assets/audio/sound_effects/pause_sound.wav" id="11_ca42v"]
