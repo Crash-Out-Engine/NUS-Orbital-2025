@@ -27,7 +27,7 @@ signal turret_spawned(turret: Node2D)
 
 var current_turret = null
 
-var scrap = 0
+var scrap = 50
 var turrets_placed = 0 # temporary for lift-off proof of concept
 var turret_cost = 5 # ditto
 const PICKUP_RANGE = 125
@@ -91,6 +91,7 @@ func _physics_process(_delta: float) -> void:
 				turret_cost += (turrets_placed + 1) * 5
 				scrap_changed.emit()
 			else:
+				$ErrorSound.play()
 				current_turret.queue_free()
 			current_turret = null
 		held_item = GUN_ITEM
