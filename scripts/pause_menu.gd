@@ -49,3 +49,7 @@ func _on_music_volume_slider_value_changed(value: float) -> void:
 
 func _on_sfx_volume_slider_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(sfx_bus, linear_to_db(value))
+
+
+func _on_quit_pressed() -> void:
+	get_tree().quit() # Replace with function body.

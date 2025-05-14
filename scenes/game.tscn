@@ -262,6 +262,12 @@ max_value = 1.0
 step = 0.01
 value = 1.0
 
+[node name="Quit" type="Button" parent="UI/PauseMenu/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("9_kvuet")
+text = "Quit"
+
 [node name="PauseSound" type="AudioStreamPlayer" parent="UI/PauseMenu"]
 stream = ExtResource("11_ca42v")
 bus = &"SFX"
@@ -319,3 +325,4 @@ bus = &"Music"
 [connection signal="value_changed" from="UI/PauseMenu/PanelContainer/VBoxContainer/MasterVolumeContainer/MasterVolumeSlider" to="UI/PauseMenu" method="_on_master_volume_slider_value_changed"]
 [connection signal="value_changed" from="UI/PauseMenu/PanelContainer/VBoxContainer/MusicVolumeContainer/MusicVolumeSlider" to="UI/PauseMenu" method="_on_music_volume_slider_value_changed"]
 [connection signal="value_changed" from="UI/PauseMenu/PanelContainer/VBoxContainer/SFXVolumeContainer/SFXVolumeSlider" to="UI/PauseMenu" method="_on_sfx_volume_slider_value_changed"]
+[connection signal="pressed" from="UI/PauseMenu/PanelContainer/VBoxContainer/Quit" to="UI/PauseMenu" method="_on_quit_pressed"]
