@@ -174,9 +174,11 @@ damage = 5.0
 
 [node name="Ranged" type="Node2D" parent="." node_paths=PackedStringArray("ranged_cooldown", "barrel", "target_priority")]
 script = ExtResource("8_8qclf")
+active = null
 ranged_cooldown = NodePath("../RangedCooldown")
 barrel = NodePath("..")
 target_priority = NodePath("../TargetPriority")
+effect_mods = null
 metadata/_custom_type_script = "uid://bhi7w6ril3da2"
 
 [node name="RangedCooldown" type="Node" parent="."]

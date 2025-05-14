@@ -28,8 +28,8 @@ signal turret_spawned(turret: Node2D)
 var current_turret = null
 
 var scrap = 50
-var turrets_placed = 0 # temporary for lift-off proof of concept
-var turret_cost = 5 # ditto
+var turrets_placed = 0 # HACK: temporary for lift-off demonstration
+var turret_cost = 5 # HACK: temporary for lift-off demonstration
 const PICKUP_RANGE = 125
 
 func _ready() -> void:
