@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bbtrde7tvkisy"]
+[gd_scene load_steps=30 format=3 uid="uid://bbtrde7tvkisy"]
 
 [ext_resource type="PackedScene" uid="uid://ytw0s5xnqwvt" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://d2o1hku0svi7t" path="res://scripts/game.gd" id="1_yqjtg"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://00ptaqelvbr5" path="res://scripts/timer_label.gd" id="10_trtic"]
 [ext_resource type="Script" uid="uid://dlfl58jvcogf5" path="res://scripts/chunk_debug.gd" id="10_vtaks"]
 [ext_resource type="AudioStream" uid="uid://d0bs4frau5lf8" path="res://assets/audio/sound_effects/pause_sound.wav" id="11_ca42v"]
+[ext_resource type="Theme" uid="uid://c8t8fqq1p8n4l" path="res://resources/custom_ui.tres" id="12_ssvqc"]
 [ext_resource type="AudioStream" uid="uid://c3lyo02lbnyxw" path="res://assets/audio/songs/8_bit_mimic.wav" id="15_ir15t"]
 
 [sub_resource type="Environment" id="Environment_yqjtg"]
@@ -194,6 +195,7 @@ offset_right = -384.0
 offset_bottom = -128.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("12_ssvqc")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/PauseMenu/PanelContainer"]
 layout_mode = 2
@@ -202,6 +204,7 @@ alignment = 1
 [node name="Resume" type="Button" parent="UI/PauseMenu/PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+theme = ExtResource("12_ssvqc")
 theme_override_fonts/font = ExtResource("9_kvuet")
 text = "Resume"
 
@@ -217,6 +220,7 @@ alignment = 1
 
 [node name="Label" type="Label" parent="UI/PauseMenu/PanelContainer/VBoxContainer/MasterVolumeContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("9_kvuet")
 text = "Master volume:"
 
@@ -232,6 +236,7 @@ alignment = 1
 
 [node name="Label" type="Label" parent="UI/PauseMenu/PanelContainer/VBoxContainer/MusicVolumeContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("9_kvuet")
 text = "Music volume:"
 
@@ -247,6 +252,7 @@ alignment = 1
 
 [node name="Label" type="Label" parent="UI/PauseMenu/PanelContainer/VBoxContainer/SFXVolumeContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("9_kvuet")
 text = "SFX volume:"
 
@@ -280,6 +286,7 @@ offset_right = -64.0
 offset_bottom = -48.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("12_ssvqc")
 
 [node name="Label" type="Label" parent="UI/Inventory/PanelContainer"]
 layout_mode = 2
