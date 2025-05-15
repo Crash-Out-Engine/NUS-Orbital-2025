@@ -113,6 +113,7 @@ process_mode = 3
 script = ExtResource("5_u5sy4")
 
 [node name="HUD" type="Control" parent="UI"]
+process_mode = 1
 custom_minimum_size = Vector2(1152, 648)
 layout_mode = 3
 anchors_preset = 0

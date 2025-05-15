@@ -10,9 +10,8 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if (!get_tree().paused):
-		elapsed_time += delta
-		_set_text_seconds(elapsed_time)
+	elapsed_time += delta
+	_set_text_seconds(elapsed_time)
 
 
 func reset() -> void:

@@ -867,7 +867,7 @@ modulate_color = Color(0.501961, 0.501961, 0.643137, 1)
 atlas = ExtResource("1_c4vai")
 region = Rect2(109, 343, 24, 22)
 
-[sub_resource type="Image" id="Image_8luvb"]
+[sub_resource type="Image" id="Image_tf487"]
 data = {
 "data": PackedByteArray("////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8I////Mf///03///9Z////Wf///03///8w////CP///wD///8A////AP///wD///8A////AP///wD///8g////Wf///17///9e////Xv///17///9e////Xv///1n///8f////AP///wD///8A////AP///wD///8g////Xv///17///9e////Xv///17///9e////Xv///17///9e////Xv///x////8A////AP///wD///8I////Wf///17///9e////Xv///17///9e////Xv///17///9e////Xv///17///9Z////CP///wD///8A////Mf///17///9e////Xv///17///9e////Xv///17///9e////Xv///17///9e////Xv///zD///8A////AP///03///9e////Xv///17///9e////Xv///17///9e////Xv///17///9e////Xv///17///9M////AP///wD///9Z////Xv///17///9e////Xv///17///9e////Xv///17///9e////Xv///17///9e////Wf///wD///8A////Wf///17///9e////Xv///17///9e////Xv///17///9e////Xv///17///9e////Xv///1n///8A////AP///03///9e////Xv///17///9e////Xv///17///9e////Xv///17///9e////Xv///17///9M////AP///wD///8w////Xv///17///9e////Xv///17///9e////Xv///17///9e////Xv///17///9e////L////wD///8A////CP///1n///9e////Xv///17///9e////Xv///17///9e////Xv///17///9e////WP///wf///8A////AP///wD///8f////Xv///17///9e////Xv///17///9e////Xv///17///9e////Xv///x7///8A////AP///wD///8A////AP///x////9Z////Xv///17///9e////Xv///17///9e////WP///x7///8A////AP///wD///8A////AP///wD///8A////CP///zD///9M////Wf///1n///9M////L////wf///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AA=="),
 "format": "RGBA8",
@@ -877,13 +877,13 @@ data = {
 }
 
 [sub_resource type="ImageTexture" id="ImageTexture_bjkkg"]
-image = SubResource("Image_8luvb")
+image = SubResource("Image_tf487")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hqaum"]
 atlas = ExtResource("1_c4vai")
 region = Rect2(137, 343, 24, 22)
 
-[sub_resource type="Image" id="Image_sapk4"]
+[sub_resource type="Image" id="Image_6smqt"]
 data = {
 "data": PackedByteArray("////AP///0D///9A////AP///wD///9A////QP///wD///8A////QP///0D///8A////AP///0D///9A////AP///wD///9A////QP///wD///8A////QP///0D///8A////AP///0D///9A////AP///wD///9A////QP///wD///8A////QP///0D///8A////AP///0D///9A////AP///wD///9A////QP///wD///8A////QP///0D///8A////AP///0D///9A////AP///wD///9A////QP///wD///8A////QP///0D///8A////AP///0D///9A////AA=="),
 "format": "RGBA8",
@@ -893,7 +893,7 @@ data = {
 }
 
 [sub_resource type="ImageTexture" id="ImageTexture_8sqon"]
-image = SubResource("Image_sapk4")
+image = SubResource("Image_6smqt")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_50krl"]
 texture = ExtResource("1_c4vai")
