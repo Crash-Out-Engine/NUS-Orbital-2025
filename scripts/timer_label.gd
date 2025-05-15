@@ -1,21 +1,26 @@
+class_name TimerLabel
 extends Label
 
-var time = 0
+var elapsed_time: float = 0.0
+
 
 func _ready() -> void:
-	position = Vector2(get_viewport_rect().size.x/2 - size.x/2, size.y/2)
+	position = Vector2(get_viewport_rect().size.x / 2.0 - size.x / 2.0, size.y / 2.0)
 	reset()
 
-func reset() -> void:
-	time = 0.0
-
-var minutes
-var seconds
 
 func _process(delta: float) -> void:
-	if(!get_tree().paused):
-		time += delta
-		seconds = int(time)
-		minutes = seconds/60
-		seconds -= minutes*60
-		text = str(minutes) + ":" + ("0" if seconds < 10 else "") + str(seconds)
+	if (!get_tree().paused):
+		elapsed_time += delta
+		_set_text_seconds(elapsed_time)
+
+
+func reset() -> void:
+	elapsed_time = 0.0
+
+
+func _set_text_seconds(time: float):
+	var total_seconds := int(time)
+	var minutes := total_seconds / 60
+	var seconds := total_seconds % 60
+	text = "%02d:%02d" % [minutes, seconds]

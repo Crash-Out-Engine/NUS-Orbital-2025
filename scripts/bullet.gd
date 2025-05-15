@@ -1,14 +1,13 @@
-class_name Bullet extends Area2D
+class_name Bullet
+extends Area2D
 
-var explosion_scene = preload("res://scenes/bullet_explosion.tscn")
-
+const _EXPLOSION_SCENE = preload("res://scenes/bullet_explosion.tscn")
 const SPEED = 700
 
 var direction: float
-
 var team: String
-
 var effects: Array[Effect] = []
+
 
 func _physics_process(delta: float) -> void:
 	global_position += Vector2.from_angle(direction) * SPEED * delta
@@ -22,7 +21,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if body.get_node_or_null(^"./Hitbox") != null and not body.is_in_group(team): # TODO: Don't rely on godot groups
 		for effect in effects:
 			body.get_node_or_null(^"./Hitbox").trigger(effect)
-		var explosion = explosion_scene.instantiate()
+		var explosion = _EXPLOSION_SCENE.instantiate()
 		explosion.global_position = global_position
 		get_parent().add_child(explosion)
 		explosion.explode()

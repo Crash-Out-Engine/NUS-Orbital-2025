@@ -1,24 +1,28 @@
-class_name RangedCooldown extends Effectable
+class_name RangedCooldown
+extends Effectable
 
-## Rate of firing in seconds.
-@export var ranged_cooldown: float
+@export var ranged_cooldown: float ## Rate of firing in seconds.
 
-var timer: Timer = Timer.new()
+var _timer: Timer = Timer.new()
+
 
 func _ready() -> void:
 	value = ranged_cooldown
-	timer.one_shot = true
-	add_child(timer)
-	
+	_timer.one_shot = true
+	add_child(_timer)
+
+
 func try_ranged() -> bool:
-	if timer.is_stopped():
-		timer.start(value)
+	if _timer.is_stopped():
+		_timer.start(value)
 		return true
 	else:
 		return false
 
+
 func can_ranged() -> bool:
-	return timer.is_stopped()
-	
+	return _timer.is_stopped()
+
+
 func do_ranged() -> void:
-	timer.start(value)
+	_timer.start(value)

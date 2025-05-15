@@ -1,15 +1,17 @@
 extends Node2D
 
+@export var active: bool = false
+
 @onready var player: Player = $"/root/Game/EntityContainer/Player"
 @onready var player_camera: Camera2D = $"/root/Game/EntityContainer/Player/Camera2D"
 @onready var parent := get_parent() as ChunkTileMap
 
-@export var active := false
 
 func _process(_delta: float) -> void:
 	if active:
 		queue_redraw()
-	
+
+
 func _draw() -> void:
 	if active:
 		var cam_center := player_camera.get_screen_center_position()

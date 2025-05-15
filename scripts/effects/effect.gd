@@ -1,4 +1,5 @@
-class_name Effect extends Resource
+class_name Effect
+extends Resource
 
 ## Interval between repetitions (if any) in seconds.
 ## Taken to be equivalent to null if a non-positive value is supplied.
@@ -8,13 +9,12 @@ class_name Effect extends Resource
 
 var _counter: int
 
-func _can_effect(_property: Effectable) -> bool:
-	return false
 
-func _change_factor(value: float) -> void:
+func set_factor(value: float) -> void:
 	_factor = value
 
-func _apply_effect(property: Effectable) -> void:
+
+func apply_effect(property: Effectable) -> void:
 	if _can_effect(property):
 		var timer: Timer
 		if _interval != null and _interval > 0:
@@ -53,3 +53,7 @@ func _apply_effect(property: Effectable) -> void:
 						_counter -= 1
 					)
 			timer.start()
+
+
+func _can_effect(_property: Effectable) -> bool:
+	return false

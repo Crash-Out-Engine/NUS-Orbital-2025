@@ -1,4 +1,7 @@
-class_name RangedBase extends Node2D
+class_name RangedBase
+extends Node2D
+
+signal bullet_spawned(bullet: Node2D)
 
 @export var active: bool = false
 @export var ranged_cooldown: RangedCooldown
@@ -6,7 +9,6 @@ class_name RangedBase extends Node2D
 @export var target_priority: TargetPriority = null
 @export var effect_mods: Array[EffectMod] = []
 
-signal bullet_spawned(bullet: Node2D)
 
 func _ready() -> void:
 	var parent = get_parent()

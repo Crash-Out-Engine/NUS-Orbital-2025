@@ -1,17 +1,18 @@
-class_name RangedAI extends RangedBase
+class_name RangedAI
+extends RangedBase
 
-var _bullet_scene = preload("res://scenes/bullet.tscn")
+const _BULLET_SCENE = preload("res://scenes/bullet.tscn")
 
-var has_gun_anim
-var has_gun_sound
+@onready var has_gun_anim = has_node('GunSprite')
+@onready var has_gun_sound = has_node('GunSound')
+
 
 func _ready() -> void:
-	has_gun_anim = has_node('GunSprite')
-	has_gun_sound = has_node('GunSound')
-	if(has_gun_anim):
+	if has_gun_anim:
 		bullet_spawned.connect(animate_fire)
-	if(has_gun_sound):
+	if has_gun_sound:
 		bullet_spawned.connect(play_fire)
+
 
 func _physics_process(_delta: float) -> void:
 	if !active or !ranged_cooldown.can_ranged():
@@ -24,11 +25,11 @@ func _physics_process(_delta: float) -> void:
 	var target = target_provider.get_target(get_parent().global_position, team)
 	if target == null:
 		return
-	if(has_gun_anim):
+	if has_gun_anim:
 		look_at(target.global_position)
 		$GunSprite.flip_v = target.global_position < global_position
 	
-	var bullet: Bullet = _bullet_scene.instantiate()
+	var bullet: Bullet = _BULLET_SCENE.instantiate()
 	bullet.effects.assign(
 		effect_mods
 		.map(func(effect_mod: EffectMod): return effect_mod.get_effects())
@@ -43,9 +44,11 @@ func _physics_process(_delta: float) -> void:
 	ranged_cooldown.do_ranged()
 	bullet_spawned.emit(bullet)
 
+
 func animate_fire(_bullet):
 	$GunSprite.sprite_frames.set_animation_speed("fire", 4.0 / ranged_cooldown.value)
 	$GunSprite.play("fire")
+
 
 func play_fire(_bullet):
 	$GunSound.play()

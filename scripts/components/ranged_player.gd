@@ -1,13 +1,16 @@
-class_name RangedPlayer extends RangedBase
+class_name RangedPlayer
+extends RangedBase
 
-var _bullet_scene = preload("res://scenes/bullet.tscn")
+const _BULLET_SCENE = preload("res://scenes/bullet.tscn")
 
 @onready var gun_anim = $GunSprite
 @onready var sound = $AudioStreamPlayer
 
+
 func _ready() -> void:
 	bullet_spawned.connect(animate_fire)
 	bullet_spawned.connect(play_sound)
+
 
 func _physics_process(_delta: float) -> void:
 	look_at(get_global_mouse_position())
@@ -22,14 +25,13 @@ func _physics_process(_delta: float) -> void:
 	if target_priority != null:
 		team = target_priority.team
 	
-	var bullet: Bullet = _bullet_scene.instantiate()
-	bullet.effects.assign(
-		effect_mods
-		.map(func(effect_mod: EffectMod): return effect_mod.get_effects())
-		.reduce(func(acc, e):
-			acc.append_array(e)
-			return acc,
-			[])) # TODO: Consider whether to deep copy effects (to preserve them in the event the entity despawns)
+	var bullet: Bullet = _BULLET_SCENE.instantiate()
+	bullet.effects.assign(effect_mods
+			.map(func(effect_mod: EffectMod): return effect_mod.get_effects())
+			.reduce(func(acc, e):
+					acc.append_array(e)
+					return acc,
+					[])) # TODO: Consider whether to deep copy effects (to preserve them in the event the entity despawns)
 	bullet.team = team
 	bullet.global_position = barrel.global_position
 	bullet.direction = global_position.angle_to_point(get_global_mouse_position())
@@ -38,9 +40,11 @@ func _physics_process(_delta: float) -> void:
 	
 	bullet_spawned.emit(bullet)
 
+
 func animate_fire(_bullet):
 	gun_anim.sprite_frames.set_animation_speed("fire", 4.0 / ranged_cooldown.value)
 	gun_anim.play("fire")
+
 
 func play_sound(_bullet):
 	sound.play()
