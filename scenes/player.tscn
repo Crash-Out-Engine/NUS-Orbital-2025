@@ -1,6 +1,6 @@
-[gd_scene load_steps=36 format=3 uid="uid://ytw0s5xnqwvt"]
+[gd_scene load_steps=37 format=3 uid="uid://ytw0s5xnqwvt"]
 
-[ext_resource type="Script" uid="uid://c8f8kowfp34yp" path="res://scripts/player.gd" id="1_f1ej7"]
+[ext_resource type="Script" uid="uid://c8f8kowfp34yp" path="res://scripts/player_scene/player.gd" id="1_f1ej7"]
 [ext_resource type="Script" uid="uid://cndl5nak0qpxp" path="res://scripts/effectables/movement.gd" id="2_g2els"]
 [ext_resource type="Texture2D" uid="uid://dvanyjoqcolwr" path="res://assets/sprites/player_spritesheet.png" id="2_y4r1p"]
 [ext_resource type="Texture2D" uid="uid://d3irto6bnhwwx" path="res://assets/sprites/playergun_spritesheet.png" id="3_d2wvv"]
@@ -14,6 +14,11 @@
 [ext_resource type="AudioStream" uid="uid://dc66si5kieoq4" path="res://assets/audio/sound_effects/laser_gunshot.wav" id="12_3v2ag"]
 [ext_resource type="AudioStream" uid="uid://dk7lmxukxhhcr" path="res://assets/audio/sound_effects/error.wav" id="13_f1ej7"]
 [ext_resource type="AudioStream" uid="uid://ciu1er752oye4" path="res://assets/audio/sound_effects/sand_steps.wav" id="13_jej6c"]
+[ext_resource type="Script" uid="uid://ddhfg683ma0hh" path="res://scripts/player_scene/visuals.gd" id="14_oprun"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
+radius = 14.0
+height = 60.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d2wvv"]
 atlas = ExtResource("2_y4r1p")
@@ -112,10 +117,6 @@ animations = [{
 "speed": 12.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
-radius = 14.0
-height = 60.0
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_4ni07"]
 atlas = ExtResource("3_d2wvv")
 region = Rect2(0, 36, 36, 36)
@@ -179,16 +180,9 @@ animations = [{
 [node name="Player" type="CharacterBody2D" groups=["allies"]]
 script = ExtResource("1_f1ej7")
 
-[node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
-scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_4ni07")
-animation = &"idle"
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -2)
 shape = SubResource("CapsuleShape2D_g2els")
-
-[node name="Gun" type="Node2D" parent="."]
 
 [node name="Movement" type="Node" parent="."]
 script = ExtResource("2_g2els")
@@ -223,13 +217,6 @@ metadata/_custom_type_script = "uid://s08wfqwqu2jn"
 [node name="Barrel" type="Node2D" parent="Ranged"]
 position = Vector2(44, 0)
 
-[node name="GunSprite" type="AnimatedSprite2D" parent="Ranged"]
-position = Vector2(28, 0)
-scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_pf23h")
-animation = &"idle"
-offset = Vector2(0, 1)
-
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Ranged"]
 stream = ExtResource("12_3v2ag")
 volume_db = -5.0
@@ -246,6 +233,20 @@ stream = ExtResource("13_jej6c")
 volume_db = -18.0
 pitch_scale = 0.6
 bus = &"SFX"
+
+[node name="Visuals" type="Node2D" parent="."]
+script = ExtResource("14_oprun")
+
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="Visuals"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_4ni07")
+animation = &"idle"
+
+[node name="GunSprite" type="AnimatedSprite2D" parent="Visuals"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_pf23h")
+animation = &"idle"
+offset = Vector2(14, 1)
 
 [connection signal="just_changed" from="Health" to="." method="_on_health_just_changed"]
 [connection signal="just_emptied" from="Health" to="." method="_on_health_just_emptied"]

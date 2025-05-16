@@ -27,36 +27,25 @@ var scrap = 50
 var turrets_placed = 0 # HACK: temporary for lift-off demonstration
 var turret_cost = 5 # HACK: temporary for lift-off demonstration
 
-@onready var anim = $PlayerSprite
-@onready var ranged = $Ranged
+@onready var ranged := $Ranged as RangedBase
 @onready var footstep_sounds = $FootstepsPlayer
 
 
 func _ready() -> void:
 	health_changed.emit(1.0)
 	ranged.active = false
-	$Health.just_reduced.connect(bleed)
 
 
 func _process(delta: float) -> void:
-	var horizontal_dir = Input.get_axis("left", "right")
-	if horizontal_dir != 0:
-		anim.flip_h = horizontal_dir < 0
 	if Vector2(Input.get_axis("left", "right"), Input.get_axis("up", "down")):
-		anim.play("running")
 		if (!footstep_sounds.playing):
 			footstep_sounds.play()
 	else:
-		anim.play("idle")
 		footstep_sounds.stop()
 	if knockback > 0:
 		knockback -= KNOCKBACK_AMOUNT * delta / KNOCKBACK_DURATION
 	elif knockback < 0:
 		knockback = 0
-	if (anim.modulate.v > 1):
-		anim.modulate.v -= V_MODULATE * delta / BLEED_TIME
-		if (anim.modulate.v <= 1):
-			anim.modulate.v = 1
 
 
 func _physics_process(_delta: float) -> void:
@@ -69,7 +58,6 @@ func _physics_process(_delta: float) -> void:
 	
 	if Input.is_action_just_pressed("add turret"):
 		held_item = WRENCH_ITEM
-		$Ranged/GunSprite.play("wrench")
 		current_turret = _TURRET_SCENE.instantiate()
 		current_turret.set_collidable(false)
 		current_turret.set_visual_modulate(Color(0, 1, 1, 0.5))
@@ -80,7 +68,7 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_pressed("add turret"):
 		if current_turret != null:
 			current_turret.global_position = get_global_mouse_position()
-			if (!can_place_turret()):
+			if !can_place_turret():
 				current_turret.set_visual_modulate(Color(1, 0, 0, 0.5))
 			else:
 				current_turret.set_visual_modulate(Color(0, 1, 1, 0.5))
@@ -98,7 +86,6 @@ func _physics_process(_delta: float) -> void:
 				current_turret.queue_free()
 			current_turret = null
 		held_item = GUN_ITEM
-		$Ranged/GunSprite.play("idle")
 
 
 func can_place_turret() -> bool:
@@ -115,7 +102,6 @@ func gain_scrap(amount: int) -> void:
 
 
 func _on_health_just_emptied() -> void:
-	print("died")
 	get_tree().reload_current_scene()
 
 
@@ -126,7 +112,3 @@ func _on_health_just_changed(_old_value: float, new_value: float) -> void:
 func apply_knockback(source: Node2D) -> void:
 	knockback_direction = (global_position - source.global_position).normalized()
 	knockback = KNOCKBACK_AMOUNT
-
-
-func bleed(_amount: float):
-	anim.modulate.v = V_MODULATE

@@ -3,19 +3,15 @@ extends RangedBase
 
 const _BULLET_SCENE = preload("res://scenes/bullet.tscn")
 
-@onready var gun_anim = $GunSprite
 @onready var sound = $AudioStreamPlayer
 
 
 func _ready() -> void:
-	bullet_spawned.connect(animate_fire)
 	bullet_spawned.connect(play_sound)
 
 
 func _physics_process(_delta: float) -> void:
 	look_at(get_global_mouse_position())
-	gun_anim.flip_v = get_global_mouse_position().x < global_position.x
-	gun_anim.offset.y = -1 if (get_global_mouse_position().x < global_position.x) else 1
 	
 	if !active or !ranged_cooldown.can_ranged():
 		return
@@ -39,11 +35,6 @@ func _physics_process(_delta: float) -> void:
 	ranged_cooldown.do_ranged()
 	
 	bullet_spawned.emit(bullet)
-
-
-func animate_fire(_bullet):
-	gun_anim.sprite_frames.set_animation_speed("fire", 4.0 / ranged_cooldown.value)
-	gun_anim.play("fire")
 
 
 func play_sound(_bullet):
