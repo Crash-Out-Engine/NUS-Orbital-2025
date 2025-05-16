@@ -68,28 +68,13 @@ radius = 38.0132
 [node name="Turret" type="StaticBody2D" groups=["allies"]]
 script = ExtResource("1_x3mc5")
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
-visible = false
-scale = Vector2(1.38583, 1.47059)
-color = Color(0.756034, 0.795543, 0.816676, 1)
-polygon = PackedVector2Array(-8, -24, -16, 8, 16, 8, 8, -24)
-
-[node name="Polygon2D2" type="Polygon2D" parent="."]
-visible = false
-position = Vector2(-7.62939e-06, -40)
-scale = Vector2(1.38583, 1.47059)
-color = Color(0.343323, 0.123762, 4.81308e-08, 1)
-polygon = PackedVector2Array(-11.5454, -5.43999, -11.5454, 5.43999, 11.5454, 5.43999, 11.5454, -5.43999)
-
 [node name="BaseSprite" type="Sprite2D" parent="."]
-rotation = 5.35642
 scale = Vector2(2, 2)
 texture = ExtResource("8_0dv4j")
 hframes = 4
 vframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-rotation = 1.5708
 shape = SubResource("CircleShape2D_0dv4j")
 
 [node name="Hitbox" type="Node" parent="."]
@@ -132,8 +117,7 @@ volume_db = -8.0
 pitch_scale = 2.0
 bus = &"SFX"
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="PlacementArea" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, 2)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlacementArea"]
 shape = SubResource("CircleShape2D_tg0ex")

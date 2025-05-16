@@ -3,7 +3,7 @@ extends Area2D
 
 const SPEED = 800
 
-@onready var player: Player = $/root/Game/EntityContainer/Player
+@onready var player := $/root/Game/EntityContainer/Player as Player
 
 var value = 1 # scrap can have multiple types of values to accomodate for large
 			  # numbers of scrap rewards without spawning too much of the same

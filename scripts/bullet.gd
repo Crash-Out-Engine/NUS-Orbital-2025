@@ -13,6 +13,7 @@ func _physics_process(delta: float) -> void:
 	global_position += Vector2.from_angle(direction) * SPEED * delta
 	global_rotation = direction
 
+
 func _on_timer_timeout() -> void:
 	queue_free()
 

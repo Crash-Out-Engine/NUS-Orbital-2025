@@ -275,7 +275,6 @@ stream = ExtResource("11_ca42v")
 bus = &"SFX"
 
 [node name="Inventory" type="Control" parent="UI"]
-visible = false
 custom_minimum_size = Vector2(1152, 648)
 layout_mode = 3
 anchors_preset = 0

@@ -34,7 +34,7 @@ func set_visual_modulate(color: Color) -> void:
 
 
 func is_overlapping() -> bool:
-	return $Area2D.get_overlapping_bodies().any(func(body): return body.get_node_or_null(^"Hitbox") != null)
+	return $PlacementArea.get_overlapping_bodies().any(func(body): return body.get_node_or_null(^"Hitbox") != null)
 
 
 func _process(delta: float) -> void:
