@@ -8,8 +8,6 @@ signal scrap_changed()
 const _TURRET_SCENE := preload("res://scenes/turret.tscn")
 const GUN_ITEM := 0
 const WRENCH_ITEM := 1
-const V_MODULATE := 100000000
-const BLEED_TIME := 2.0 / 30.0
 const KNOCKBACK_DURATION = 0.5
 const KNOCKBACK_AMOUNT = 800.0
 const PICKUP_RANGE = 125
