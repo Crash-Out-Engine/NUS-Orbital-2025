@@ -10,6 +10,11 @@ extends Control
 
 func _ready() -> void:
 	visible = get_tree().paused
+
+	$PanelContainer/VBoxContainer/Resume.pressed.connect(resume)
+	$PanelContainer/VBoxContainer/Restart.pressed.connect(restart)
+	$PanelContainer/VBoxContainer/Quit.pressed.connect(quit)
+
 	_master_vol_slider.value = AudioServer.get_bus_volume_linear(_master_bus)
 	_music_vol_slider.value = AudioServer.get_bus_volume_linear(_music_bus)
 	_sfx_vol_slider.value = AudioServer.get_bus_volume_linear(_sfx_bus)
@@ -27,7 +32,12 @@ func pause():
 
 
 func restart():
+	get_tree().paused = false
 	get_tree().reload_current_scene()
+
+
+func quit():
+	get_tree().quit()
 
 
 func try_esc():
@@ -36,15 +46,6 @@ func try_esc():
 			resume()
 		else:
 			pause()
-
-
-func _on_resume_pressed() -> void:
-	resume()
-
-
-func _on_restart_pressed() -> void:
-	resume()
-	restart()
 
 
 func _on_master_volume_slider_value_changed(value: float) -> void:
@@ -57,7 +58,3 @@ func _on_music_volume_slider_value_changed(value: float) -> void:
 
 func _on_sfx_volume_slider_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_linear(_sfx_bus, value)
-
-
-func _on_quit_pressed() -> void:
-	get_tree().quit() # Replace with function body.

@@ -10,10 +10,12 @@ signal just_changed(old_value: float, new_value: float)
 var _health_emptied: bool
 var _prev_value: float
 
+
 func _ready() -> void:
 	value = health_capacity
 	_prev_value = value
 	_health_emptied = false
+
 
 func _physics_process(_delta: float) -> void:
 	if value <= 0 and !_health_emptied:
