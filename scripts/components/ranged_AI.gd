@@ -14,8 +14,14 @@ func _ready() -> void:
 		bullet_spawned.connect(play_fire)
 
 
+func play_idle() -> void:
+	if(has_gun_anim):
+		$GunSprite.play("idle")
+
+
 func _physics_process(_delta: float) -> void:
 	if !active or !ranged_cooldown.can_ranged():
+		play_idle()
 		return
 	
 	var team = ""
@@ -24,6 +30,7 @@ func _physics_process(_delta: float) -> void:
 	var target_provider := load("res://resources/target_provider.tres") as TargetProvider
 	var target = target_provider.get_target(get_parent().global_position, team)
 	if target == null:
+		play_idle()
 		return
 	if has_gun_anim:
 		look_at(target.global_position)

@@ -17,4 +17,4 @@ func _on_spawn_timer_timeout() -> void:
 		get_parent().add_entity(enemy)
 		enemy.vfx_emitted.connect(get_parent().add_misc)
 	
-	$SpawnTimer.wait_time = max(0.8 - get_parent().get_time() / 30.0 * 0.1, 0.1)
+	$SpawnTimer.wait_time = max(0.8 - get_parent().get_time() / 30.0 * 0.1, 0.1) # HACK: temporary for lift-off demonstration

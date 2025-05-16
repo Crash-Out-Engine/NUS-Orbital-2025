@@ -24,8 +24,8 @@ var knockback = 0.0
 var knockback_direction = Vector2(0, 0)
 var current_turret = null
 var scrap = 50
-var turrets_placed = 0 # temporary for lift-off proof of concept
-var turret_cost = 5 # ditto
+var turrets_placed = 0 # HACK: temporary for lift-off demonstration
+var turret_cost = 5 # HACK: temporary for lift-off demonstration
 
 @onready var anim = $PlayerSprite
 @onready var ranged = $Ranged

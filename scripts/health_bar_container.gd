@@ -1,8 +1,9 @@
-extends TextureProgressBar
+extends CenterContainer
 
 @export var player: Player
 
 @onready var _label := $Label as Label
+@onready var _health_bar := $HealthBar as TextureProgressBar
 
 
 func _ready() -> void:
@@ -12,5 +13,5 @@ func _ready() -> void:
 
 
 func update(new_ratio: float) -> void:
-	value = 100.0 * new_ratio
+	_health_bar.value = 100.0 * new_ratio
 	_label.text = str(player.get_health())
