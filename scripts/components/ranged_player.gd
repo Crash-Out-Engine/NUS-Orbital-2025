@@ -3,12 +3,6 @@ extends RangedBase
 
 const _BULLET_SCENE = preload("res://scenes/bullet.tscn")
 
-@onready var sound = $AudioStreamPlayer
-
-
-func _ready() -> void:
-	bullet_spawned.connect(play_sound)
-
 
 func _physics_process(_delta: float) -> void:
 	look_at(get_global_mouse_position())
@@ -35,7 +29,3 @@ func _physics_process(_delta: float) -> void:
 	ranged_cooldown.do_ranged()
 	
 	bullet_spawned.emit(bullet)
-
-
-func play_sound(_bullet):
-	sound.play()

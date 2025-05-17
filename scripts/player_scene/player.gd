@@ -2,6 +2,7 @@ class_name Player
 extends CharacterBody2D
 
 signal turret_spawned(turret: Node2D)
+signal turret_placement_failed()
 signal health_changed(new_ratio: float)
 signal scrap_changed()
 
@@ -26,7 +27,6 @@ var turrets_placed = 0 # HACK: temporary for lift-off demonstration
 var turret_cost = 5 # HACK: temporary for lift-off demonstration
 
 @onready var ranged := $Ranged as RangedBase
-@onready var footstep_sounds = $FootstepsPlayer
 
 
 func _ready() -> void:
@@ -35,11 +35,6 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if Vector2(Input.get_axis("left", "right"), Input.get_axis("up", "down")):
-		if (!footstep_sounds.playing):
-			footstep_sounds.play()
-	else:
-		footstep_sounds.stop()
 	if knockback > 0:
 		knockback -= KNOCKBACK_AMOUNT * delta / KNOCKBACK_DURATION
 	elif knockback < 0:
@@ -80,8 +75,8 @@ func _physics_process(_delta: float) -> void:
 				turret_cost = (turrets_placed + 1) * turrets_placed * 5 / 2
 				scrap_changed.emit()
 			else:
-				$ErrorSound.play()
 				current_turret.queue_free()
+				turret_placement_failed.emit()
 			current_turret = null
 		held_item = GUN_ITEM
 

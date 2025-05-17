@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://ytw0s5xnqwvt"]
+[gd_scene load_steps=38 format=3 uid="uid://ytw0s5xnqwvt"]
 
 [ext_resource type="Script" uid="uid://c8f8kowfp34yp" path="res://scripts/player_scene/player.gd" id="1_f1ej7"]
 [ext_resource type="Script" uid="uid://cndl5nak0qpxp" path="res://scripts/effectables/movement.gd" id="2_g2els"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://qxcwl20lyaga" path="res://scripts/effect_mod.gd" id="8_y4r1p"]
 [ext_resource type="Resource" uid="uid://dl56w1h7wf83j" path="res://resources/effect_mods/base_damage.tres" id="9_ur7pv"]
 [ext_resource type="AudioStream" uid="uid://dc66si5kieoq4" path="res://assets/audio/sound_effects/laser_gunshot.wav" id="12_3v2ag"]
+[ext_resource type="Script" uid="uid://dng6x4ecq2npd" path="res://scripts/player_scene/audio.gd" id="13_a8ls1"]
 [ext_resource type="AudioStream" uid="uid://dk7lmxukxhhcr" path="res://assets/audio/sound_effects/error.wav" id="13_f1ej7"]
 [ext_resource type="AudioStream" uid="uid://ciu1er752oye4" path="res://assets/audio/sound_effects/sand_steps.wav" id="13_jej6c"]
 [ext_resource type="Script" uid="uid://ddhfg683ma0hh" path="res://scripts/player_scene/visuals.gd" id="14_oprun"]
@@ -217,23 +218,6 @@ metadata/_custom_type_script = "uid://s08wfqwqu2jn"
 [node name="Barrel" type="Node2D" parent="Ranged"]
 position = Vector2(44, 0)
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Ranged"]
-stream = ExtResource("12_3v2ag")
-volume_db = -5.0
-pitch_scale = 2.0
-bus = &"SFX"
-
-[node name="ErrorSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("13_f1ej7")
-volume_db = -4.0
-bus = &"SFX"
-
-[node name="FootstepsPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("13_jej6c")
-volume_db = -18.0
-pitch_scale = 0.6
-bus = &"SFX"
-
 [node name="Visuals" type="Node2D" parent="."]
 script = ExtResource("14_oprun")
 
@@ -247,6 +231,26 @@ scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_pf23h")
 animation = &"idle"
 offset = Vector2(14, 1)
+
+[node name="Audio" type="Node" parent="."]
+script = ExtResource("13_a8ls1")
+
+[node name="LaserSound" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("12_3v2ag")
+volume_db = -5.0
+pitch_scale = 2.0
+bus = &"SFX"
+
+[node name="TurretPlacementErrorSound" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("13_f1ej7")
+volume_db = -4.0
+bus = &"SFX"
+
+[node name="FootstepsSound" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("13_jej6c")
+volume_db = -18.0
+pitch_scale = 0.6
+bus = &"SFX"
 
 [connection signal="just_changed" from="Health" to="." method="_on_health_just_changed"]
 [connection signal="just_emptied" from="Health" to="." method="_on_health_just_emptied"]
