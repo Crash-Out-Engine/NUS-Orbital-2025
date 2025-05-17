@@ -33,13 +33,9 @@ func refresh() -> void:
 	var valid_entities = (_entity_container
 		.get_children()
 		.filter(func(entity):
-			return (entity is Node2D and
-				entity.get_node_or_null(^"TargetPriority") != null and
-				entity.get_node_or_null(^"TargetPriority").team != null and
-				(!"turret_active" in entity or entity.turret_active)
-				)
-			)
-		)
+				return (entity is Node2D
+						and entity.get_node_or_null(^"TargetPriority") != null
+						and !entity.get_node_or_null(^"TargetPriority").team.is_empty())))
 	
 	for entity in valid_entities:
 		var entity_priority: TargetPriority = entity.get_node_or_null(^"TargetPriority")

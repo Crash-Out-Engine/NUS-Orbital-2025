@@ -52,8 +52,6 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("add turret"):
 		held_item = WRENCH_ITEM
 		current_turret = _TURRET_SCENE.instantiate()
-		current_turret.set_collidable(false)
-		current_turret.set_visual_modulate(Color(0, 1, 1, 0.5))
 		current_turret.global_position = get_global_mouse_position()
 		current_turret.player = self
 		turret_spawned.emit(current_turret)
@@ -68,14 +66,16 @@ func _physics_process(_delta: float) -> void:
 	
 	if Input.is_action_just_released("add turret"):
 		if current_turret != null:
-			if (can_place_turret()):
-				current_turret.build()
+			if can_place_turret():
+				current_turret.advance_state() # TODO: implement other turret states properly
+				current_turret.advance_state()
+				current_turret.advance_state()
 				scrap -= turret_cost
 				turrets_placed += 1
 				turret_cost = (turrets_placed + 1) * turrets_placed * 5 / 2
 				scrap_changed.emit()
 			else:
-				current_turret.queue_free()
+				current_turret.state = Turret.State.CANCELLED
 				turret_placement_failed.emit()
 			current_turret = null
 		held_item = GUN_ITEM

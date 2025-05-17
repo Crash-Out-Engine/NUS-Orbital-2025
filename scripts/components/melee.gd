@@ -14,7 +14,9 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	for collider in get_parent().get_colliding_bodies():
 		if (collider != null
-				and not collider.is_in_group(team) # TODO: Don't rely on godot groups
+				and collider.get_node_or_null(^"TargetPriority") != null
+				and !collider.get_node_or_null(^"TargetPriority").team.is_empty()
+				and collider.get_node_or_null(^"TargetPriority").team != team
 				and collider.get_node_or_null(^"./Hitbox") != null
 				and melee_cooldown.try_melee()):
 			collider.get_node_or_null(^"./Hitbox").trigger(melee_damage.get_effect(), get_parent())
