@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://bcocptbr3821k" path="res://scripts/game_scene/ui/pause_menu.gd" id="5_p57ef"]
 [ext_resource type="Script" uid="uid://brohp3alww54k" path="res://scripts/game_scene/ui/ui.gd" id="5_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://brlj7tpqcwcbt" path="res://assets/sprites/ui_spritesheet.png" id="7_dinhu"]
-[ext_resource type="Script" uid="uid://fgcioam4v36c" path="res://scripts/inventory.gd" id="8_kvpfn"]
+[ext_resource type="Script" uid="uid://cyt60aunvq71y" path="res://scripts/game_scene/ui/inventory.gd" id="8_kvpfn"]
 [ext_resource type="Script" uid="uid://byt4ertjin4jh" path="res://scripts/game_scene/ui/health_bar_container.gd" id="8_ssvqc"]
 [ext_resource type="FontFile" uid="uid://cj53anigafm5t" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="9_kvuet"]
 [ext_resource type="Script" uid="uid://6avt386x6skk" path="res://scripts/game_scene/chunk_tile_map.gd" id="9_vtaks"]

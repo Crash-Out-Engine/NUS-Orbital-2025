@@ -1,6 +1,6 @@
 [gd_scene load_steps=19 format=3 uid="uid://iqyedsof74fp"]
 
-[ext_resource type="Script" uid="uid://d8jbrtwr3jw" path="res://scripts/turret.gd" id="1_x3mc5"]
+[ext_resource type="Script" uid="uid://47onqbsq6sc8" path="res://scripts/turret_scene/turret.gd" id="1_x3mc5"]
 [ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox.gd" id="2_el7wl"]
 [ext_resource type="Script" uid="uid://cwdm3dvyba0l3" path="res://scripts/effectables/ranged_cooldown.gd" id="3_pp6j5"]
 [ext_resource type="Script" uid="uid://bg2iinlcp53aa" path="res://scripts/effectables/health.gd" id="4_eo4u0"]
