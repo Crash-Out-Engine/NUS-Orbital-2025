@@ -1,8 +1,7 @@
-[gd_scene load_steps=29 format=3 uid="uid://kcqha4xx46r7"]
+[gd_scene load_steps=28 format=3 uid="uid://kcqha4xx46r7"]
 
 [ext_resource type="Script" uid="uid://b2oqcghmenmfd" path="res://scripts/enemy_scene/enemy.gd" id="1_7p1mj"]
 [ext_resource type="Script" uid="uid://cndl5nak0qpxp" path="res://scripts/effectables/movement.gd" id="2_md0e3"]
-[ext_resource type="Resource" uid="uid://ccmxdw1jyhvcb" path="res://resources/target_provider.tres" id="2_w8i8w"]
 [ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox.gd" id="3_4ra3w"]
 [ext_resource type="Texture2D" uid="uid://csa25hojkjg65" path="res://assets/sprites/enemy_spritesheet.png" id="3_otmr2"]
 [ext_resource type="Script" uid="uid://bg2iinlcp53aa" path="res://scripts/effectables/health.gd" id="4_5uy6h"]
@@ -102,7 +101,6 @@ continuous_cd = 1
 contact_monitor = true
 max_contacts_reported = 620
 script = ExtResource("1_7p1mj")
-target_provider = ExtResource("2_w8i8w")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_8qclf")
@@ -146,8 +144,6 @@ ranged_cooldown = 1.5
 [node name="TargetPriority" type="Node" parent="."]
 script = ExtResource("11_w8i8w")
 team = "enemies"
-
-[node name="Timer" type="Timer" parent="."]
 
 [node name="Visuals" type="Node2D" parent="."]
 position = Vector2(0, 10)
