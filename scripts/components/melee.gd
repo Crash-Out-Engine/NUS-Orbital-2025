@@ -1,6 +1,8 @@
 class_name Melee
 extends Node
 
+signal executed(entity: Node2D)
+
 @export var melee_cooldown: MeleeCooldown
 @export var melee_damage: MeleeDamage
 
@@ -20,4 +22,4 @@ func _physics_process(_delta: float) -> void:
 				and collider.get_node_or_null(^"./Hitbox") != null
 				and melee_cooldown.try_melee()):
 			collider.get_node_or_null(^"./Hitbox").trigger(melee_damage.get_effect(), get_parent())
-			$HitSound.play()
+			executed.emit(collider)

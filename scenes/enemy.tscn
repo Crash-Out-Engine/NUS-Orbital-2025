@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://kcqha4xx46r7"]
+[gd_scene load_steps=29 format=3 uid="uid://kcqha4xx46r7"]
 
 [ext_resource type="Script" uid="uid://b2oqcghmenmfd" path="res://scripts/enemy_scene/enemy.gd" id="1_7p1mj"]
 [ext_resource type="Script" uid="uid://cndl5nak0qpxp" path="res://scripts/effectables/movement.gd" id="2_md0e3"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://cwdm3dvyba0l3" path="res://scripts/effectables/ranged_cooldown.gd" id="9_ipns3"]
 [ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/effectables/target_priority.gd" id="11_w8i8w"]
 [ext_resource type="Script" uid="uid://b003j8v8bhc26" path="res://scripts/enemy_scene/visuals.gd" id="13_j0cyh"]
+[ext_resource type="Script" uid="uid://ceeipidvq5rqy" path="res://scripts/enemy_scene/audio.gd" id="14_g0wcc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8qclf"]
 radius = 20.0
@@ -112,10 +113,6 @@ melee_cooldown = NodePath("../MeleeCooldown")
 melee_damage = NodePath("../MeleeDamage")
 metadata/_custom_type_script = "uid://bx0i0x84j70ct"
 
-[node name="HitSound" type="AudioStreamPlayer" parent="Melee"]
-stream = ExtResource("5_wtq4b")
-bus = &"SFX"
-
 [node name="Movement" type="Node" parent="."]
 script = ExtResource("2_md0e3")
 initial_speed = 150.0
@@ -171,3 +168,10 @@ material = SubResource("ShaderMaterial_s1ycm")
 use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_wrm80")
 frame_progress = 0.896492
+
+[node name="Audio" type="Node" parent="."]
+script = ExtResource("14_g0wcc")
+
+[node name="HitSound" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("5_wtq4b")
+bus = &"SFX"
