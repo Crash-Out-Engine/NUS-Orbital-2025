@@ -29,7 +29,10 @@ func _process(delta: float) -> void:
 	# sprite direction
 	var target = target_provider.get_target(global_position, target_priority.team)
 	if target != null:
-		body_sprite.flip_h = target.global_position.x < global_position.x
+		var flip_h = target.global_position.x < global_position.x
+		body_sprite.flip_h = flip_h
+		flames_sprite.flip_h = flip_h
+		legs_sprite.flip_h = flip_h
 
 
 func play_die_effect():
