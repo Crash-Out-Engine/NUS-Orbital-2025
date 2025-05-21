@@ -4,7 +4,7 @@ extends Area2D
 signal executed(entity: Node2D)
 
 @export var melee_cooldown: MeleeCooldown
-@export var melee_damage: MeleeDamage
+@export var effects: Array[Effect]
 
 @onready var team: String = $"../TargetPriority".team if $"../TargetPriority" != null else ""
 
@@ -15,5 +15,6 @@ func _on_body_entered(body: Node2D) -> void:
 			and body.get_node_or_null(^"TargetPriority").team != team
 			and body.get_node_or_null(^"./Hitbox") != null
 			and melee_cooldown.try_melee()):
-		body.get_node_or_null(^"./Hitbox").trigger(melee_damage.get_effect(), get_parent())
+		for effect in effects:
+			body.get_node_or_null(^"./Hitbox").trigger(effect, get_parent())
 		executed.emit(body) # Replace with function body.

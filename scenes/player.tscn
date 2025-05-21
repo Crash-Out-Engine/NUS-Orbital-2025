@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://ytw0s5xnqwvt"]
+[gd_scene load_steps=54 format=3 uid="uid://ytw0s5xnqwvt"]
 
 [ext_resource type="Script" uid="uid://c8f8kowfp34yp" path="res://scripts/player_scene/player.gd" id="1_f1ej7"]
 [ext_resource type="Script" uid="uid://cndl5nak0qpxp" path="res://scripts/effectables/movement.gd" id="2_g2els"]
@@ -19,7 +19,9 @@
 [ext_resource type="Script" uid="uid://bx0i0x84j70ct" path="res://scripts/components/melee.gd" id="17_4r5pv"]
 [ext_resource type="AudioStream" uid="uid://dn6k75a1tyl8k" path="res://assets/audio/sound_effects/hit_sound.wav" id="17_60mlk"]
 [ext_resource type="Script" uid="uid://cu55fh5hl5rxd" path="res://scripts/effectables/melee_cooldown.gd" id="18_60mlk"]
+[ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/effects/effect.gd" id="19_a38lo"]
 [ext_resource type="Script" uid="uid://dve6ix5ogwfw" path="res://scripts/effectables/melee_damage.gd" id="19_i4ail"]
+[ext_resource type="Script" uid="uid://2fh28xow6f1j" path="res://scripts/effects/health_effect.gd" id="20_4ni07"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d2wvv"]
 atlas = ExtResource("2_y4r1p")
@@ -243,6 +245,13 @@ animations = [{
 radius = 14.0
 height = 60.0
 
+[sub_resource type="Resource" id="Resource_l71n6"]
+script = ExtResource("20_4ni07")
+_interval = -1.0
+_repeat = 0
+_factor = -20.0
+metadata/_custom_type_script = "uid://2fh28xow6f1j"
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_60mlk"]
 radius = 30.0
 
@@ -326,11 +335,11 @@ bus = &"SFX"
 stream = ExtResource("17_60mlk")
 bus = &"SFX"
 
-[node name="Melee" type="Area2D" parent="." node_paths=PackedStringArray("melee_cooldown", "melee_damage")]
+[node name="Melee" type="Area2D" parent="." node_paths=PackedStringArray("melee_cooldown")]
 monitoring = false
 script = ExtResource("17_4r5pv")
 melee_cooldown = NodePath("../MeleeCooldown")
-melee_damage = NodePath("../MeleeDamage")
+effects = Array[ExtResource("19_a38lo")]([SubResource("Resource_l71n6")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Melee"]
 position = Vector2(45, 0)
