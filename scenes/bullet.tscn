@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://b52amtg2hmpm6"]
+[gd_scene load_steps=6 format=3 uid="uid://b52amtg2hmpm6"]
 
 [ext_resource type="Script" uid="uid://baxqvovb4qoty" path="res://scripts/bullet.gd" id="1_mkf8s"]
+[ext_resource type="Script" uid="uid://leayhs5xslyy" path="res://scripts/effectables/destroyable.gd" id="2_y25gk"]
 
 [sub_resource type="Gradient" id="Gradient_mkf8s"]
 offsets = PackedFloat32Array(0.0985916, 0.471831, 1)
@@ -27,8 +28,13 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_mkf8s")
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
 one_shot = true
 autostart = true
+
+[node name="Destroyable" type="Node" parent="."]
+script = ExtResource("2_y25gk")
+lives = 2
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

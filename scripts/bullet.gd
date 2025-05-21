@@ -26,4 +26,5 @@ func _on_body_entered(body: Node2D) -> void:
 		explosion.effects = effects
 		get_parent().add_child(explosion)
 		explosion.explode()
-		queue_free()
+		if($Destroyable.try_die()):
+			queue_free()
