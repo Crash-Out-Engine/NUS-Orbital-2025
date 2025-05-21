@@ -1,7 +1,7 @@
 class_name Bullet
 extends Area2D
 
-const _EXPLOSION_SCENE = preload("res://scenes/bullet_explosion.tscn")
+const _EXPLOSION_SCENE = preload("res://scenes/explosion.tscn")
 const SPEED = 700
 
 var direction: float
@@ -20,10 +20,11 @@ func _on_timer_timeout() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.get_node_or_null(^"./Hitbox") != null and not body.is_in_group(team): # TODO: Don't rely on godot groups
-		for effect in effects:
-			body.get_node_or_null(^"./Hitbox").trigger(effect)
 		var explosion = _EXPLOSION_SCENE.instantiate()
+		print(has_overlapping_areas())
 		explosion.global_position = global_position
+		explosion.team = team
+		explosion.effects = effects
 		get_parent().add_child(explosion)
 		explosion.explode()
 		queue_free()
