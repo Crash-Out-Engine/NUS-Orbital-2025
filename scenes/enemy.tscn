@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://kcqha4xx46r7"]
+[gd_scene load_steps=29 format=3 uid="uid://kcqha4xx46r7"]
 
 [ext_resource type="Script" uid="uid://b2oqcghmenmfd" path="res://scripts/enemy_scene/enemy.gd" id="1_7p1mj"]
 [ext_resource type="Script" uid="uid://cndl5nak0qpxp" path="res://scripts/effectables/movement.gd" id="2_md0e3"]
@@ -17,6 +17,9 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8qclf"]
 radius = 20.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j0cyh"]
+radius = 20.2
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wtq4b"]
 atlas = ExtResource("3_otmr2")
@@ -105,11 +108,13 @@ script = ExtResource("1_7p1mj")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_8qclf")
 
-[node name="Melee" type="Node" parent="." node_paths=PackedStringArray("melee_cooldown", "melee_damage")]
+[node name="Melee" type="Area2D" parent="." node_paths=PackedStringArray("melee_cooldown", "melee_damage")]
 script = ExtResource("5_nenq2")
 melee_cooldown = NodePath("../MeleeCooldown")
 melee_damage = NodePath("../MeleeDamage")
-metadata/_custom_type_script = "uid://bx0i0x84j70ct"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Melee"]
+shape = SubResource("CircleShape2D_j0cyh")
 
 [node name="Movement" type="Node" parent="."]
 script = ExtResource("2_md0e3")
@@ -171,3 +176,5 @@ script = ExtResource("14_g0wcc")
 [node name="HitSound" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("5_wtq4b")
 bus = &"SFX"
+
+[connection signal="body_entered" from="Melee" to="Melee" method="_on_body_entered"]

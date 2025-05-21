@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://ytw0s5xnqwvt"]
+[gd_scene load_steps=51 format=3 uid="uid://ytw0s5xnqwvt"]
 
 [ext_resource type="Script" uid="uid://c8f8kowfp34yp" path="res://scripts/player_scene/player.gd" id="1_f1ej7"]
 [ext_resource type="Script" uid="uid://cndl5nak0qpxp" path="res://scripts/effectables/movement.gd" id="2_g2els"]
@@ -16,6 +16,10 @@
 [ext_resource type="AudioStream" uid="uid://dk7lmxukxhhcr" path="res://assets/audio/sound_effects/error.wav" id="13_f1ej7"]
 [ext_resource type="AudioStream" uid="uid://ciu1er752oye4" path="res://assets/audio/sound_effects/sand_steps.wav" id="13_jej6c"]
 [ext_resource type="Script" uid="uid://ddhfg683ma0hh" path="res://scripts/player_scene/visuals.gd" id="14_oprun"]
+[ext_resource type="Script" uid="uid://bx0i0x84j70ct" path="res://scripts/components/melee.gd" id="17_4r5pv"]
+[ext_resource type="AudioStream" uid="uid://dn6k75a1tyl8k" path="res://assets/audio/sound_effects/hit_sound.wav" id="17_60mlk"]
+[ext_resource type="Script" uid="uid://cu55fh5hl5rxd" path="res://scripts/effectables/melee_cooldown.gd" id="18_60mlk"]
+[ext_resource type="Script" uid="uid://dve6ix5ogwfw" path="res://scripts/effectables/melee_damage.gd" id="19_i4ail"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
 radius = 14.0
@@ -138,6 +142,38 @@ region = Rect2(108, 36, 36, 36)
 atlas = ExtResource("3_d2wvv")
 region = Rect2(0, 0, 36, 36)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_dt7fs"]
+atlas = ExtResource("3_d2wvv")
+region = Rect2(0, 72, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wqfne"]
+atlas = ExtResource("3_d2wvv")
+region = Rect2(36, 72, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wnwbv"]
+atlas = ExtResource("3_d2wvv")
+region = Rect2(72, 72, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gl8cc"]
+atlas = ExtResource("3_d2wvv")
+region = Rect2(108, 72, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_487ah"]
+atlas = ExtResource("3_d2wvv")
+region = Rect2(0, 108, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_md1ol"]
+atlas = ExtResource("3_d2wvv")
+region = Rect2(36, 108, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bj30b"]
+atlas = ExtResource("3_d2wvv")
+region = Rect2(72, 108, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jc3p3"]
+atlas = ExtResource("3_d2wvv")
+region = Rect2(108, 108, 36, 36)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_pf23h"]
 atlas = ExtResource("3_d2wvv")
 region = Rect2(36, 0, 36, 36)
@@ -158,7 +194,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_ujl30")
 }],
 "loop": false,
-"name": &"fire",
+"name": &"gun_fire",
 "speed": 12.0
 }, {
 "frames": [{
@@ -166,17 +202,49 @@ animations = [{
 "texture": SubResource("AtlasTexture_31cv2")
 }],
 "loop": false,
-"name": &"idle",
+"name": &"gun_idle",
 "speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dt7fs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wqfne")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wnwbv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gl8cc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_487ah")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_md1ol")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bj30b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jc3p3")
+}],
+"loop": false,
+"name": &"melee_fire",
+"speed": 1.0
 }, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_pf23h")
 }],
 "loop": false,
-"name": &"wrench",
+"name": &"melee_idle",
 "speed": 0.0
 }]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_60mlk"]
+radius = 30.0
 
 [node name="Player" type="CharacterBody2D" groups=["allies"]]
 script = ExtResource("1_f1ej7")
@@ -224,12 +292,14 @@ script = ExtResource("14_oprun")
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="Visuals"]
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_4ni07")
-animation = &"idle"
+animation = &"running"
 
 [node name="GunSprite" type="AnimatedSprite2D" parent="Visuals"]
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_pf23h")
-animation = &"idle"
+animation = &"melee_fire"
+frame = 4
+frame_progress = 0.823524
 offset = Vector2(14, 1)
 
 [node name="Audio" type="Node" parent="."]
@@ -252,5 +322,30 @@ volume_db = -18.0
 pitch_scale = 0.6
 bus = &"SFX"
 
+[node name="HitSound" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("17_60mlk")
+bus = &"SFX"
+
+[node name="Melee" type="Area2D" parent="." node_paths=PackedStringArray("melee_cooldown", "melee_damage")]
+monitoring = false
+script = ExtResource("17_4r5pv")
+melee_cooldown = NodePath("../MeleeCooldown")
+melee_damage = NodePath("../MeleeDamage")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Melee"]
+position = Vector2(45, 0)
+shape = SubResource("CircleShape2D_60mlk")
+
+[node name="MeleeCooldown" type="Node" parent="."]
+script = ExtResource("18_60mlk")
+melee_cooldown = 0.3
+
+[node name="MeleeDamage" type="Node" parent="."]
+script = ExtResource("19_i4ail")
+
 [connection signal="just_changed" from="Health" to="." method="_on_health_just_changed"]
 [connection signal="just_emptied" from="Health" to="." method="_on_health_just_emptied"]
+[connection signal="melee_finished" from="Visuals" to="." method="_on_visuals_melee_finished"]
+[connection signal="animation_finished" from="Visuals/GunSprite" to="Visuals" method="_on_gun_sprite_animation_finished"]
+[connection signal="frame_changed" from="Visuals/GunSprite" to="Visuals" method="_on_gun_sprite_frame_changed"]
+[connection signal="body_entered" from="Melee" to="Melee" method="_on_body_entered"]

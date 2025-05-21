@@ -7,13 +7,19 @@ signal health_changed(new_ratio: float)
 signal scrap_changed()
 
 const _TURRET_SCENE := preload("res://scenes/turret.tscn")
-const GUN_ITEM := 0
-const WRENCH_ITEM := 1
+
+enum Hand {
+	HOLDING_GUN,
+	FIRING_GUN,
+	HOLDING_WRENCH,
+	FIRING_WRENCH
+}
+
 const KNOCKBACK_DURATION = 0.5
 const KNOCKBACK_AMOUNT = 800.0
 const PICKUP_RANGE = 125
 
-var held_item = GUN_ITEM
+var hand_action = Hand.HOLDING_GUN
 var direction: Callable = func(_delta: float) -> Vector2:
 	return Vector2(
 		Input.get_axis("left", "right"),
@@ -43,14 +49,21 @@ func _process(delta: float) -> void:
 
 func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("shoot"):
-		if (held_item == GUN_ITEM):
+		if (hand_action == Hand.HOLDING_GUN):
+			hand_action = Hand.FIRING_GUN
 			ranged.active = true
 	
 	if Input.is_action_just_released("shoot"):
 		ranged.active = false
+		hand_action = Hand.HOLDING_GUN
+	
+	if Input.is_action_just_pressed("melee"):
+		if(hand_action == Hand.HOLDING_GUN):
+			hand_action = Hand.FIRING_WRENCH
+		
 	
 	if Input.is_action_just_pressed("add turret"):
-		held_item = WRENCH_ITEM
+		hand_action = Hand.HOLDING_WRENCH
 		current_turret = _TURRET_SCENE.instantiate()
 		current_turret.global_position = get_global_mouse_position()
 		current_turret.player = self
@@ -78,7 +91,7 @@ func _physics_process(_delta: float) -> void:
 				current_turret.state = Turret.State.CANCELLED
 				turret_placement_failed.emit()
 			current_turret = null
-		held_item = GUN_ITEM
+		hand_action = Hand.HOLDING_GUN
 
 
 func can_place_turret() -> bool:
@@ -105,3 +118,6 @@ func _on_health_just_changed(_old_value: float, new_value: float) -> void:
 func apply_knockback(source: Node2D) -> void:
 	knockback_direction = (global_position - source.global_position).normalized()
 	knockback = KNOCKBACK_AMOUNT
+
+func _on_visuals_melee_finished() -> void:
+	hand_action = Hand.HOLDING_GUN

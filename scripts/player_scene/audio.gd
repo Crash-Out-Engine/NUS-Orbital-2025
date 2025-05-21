@@ -5,11 +5,15 @@ extends Node
 @onready var turret_placement_error_sound := $TurretPlacementErrorSound as AudioStreamPlayer
 @onready var player := $".." as Player
 @onready var player_ranged := $"../Ranged" as RangedBase
+@onready var player_melee := $"../Melee" as Melee
+@onready var hit_sound := $HitSound as AudioStreamPlayer
+
 
 
 func _ready() -> void:
 	player_ranged.bullet_spawned.connect(play_laser_sound)
 	player.turret_placement_failed.connect(play_turret_placement_error_sound)
+	player_melee.executed.connect(func(_entity): play_hit_sound())
 
 
 func _process(_delta: float) -> void:
@@ -26,3 +30,6 @@ func play_turret_placement_error_sound() -> void:
 
 func play_laser_sound(_bullet) -> void:
 	laser_sound.play()
+
+func play_hit_sound():
+	hit_sound.play()

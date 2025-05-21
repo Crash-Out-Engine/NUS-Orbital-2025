@@ -5,7 +5,6 @@ signal vfx_emitted(Node2D)
 
 var loot_scene = preload("res://scenes/loot.tscn")
 
-@onready var timer: Timer = $Timer
 @onready var ranged: RangedAI = $Ranged
 
 

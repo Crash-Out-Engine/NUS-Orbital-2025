@@ -1,5 +1,5 @@
 class_name Melee
-extends Node
+extends Area2D
 
 signal executed(entity: Node2D)
 
@@ -8,18 +8,12 @@ signal executed(entity: Node2D)
 
 @onready var team: String = $"../TargetPriority".team if $"../TargetPriority" != null else ""
 
-
-func _ready() -> void:
-	assert(get_parent() is RigidBody2D, "Parent should be a RigidBody2D.")
-	
-
-func _physics_process(_delta: float) -> void:
-	for collider in get_parent().get_colliding_bodies():
-		if (collider != null
-				and collider.get_node_or_null(^"TargetPriority") != null
-				and !collider.get_node_or_null(^"TargetPriority").team.is_empty()
-				and collider.get_node_or_null(^"TargetPriority").team != team
-				and collider.get_node_or_null(^"./Hitbox") != null
-				and melee_cooldown.try_melee()):
-			collider.get_node_or_null(^"./Hitbox").trigger(melee_damage.get_effect(), get_parent())
-			executed.emit(collider)
+func _on_body_entered(body: Node2D) -> void:
+	if (body != null
+			and body.get_node_or_null(^"TargetPriority") != null
+			and !body.get_node_or_null(^"TargetPriority").team.is_empty()
+			and body.get_node_or_null(^"TargetPriority").team != team
+			and body.get_node_or_null(^"./Hitbox") != null
+			and melee_cooldown.try_melee()):
+		body.get_node_or_null(^"./Hitbox").trigger(melee_damage.get_effect(), get_parent())
+		executed.emit(body) # Replace with function body.
