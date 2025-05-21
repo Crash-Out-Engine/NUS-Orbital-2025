@@ -70,6 +70,18 @@ texture = ExtResource("16_264po")
 1:0/0 = 0
 0:1/0 = 0
 1:1/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+3:1/0 = 0
+3:2/0 = 0
+2:2/0 = 0
+2:3/0 = 0
+1:3/0 = 0
+1:2/0 = 0
+2:1/0 = 0
+3:3/0 = 0
+0:3/0 = 0
+0:2/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_dinhu"]
 sources/0 = SubResource("TileSetAtlasSource_kvpfn")
@@ -80,17 +92,23 @@ frequency = 1.0
 
 [sub_resource type="Curve" id="Curve_kvpfn"]
 _limits = [0.0, 1.0, -1.0, 1.0]
-_data = [Vector2(-1, 0), 0.0, 6.55281, 0, 1, Vector2(-0.876543, 0.808989), 0.0, 0.0, 0, 0, Vector2(-0.769547, 0.146068), -6.19577, 14.3343, 1, 1, Vector2(-0.720165, 0.853933), 14.3343, -11.5064, 1, 1, Vector2(-0.662552, 0.191011), 0.0, 0.0, 0, 0, Vector2(-0.588477, 0.853933), 8.94944, -10.1629, 1, 1, Vector2(-0.514403, 0.101124), 0.0, 0.0, 0, 0, Vector2(-0.333333, 0.898876), 4.40577, -107.848, 1, 1]
-point_count = 8
+_data = [Vector2(-1, 0), 0.0, 7.87598, 0, 1, Vector2(-0.893004, 0.842697), 0.0, 0.0, 0, 0, Vector2(-0.827161, 0.235955), -9.21489, 12.2865, 1, 1, Vector2(-0.786008, 0.741573), 12.2865, -4.9146, 1, 1, Vector2(-0.703704, 0.337079), 0.0, 0.0, 0, 0, Vector2(-0.679012, 0.955056), 0.0, 0.0, 0, 0, Vector2(-0.621399, 0.58427), 0.0, 0.0, 0, 0, Vector2(-0.547325, 0.752809), 0.0, 0.0, 0, 0, Vector2(-0.489712, 0.146068), 0.0, 0.0, 0, 0, Vector2(-0.407407, 0.426966), 0.0, 0.0, 0, 0, Vector2(-0.366255, 0.0898877), 0.0, 0.0, 0, 0, Vector2(-0.256, 0.955), 0.0, 0.0, 0, 0]
+point_count = 12
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_264po"]
 texture = ExtResource("16_264po")
-2:0/0 = 0
-2:1/0 = 0
-3:1/0 = 0
-3:0/0 = 0
 4:1/0 = 0
 4:0/0 = 0
+4:2/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+6:2/0 = 0
+6:1/0 = 0
+6:0/0 = 0
+5:0/0 = 0
+5:1/0 = 0
+5:2/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_1kice"]
 sources/0 = SubResource("TileSetAtlasSource_264po")
@@ -102,8 +120,8 @@ offset = Vector3(-389.61, 0.65, 0)
 
 [sub_resource type="Curve" id="Curve_5newe"]
 _limits = [0.0, 1.0, -1.0, 1.0]
-_data = [Vector2(-1, 0), 0.0, 2.11386, 0, 1, Vector2(-0.596, 0.854), 2.11386, 0.0157428, 1, 1, Vector2(0.827161, 0.876405), 0.0, 0.0, 0, 0]
-point_count = 3
+_data = [Vector2(-1, 0), 0.0, 57.3375, 0, 1, Vector2(-0.983539, 0.94382), 0.0, 0.0, 0, 0, Vector2(-0.934156, 0.0561798), 0.0, 0.0, 0, 0, Vector2(-0.917696, 0.573034), 0.0, 0.0, 0, 0, Vector2(-0.843621, 0.0898877), 0.0, 0.0, 0, 0, Vector2(-0.827161, 0.88764), 0.0, 0.0, 0, 0, Vector2(-0.744856, 0.393258), 0.0, 0.0, 0, 0, Vector2(-0.720165, 0.820225), 0.0, 0.0, 0, 0, Vector2(-0.604938, 0.11236), 0.0, 0.0, 0, 0, Vector2(-0.578, 0.978), 27.0522, -0.0630078, 0, 1]
+point_count = 10
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_yqjtg")
@@ -346,7 +364,7 @@ tile_set = SubResource("TileSet_dinhu")
 script = ExtResource("9_vtaks")
 noise = SubResource("FastNoiseLite_vtaks")
 curve = SubResource("Curve_kvpfn")
-tileset_dimensions = Vector2i(2, 2)
+tileset_dimensions = Vector2i(4, 4)
 
 [node name="ChunkDebug" type="Node2D" parent="SandTileMap"]
 z_index = 100
@@ -359,8 +377,8 @@ tile_set = SubResource("TileSet_1kice")
 script = ExtResource("9_vtaks")
 noise = SubResource("FastNoiseLite_264po")
 curve = SubResource("Curve_5newe")
-tileset_dimensions = Vector2i(3, 2)
-zeroth_tile = Vector2i(2, 0)
+tileset_dimensions = Vector2i(3, 4)
+zeroth_tile = Vector2i(4, 0)
 
 [node name="ChunkDebug" type="Node2D" parent="OverlayTileMap"]
 z_index = 100
