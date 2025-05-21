@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://bbtrde7tvkisy"]
+[gd_scene load_steps=32 format=3 uid="uid://bbtrde7tvkisy"]
 
 [ext_resource type="PackedScene" uid="uid://ytw0s5xnqwvt" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://d2o1hku0svi7t" path="res://scripts/game_scene/game.gd" id="1_yqjtg"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://dlfl58jvcogf5" path="res://scripts/game_scene/chunk_debug.gd" id="10_vtaks"]
 [ext_resource type="AudioStream" uid="uid://d0bs4frau5lf8" path="res://assets/audio/sound_effects/pause_sound.wav" id="11_ca42v"]
 [ext_resource type="Theme" uid="uid://c8t8fqq1p8n4l" path="res://resources/custom_ui.tres" id="12_ssvqc"]
+[ext_resource type="Script" uid="uid://b5ihjg2jg7kkh" path="res://scripts/debug.gd" id="15_264po"]
 [ext_resource type="AudioStream" uid="uid://c3lyo02lbnyxw" path="res://assets/audio/songs/8_bit_mimic.wav" id="15_ir15t"]
 
 [sub_resource type="Environment" id="Environment_yqjtg"]
@@ -58,6 +59,11 @@ shadow_size = 8
 shadow_color = Color(0, 0, 0, 0.74902)
 shadow_offset = Vector2(2, 2)
 
+[sub_resource type="LabelSettings" id="LabelSettings_1kice"]
+font = ExtResource("9_kvuet")
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 1)
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kvpfn"]
 texture = ExtResource("10_dinhu")
 texture_region_size = Vector2i(144, 144)
@@ -97,6 +103,7 @@ environment = SubResource("Environment_yqjtg")
 [node name="Player" parent="EntityContainer" instance=ExtResource("1_uwrxv")]
 
 [node name="Camera2D" type="Camera2D" parent="EntityContainer/Player"]
+zoom = Vector2(0.8, 0.8)
 process_callback = 0
 position_smoothing_enabled = true
 script = ExtResource("4_lbhrr")
@@ -105,7 +112,7 @@ script = ExtResource("4_lbhrr")
 script = ExtResource("5_iywne")
 
 [node name="SpawnTimer" type="Timer" parent="Spawner"]
-wait_time = 0.8
+wait_time = 4096.0
 autostart = true
 
 [node name="UI" type="CanvasLayer" parent="."]
@@ -300,6 +307,22 @@ layout_mode = 2
 text = "THIS IS AN INVENTORY PLACEHOLDER"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Debug" type="Control" parent="UI" node_paths=PackedStringArray("player")]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("15_264po")
+player = NodePath("../../EntityContainer/Player")
+
+[node name="Label" type="Label" parent="UI/Debug"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "afdsas"
+label_settings = SubResource("LabelSettings_1kice")
 
 [node name="ChunkTileMap" type="TileMapLayer" parent="."]
 z_index = -100
