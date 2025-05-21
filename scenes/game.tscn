@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bbtrde7tvkisy"]
+[gd_scene load_steps=36 format=3 uid="uid://bbtrde7tvkisy"]
 
 [ext_resource type="PackedScene" uid="uid://ytw0s5xnqwvt" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://d2o1hku0svi7t" path="res://scripts/game_scene/game.gd" id="1_yqjtg"]
@@ -11,7 +11,6 @@
 [ext_resource type="Script" uid="uid://byt4ertjin4jh" path="res://scripts/game_scene/ui/health_bar_container.gd" id="8_ssvqc"]
 [ext_resource type="FontFile" uid="uid://cj53anigafm5t" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="9_kvuet"]
 [ext_resource type="Script" uid="uid://6avt386x6skk" path="res://scripts/game_scene/chunk_tile_map.gd" id="9_vtaks"]
-[ext_resource type="Texture2D" uid="uid://0s5snf5jmy5j" path="res://assets/tilesheets/tilesheet_v3.png" id="10_dinhu"]
 [ext_resource type="Script" uid="uid://dtjpju6vch1iy" path="res://scripts/game_scene/ui/scrap_counter.gd" id="10_rysoc"]
 [ext_resource type="Script" uid="uid://00ptaqelvbr5" path="res://scripts/game_scene/ui/timer_label.gd" id="10_trtic"]
 [ext_resource type="Script" uid="uid://dlfl58jvcogf5" path="res://scripts/game_scene/chunk_debug.gd" id="10_vtaks"]
@@ -19,6 +18,7 @@
 [ext_resource type="Theme" uid="uid://c8t8fqq1p8n4l" path="res://resources/custom_ui.tres" id="12_ssvqc"]
 [ext_resource type="Script" uid="uid://b5ihjg2jg7kkh" path="res://scripts/debug.gd" id="15_264po"]
 [ext_resource type="AudioStream" uid="uid://c3lyo02lbnyxw" path="res://assets/audio/songs/8_bit_mimic.wav" id="15_ir15t"]
+[ext_resource type="Texture2D" uid="uid://ccfwh73q4xx04" path="res://assets/tilesheets/tilemap.png" id="16_264po"]
 
 [sub_resource type="Environment" id="Environment_yqjtg"]
 background_mode = 3
@@ -65,20 +65,13 @@ shadow_color = Color(0, 0, 0, 1)
 shadow_offset = Vector2(2, 1)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kvpfn"]
-texture = ExtResource("10_dinhu")
-texture_region_size = Vector2i(144, 144)
+texture = ExtResource("16_264po")
 0:0/0 = 0
 1:0/0 = 0
 0:1/0 = 0
 1:1/0 = 0
-2:0/0 = 0
-2:1/0 = 0
-0:2/0 = 0
-1:2/0 = 0
-2:2/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_dinhu"]
-tile_size = Vector2i(144, 144)
 sources/0 = SubResource("TileSetAtlasSource_kvpfn")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_vtaks"]
@@ -87,8 +80,30 @@ frequency = 1.0
 
 [sub_resource type="Curve" id="Curve_kvpfn"]
 _limits = [0.0, 1.0, -1.0, 1.0]
-_data = [Vector2(-1, 0), 0.0, 6.25, 0, 1, Vector2(-0.84, 1), 6.25, -6.25, 1, 1, Vector2(-0.68, 0), -6.25, 6.25, 1, 1, Vector2(-0.52, 1), 6.25, -6.25, 1, 1, Vector2(-0.36, 0), -6.25, 6.1875, 1, 1, Vector2(-0.2, 0.99), 6.1875, 0.0, 1, 1, Vector2(1, 0.99), 0.0, 0.0, 0, 0]
-point_count = 7
+_data = [Vector2(-1, 0), 0.0, 6.55281, 0, 1, Vector2(-0.876543, 0.808989), 0.0, 0.0, 0, 0, Vector2(-0.769547, 0.146068), -6.19577, 14.3343, 1, 1, Vector2(-0.720165, 0.853933), 14.3343, -11.5064, 1, 1, Vector2(-0.662552, 0.191011), 0.0, 0.0, 0, 0, Vector2(-0.588477, 0.853933), 8.94944, -10.1629, 1, 1, Vector2(-0.514403, 0.101124), 0.0, 0.0, 0, 0, Vector2(-0.333333, 0.898876), 4.40577, -107.848, 1, 1]
+point_count = 8
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_264po"]
+texture = ExtResource("16_264po")
+2:0/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+3:0/0 = 0
+4:1/0 = 0
+4:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_1kice"]
+sources/0 = SubResource("TileSetAtlasSource_264po")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_264po"]
+noise_type = 0
+frequency = 0.981
+offset = Vector3(-389.61, 0.65, 0)
+
+[sub_resource type="Curve" id="Curve_5newe"]
+_limits = [0.0, 1.0, -1.0, 1.0]
+_data = [Vector2(-1, 0), 0.0, 2.11386, 0, 1, Vector2(-0.596, 0.854), 2.11386, 0.0157428, 1, 1, Vector2(0.827161, 0.876405), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_yqjtg")
@@ -104,7 +119,6 @@ environment = SubResource("Environment_yqjtg")
 
 [node name="Camera2D" type="Camera2D" parent="EntityContainer/Player"]
 offset = Vector2(2.76, 0)
-zoom = Vector2(0.85, 0.85)
 process_callback = 0
 position_smoothing_enabled = true
 script = ExtResource("4_lbhrr")
@@ -125,8 +139,8 @@ process_mode = 1
 custom_minimum_size = Vector2(1152, 648)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 1152.0
-offset_bottom = 648.0
+offset_right = 1600.0
+offset_bottom = 900.0
 
 [node name="TimerLabel" type="Label" parent="UI/HUD"]
 layout_mode = 0
@@ -190,8 +204,8 @@ vertical_alignment = 1
 process_mode = 2
 layout_mode = 3
 anchors_preset = 0
-offset_right = 1152.0
-offset_bottom = 648.0
+offset_right = 1600.0
+offset_bottom = 900.0
 script = ExtResource("5_p57ef")
 
 [node name="PanelContainer" type="PanelContainer" parent="UI/PauseMenu"]
@@ -286,8 +300,8 @@ bus = &"SFX"
 custom_minimum_size = Vector2(1152, 648)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 1152.0
-offset_bottom = 648.0
+offset_right = 1600.0
+offset_bottom = 900.0
 script = ExtResource("8_kvpfn")
 
 [node name="PanelContainer" type="PanelContainer" parent="UI/Inventory"]
@@ -325,14 +339,30 @@ offset_bottom = 23.0
 text = "afdsas"
 label_settings = SubResource("LabelSettings_1kice")
 
-[node name="ChunkTileMap" type="TileMapLayer" parent="."]
+[node name="SandTileMap" type="TileMapLayer" parent="."]
 z_index = -100
+scale = Vector2(2, 2)
 tile_set = SubResource("TileSet_dinhu")
 script = ExtResource("9_vtaks")
 noise = SubResource("FastNoiseLite_vtaks")
 curve = SubResource("Curve_kvpfn")
+tileset_dimensions = Vector2i(2, 2)
 
-[node name="ChunkDebug" type="Node2D" parent="ChunkTileMap"]
+[node name="ChunkDebug" type="Node2D" parent="SandTileMap"]
+z_index = 100
+script = ExtResource("10_vtaks")
+
+[node name="OverlayTileMap" type="TileMapLayer" parent="."]
+z_index = -100
+scale = Vector2(2, 2)
+tile_set = SubResource("TileSet_1kice")
+script = ExtResource("9_vtaks")
+noise = SubResource("FastNoiseLite_264po")
+curve = SubResource("Curve_5newe")
+tileset_dimensions = Vector2i(3, 2)
+zeroth_tile = Vector2i(2, 0)
+
+[node name="ChunkDebug" type="Node2D" parent="OverlayTileMap"]
 z_index = 100
 script = ExtResource("10_vtaks")
 

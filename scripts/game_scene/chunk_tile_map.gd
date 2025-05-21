@@ -1,10 +1,10 @@
 class_name ChunkTileMap
 extends TileMapLayer
 
-const TILE_COUNT = 9
-
 @export var noise: Noise
 @export var curve: Curve
+@export var tileset_dimensions: Vector2i
+@export var zeroth_tile: Vector2i
 
 var chunk_radius := 4
 var chunk_size := Vector2i(16, 16)
@@ -51,9 +51,9 @@ func _generate_chunk(at_chunk: Vector2i) -> void:
 			var noise_value = curve.sample(
 					noise.get_noise_2d(tile_coords.x, tile_coords.y))
 			
-			var tile_value = floor((noise_value) * TILE_COUNT) as int
-				
-			set_cell(tile_coords, 0, Vector2i(tile_value % 3, tile_value / 3))
+			var tile_value = floor((noise_value) * tileset_dimensions.x * tileset_dimensions.y) as int
+			
+			set_cell(tile_coords, 0, Vector2i(tile_value % tileset_dimensions.x + zeroth_tile.x, tile_value / tileset_dimensions.x + zeroth_tile.y))
 			_loaded_chunks.append(at_chunk)
 
 
