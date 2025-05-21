@@ -21,10 +21,6 @@
 [ext_resource type="Script" uid="uid://cu55fh5hl5rxd" path="res://scripts/effectables/melee_cooldown.gd" id="18_60mlk"]
 [ext_resource type="Script" uid="uid://dve6ix5ogwfw" path="res://scripts/effectables/melee_damage.gd" id="19_i4ail"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
-radius = 14.0
-height = 60.0
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_d2wvv"]
 atlas = ExtResource("2_y4r1p")
 region = Rect2(0, 0, 36, 36)
@@ -243,15 +239,15 @@ animations = [{
 "speed": 0.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
+radius = 14.0
+height = 60.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_60mlk"]
 radius = 30.0
 
 [node name="Player" type="CharacterBody2D" groups=["allies"]]
 script = ExtResource("1_f1ej7")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -2)
-shape = SubResource("CapsuleShape2D_g2els")
 
 [node name="Movement" type="Node" parent="."]
 script = ExtResource("2_g2els")
@@ -284,7 +280,7 @@ effect_mods = Array[ExtResource("8_y4r1p")]([ExtResource("9_ur7pv")])
 metadata/_custom_type_script = "uid://s08wfqwqu2jn"
 
 [node name="Barrel" type="Node2D" parent="Ranged"]
-position = Vector2(44, 0)
+position = Vector2(45, 0)
 
 [node name="Visuals" type="Node2D" parent="."]
 script = ExtResource("14_oprun")
@@ -301,6 +297,10 @@ animation = &"melee_fire"
 frame = 4
 frame_progress = 0.823524
 offset = Vector2(14, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("CapsuleShape2D_g2els")
 
 [node name="Audio" type="Node" parent="."]
 script = ExtResource("13_a8ls1")

@@ -103,7 +103,8 @@ environment = SubResource("Environment_yqjtg")
 [node name="Player" parent="EntityContainer" instance=ExtResource("1_uwrxv")]
 
 [node name="Camera2D" type="Camera2D" parent="EntityContainer/Player"]
-zoom = Vector2(0.8, 0.8)
+offset = Vector2(2.76, 0)
+zoom = Vector2(0.85, 0.85)
 process_callback = 0
 position_smoothing_enabled = true
 script = ExtResource("4_lbhrr")
@@ -112,7 +113,7 @@ script = ExtResource("4_lbhrr")
 script = ExtResource("5_iywne")
 
 [node name="SpawnTimer" type="Timer" parent="Spawner"]
-wait_time = 4096.0
+wait_time = 0.8
 autostart = true
 
 [node name="UI" type="CanvasLayer" parent="."]
