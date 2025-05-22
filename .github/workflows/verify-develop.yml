@@ -1,0 +1,73 @@
+# This is a basic workflow to help you get started with Actions
+
+name: "Verify Develop"
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on pull request events but only for the "dev" branch
+  pull_request:
+    branches: [ "dev" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+env:
+  GODOT_VERSION: 4.4
+  VERSION_FILE: project.godot
+  VERSION_REGEX: config\/version=\"\K[0-9.\-A-z]*
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  check-version-bump:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current branch
+        uses: actions/checkout@v4.2.2
+        with:      
+          ref: ${{ github.base_ref }}
+          # Personal access token (PAT) used to fetch the repository. The PAT is configured with the local git config, which enables your scripts to run authenticated git commands. The post-job step removes the PAT.
+      - name: Extract old version string
+        id: extract-old-version
+        uses: CapsCollective/version-actions/extract-version@v1.0
+        with:
+          version-file: ${{ env.VERSION_FILE }}
+          version-regex: ${{ env.VERSION_REGEX }}
+
+      - name: Checkout current branch
+        uses: actions/checkout@v4.2.2
+
+      - name: Extract new version string
+        id: extract-new-version
+        uses: CapsCollective/version-actions/extract-version@v1.0
+        with:
+          version-file: ${{ env.VERSION_FILE }}
+          version-regex: ${{ env.VERSION_REGEX }}
+
+      - name: Check semantic version bump
+        uses: CapsCollective/version-actions/check-version-bump@v1.0
+        with:
+          new-version: ${{ steps.extract-new-version.outputs.version-string }}
+          old-version: ${{ steps.extract-old-version.outputs.version-string }}
+
+  run-project-validation:
+    needs: check-version-bump
+    runs-on: macos-latest
+    steps:
+      - name: Checkout current branch
+        uses: actions/checkout@v4.2.2
+
+      - name: Install Godot
+        id: install-godot
+        uses: CapsCollective/godot-actions/install-godot@v1.2
+        with:
+          godot-version: ${{ env.GODOT_VERSION }}
+          install-templates: true
+
+      - name: Open Godot editor for reimport
+        run: ${{ steps.install-godot.outputs.godot-executable }} --editor --headless --quit || true
+
+      - name: Build and upload artifacts for all platforms
+        uses: CapsCollective/godot-actions/build-godot@v1.2
+        with:
+          godot-executable: ${{ steps.install-godot.outputs.godot-executable }}
+          build-dir: "build"
