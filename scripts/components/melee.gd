@@ -13,8 +13,7 @@ func _on_body_entered(body: Node2D) -> void:
 			and body.get_node_or_null(^"TargetPriority") != null
 			and !body.get_node_or_null(^"TargetPriority").team.is_empty()
 			and body.get_node_or_null(^"TargetPriority").team != team
-			and body.get_node_or_null(^"./Hitbox") != null
-			and melee_cooldown.try_melee()):
+			and body.get_node_or_null(^"./Hitbox") != null):
 		for effect in effects:
 			body.get_node_or_null(^"./Hitbox").trigger(effect, get_parent())
 		executed.emit(body) # Replace with function body.

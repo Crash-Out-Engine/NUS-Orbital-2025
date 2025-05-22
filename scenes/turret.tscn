@@ -11,43 +11,40 @@
 [ext_resource type="Texture2D" uid="uid://06sdtfwasbao" path="res://assets/sprites/turret_spritesheet.png" id="8_0dv4j"]
 [ext_resource type="AudioStream" uid="uid://dc66si5kieoq4" path="res://assets/audio/sound_effects/laser_gunshot.wav" id="9_tg0ex"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_0dv4j"]
-radius = 18.0278
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0dv4j"]
-atlas = ExtResource("8_0dv4j")
-region = Rect2(0, 36, 36, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tg0ex"]
-atlas = ExtResource("8_0dv4j")
-region = Rect2(36, 36, 36, 36)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_eo4u0"]
 atlas = ExtResource("8_0dv4j")
-region = Rect2(72, 36, 36, 36)
+region = Rect2(0, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6k4ik"]
 atlas = ExtResource("8_0dv4j")
-region = Rect2(108, 36, 36, 36)
+region = Rect2(32, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fp1kq"]
 atlas = ExtResource("8_0dv4j")
-region = Rect2(36, 0, 36, 36)
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_726tt"]
+atlas = ExtResource("8_0dv4j")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8c4bs"]
+atlas = ExtResource("8_0dv4j")
+region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_eo4u0"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0dv4j")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tg0ex")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_eo4u0")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_6k4ik")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fp1kq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_726tt")
 }],
 "loop": false,
 "name": &"fire",
@@ -55,27 +52,27 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_fp1kq")
+"texture": SubResource("AtlasTexture_8c4bs")
 }],
 "loop": false,
 "name": &"idle",
 "speed": 0.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_0dv4j"]
+radius = 8.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_tg0ex"]
-radius = 38.0132
+radius = 16.0
 
 [node name="Turret" type="StaticBody2D" groups=["allies"]]
 script = ExtResource("1_x3mc5")
 
 [node name="BaseSprite" type="Sprite2D" parent="."]
-scale = Vector2(2, 2)
 texture = ExtResource("8_0dv4j")
+offset = Vector2(-2, 0)
 hframes = 4
 vframes = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_0dv4j")
 
 [node name="Hitbox" type="Node" parent="."]
 script = ExtResource("2_el7wl")
@@ -104,10 +101,9 @@ effect_mods = Array[ExtResource("6_mqfwu")]([ExtResource("7_mqfwu")])
 metadata/_custom_type_script = "uid://bhi7w6ril3da2"
 
 [node name="Barrel" type="Node2D" parent="Ranged"]
-position = Vector2(26, 0)
+position = Vector2(12, 0)
 
 [node name="GunSprite" type="AnimatedSprite2D" parent="Ranged"]
-scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_eo4u0")
 animation = &"idle"
 
@@ -116,6 +112,9 @@ stream = ExtResource("9_tg0ex")
 volume_db = -8.0
 pitch_scale = 2.0
 bus = &"SFX"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_0dv4j")
 
 [node name="PlacementArea" type="Area2D" parent="."]
 collision_layer = 2

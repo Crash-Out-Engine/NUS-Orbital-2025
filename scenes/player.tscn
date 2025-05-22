@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://ytw0s5xnqwvt"]
+[gd_scene load_steps=57 format=3 uid="uid://ytw0s5xnqwvt"]
 
 [ext_resource type="Script" uid="uid://c8f8kowfp34yp" path="res://scripts/player_scene/player.gd" id="1_f1ej7"]
 [ext_resource type="Script" uid="uid://cndl5nak0qpxp" path="res://scripts/effectables/movement.gd" id="2_g2els"]
@@ -23,68 +23,68 @@
 [ext_resource type="Script" uid="uid://dve6ix5ogwfw" path="res://scripts/effectables/melee_damage.gd" id="19_i4ail"]
 [ext_resource type="Script" uid="uid://2fh28xow6f1j" path="res://scripts/effects/health_effect.gd" id="20_4ni07"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_d2wvv"]
-atlas = ExtResource("2_y4r1p")
-region = Rect2(0, 0, 36, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3v2ag"]
-atlas = ExtResource("2_y4r1p")
-region = Rect2(36, 0, 36, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jej6c"]
-atlas = ExtResource("2_y4r1p")
-region = Rect2(72, 0, 36, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_f1ej7"]
-atlas = ExtResource("2_y4r1p")
-region = Rect2(108, 0, 36, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_oprun"]
-atlas = ExtResource("2_y4r1p")
-region = Rect2(0, 36, 36, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_a8ls1"]
-atlas = ExtResource("2_y4r1p")
-region = Rect2(36, 36, 36, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qfm1y"]
-atlas = ExtResource("2_y4r1p")
-region = Rect2(72, 36, 36, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fulsm"]
-atlas = ExtResource("2_y4r1p")
-region = Rect2(108, 36, 36, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4r5pv"]
-atlas = ExtResource("2_y4r1p")
-region = Rect2(144, 36, 36, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_60mlk"]
-atlas = ExtResource("2_y4r1p")
-region = Rect2(180, 36, 36, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_i4ail"]
-atlas = ExtResource("2_y4r1p")
-region = Rect2(216, 36, 36, 36)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_a38lo"]
 atlas = ExtResource("2_y4r1p")
-region = Rect2(252, 36, 36, 36)
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hax0n"]
+atlas = ExtResource("2_y4r1p")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t4otl"]
+atlas = ExtResource("2_y4r1p")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j2b1d"]
+atlas = ExtResource("2_y4r1p")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cs1tg"]
+atlas = ExtResource("2_y4r1p")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2dvfe"]
+atlas = ExtResource("2_y4r1p")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_giy8y"]
+atlas = ExtResource("2_y4r1p")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fdfoy"]
+atlas = ExtResource("2_y4r1p")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hhpqf"]
+atlas = ExtResource("2_y4r1p")
+region = Rect2(128, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g5jhy"]
+atlas = ExtResource("2_y4r1p")
+region = Rect2(160, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_holxr"]
+atlas = ExtResource("2_y4r1p")
+region = Rect2(192, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mx1m4"]
+atlas = ExtResource("2_y4r1p")
+region = Rect2(224, 32, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4ni07"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_d2wvv")
+"texture": SubResource("AtlasTexture_a38lo")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3v2ag")
+"texture": SubResource("AtlasTexture_hax0n")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_jej6c")
+"texture": SubResource("AtlasTexture_t4otl")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_f1ej7")
+"texture": SubResource("AtlasTexture_j2b1d")
 }],
 "loop": true,
 "name": &"idle",
@@ -92,28 +92,28 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_oprun")
+"texture": SubResource("AtlasTexture_cs1tg")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_a8ls1")
+"texture": SubResource("AtlasTexture_2dvfe")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qfm1y")
+"texture": SubResource("AtlasTexture_giy8y")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_fulsm")
+"texture": SubResource("AtlasTexture_fdfoy")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_4r5pv")
+"texture": SubResource("AtlasTexture_hhpqf")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_60mlk")
+"texture": SubResource("AtlasTexture_g5jhy")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_i4ail")
+"texture": SubResource("AtlasTexture_holxr")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_a38lo")
+"texture": SubResource("AtlasTexture_mx1m4")
 }],
 "loop": true,
 "name": &"running",
@@ -122,59 +122,43 @@ animations = [{
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4ni07"]
 atlas = ExtResource("3_d2wvv")
-region = Rect2(0, 36, 36, 36)
+region = Rect2(15, 0, 15, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l71n6"]
 atlas = ExtResource("3_d2wvv")
-region = Rect2(36, 36, 36, 36)
+region = Rect2(30, 0, 15, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ke2ow"]
 atlas = ExtResource("3_d2wvv")
-region = Rect2(72, 36, 36, 36)
+region = Rect2(45, 0, 15, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ujl30"]
 atlas = ExtResource("3_d2wvv")
-region = Rect2(108, 36, 36, 36)
+region = Rect2(60, 0, 15, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_31cv2"]
 atlas = ExtResource("3_d2wvv")
-region = Rect2(0, 0, 36, 36)
+region = Rect2(0, 0, 15, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dt7fs"]
 atlas = ExtResource("3_d2wvv")
-region = Rect2(0, 72, 36, 36)
+region = Rect2(9, 9, 64, 47)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wqfne"]
 atlas = ExtResource("3_d2wvv")
-region = Rect2(36, 72, 36, 36)
+region = Rect2(73, 9, 64, 47)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wnwbv"]
 atlas = ExtResource("3_d2wvv")
-region = Rect2(72, 72, 36, 36)
+region = Rect2(9, 56, 64, 47)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gl8cc"]
 atlas = ExtResource("3_d2wvv")
-region = Rect2(108, 72, 36, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_487ah"]
-atlas = ExtResource("3_d2wvv")
-region = Rect2(0, 108, 36, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_md1ol"]
-atlas = ExtResource("3_d2wvv")
-region = Rect2(36, 108, 36, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bj30b"]
-atlas = ExtResource("3_d2wvv")
-region = Rect2(72, 108, 36, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jc3p3"]
-atlas = ExtResource("3_d2wvv")
-region = Rect2(108, 108, 36, 36)
+region = Rect2(73, 56, 64, 47)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pf23h"]
 atlas = ExtResource("3_d2wvv")
-region = Rect2(36, 0, 36, 36)
+region = Rect2(0, 9, 9, 18)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_pf23h"]
 animations = [{
@@ -215,22 +199,10 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_gl8cc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_487ah")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_md1ol")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bj30b")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jc3p3")
 }],
 "loop": false,
 "name": &"melee_fire",
-"speed": 1.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -241,9 +213,37 @@ animations = [{
 "speed": 0.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
-radius = 14.0
-height = 60.0
+[sub_resource type="AtlasTexture" id="AtlasTexture_4gjji"]
+atlas = ExtResource("3_d2wvv")
+region = Rect2(89, 0, 15, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u2ulf"]
+atlas = ExtResource("3_d2wvv")
+region = Rect2(104, 0, 15, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6e8lb"]
+atlas = ExtResource("3_d2wvv")
+region = Rect2(119, 0, 15, 5)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2gdjj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4gjji")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u2ulf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6e8lb")
+}],
+"loop": false,
+"name": &"default",
+"speed": 15.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4gjji"]
+size = Vector2(10, 26)
 
 [sub_resource type="Resource" id="Resource_l71n6"]
 script = ExtResource("20_4ni07")
@@ -252,14 +252,91 @@ _repeat = 0
 _factor = -20.0
 metadata/_custom_type_script = "uid://2fh28xow6f1j"
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_60mlk"]
-radius = 30.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_487ah"]
+size = Vector2(60, 40)
+
+[sub_resource type="Animation" id="Animation_a38lo"]
+resource_name = "melee_attack"
+length = 0.40001
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Melee:process_mode")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1e+06, 1e+06, 1e+06),
+"update": 1,
+"values": [4, 0, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Melee:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1e+06, 1e+06),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"check"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_4ni07"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Melee:process_mode")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Melee:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l71n6"]
+_data = {
+&"RESET": SubResource("Animation_4ni07"),
+&"melee_attack": SubResource("Animation_a38lo")
+}
 
 [node name="Player" type="CharacterBody2D" groups=["allies"]]
 script = ExtResource("1_f1ej7")
 
 [node name="Movement" type="Node" parent="."]
 script = ExtResource("2_g2els")
+initial_speed = 80.0
 is_player = true
 
 [node name="Health" type="Node" parent="."]
@@ -289,27 +366,30 @@ effect_mods = Array[ExtResource("8_y4r1p")]([ExtResource("9_ur7pv")])
 metadata/_custom_type_script = "uid://s08wfqwqu2jn"
 
 [node name="Barrel" type="Node2D" parent="Ranged"]
-position = Vector2(45, 0)
+position = Vector2(21, 0)
 
-[node name="Visuals" type="Node2D" parent="."]
+[node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("melee_cooldown")]
 script = ExtResource("14_oprun")
+melee_cooldown = NodePath("../MeleeCooldown")
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="Visuals"]
-scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_4ni07")
-animation = &"running"
+animation = &"idle"
+frame_progress = 0.640455
+offset = Vector2(1, 0)
 
 [node name="GunSprite" type="AnimatedSprite2D" parent="Visuals"]
-scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_pf23h")
 animation = &"melee_fire"
-frame = 4
-frame_progress = 0.823524
-offset = Vector2(14, 1)
+offset = Vector2(14.5, 1.5)
+
+[node name="GunBlastSprite" type="AnimatedSprite2D" parent="Visuals/GunSprite"]
+visible = false
+sprite_frames = SubResource("SpriteFrames_2gdjj")
+offset = Vector2(27.5, -0.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -2)
-shape = SubResource("CapsuleShape2D_g2els")
+shape = SubResource("RectangleShape2D_4gjji")
 
 [node name="Audio" type="Node" parent="."]
 script = ExtResource("13_a8ls1")
@@ -336,25 +416,30 @@ stream = ExtResource("17_60mlk")
 bus = &"SFX"
 
 [node name="Melee" type="Area2D" parent="." node_paths=PackedStringArray("melee_cooldown")]
-monitoring = false
 script = ExtResource("17_4r5pv")
 melee_cooldown = NodePath("../MeleeCooldown")
 effects = Array[ExtResource("19_a38lo")]([SubResource("Resource_l71n6")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Melee"]
-position = Vector2(45, 0)
-shape = SubResource("CircleShape2D_60mlk")
+position = Vector2(30, 0)
+shape = SubResource("RectangleShape2D_487ah")
+debug_color = Color(0.7, 0, 0.0116665, 0.419608)
 
 [node name="MeleeCooldown" type="Node" parent="."]
 script = ExtResource("18_60mlk")
-melee_cooldown = 0.3
 
 [node name="MeleeDamage" type="Node" parent="."]
 script = ExtResource("19_i4ail")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_l71n6")
+}
 
 [connection signal="just_changed" from="Health" to="." method="_on_health_just_changed"]
 [connection signal="just_emptied" from="Health" to="." method="_on_health_just_emptied"]
 [connection signal="melee_finished" from="Visuals" to="." method="_on_visuals_melee_finished"]
 [connection signal="animation_finished" from="Visuals/GunSprite" to="Visuals" method="_on_gun_sprite_animation_finished"]
 [connection signal="frame_changed" from="Visuals/GunSprite" to="Visuals" method="_on_gun_sprite_frame_changed"]
+[connection signal="animation_finished" from="Visuals/GunSprite/GunBlastSprite" to="Visuals" method="_on_gun_blast_sprite_animation_finished"]
 [connection signal="body_entered" from="Melee" to="Melee" method="_on_body_entered"]
