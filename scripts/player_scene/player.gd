@@ -131,6 +131,3 @@ func _on_visuals_melee_finished() -> void:
 
 func mouse_is_in_player() -> bool:
 	return abs(get_global_mouse_position().x - hitbox.global_position.x) < hitbox.shape.size.x and abs(get_global_mouse_position().y - hitbox.global_position.y) < hitbox.shape.size.y
-
-func check() -> void:
-	print("check")
