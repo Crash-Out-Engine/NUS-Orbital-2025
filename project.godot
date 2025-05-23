@@ -10,7 +10,8 @@ config_version=5
 
 [application]
 
-config/name="a godot game"
+config/name="Gun Mechanics"
+config/version="0.1.0"
 run/main_scene="uid://bbtrde7tvkisy"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 
