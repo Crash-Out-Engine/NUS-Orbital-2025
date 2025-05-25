@@ -58,7 +58,7 @@ func _physics_process(_delta: float) -> void:
 		hand_action = Hand.HOLDING_GUN
 	
 	if Input.is_action_just_pressed("melee"):
-		if(hand_action == Hand.HOLDING_GUN):
+		if (hand_action == Hand.HOLDING_GUN):
 			hand_action = Hand.FIRING_WRENCH
 		
 	
@@ -73,9 +73,9 @@ func _physics_process(_delta: float) -> void:
 		if current_turret != null:
 			current_turret.global_position = get_global_mouse_position()
 			if !can_place_turret():
-				current_turret.set_visual_modulate(Color(1, 0, 0, 0.5))
+				current_turret.get_node_or_null(^"Visuals").set_visual_modulate(Color(1, 0, 0, 0.5))
 			else:
-				current_turret.set_visual_modulate(Color(0, 1, 1, 0.5))
+				current_turret.get_node_or_null(^"Visuals").set_visual_modulate(Color(0, 1, 1, 0.5))
 	
 	if Input.is_action_just_released("add turret"):
 		if current_turret != null:

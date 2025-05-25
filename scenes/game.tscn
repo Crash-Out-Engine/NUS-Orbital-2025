@@ -384,7 +384,7 @@ zeroth_tile = Vector2i(4, 0)
 z_index = 100
 script = ExtResource("10_vtaks")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="GameMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("15_ir15t")
 autoplay = true
 bus = &"Music"

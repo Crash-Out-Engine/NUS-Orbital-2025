@@ -24,7 +24,7 @@ func _on_body_entered(body: Node2D) -> void:
 		explosion.global_position = global_position
 		explosion.team = team
 		explosion.effects = effects
-		get_parent().add_child(explosion)
+		get_parent().add_child(explosion) # TODO: fix this line's error
 		explosion.explode()
 		if($Destroyable.try_die()):
 			queue_free()

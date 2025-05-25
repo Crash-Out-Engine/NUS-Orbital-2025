@@ -1,6 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://bln0t65nfuiau"]
+[gd_scene load_steps=12 format=3 uid="uid://1l4u8mpvfnlt"]
 
-[ext_resource type="Script" uid="uid://kkoxnhs8fhnx" path="res://scripts/explosion.gd" id="1_17npe"]
+[ext_resource type="Script" uid="uid://do6ysie748p4j" path="res://scripts/explosion.gd" id="1_17npe"]
 [ext_resource type="AudioStream" uid="uid://dn6k75a1tyl8k" path="res://assets/audio/sound_effects/hit_sound.wav" id="2_aw4cw"]
 [ext_resource type="Texture2D" uid="uid://iabxnxum3fjv" path="res://assets/sprites/explosion_spritesheet.png" id="3_3el85"]
 
@@ -55,10 +55,9 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_er6rp"]
-radius = 9.0
+radius = 18.0
 
 [node name="Explosion" type="Area2D"]
-scale = Vector2(2, 2)
 priority = 1
 script = ExtResource("1_17npe")
 
@@ -67,6 +66,7 @@ stream = ExtResource("2_aw4cw")
 bus = &"SFX"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_ts3es")
 frame = 5
 frame_progress = 1.0
