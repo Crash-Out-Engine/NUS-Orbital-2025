@@ -1,4 +1,4 @@
-class_name Effect
+class_name EffectBase
 extends Resource
 
 ## Interval between repetitions (if any) in seconds.
@@ -14,7 +14,7 @@ func set_factor(value: float) -> void:
 	_factor = value
 
 
-func apply_effect(property: Effectable) -> void:
+func apply_effect(property: PropertyBase) -> void:
 	if _can_effect(property):
 		var timer: Timer
 		if _interval != null and _interval > 0:
@@ -55,5 +55,5 @@ func apply_effect(property: Effectable) -> void:
 			timer.start()
 
 
-func _can_effect(_property: Effectable) -> bool:
+func _can_effect(_property: PropertyBase) -> bool:
 	return false

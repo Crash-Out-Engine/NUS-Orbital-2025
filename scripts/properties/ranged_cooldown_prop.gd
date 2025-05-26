@@ -1,5 +1,5 @@
-class_name RangedCooldown
-extends Effectable
+class_name RangedCooldownProp
+extends PropertyBase
 
 @export var ranged_cooldown: float ## Rate of firing in seconds.
 

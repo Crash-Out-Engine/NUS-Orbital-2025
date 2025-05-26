@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://b52amtg2hmpm6"]
 
 [ext_resource type="Script" uid="uid://baxqvovb4qoty" path="res://scripts/bullet.gd" id="1_mkf8s"]
-[ext_resource type="Script" uid="uid://leayhs5xslyy" path="res://scripts/effectables/destroyable.gd" id="2_y25gk"]
+[ext_resource type="Script" uid="uid://leayhs5xslyy" path="res://scripts/properties/lives_prop.gd" id="2_y25gk"]
 
 [sub_resource type="Gradient" id="Gradient_mkf8s"]
 offsets = PackedFloat32Array(0.0985916, 0.471831, 1)
@@ -14,8 +14,9 @@ gradient = SubResource("Gradient_mkf8s")
 radius = 2.0
 height = 12.0
 
-[node name="Bullet" type="Area2D"]
+[node name="Bullet" type="Area2D" node_paths=PackedStringArray("lives")]
 script = ExtResource("1_mkf8s")
+lives = NodePath("Properties/LivesProp")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 z_index = -1
@@ -32,7 +33,9 @@ wait_time = 3.0
 one_shot = true
 autostart = true
 
-[node name="Destroyable" type="Node" parent="."]
+[node name="Properties" type="Node" parent="."]
+
+[node name="LivesProp" type="Node" parent="Properties"]
 script = ExtResource("2_y25gk")
 lives = 1
 

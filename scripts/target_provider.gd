@@ -19,7 +19,7 @@ func get_target(from: Vector2, team: String) -> Node2D:
 	for not_team in not_teams:
 		for target in _entities_cache.get(not_team):
 			if target != null:
-				var target_priority = target.get_node_or_null(^"TargetPriority")
+				var target_priority = target.get_node_or_null(^"Properties/TargetPriorityProp")
 				var weightage = 1.0 / target_priority.value * from.distance_squared_to(target.global_position)
 				if min_target == null or min_weightage > weightage:
 					min_target = target
@@ -34,9 +34,9 @@ func refresh() -> void:
 		.get_children()
 		.filter(func(entity):
 				return (entity is Node2D
-						and entity.get_node_or_null(^"TargetPriority") != null
-						and !entity.get_node_or_null(^"TargetPriority").team.is_empty())))
+						and entity.get_node_or_null(^"Properties/TargetPriorityProp") != null
+						and !entity.get_node_or_null(^"Properties/TargetPriorityProp").team.is_empty())))
 	
 	for entity in valid_entities:
-		var entity_priority: TargetPriority = entity.get_node_or_null(^"TargetPriority")
+		var entity_priority: TargetPriorityProp = entity.get_node_or_null(^"Properties/TargetPriorityProp")
 		_entities_cache.get_or_add(entity_priority.team, []).append(entity)

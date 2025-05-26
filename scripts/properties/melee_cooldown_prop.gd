@@ -1,5 +1,5 @@
-class_name MeleeCooldown
-extends Effectable
+class_name MeleeCooldownProp
+extends PropertyBase
 
 @export var melee_cooldown: float = 0.5
 

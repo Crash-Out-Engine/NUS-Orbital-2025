@@ -1,5 +1,5 @@
-class_name RangedPlayer
-extends RangedBase
+class_name RangedPlayerComp
+extends RangedBaseComp
 
 const _BULLET_SCENE = preload("res://scenes/bullet.tscn")
 

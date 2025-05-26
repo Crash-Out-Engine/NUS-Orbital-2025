@@ -9,9 +9,9 @@ extends CenterContainer
 func _ready() -> void:
 	player.health_changed.connect(update)
 	_label.set_position(position + size / 2 - _label.size / 2)
-	_label.text = str(player.get_health())
+	_label.text = str(player.get_health() as int)
 
 
 func update(new_ratio: float) -> void:
 	_health_bar.value = 100.0 * new_ratio
-	_label.text = str(player.get_health())
+	_label.text = str(player.get_health() as int)

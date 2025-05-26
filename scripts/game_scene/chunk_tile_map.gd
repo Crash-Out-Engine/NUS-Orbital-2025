@@ -15,7 +15,6 @@ var _prev_player_chunk_position: Vector2i = Vector2i.MIN
 
 
 func _process(_delta: float) -> void:
-	tile_set.tile_size
 	var player_chunk_position := floor(
 			(local_to_map(player.position)/Vector2i(2,2) as Vector2) /
 			(chunk_size as Vector2)) as Vector2i

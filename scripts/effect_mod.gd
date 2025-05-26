@@ -1,7 +1,7 @@
 class_name EffectMod
 extends Resource
 
-@export var effects: Array[Effect] = []
+@export var effects: Array[EffectBase] = []
 
 
 func get_effects():

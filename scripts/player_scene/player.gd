@@ -19,6 +19,9 @@ const KNOCKBACK_DURATION = 0.5
 const KNOCKBACK_AMOUNT = 800.0
 const PICKUP_RANGE = 125
 
+@export var ranged: RangedBaseComp
+@export var health_prop: HealthProp
+
 var hand_action = Hand.HOLDING_GUN
 var direction: Callable = func(_delta: float) -> Vector2:
 	return Vector2(
@@ -31,8 +34,6 @@ var current_turret = null
 var scrap = 50
 var turrets_placed = 0 # HACK: temporary for lift-off demonstration
 var turret_cost = 5 # HACK: temporary for lift-off demonstration
-
-@onready var ranged := $Ranged as RangedBase
 
 
 func _ready() -> void:
@@ -58,7 +59,7 @@ func _physics_process(_delta: float) -> void:
 		hand_action = Hand.HOLDING_GUN
 	
 	if Input.is_action_just_pressed("melee"):
-		if(hand_action == Hand.HOLDING_GUN):
+		if (hand_action == Hand.HOLDING_GUN):
 			hand_action = Hand.FIRING_WRENCH
 		
 	
@@ -73,9 +74,9 @@ func _physics_process(_delta: float) -> void:
 		if current_turret != null:
 			current_turret.global_position = get_global_mouse_position()
 			if !can_place_turret():
-				current_turret.set_visual_modulate(Color(1, 0, 0, 0.5))
+				current_turret.get_node_or_null(^"Visuals").set_visual_modulate(Color(1, 0, 0, 0.5))
 			else:
-				current_turret.set_visual_modulate(Color(0, 1, 1, 0.5))
+				current_turret.get_node_or_null(^"Visuals").set_visual_modulate(Color(0, 1, 1, 0.5))
 	
 	if Input.is_action_just_released("add turret"):
 		if current_turret != null:
@@ -98,8 +99,8 @@ func can_place_turret() -> bool:
 	return current_turret != null and !current_turret.is_overlapping() and turret_cost <= scrap
 
 
-func get_health() -> int:
-	return $Health.value
+func get_health() -> float:
+	return health_prop.value
 
 
 func gain_scrap(amount: int) -> void:
@@ -112,7 +113,7 @@ func _on_health_just_emptied() -> void:
 
 
 func _on_health_just_changed(_old_value: float, new_value: float) -> void:
-	health_changed.emit(new_value / $Health.health_capacity)
+	health_changed.emit(new_value / health_prop.health_capacity)
 
 
 func apply_knockback(source: Node2D) -> void:

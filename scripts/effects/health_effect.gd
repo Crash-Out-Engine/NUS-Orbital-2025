@@ -1,6 +1,6 @@
 class_name HealthEffect
-extends Effect
+extends EffectBase
 
 
-func _can_effect(property: Effectable) -> bool:
-	return property is Health
+func _can_effect(property: PropertyBase) -> bool:
+	return property is HealthProp

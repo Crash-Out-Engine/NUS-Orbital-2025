@@ -1,6 +1,6 @@
-class_name Movement
-extends Effectable
-## The [Movement] node is responsible for controlling the movement of its parent.
+class_name MovementProp
+extends PropertyBase
+## The [MovementProp] node is responsible for controlling the movement of its parent.
 ## 
 ## The parent should extend [CharacterBody2D] to allow movements, and have a
 ## property [code]direction: (delta: float) -> [Vector2][/code] that specifies 
@@ -10,22 +10,24 @@ extends Effectable
 @export var initial_speed: float = 200.0
 @export var is_player: bool = false
 
+@export_group("Properties")
+@export var target_priority: TargetPriorityProp
+
 
 func _ready() -> void:
-	assert(get_parent() is RigidBody2D or (is_player and get_parent() is CharacterBody2D), "Movement's parent should be a RigidBody2D or CharacterBody2D.")
+	assert($"../../" is RigidBody2D or (is_player and $"../../" is CharacterBody2D), "MovementProp's grandparent should be a RigidBody2D or CharacterBody2D.")
 	
 	value = initial_speed
 
 
 func _physics_process(delta: float) -> void:
 	if is_player:
-		var parent: CharacterBody2D = get_parent()
-		parent.velocity = parent.direction.call(delta).normalized() * value + parent.knockback * parent.knockback_direction
-		parent.move_and_collide(parent.velocity * delta)
+		var player := $"../../" as Player
+		player.velocity = player.direction.call(delta).normalized() * value + player.knockback * player.knockback_direction
+		player.move_and_collide(player.velocity * delta)
 	
 	else:
-		var parent: RigidBody2D = get_parent()
-		var target_priority: TargetPriority = parent.get_node_or_null(^"TargetPriority")
+		var parent := $"../../" as RigidBody2D
 		var target_provider := load("res://resources/target_provider.tres")
 
 		if target_priority != null:

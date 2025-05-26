@@ -1,19 +1,19 @@
 [gd_scene load_steps=32 format=3 uid="uid://kcqha4xx46r7"]
 
 [ext_resource type="Script" uid="uid://b2oqcghmenmfd" path="res://scripts/enemy_scene/enemy.gd" id="1_7p1mj"]
-[ext_resource type="Script" uid="uid://cndl5nak0qpxp" path="res://scripts/effectables/movement.gd" id="2_md0e3"]
-[ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox.gd" id="3_4ra3w"]
+[ext_resource type="Script" uid="uid://cndl5nak0qpxp" path="res://scripts/properties/movement_prop.gd" id="2_md0e3"]
+[ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox_comp.gd" id="3_4ra3w"]
 [ext_resource type="Texture2D" uid="uid://csa25hojkjg65" path="res://assets/sprites/enemy_spritesheet.png" id="3_otmr2"]
-[ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/effects/effect.gd" id="3_s1ycm"]
-[ext_resource type="Script" uid="uid://bg2iinlcp53aa" path="res://scripts/effectables/health.gd" id="4_5uy6h"]
+[ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/effects/effect_base.gd" id="3_s1ycm"]
+[ext_resource type="Script" uid="uid://bg2iinlcp53aa" path="res://scripts/properties/health_prop.gd" id="4_5uy6h"]
 [ext_resource type="Script" uid="uid://2fh28xow6f1j" path="res://scripts/effects/health_effect.gd" id="4_shcg2"]
-[ext_resource type="Script" uid="uid://bx0i0x84j70ct" path="res://scripts/components/melee.gd" id="5_nenq2"]
+[ext_resource type="Script" uid="uid://bx0i0x84j70ct" path="res://scripts/components/melee_comp.gd" id="5_nenq2"]
 [ext_resource type="AudioStream" uid="uid://dn6k75a1tyl8k" path="res://assets/audio/sound_effects/hit_sound.wav" id="5_wtq4b"]
-[ext_resource type="Script" uid="uid://cu55fh5hl5rxd" path="res://scripts/effectables/melee_cooldown.gd" id="6_nenq2"]
-[ext_resource type="Script" uid="uid://dve6ix5ogwfw" path="res://scripts/effectables/melee_damage.gd" id="7_ipns3"]
-[ext_resource type="Script" uid="uid://bhi7w6ril3da2" path="res://scripts/components/ranged_AI.gd" id="8_8qclf"]
-[ext_resource type="Script" uid="uid://cwdm3dvyba0l3" path="res://scripts/effectables/ranged_cooldown.gd" id="9_ipns3"]
-[ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/effectables/target_priority.gd" id="11_w8i8w"]
+[ext_resource type="Script" uid="uid://cu55fh5hl5rxd" path="res://scripts/properties/melee_cooldown_prop.gd" id="6_nenq2"]
+[ext_resource type="Script" uid="uid://dve6ix5ogwfw" path="res://scripts/properties/melee_damage_prop.gd" id="7_ipns3"]
+[ext_resource type="Script" uid="uid://bhi7w6ril3da2" path="res://scripts/components/ranged_AI_comp.gd" id="8_8qclf"]
+[ext_resource type="Script" uid="uid://cwdm3dvyba0l3" path="res://scripts/properties/ranged_cooldown_prop.gd" id="9_ipns3"]
+[ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/properties/target_priority_prop.gd" id="11_w8i8w"]
 [ext_resource type="Script" uid="uid://b003j8v8bhc26" path="res://scripts/enemy_scene/visuals.gd" id="13_j0cyh"]
 [ext_resource type="Script" uid="uid://ceeipidvq5rqy" path="res://scripts/enemy_scene/audio.gd" id="14_g0wcc"]
 
@@ -107,62 +107,71 @@ animations = [{
 "speed": 1.0
 }]
 
-[node name="Enemy" type="RigidBody2D" groups=["enemies"]]
+[node name="Enemy" type="RigidBody2D" node_paths=PackedStringArray("health_prop") groups=["enemies"]]
 lock_rotation = true
 continuous_cd = 1
 contact_monitor = true
 max_contacts_reported = 620
 script = ExtResource("1_7p1mj")
+health_prop = NodePath("Properties/HealthProp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_8qclf")
 
-[node name="Melee" type="Area2D" parent="." node_paths=PackedStringArray("melee_cooldown")]
-script = ExtResource("5_nenq2")
-melee_cooldown = NodePath("../MeleeCooldown")
-effects = Array[ExtResource("3_s1ycm")]([SubResource("Resource_ile5s")])
+[node name="Properties" type="Node" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Melee"]
-shape = SubResource("CircleShape2D_j0cyh")
-
-[node name="Movement" type="Node" parent="."]
+[node name="MovementProp" type="Node" parent="Properties" node_paths=PackedStringArray("target_priority")]
 script = ExtResource("2_md0e3")
 initial_speed = 150.0
+target_priority = NodePath("../TargetPriorityProp")
 
-[node name="Hitbox" type="Node" parent="."]
-script = ExtResource("3_4ra3w")
-metadata/_custom_type_script = "uid://wwqkkrfhwiyn"
-
-[node name="Health" type="Node" parent="."]
+[node name="HealthProp" type="Node" parent="Properties"]
 script = ExtResource("4_5uy6h")
 health_capacity = 40.0
 
-[node name="MeleeCooldown" type="Node" parent="."]
+[node name="MeleeCooldownProp" type="Node" parent="Properties"]
 script = ExtResource("6_nenq2")
 
-[node name="MeleeDamage" type="Node" parent="."]
+[node name="MeleeDamageProp" type="Node" parent="Properties"]
 script = ExtResource("7_ipns3")
 damage = 5.0
 
-[node name="Ranged" type="Node2D" parent="." node_paths=PackedStringArray("ranged_cooldown", "barrel", "target_priority")]
-script = ExtResource("8_8qclf")
-ranged_cooldown = NodePath("../RangedCooldown")
-barrel = NodePath("..")
-target_priority = NodePath("../TargetPriority")
-metadata/_custom_type_script = "uid://bhi7w6ril3da2"
-
-[node name="RangedCooldown" type="Node" parent="."]
+[node name="RangedCooldownProp" type="Node" parent="Properties"]
 script = ExtResource("9_ipns3")
 ranged_cooldown = 1.5
 
-[node name="TargetPriority" type="Node" parent="."]
+[node name="TargetPriorityProp" type="Node" parent="Properties"]
 script = ExtResource("11_w8i8w")
 team = "enemies"
 
-[node name="Visuals" type="Node2D" parent="."]
+[node name="Components" type="Node2D" parent="."]
+
+[node name="MeleeComp" type="Area2D" parent="Components" node_paths=PackedStringArray("melee_cooldown", "target_priority")]
+script = ExtResource("5_nenq2")
+melee_cooldown = NodePath("../../Properties/MeleeCooldownProp")
+target_priority = NodePath("../../Properties/TargetPriorityProp")
+effects = Array[ExtResource("3_s1ycm")]([SubResource("Resource_ile5s")])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Components/MeleeComp"]
+shape = SubResource("CircleShape2D_j0cyh")
+
+[node name="HitboxComp" type="Node" parent="Components"]
+script = ExtResource("3_4ra3w")
+metadata/_custom_type_script = "uid://wwqkkrfhwiyn"
+
+[node name="RangedComp" type="Node2D" parent="Components" node_paths=PackedStringArray("barrel", "ranged_cooldown", "target_priority")]
+script = ExtResource("8_8qclf")
+barrel = NodePath("../..")
+ranged_cooldown = NodePath("../../Properties/RangedCooldownProp")
+target_priority = NodePath("../../Properties/TargetPriorityProp")
+metadata/_custom_type_script = "uid://bhi7w6ril3da2"
+
+[node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("health_prop", "target_priority_prop")]
 position = Vector2(0, 10)
 scale = Vector2(2, 2)
 script = ExtResource("13_j0cyh")
+health_prop = NodePath("../Properties/HealthProp")
+target_priority_prop = NodePath("../Properties/TargetPriorityProp")
 
 [node name="BodySprite" type="AnimatedSprite2D" parent="Visuals"]
 sprite_frames = SubResource("SpriteFrames_j0cyh")
@@ -179,11 +188,12 @@ use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_wrm80")
 frame_progress = 0.896492
 
-[node name="Audio" type="Node" parent="."]
+[node name="Audio" type="Node" parent="." node_paths=PackedStringArray("melee_comp")]
 script = ExtResource("14_g0wcc")
+melee_comp = NodePath("../Components/MeleeComp")
 
 [node name="HitSound" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("5_wtq4b")
 bus = &"SFX"
 
-[connection signal="body_entered" from="Melee" to="Melee" method="_on_body_entered"]
+[connection signal="body_entered" from="Components/MeleeComp" to="Components/MeleeComp" method="_on_body_entered"]

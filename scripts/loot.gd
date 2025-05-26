@@ -23,6 +23,6 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	if body is Player and body.get_node_or_null(^"Hitbox") != null:
+	if body is Player and body.get_node_or_null(^"Components/HitboxComp") != null:
 		body.gain_scrap(value)
 		queue_free()
