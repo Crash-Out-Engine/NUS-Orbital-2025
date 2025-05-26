@@ -11,6 +11,8 @@ const V_MODULATE = 100000000
 @onready var flames_sprite := $FlamesSprite as AnimatedSprite2D
 @onready var legs_sprite := $LegsSprite as AnimatedSprite2D
 
+signal bleeded()
+
 
 func _ready() -> void:
 	enemy_health.just_emptied.connect(play_die_effect)
@@ -25,6 +27,8 @@ func _process(delta: float) -> void:
 		body_sprite.modulate.v -= V_MODULATE * delta / BLEED_TIME
 		if (body_sprite.modulate.v <= 1):
 			body_sprite.modulate.v = 1
+		if(body_sprite.modulate.v == 1):
+			bleeded.emit()
 
 	# sprite direction
 	var target = target_provider.get_target(global_position, target_priority.team)

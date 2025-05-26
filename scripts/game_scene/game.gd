@@ -2,7 +2,8 @@ extends Node2D
 
 @onready var target_provider := load("res://resources/target_provider.tres") as TargetProvider
 @onready var player := $EntityContainer/Player as Player
-@onready var _timer_label := $UI/HUD/TimerLabel as TimerLabel
+
+var power = 100
 
 func _ready() -> void:
 	target_provider.set_entity_container($EntityContainer)
@@ -24,5 +25,5 @@ func add_entity(entity: Node2D) -> void:
 func add_misc(misc: Node2D) -> void:
 	$MiscContainer.add_child(misc)
 
-func get_time() -> float:
-	return _timer_label.elapsed_time
+func _process(delta: float) -> void:
+	power -= delta
