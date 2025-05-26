@@ -3,11 +3,12 @@ extends Node2D
 const BLEED_TIME = 0.125
 const V_MODULATE = 100000000
 
+@export var turret: Turret
+@export var turret_ranged: RangedBaseComp
+@export var turret_health: HealthProp
+
 @onready var base_sprite := $BaseSprite as Sprite2D
 @onready var body_sprite := $BodySprite as AnimatedSprite2D
-@onready var turret := $".." as Turret
-@onready var turret_ranged := $"../Ranged" as RangedBase
-@onready var turret_health := $"../Health" as Health
 
 
 func _ready() -> void:

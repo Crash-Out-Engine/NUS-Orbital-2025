@@ -5,11 +5,12 @@ const BLEED_TIME := 2.0 / 30.0
 
 signal melee_finished()
 
+@export var player_ranged: RangedBaseComp
+@export var player_melee: MeleeComp
+@export var player: Player
+
 @onready var player_sprite := $PlayerSprite as AnimatedSprite2D
-@onready var player_ranged := $"../Ranged" as RangedBase
-@onready var player_melee := $"../Melee" as Melee
 @onready var gun_sprite := $GunSprite as AnimatedSprite2D
-@onready var player := get_parent() as Player
 
 
 func _ready() -> void:
@@ -63,14 +64,14 @@ func play_bleed(_new_ratio):
 
 
 func _on_gun_sprite_frame_changed() -> void:
-	if(gun_sprite.animation == "melee_fire"):
-		if(gun_sprite.frame == 2):
+	if (gun_sprite.animation == "melee_fire"):
+		if (gun_sprite.frame == 2):
 			player_melee.monitoring = true
-		elif(gun_sprite.frame == 7):
+		elif (gun_sprite.frame == 7):
 			player_melee.monitoring = false
 
 
 func _on_gun_sprite_animation_finished() -> void:
-	if(gun_sprite.animation == "melee_fire"):
+	if (gun_sprite.animation == "melee_fire"):
 		gun_sprite.play("gun_idle")
 		melee_finished.emit()

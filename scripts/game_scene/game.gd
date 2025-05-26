@@ -11,7 +11,7 @@ func _ready() -> void:
 
 
 func try_connect_ranged(entity: Node2D):
-	var ranged: RangedBase = entity.get_node_or_null(^"Ranged") # HACK: Take away reliance on the node being named "Ranged"
+	var ranged: RangedBaseComp = entity.get_node_or_null(^"Components/RangedComp") # HACK: Take away reliance on the node being named "Ranged"
 	if ranged != null:
 		ranged.bullet_spawned.connect(add_entity)
 

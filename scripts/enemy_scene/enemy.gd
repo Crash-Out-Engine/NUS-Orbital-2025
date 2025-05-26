@@ -3,13 +3,13 @@ extends RigidBody2D
 
 signal vfx_emitted(Node2D)
 
-var loot_scene = preload("res://scenes/loot.tscn")
+@export var health_prop: HealthProp
 
-@onready var ranged: RangedAI = $Ranged
+var loot_scene = preload("res://scenes/loot.tscn")
 
 
 func _ready() -> void:
-	$Health.just_emptied.connect(die)
+	health_prop.just_emptied.connect(die)
 
 
 func die():

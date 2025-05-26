@@ -1,5 +1,5 @@
-class_name Health
-extends Effectable
+class_name HealthProp
+extends PropertyBase
 
 signal just_emptied
 signal just_reduced(by: float)

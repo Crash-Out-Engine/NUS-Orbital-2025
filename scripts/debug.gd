@@ -1,11 +1,14 @@
 extends Control
 
+@export var player: Player
+
 @onready var label = $Label
-@export var player : Player
+
 
 func try_debug():
-	if(Input.is_action_just_pressed("debug")):
+	if Input.is_action_just_pressed("debug"):
 		visible = !visible
+
 
 func _process(_delta: float) -> void:
 	label.text = ""

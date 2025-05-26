@@ -13,6 +13,14 @@ enum State {
 	CANCELLED,
 }
 
+@export_group("Properties")
+@export var target_priority: TargetPriorityProp
+@export var health: HealthProp
+
+@export_group("Components")
+@export var ranged: RangedBaseComp
+
+
 var state: State:
 	set(value):
 		var prev_state = state
@@ -22,12 +30,12 @@ var state: State:
 			state_changed.emit(prev_state, state)
 var player: Player
 
-@onready var _team: String = $TargetPriority.team
+@onready var _team: String = target_priority.team
 
 
 func _ready() -> void:
 	state = State.PLACING
-	$Health.just_emptied.connect(func(): state = State.DESTROYED)
+	health.just_emptied.connect(func(): state = State.DESTROYED)
 
 
 func advance_state():
@@ -50,8 +58,8 @@ func handle_state_changed(from: State, to: State):
 	match [from, to]:
 		[_, State.PLACING]:
 			set_collidable(false)
-			$Ranged.active = false
-			$TargetPriority.team = ""
+			ranged.active = false
+			target_priority.team = ""
 
 		[_, State.PLANNED]:
 			set_collidable(true)
@@ -63,10 +71,10 @@ func handle_state_changed(from: State, to: State):
 			set_collision_layer_value(1, true)
 			set_collision_layer_value(2, false)
 			set_collision_mask_value(1, true)
-			$TargetPriority.team = _team
+			target_priority.team = _team
 
 		[_, State.OPERATIONAL]:
-			$Ranged.active = true
+			ranged.active = true
 
 		[_, State.DESTROYED]:
 			if (player != null): # HACK: turret should not call player code (not that often, at least)
@@ -87,4 +95,4 @@ func set_collidable(value: bool) -> void:
 
 
 func is_overlapping() -> bool:
-	return $PlacementArea.get_overlapping_bodies().any(func(body): return body.get_node_or_null(^"Hitbox") != null)
+	return $PlacementArea.get_overlapping_bodies().any(func(body): return body.get_node_or_null(^"Components/HitboxComp") != null)

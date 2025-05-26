@@ -16,7 +16,7 @@
 [ext_resource type="Script" uid="uid://dlfl58jvcogf5" path="res://scripts/game_scene/chunk_debug.gd" id="10_vtaks"]
 [ext_resource type="AudioStream" uid="uid://d0bs4frau5lf8" path="res://assets/audio/sound_effects/pause_sound.wav" id="11_ca42v"]
 [ext_resource type="Theme" uid="uid://c8t8fqq1p8n4l" path="res://resources/custom_ui.tres" id="12_ssvqc"]
-[ext_resource type="Script" path="res://scripts/debug.gd" id="15_264po"]
+[ext_resource type="Script" uid="uid://b5ihjg2jg7kkh" path="res://scripts/debug.gd" id="15_264po"]
 [ext_resource type="AudioStream" uid="uid://c3lyo02lbnyxw" path="res://assets/audio/songs/8_bit_mimic.wav" id="15_ir15t"]
 [ext_resource type="Texture2D" uid="uid://ccfwh73q4xx04" path="res://assets/tilesheets/tilemap.png" id="16_264po"]
 

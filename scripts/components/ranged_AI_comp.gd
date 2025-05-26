@@ -1,5 +1,5 @@
-class_name RangedAI
-extends RangedBase
+class_name RangedAIComp
+extends RangedBaseComp
 
 const _BULLET_SCENE = preload("res://scenes/bullet.tscn")
 
@@ -12,7 +12,7 @@ func _physics_process(_delta: float) -> void:
 	if target_priority != null:
 		team = target_priority.team
 	var target_provider := load("res://resources/target_provider.tres") as TargetProvider
-	var target = target_provider.get_target(get_parent().global_position, team)
+	var target = target_provider.get_target($"../../".global_position, team)
 	if target == null:
 		return
 

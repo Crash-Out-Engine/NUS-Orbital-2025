@@ -1,5 +1,5 @@
-class_name TargetPriority
-extends Effectable
+class_name TargetPriorityProp
+extends PropertyBase
 
 @export var initial_priority: float = 1.0
 @export var team: String
