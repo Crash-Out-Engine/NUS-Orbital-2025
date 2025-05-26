@@ -4,7 +4,7 @@ extends CharacterBody2D
 signal turret_spawned(turret: Node2D)
 signal turret_placement_failed()
 signal health_changed(new_ratio: float)
-signal scrap_changed()
+signal scrap_changed(new_amount: int)
 
 const _TURRET_SCENE := preload("res://scenes/turret.tscn")
 
@@ -16,8 +16,13 @@ enum Hand {
 }
 
 const KNOCKBACK_DURATION = 0.5
+<<<<<<< Updated upstream
 const KNOCKBACK_AMOUNT = 800.0
 const PICKUP_RANGE = 125
+=======
+const KNOCKBACK_AMOUNT = 300.0
+const PICKUP_RANGE = 40
+>>>>>>> Stashed changes
 
 var hand_action = Hand.HOLDING_GUN
 var direction: Callable = func(_delta: float) -> Vector2:
@@ -86,7 +91,7 @@ func _physics_process(_delta: float) -> void:
 				scrap -= turret_cost
 				turrets_placed += 1
 				turret_cost = (turrets_placed + 1) * turrets_placed * 5 / 2
-				scrap_changed.emit()
+				scrap_changed.emit(scrap)
 			else:
 				current_turret.state = Turret.State.CANCELLED
 				turret_placement_failed.emit()
@@ -101,10 +106,12 @@ func can_place_turret() -> bool:
 func get_health() -> int:
 	return $Health.value
 
+func get_health_capacity() -> int:
+	return $HealthCapacity.value
 
 func gain_scrap(amount: int) -> void:
 	scrap += amount
-	scrap_changed.emit()
+	scrap_changed.emit(scrap)
 
 
 func _on_health_just_emptied() -> void:

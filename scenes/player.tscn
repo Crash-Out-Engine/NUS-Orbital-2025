@@ -1,8 +1,13 @@
+<<<<<<< Updated upstream
 [gd_scene load_steps=54 format=3 uid="uid://ytw0s5xnqwvt"]
+=======
+[gd_scene load_steps=58 format=3 uid="uid://ytw0s5xnqwvt"]
+>>>>>>> Stashed changes
 
 [ext_resource type="Script" uid="uid://c8f8kowfp34yp" path="res://scripts/player_scene/player.gd" id="1_f1ej7"]
 [ext_resource type="Script" uid="uid://cndl5nak0qpxp" path="res://scripts/effectables/movement.gd" id="2_g2els"]
 [ext_resource type="Texture2D" uid="uid://dvanyjoqcolwr" path="res://assets/sprites/player_spritesheet.png" id="2_y4r1p"]
+[ext_resource type="Script" uid="uid://d06c3u8kh3ek0" path="res://scripts/effectables/health_capacity.gd" id="3_4ni07"]
 [ext_resource type="Texture2D" uid="uid://d3irto6bnhwwx" path="res://assets/sprites/playergun_spritesheet.png" id="3_d2wvv"]
 [ext_resource type="Script" uid="uid://bg2iinlcp53aa" path="res://scripts/effectables/health.gd" id="3_qhqgy"]
 [ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox.gd" id="4_dqkch"]
@@ -261,6 +266,10 @@ script = ExtResource("1_f1ej7")
 [node name="Movement" type="Node" parent="."]
 script = ExtResource("2_g2els")
 is_player = true
+
+[node name="HealthCapacity" type="Node" parent="."]
+script = ExtResource("3_4ni07")
+health_capacity = 50.0
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("3_qhqgy")
