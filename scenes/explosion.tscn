@@ -58,7 +58,6 @@ animations = [{
 radius = 9.0
 
 [node name="Explosion" type="Area2D"]
-scale = Vector2(2, 2)
 priority = 1
 script = ExtResource("1_17npe")
 

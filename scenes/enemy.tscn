@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://kcqha4xx46r7"]
+[gd_scene load_steps=33 format=3 uid="uid://kcqha4xx46r7"]
 
 [ext_resource type="Script" uid="uid://b2oqcghmenmfd" path="res://scripts/enemy_scene/enemy.gd" id="1_7p1mj"]
 [ext_resource type="Script" uid="uid://cndl5nak0qpxp" path="res://scripts/effectables/movement.gd" id="2_md0e3"]
@@ -17,8 +17,82 @@
 [ext_resource type="Script" uid="uid://b003j8v8bhc26" path="res://scripts/enemy_scene/visuals.gd" id="13_j0cyh"]
 [ext_resource type="Script" uid="uid://ceeipidvq5rqy" path="res://scripts/enemy_scene/audio.gd" id="14_g0wcc"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_8qclf"]
-radius = 20.0
+[sub_resource type="AtlasTexture" id="AtlasTexture_s1ycm"]
+atlas = ExtResource("3_otmr2")
+region = Rect2(0, 0, 20, 21)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j0cyh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s1ycm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g0wcc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shcg2"]
+atlas = ExtResource("3_otmr2")
+region = Rect2(20, 1, 6, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ile5s"]
+atlas = ExtResource("3_otmr2")
+region = Rect2(20, 7, 6, 6)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_shcg2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shcg2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ile5s")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s1ycm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1x4g4"]
+atlas = ExtResource("3_otmr2")
+region = Rect2(0, 21, 32, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2pwtc"]
+atlas = ExtResource("3_otmr2")
+region = Rect2(32, 21, 32, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rogs8"]
+atlas = ExtResource("3_otmr2")
+region = Rect2(64, 21, 32, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wrm80"]
+atlas = ExtResource("3_otmr2")
+region = Rect2(96, 21, 32, 17)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wrm80"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1x4g4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2pwtc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rogs8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wrm80")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
 
 [sub_resource type="Resource" id="Resource_ile5s"]
 script = ExtResource("4_shcg2")
@@ -28,84 +102,12 @@ _factor = -5.0
 metadata/_custom_type_script = "uid://2fh28xow6f1j"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j0cyh"]
-radius = 20.2
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wtq4b"]
-atlas = ExtResource("3_otmr2")
-region = Rect2(0, 0, 36, 36)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s1ycm"]
+size = Vector2(24, 9)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_j0cyh"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wtq4b")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_g0wcc"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_g0wcc"]
-atlas = ExtResource("3_otmr2")
-region = Rect2(0, 36, 36, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_s1ycm"]
-atlas = ExtResource("3_otmr2")
-region = Rect2(36, 36, 36, 36)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_shcg2"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_g0wcc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_s1ycm")
-}],
-"loop": true,
-"name": &"default",
-"speed": 15.0
-}]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_s1ycm"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ile5s"]
-atlas = ExtResource("3_otmr2")
-region = Rect2(0, 72, 36, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1x4g4"]
-atlas = ExtResource("3_otmr2")
-region = Rect2(36, 72, 36, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2pwtc"]
-atlas = ExtResource("3_otmr2")
-region = Rect2(72, 72, 36, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rogs8"]
-atlas = ExtResource("3_otmr2")
-region = Rect2(108, 72, 36, 36)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_wrm80"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ile5s")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1x4g4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2pwtc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rogs8")
-}],
-"loop": true,
-"name": &"default",
-"speed": 1.0
-}]
+[sub_resource type="CircleShape2D" id="CircleShape2D_8qclf"]
+radius = 9.0
 
 [node name="Enemy" type="RigidBody2D" groups=["enemies"]]
 lock_rotation = true
@@ -114,20 +116,9 @@ contact_monitor = true
 max_contacts_reported = 620
 script = ExtResource("1_7p1mj")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_8qclf")
-
-[node name="Melee" type="Area2D" parent="." node_paths=PackedStringArray("melee_cooldown")]
-script = ExtResource("5_nenq2")
-melee_cooldown = NodePath("../MeleeCooldown")
-effects = Array[ExtResource("3_s1ycm")]([SubResource("Resource_ile5s")])
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Melee"]
-shape = SubResource("CircleShape2D_j0cyh")
-
 [node name="Movement" type="Node" parent="."]
 script = ExtResource("2_md0e3")
-initial_speed = 150.0
+initial_speed = 75.0
 
 [node name="Hitbox" type="Node" parent="."]
 script = ExtResource("3_4ra3w")
@@ -160,8 +151,7 @@ script = ExtResource("11_w8i8w")
 team = "enemies"
 
 [node name="Visuals" type="Node2D" parent="."]
-position = Vector2(0, 10)
-scale = Vector2(2, 2)
+position = Vector2(0, 0.5)
 script = ExtResource("13_j0cyh")
 
 [node name="BodySprite" type="AnimatedSprite2D" parent="Visuals"]
@@ -172,12 +162,31 @@ material = SubResource("ShaderMaterial_g0wcc")
 use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_shcg2")
 frame_progress = 0.934823
+offset = Vector2(0, 12.5)
 
 [node name="LegsSprite" type="AnimatedSprite2D" parent="Visuals"]
 material = SubResource("ShaderMaterial_s1ycm")
 use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_wrm80")
-frame_progress = 0.896492
+frame_progress = 0.918372
+offset = Vector2(0, 12)
+
+[node name="Melee" type="Area2D" parent="." node_paths=PackedStringArray("melee_cooldown")]
+script = ExtResource("5_nenq2")
+melee_cooldown = NodePath("../MeleeCooldown")
+effects = Array[ExtResource("3_s1ycm")]([SubResource("Resource_ile5s")])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Melee"]
+shape = SubResource("CircleShape2D_j0cyh")
+debug_color = Color(0.7, 0, 0, 0.419608)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Melee"]
+position = Vector2(0, 11.5)
+shape = SubResource("RectangleShape2D_s1ycm")
+debug_color = Color(0.7, 0, 0, 0.419608)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_8qclf")
 
 [node name="Audio" type="Node" parent="."]
 script = ExtResource("14_g0wcc")

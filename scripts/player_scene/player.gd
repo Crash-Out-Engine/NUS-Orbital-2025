@@ -16,13 +16,9 @@ enum Hand {
 }
 
 const KNOCKBACK_DURATION = 0.5
-<<<<<<< Updated upstream
-const KNOCKBACK_AMOUNT = 800.0
-const PICKUP_RANGE = 125
-=======
+
 const KNOCKBACK_AMOUNT = 300.0
 const PICKUP_RANGE = 40
->>>>>>> Stashed changes
 
 var hand_action = Hand.HOLDING_GUN
 var direction: Callable = func(_delta: float) -> Vector2:
@@ -38,11 +34,15 @@ var turrets_placed = 0 # HACK: temporary for lift-off demonstration
 var turret_cost = 5 # HACK: temporary for lift-off demonstration
 
 @onready var ranged := $Ranged as RangedBase
-
+@onready var hitbox := $CollisionShape2D as CollisionShape2D
+@onready var animation_player := $AnimationPlayer as AnimationPlayer
+@onready var visuals = $Visuals
 
 func _ready() -> void:
 	health_changed.emit(1.0)
 	ranged.active = false
+	$Melee.process_mode = Node.PROCESS_MODE_DISABLED
+	$Melee.visible = false
 
 
 func _process(delta: float) -> void:
@@ -63,8 +63,11 @@ func _physics_process(_delta: float) -> void:
 		hand_action = Hand.HOLDING_GUN
 	
 	if Input.is_action_just_pressed("melee"):
-		if(hand_action == Hand.HOLDING_GUN):
+		
+		if(hand_action == Hand.HOLDING_GUN and $MeleeCooldown.try_melee()):
 			hand_action = Hand.FIRING_WRENCH
+			animation_player.play("melee_attack")
+			visuals.play_melee_fire()
 		
 	
 	if Input.is_action_just_pressed("add turret"):
@@ -128,3 +131,6 @@ func apply_knockback(source: Node2D) -> void:
 
 func _on_visuals_melee_finished() -> void:
 	hand_action = Hand.HOLDING_GUN
+
+func mouse_is_in_player() -> bool:
+	return abs(get_global_mouse_position().x - hitbox.global_position.x) < hitbox.shape.size.x and abs(get_global_mouse_position().y - hitbox.global_position.y) < hitbox.shape.size.y

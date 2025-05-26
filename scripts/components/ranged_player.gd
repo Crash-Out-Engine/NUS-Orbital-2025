@@ -3,12 +3,16 @@ extends RangedBase
 
 const _BULLET_SCENE = preload("res://scenes/bullet.tscn")
 
+@onready var player := get_parent() as Player
 
 func _physics_process(_delta: float) -> void:
-	look_at(get_global_mouse_position())
+	
+	if(!player.mouse_is_in_player()):
+		look_at(get_global_mouse_position())
 	
 	if !active or !ranged_cooldown.can_ranged():
 		return
+	
 	
 	var team = ""
 	
@@ -24,7 +28,7 @@ func _physics_process(_delta: float) -> void:
 					[])) # TODO: Consider whether to deep copy effects (to preserve them in the event the entity despawns)
 	bullet.team = team
 	bullet.global_position = barrel.global_position
-	bullet.direction = global_position.angle_to_point(get_global_mouse_position())
+	bullet.direction = rotation
 	
 	ranged_cooldown.do_ranged()
 	

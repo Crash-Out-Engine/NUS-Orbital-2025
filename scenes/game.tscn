@@ -176,11 +176,8 @@ environment = SubResource("Environment_yqjtg")
 [node name="Player" parent="EntityContainer" instance=ExtResource("1_uwrxv")]
 
 [node name="Camera2D" type="Camera2D" parent="EntityContainer/Player"]
-<<<<<<< Updated upstream
-offset = Vector2(2.76, 0)
-=======
-zoom = Vector2(2.4, 2.4)
->>>>>>> Stashed changes
+zoom = Vector2(2, 2)
+
 process_callback = 0
 position_smoothing_enabled = true
 script = ExtResource("4_lbhrr")
@@ -496,7 +493,6 @@ label_settings = SubResource("LabelSettings_1kice")
 
 [node name="SandTileMap" type="TileMapLayer" parent="."]
 z_index = -100
-scale = Vector2(2, 2)
 tile_set = SubResource("TileSet_dinhu")
 script = ExtResource("9_vtaks")
 noise = SubResource("FastNoiseLite_vtaks")
@@ -509,7 +505,6 @@ script = ExtResource("10_vtaks")
 
 [node name="OverlayTileMap" type="TileMapLayer" parent="."]
 z_index = -100
-scale = Vector2(2, 2)
 tile_set = SubResource("TileSet_1kice")
 script = ExtResource("9_vtaks")
 noise = SubResource("FastNoiseLite_264po")
