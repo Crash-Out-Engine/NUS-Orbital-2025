@@ -843,7 +843,7 @@ texture_margin_left = 8.0
 texture_margin_top = 8.0
 texture_margin_right = 8.0
 texture_margin_bottom = 8.0
-region_rect = Rect2(27, 157, 52, 52)
+region_rect = Rect2(27, 35, 52, 52)
 modulate_color = Color(0.74902, 0.74902, 0.823529, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_adfd4"]
@@ -852,7 +852,7 @@ texture_margin_left = 8.0
 texture_margin_top = 8.0
 texture_margin_right = 8.0
 texture_margin_bottom = 8.0
-region_rect = Rect2(27, 157, 52, 52)
+region_rect = Rect2(27, 35, 52, 52)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8aw8m"]
 texture = ExtResource("1_c4vai")
@@ -860,12 +860,12 @@ texture_margin_left = 8.0
 texture_margin_top = 8.0
 texture_margin_right = 8.0
 texture_margin_bottom = 8.0
-region_rect = Rect2(27, 157, 52, 52)
+region_rect = Rect2(27, 35, 52, 52)
 modulate_color = Color(0.501961, 0.501961, 0.643137, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b7cyb"]
 atlas = ExtResource("1_c4vai")
-region = Rect2(1, 182, 24, 22)
+region = Rect2(1, 60, 24, 22)
 
 [sub_resource type="Image" id="Image_tf487"]
 data = {
@@ -881,7 +881,7 @@ image = SubResource("Image_tf487")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hqaum"]
 atlas = ExtResource("1_c4vai")
-region = Rect2(1, 158, 24, 22)
+region = Rect2(1, 36, 24, 22)
 
 [sub_resource type="Image" id="Image_6smqt"]
 data = {
@@ -901,7 +901,7 @@ texture_margin_left = 8.0
 texture_margin_top = 6.0
 texture_margin_right = 8.0
 texture_margin_bottom = 6.0
-region_rect = Rect2(73, 141, 46, 14)
+region_rect = Rect2(50, 19, 46, 14)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lrslt"]
 texture = ExtResource("1_c4vai")
@@ -909,7 +909,7 @@ texture_margin_left = 8.0
 texture_margin_top = 6.0
 texture_margin_right = 8.0
 texture_margin_bottom = 6.0
-region_rect = Rect2(73, 141, 46, 14)
+region_rect = Rect2(50, 19, 46, 14)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hakwy"]
 texture = ExtResource("1_c4vai")
@@ -917,7 +917,7 @@ texture_margin_left = 8.0
 texture_margin_top = 6.0
 texture_margin_right = 8.0
 texture_margin_bottom = 6.0
-region_rect = Rect2(24, 141, 46, 14)
+region_rect = Rect2(1, 19, 46, 14)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tf487"]
 texture = ExtResource("1_c4vai")
@@ -927,7 +927,7 @@ texture_margin_right = 36.0
 texture_margin_bottom = 36.0
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
-region_rect = Rect2(123, 141, 106, 106)
+region_rect = Rect2(99, 19, 106, 106)
 
 [resource]
 Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)

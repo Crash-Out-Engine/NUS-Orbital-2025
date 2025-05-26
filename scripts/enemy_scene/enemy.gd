@@ -13,6 +13,7 @@ func _ready() -> void:
 
 
 func die():
+	await Signal($Visuals, "bleeded")
 	queue_free()
 	
 	var loot = loot_scene.instantiate()

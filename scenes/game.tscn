@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://bbtrde7tvkisy"]
+[gd_scene load_steps=44 format=3 uid="uid://bbtrde7tvkisy"]
 
 [ext_resource type="PackedScene" uid="uid://ytw0s5xnqwvt" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://d2o1hku0svi7t" path="res://scripts/game_scene/game.gd" id="1_yqjtg"]
@@ -6,17 +6,15 @@
 [ext_resource type="Script" uid="uid://dixn701xl56vv" path="res://scripts/game_scene/spawner.gd" id="5_iywne"]
 [ext_resource type="Script" uid="uid://bcocptbr3821k" path="res://scripts/game_scene/ui/pause_menu.gd" id="5_p57ef"]
 [ext_resource type="Script" uid="uid://brohp3alww54k" path="res://scripts/game_scene/ui/ui.gd" id="5_u5sy4"]
-[ext_resource type="Texture2D" uid="uid://brlj7tpqcwcbt" path="res://assets/sprites/ui_spritesheet.png" id="7_dinhu"]
+[ext_resource type="Texture2D" uid="uid://d20hm0rl44yhs" path="res://assets/sprites/new_ui_spritesheet.png" id="7_ssvqc"]
 [ext_resource type="Script" uid="uid://cyt60aunvq71y" path="res://scripts/game_scene/ui/inventory.gd" id="8_kvpfn"]
-[ext_resource type="Script" uid="uid://byt4ertjin4jh" path="res://scripts/game_scene/ui/health_bar_container.gd" id="8_ssvqc"]
 [ext_resource type="FontFile" uid="uid://cj53anigafm5t" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="9_kvuet"]
 [ext_resource type="Script" uid="uid://6avt386x6skk" path="res://scripts/game_scene/chunk_tile_map.gd" id="9_vtaks"]
-[ext_resource type="Script" uid="uid://dtjpju6vch1iy" path="res://scripts/game_scene/ui/scrap_counter.gd" id="10_rysoc"]
-[ext_resource type="Script" uid="uid://00ptaqelvbr5" path="res://scripts/game_scene/ui/timer_label.gd" id="10_trtic"]
+[ext_resource type="Script" uid="uid://hq086q0hvtut" path="res://scripts/progress_bars.gd" id="10_264po"]
 [ext_resource type="Script" uid="uid://dlfl58jvcogf5" path="res://scripts/game_scene/chunk_debug.gd" id="10_vtaks"]
 [ext_resource type="AudioStream" uid="uid://d0bs4frau5lf8" path="res://assets/audio/sound_effects/pause_sound.wav" id="11_ca42v"]
 [ext_resource type="Theme" uid="uid://c8t8fqq1p8n4l" path="res://resources/custom_ui.tres" id="12_ssvqc"]
-[ext_resource type="Script" uid="uid://b5ihjg2jg7kkh" path="res://scripts/debug.gd" id="15_264po"]
+[ext_resource type="Script" path="res://scripts/debug.gd" id="15_264po"]
 [ext_resource type="AudioStream" uid="uid://c3lyo02lbnyxw" path="res://assets/audio/songs/8_bit_mimic.wav" id="15_ir15t"]
 [ext_resource type="Texture2D" uid="uid://ccfwh73q4xx04" path="res://assets/tilesheets/tilemap.png" id="16_264po"]
 
@@ -26,36 +24,78 @@ glow_enabled = true
 glow_blend_mode = 0
 glow_hdr_threshold = 0.93
 
-[sub_resource type="LabelSettings" id="LabelSettings_ir15t"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_5newe"]
+atlas = ExtResource("7_ssvqc")
+region = Rect2(4, 4, 54, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_37s47"]
+atlas = ExtResource("7_ssvqc")
+region = Rect2(520, 8, 454, 42)
+margin = Rect2(4, 4, 0, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bt5mj"]
+atlas = ExtResource("7_ssvqc")
+region = Rect2(978, 4, 464, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e1j6l"]
+atlas = ExtResource("7_ssvqc")
+region = Rect2(62, 8, 454, 42)
+margin = Rect2(4, 4, 6, 8)
+
+[sub_resource type="LabelSettings" id="LabelSettings_rysoc"]
 font = ExtResource("9_kvuet")
-font_size = 48
-shadow_size = 8
-shadow_color = Color(0, 0, 0, 0.74902)
-shadow_offset = Vector2(2, 2)
+font_size = 120
+font_color = Color(0, 0, 0, 1)
+outline_size = 25
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kvuet"]
-atlas = ExtResource("7_dinhu")
-region = Rect2(6, 6, 132, 132)
+[sub_resource type="AtlasTexture" id="AtlasTexture_pl11u"]
+atlas = ExtResource("7_ssvqc")
+region = Rect2(1446, 4, 117, 50)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_trtic"]
-atlas = ExtResource("7_dinhu")
-region = Rect2(150, 6, 132, 132)
+[sub_resource type="AtlasTexture" id="AtlasTexture_ssvqc"]
+atlas = ExtResource("7_ssvqc")
+region = Rect2(1567, 4, 117, 50)
 
-[sub_resource type="LabelSettings" id="LabelSettings_trtic"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_bhx41"]
+atlas = ExtResource("7_ssvqc")
+region = Rect2(1446, 4, 117, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_264po"]
+atlas = ExtResource("7_ssvqc")
+region = Rect2(1567, 4, 117, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qnb83"]
+atlas = ExtResource("7_ssvqc")
+region = Rect2(4, 58, 44, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sww3w"]
+atlas = ExtResource("7_ssvqc")
+region = Rect2(410, 62, 354, 32)
+margin = Rect2(4, 4, 0, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_suyxu"]
+atlas = ExtResource("7_ssvqc")
+region = Rect2(768, 58, 364, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sgl2t"]
+atlas = ExtResource("7_ssvqc")
+region = Rect2(52, 62, 354, 32)
+margin = Rect2(4, 4, 6, 8)
+
+[sub_resource type="LabelSettings" id="LabelSettings_5newe"]
 font = ExtResource("9_kvuet")
-font_size = 36
-shadow_size = 6
-shadow_color = Color(0, 0, 0, 0.74902)
-shadow_offset = Vector2(2, 2)
+font_size = 96
+font_color = Color(0, 0, 0, 1)
+outline_size = 20
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ca42v"]
-atlas = ExtResource("7_dinhu")
-region = Rect2(2, 140, 18, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_qouja"]
+atlas = ExtResource("7_ssvqc")
+region = Rect2(1611, 91, 16, 16)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ca42v"]
 font = ExtResource("9_kvuet")
-font_size = 48
-shadow_size = 8
+font_size = 24
+shadow_size = 4
 shadow_color = Color(0, 0, 0, 0.74902)
 shadow_offset = Vector2(2, 2)
 
@@ -137,6 +177,7 @@ environment = SubResource("Environment_yqjtg")
 
 [node name="Camera2D" type="Camera2D" parent="EntityContainer/Player"]
 zoom = Vector2(2, 2)
+
 process_callback = 0
 position_smoothing_enabled = true
 script = ExtResource("4_lbhrr")
@@ -160,66 +201,158 @@ anchors_preset = 0
 offset_right = 1600.0
 offset_bottom = 900.0
 
-[node name="TimerLabel" type="Label" parent="UI/HUD"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/HUD" node_paths=PackedStringArray("player", "game")]
 layout_mode = 0
-offset_right = 113.0
-offset_bottom = 43.0
-text = "0:00"
-label_settings = SubResource("LabelSettings_ir15t")
-horizontal_alignment = 1
-vertical_alignment = 1
-script = ExtResource("10_trtic")
-
-[node name="HealthBarContainer" type="CenterContainer" parent="UI/HUD" node_paths=PackedStringArray("player")]
-layout_mode = 0
-offset_left = 72.0
-offset_top = 72.0
-offset_right = 72.0
-offset_bottom = 72.0
-use_top_left = true
-script = ExtResource("8_ssvqc")
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 879.0
+offset_bottom = 170.0
+script = ExtResource("10_264po")
 player = NodePath("../../../EntityContainer/Player")
+game = NodePath("../../..")
 
-[node name="HealthBar" type="TextureProgressBar" parent="UI/HUD/HealthBarContainer"]
+[node name="PowerBar" type="HBoxContainer" parent="UI/HUD/VBoxContainer"]
+layout_mode = 2
+
+[node name="Symbol" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_5newe")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="UI/HUD/VBoxContainer/PowerBar"]
 layout_mode = 2
 value = 100.0
-fill_mode = 3
-texture_under = SubResource("AtlasTexture_kvuet")
-texture_progress = SubResource("AtlasTexture_trtic")
-metadata/_edit_use_anchors_ = true
+texture_under = SubResource("AtlasTexture_37s47")
+texture_over = SubResource("AtlasTexture_bt5mj")
+texture_progress = SubResource("AtlasTexture_e1j6l")
 
-[node name="Label" type="Label" parent="UI/HUD/HealthBarContainer"]
-layout_mode = 2
-text = "fdsads"
-label_settings = SubResource("LabelSettings_trtic")
-horizontal_alignment = 1
+[node name="Label" type="Label" parent="UI/HUD/VBoxContainer/PowerBar/TextureProgressBar"]
+offset_top = -4.0
+offset_right = 422.0
+offset_bottom = 236.0
+scale = Vector2(0.25, 0.25)
+text = " 100"
+label_settings = SubResource("LabelSettings_rysoc")
 vertical_alignment = 1
 
-[node name="ScrapCounter" type="HBoxContainer" parent="UI/HUD" node_paths=PackedStringArray("player")]
-layout_direction = 3
-layout_mode = 0
-offset_left = 3.0
-offset_top = 2.0
-offset_right = 163.0
-offset_bottom = 74.0
-alignment = 2
-script = ExtResource("10_rysoc")
-player = NodePath("../../../EntityContainer/Player")
-
-[node name="Icon" type="TextureRect" parent="UI/HUD/ScrapCounter"]
+[node name="1Bar" type="Control" parent="UI/HUD/VBoxContainer/PowerBar"]
+custom_minimum_size = Vector2(45, 0)
 layout_mode = 2
-texture = SubResource("AtlasTexture_ca42v")
-expand_mode = 3
 
-[node name="Label" type="Label" parent="UI/HUD/ScrapCounter"]
+[node name="On" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar/1Bar"]
 layout_mode = 2
-text = "0/5"
+offset_left = -36.0
+offset_right = 81.0
+offset_bottom = 50.0
+texture = SubResource("AtlasTexture_pl11u")
+
+[node name="Off" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar/1Bar"]
+offset_left = -36.0
+offset_right = 81.0
+offset_bottom = 50.0
+texture = SubResource("AtlasTexture_ssvqc")
+
+[node name="2Bar" type="Control" parent="UI/HUD/VBoxContainer/PowerBar"]
+custom_minimum_size = Vector2(81, 0)
+layout_mode = 2
+
+[node name="On" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar/2Bar"]
+offset_right = 117.0
+offset_bottom = 50.0
+texture = SubResource("AtlasTexture_bhx41")
+
+[node name="Off" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar/2Bar"]
+layout_mode = 2
+offset_right = 117.0
+offset_bottom = 50.0
+texture = SubResource("AtlasTexture_264po")
+
+[node name="4Bar" type="Control" parent="UI/HUD/VBoxContainer/PowerBar"]
+custom_minimum_size = Vector2(81, 0)
+layout_mode = 2
+
+[node name="On" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar/4Bar"]
+offset_right = 117.0
+offset_bottom = 50.0
+texture = SubResource("AtlasTexture_bhx41")
+
+[node name="Off" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar/4Bar"]
+offset_right = 117.0
+offset_bottom = 50.0
+texture = SubResource("AtlasTexture_264po")
+
+[node name="8Bar" type="Control" parent="UI/HUD/VBoxContainer/PowerBar"]
+custom_minimum_size = Vector2(81, 0)
+layout_mode = 2
+
+[node name="On" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar/8Bar"]
+offset_right = 117.0
+offset_bottom = 50.0
+texture = SubResource("AtlasTexture_bhx41")
+
+[node name="Off" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar/8Bar"]
+offset_right = 117.0
+offset_bottom = 50.0
+texture = SubResource("AtlasTexture_264po")
+
+[node name="16Bar" type="Control" parent="UI/HUD/VBoxContainer/PowerBar"]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+
+[node name="On" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar/16Bar"]
+offset_right = 117.0
+offset_bottom = 50.0
+texture = SubResource("AtlasTexture_bhx41")
+
+[node name="Off" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar/16Bar"]
+offset_right = 117.0
+offset_bottom = 50.0
+texture = SubResource("AtlasTexture_264po")
+
+[node name="HealthBar" type="HBoxContainer" parent="UI/HUD/VBoxContainer"]
+layout_mode = 2
+
+[node name="Symbol" type="TextureRect" parent="UI/HUD/VBoxContainer/HealthBar"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_qnb83")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="UI/HUD/VBoxContainer/HealthBar"]
+layout_mode = 2
+value = 100.0
+texture_under = SubResource("AtlasTexture_sww3w")
+texture_over = SubResource("AtlasTexture_suyxu")
+texture_progress = SubResource("AtlasTexture_sgl2t")
+
+[node name="Label" type="Label" parent="UI/HUD/VBoxContainer/HealthBar/TextureProgressBar"]
+offset_top = -4.0
+offset_right = 113.0
+offset_bottom = 188.0
+scale = Vector2(0.25, 0.25)
+text = " 50/50"
+label_settings = SubResource("LabelSettings_5newe")
+vertical_alignment = 1
+
+[node name="ScrapCounter" type="MarginContainer" parent="UI/HUD/VBoxContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="TextureRect" type="TextureRect" parent="UI/HUD/VBoxContainer/ScrapCounter"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_qouja")
+
+[node name="Label" type="Label" parent="UI/HUD/VBoxContainer/ScrapCounter/TextureRect"]
+layout_mode = 2
+offset_top = -4.0
+offset_right = 52.0
+offset_bottom = 48.0
+text = "50"
 label_settings = SubResource("LabelSettings_ca42v")
 horizontal_alignment = 2
-vertical_alignment = 1
+vertical_alignment = 2
 
 [node name="PauseMenu" type="Control" parent="UI"]
 process_mode = 2
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1600.0
@@ -315,6 +448,7 @@ stream = ExtResource("11_ca42v")
 bus = &"SFX"
 
 [node name="Inventory" type="Control" parent="UI"]
+visible = false
 custom_minimum_size = Vector2(1152, 648)
 layout_mode = 3
 anchors_preset = 0
