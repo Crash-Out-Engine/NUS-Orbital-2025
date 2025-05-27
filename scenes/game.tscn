@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://bcocptbr3821k" path="res://scripts/game_scene/ui/pause_menu.gd" id="5_p57ef"]
 [ext_resource type="Script" uid="uid://brohp3alww54k" path="res://scripts/game_scene/ui/ui.gd" id="5_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet_v2.png" id="6_1kice"]
-[ext_resource type="Script" uid="uid://ysb1rej05rno" path="res://scripts/game_scene/ui/hud.gd" id="6_rysoc"]
+[ext_resource type="Script" path="res://scripts/game_scene/ui/hud.gd" id="6_rysoc"]
 [ext_resource type="Script" uid="uid://cyt60aunvq71y" path="res://scripts/game_scene/ui/inventory.gd" id="8_kvpfn"]
 [ext_resource type="FontFile" uid="uid://cj53anigafm5t" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="9_kvuet"]
 [ext_resource type="Script" uid="uid://6avt386x6skk" path="res://scripts/game_scene/chunk_tile_map.gd" id="9_vtaks"]
@@ -246,6 +246,7 @@ offset_bottom = 50.0
 texture = SubResource("AtlasTexture_5newe")
 
 [node name="Off" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar/1Bar"]
+layout_mode = 0
 offset_left = -36.0
 offset_right = 82.0
 offset_bottom = 50.0
@@ -263,6 +264,7 @@ offset_bottom = 50.0
 texture = SubResource("AtlasTexture_5newe")
 
 [node name="Off" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar/2Bar"]
+layout_mode = 0
 offset_left = -36.0
 offset_right = 82.0
 offset_bottom = 50.0
@@ -280,6 +282,7 @@ offset_bottom = 50.0
 texture = SubResource("AtlasTexture_5newe")
 
 [node name="Off" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar/4Bar"]
+layout_mode = 0
 offset_left = -36.0
 offset_right = 82.0
 offset_bottom = 50.0
@@ -297,6 +300,7 @@ offset_bottom = 50.0
 texture = SubResource("AtlasTexture_5newe")
 
 [node name="Off" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar/8Bar"]
+layout_mode = 0
 offset_left = -36.0
 offset_right = 82.0
 offset_bottom = 50.0
@@ -314,6 +318,7 @@ offset_bottom = 50.0
 texture = SubResource("AtlasTexture_5newe")
 
 [node name="Off" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar/16Bar"]
+layout_mode = 0
 offset_left = -36.0
 offset_right = 82.0
 offset_bottom = 50.0

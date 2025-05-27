@@ -55,7 +55,6 @@ func _physics_process(_delta: float) -> void:
 func play_gun_fire(_bullet):
 	gun_sprite.sprite_frames.set_animation_speed("gun_fire", 4.0 / player_ranged.ranged_cooldown.value)
 	gun_sprite.play("gun_fire")
-	gun_blast_sprite.visible = true
 	gun_blast_sprite.play()
 
 func play_melee_fire():
