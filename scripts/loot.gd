@@ -1,7 +1,7 @@
 class_name Loot
 extends Area2D
 
-const SPEED = 800
+const SPEED = 250
 
 @onready var player := $/root/Game/EntityContainer/Player as Player
 

@@ -14,45 +14,45 @@
 [ext_resource type="Script" uid="uid://cywswu1o8bqjs" path="res://scripts/turret_scene/visuals.gd" id="12_fp1kq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0dv4j"]
-radius = 18.0
+radius = 8.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tg0ex"]
-radius = 38.0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0dv4j"]
-atlas = ExtResource("8_0dv4j")
-region = Rect2(0, 36, 36, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tg0ex"]
-atlas = ExtResource("8_0dv4j")
-region = Rect2(36, 36, 36, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_eo4u0"]
-atlas = ExtResource("8_0dv4j")
-region = Rect2(72, 36, 36, 36)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6k4ik"]
-atlas = ExtResource("8_0dv4j")
-region = Rect2(108, 36, 36, 36)
+radius = 16.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fp1kq"]
 atlas = ExtResource("8_0dv4j")
-region = Rect2(36, 0, 36, 36)
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_726tt"]
+atlas = ExtResource("8_0dv4j")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8c4bs"]
+atlas = ExtResource("8_0dv4j")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0mdkh"]
+atlas = ExtResource("8_0dv4j")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ue5km"]
+atlas = ExtResource("8_0dv4j")
+region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_eo4u0"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0dv4j")
+"texture": SubResource("AtlasTexture_fp1kq")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_tg0ex")
+"texture": SubResource("AtlasTexture_726tt")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_eo4u0")
+"texture": SubResource("AtlasTexture_8c4bs")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6k4ik")
+"texture": SubResource("AtlasTexture_0mdkh")
 }],
 "loop": false,
 "name": &"fire",
@@ -60,7 +60,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_fp1kq")
+"texture": SubResource("AtlasTexture_ue5km")
 }],
 "loop": false,
 "name": &"idle",
@@ -114,7 +114,7 @@ effect_mods = Array[ExtResource("6_mqfwu")]([ExtResource("7_mqfwu")])
 metadata/_custom_type_script = "uid://bhi7w6ril3da2"
 
 [node name="Barrel" type="Node2D" parent="Components/RangedComp"]
-position = Vector2(26, 0)
+position = Vector2(12, 0)
 
 [node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("turret", "turret_ranged", "turret_health")]
 script = ExtResource("12_fp1kq")
@@ -124,13 +124,12 @@ turret_health = NodePath("../Properties/HealthProp")
 
 [node name="BodySprite" type="AnimatedSprite2D" parent="Visuals"]
 z_index = 1
-scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_eo4u0")
-animation = &"fire"
+animation = &"idle"
 
 [node name="BaseSprite" type="Sprite2D" parent="Visuals"]
-scale = Vector2(2, 2)
 texture = ExtResource("8_0dv4j")
+offset = Vector2(-2, 0)
 hframes = 4
 vframes = 2
 

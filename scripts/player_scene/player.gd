@@ -4,7 +4,7 @@ extends CharacterBody2D
 signal turret_spawned(turret: Node2D)
 signal turret_placement_failed()
 signal health_changed(new_ratio: float)
-signal scrap_changed()
+signal scrap_changed(new_value: int)
 
 const _TURRET_SCENE := preload("res://scenes/turret.tscn")
 
@@ -16,11 +16,13 @@ enum Hand {
 }
 
 const KNOCKBACK_DURATION = 0.5
-const KNOCKBACK_AMOUNT = 800.0
-const PICKUP_RANGE = 125
+const KNOCKBACK_AMOUNT = 300.0
+const PICKUP_RANGE = 40
 
 @export var ranged: RangedBaseComp
-@export var health_prop: HealthProp
+@export var health: HealthProp
+@export var health_capacity: HealthCapacityProp
+@export var melee_cooldown: MeleeCooldownProp
 
 var hand_action = Hand.HOLDING_GUN
 var direction: Callable = func(_delta: float) -> Vector2:
@@ -31,9 +33,15 @@ var direction: Callable = func(_delta: float) -> Vector2:
 var knockback = 0.0
 var knockback_direction = Vector2(0, 0)
 var current_turret = null
-var scrap = 50
+var scrap = 50:
+	set(value):
+		scrap = value
+		scrap_changed.emit(value)
 var turrets_placed = 0 # HACK: temporary for lift-off demonstration
 var turret_cost = 5 # HACK: temporary for lift-off demonstration
+
+@onready var visuals := $Visuals as PlayerVisuals
+@onready var melee_player := $MeleePlayer as AnimationPlayer
 
 
 func _ready() -> void:
@@ -59,9 +67,10 @@ func _physics_process(_delta: float) -> void:
 		hand_action = Hand.HOLDING_GUN
 	
 	if Input.is_action_just_pressed("melee"):
-		if (hand_action == Hand.HOLDING_GUN):
+		if (hand_action == Hand.HOLDING_GUN and melee_cooldown.try_melee()):
 			hand_action = Hand.FIRING_WRENCH
-		
+			melee_player.play("melee_attack")
+			visuals.play_melee_fire()
 	
 	if Input.is_action_just_pressed("add turret"):
 		hand_action = Hand.HOLDING_WRENCH
@@ -87,7 +96,6 @@ func _physics_process(_delta: float) -> void:
 				scrap -= turret_cost
 				turrets_placed += 1
 				turret_cost = (turrets_placed + 1) * turrets_placed * 5 / 2
-				scrap_changed.emit()
 			else:
 				current_turret.state = Turret.State.CANCELLED
 				turret_placement_failed.emit()
@@ -100,12 +108,15 @@ func can_place_turret() -> bool:
 
 
 func get_health() -> float:
-	return health_prop.value
+	return health.value
+
+
+func get_health_capacity() -> float:
+	return health_capacity.value
 
 
 func gain_scrap(amount: int) -> void:
 	scrap += amount
-	scrap_changed.emit()
 
 
 func _on_health_just_emptied() -> void:
@@ -113,7 +124,7 @@ func _on_health_just_emptied() -> void:
 
 
 func _on_health_just_changed(_old_value: float, new_value: float) -> void:
-	health_changed.emit(new_value / health_prop.health_capacity)
+	health_changed.emit(new_value / health.health_capacity)
 
 
 func apply_knockback(source: Node2D) -> void:
