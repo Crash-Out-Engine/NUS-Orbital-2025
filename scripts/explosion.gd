@@ -4,6 +4,11 @@ extends Area2D
 var team: String
 var effects: Array[EffectBase] = []
 
+
+func _enter_tree() -> void:
+	call_deferred("explode")
+
+
 func explode() -> void:
 	$AnimatedSprite2D.play("default")
 	$AudioStreamPlayer.play()
@@ -19,4 +24,3 @@ func explode() -> void:
 	
 	await $AnimatedSprite2D.animation_finished
 	queue_free()
-	
