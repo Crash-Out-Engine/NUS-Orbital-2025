@@ -9,6 +9,7 @@ extends PropertyBase
 ## The initial speed of the entity.
 @export var initial_speed: float = 200.0
 @export var is_player: bool = false
+@export var target_filter: TargetFilter # TODO: separate movement into its own component, moving target_filter with it
 
 @export_group("Properties")
 @export var target_priority: TargetPriorityProp
@@ -31,7 +32,7 @@ func _physics_process(delta: float) -> void:
 		var target_provider := load("res://resources/target_provider.tres")
 
 		if target_priority != null:
-			var target = target_provider.get_target(parent.global_position, target_priority.team)
+			var target = target_provider.get_target(parent.global_position, target_filter)
 			if target != null:
 				var impulse = parent.global_position.direction_to(target.global_position).normalized() * parent.mass * value
 				parent.apply_central_impulse(impulse - parent.linear_velocity * parent.mass)

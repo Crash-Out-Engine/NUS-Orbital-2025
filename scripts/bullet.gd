@@ -7,7 +7,7 @@ const SPEED = 800
 @export var lives: LivesProp
 
 var direction: float
-var team: String
+var target_filter: TargetFilter
 var effects: Array[EffectBase] = []
 
 
@@ -21,13 +21,13 @@ func _on_timer_timeout() -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	if body.get_node_or_null(^"Components/HitboxComp") != null and not body.is_in_group(team): # TODO: Don't rely on godot groups
+	if (body.get_node_or_null(^"Components/HitboxComp") != null
+			and body.get_node(^"Components/HitboxComp").is_targeted_by(target_filter)):
 		var explosion = _EXPLOSION_SCENE.instantiate()
 		explosion.global_position = global_position
-		explosion.team = team
+		explosion.target_filter = target_filter
 		explosion.effects = effects
-		get_parent().add_child(explosion) # TODO: fix this line's error
-		explosion.explode()
+		call_deferred("add_sibling", explosion)
 
 		if lives.try_die():
 			queue_free()
