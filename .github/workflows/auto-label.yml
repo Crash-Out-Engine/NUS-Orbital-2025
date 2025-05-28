@@ -14,4 +14,5 @@ jobs:
         uses: actions-ecosystem/action-add-labels@v1.1.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          number: ${{ github.event.issue.number }}
           labels: status:new
