@@ -8,11 +8,8 @@ func _physics_process(_delta: float) -> void:
 	if !active or !ranged_cooldown.can_ranged():
 		return
 	
-	var team = ""
-	if target_priority != null:
-		team = target_priority.team
 	var target_provider := load("res://resources/target_provider.tres") as TargetProvider
-	var target = target_provider.get_target($"../../".global_position, team)
+	var target = target_provider.get_target($"../../".global_position, target_filter)
 	if target == null:
 		return
 
@@ -27,7 +24,7 @@ func _physics_process(_delta: float) -> void:
 			acc.append_array(e)
 			return acc,
 			[])) # TODO: Consider whether to deep copy effects (to preserve them in the event the entity despawns)
-	bullet.team = team
+	bullet.target_filter = target_filter
 	bullet.global_position = barrel.global_position
 	bullet.direction = barrel.global_position.angle_to_point(target.global_position)
 	

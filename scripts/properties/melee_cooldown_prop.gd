@@ -19,3 +19,7 @@ func try_melee() -> bool:
 		return true
 	else:
 		return false
+
+
+func can_melee() -> bool:
+	return _timer.is_stopped()

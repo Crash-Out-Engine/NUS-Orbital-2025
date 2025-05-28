@@ -6,7 +6,7 @@ signal bullet_spawned(bullet: Node2D)
 @export var active: bool = false
 @export var barrel: Node2D
 @export var ranged_cooldown: RangedCooldownProp
-@export var target_priority: TargetPriorityProp = null
+@export var target_filter: TargetFilter
 @export var effect_mods: Array[EffectMod] = []
 
 

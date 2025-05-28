@@ -67,7 +67,7 @@ func _physics_process(_delta: float) -> void:
 		hand_action = Hand.HOLDING_GUN
 	
 	if Input.is_action_just_pressed("melee"):
-		if (hand_action == Hand.HOLDING_GUN and melee_cooldown.try_melee()):
+		if hand_action == Hand.HOLDING_GUN and melee_cooldown.can_melee():
 			hand_action = Hand.FIRING_WRENCH
 			melee_player.play("melee_attack")
 			visuals.play_melee_fire()

@@ -14,11 +14,11 @@ enum State {
 }
 
 @export_group("Properties")
-@export var target_priority: TargetPriorityProp
 @export var health: HealthProp
 
 @export_group("Components")
 @export var ranged: RangedBaseComp
+@export var hitbox: HitboxComp
 
 
 var state: State:
@@ -30,7 +30,7 @@ var state: State:
 			state_changed.emit(prev_state, state)
 var player: Player
 
-@onready var _team: String = target_priority.team
+@onready var _team: Enums.Team = hitbox.team
 
 
 func _ready() -> void:
@@ -59,7 +59,7 @@ func handle_state_changed(from: State, to: State):
 		[_, State.PLACING]:
 			set_collidable(false)
 			ranged.active = false
-			target_priority.team = ""
+			hitbox.team = Enums.Team.NONE
 
 		[_, State.PLANNED]:
 			set_collidable(true)
@@ -71,7 +71,7 @@ func handle_state_changed(from: State, to: State):
 			set_collision_layer_value(1, true)
 			set_collision_layer_value(2, false)
 			set_collision_mask_value(1, true)
-			target_priority.team = _team
+			hitbox.team = _team
 
 		[_, State.OPERATIONAL]:
 			ranged.active = true
