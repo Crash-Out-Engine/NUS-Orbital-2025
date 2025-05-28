@@ -10,7 +10,6 @@ const FLIP_THRESHOLD: float = 0.001
 @export var enemy: Enemy
 @export var health: HealthProp
 
-@onready var target_provider := load("res://resources/target_provider.tres") as TargetProvider
 @onready var body_sprite := $BodySprite as AnimatedSprite2D
 @onready var flames_sprite := $FlamesSprite as AnimatedSprite2D
 @onready var legs_sprite := $LegsSprite as AnimatedSprite2D
