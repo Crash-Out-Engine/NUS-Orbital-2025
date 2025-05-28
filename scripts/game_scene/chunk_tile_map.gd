@@ -6,8 +6,8 @@ extends TileMapLayer
 @export var tileset_dimensions: Vector2i
 @export var zeroth_tile: Vector2i
 
-var chunk_radius := 2
-var chunk_size := Vector2i(16, 16)
+var chunk_radius := 6
+var chunk_size := Vector2i(8, 8)
 var _loaded_chunks: Array[Vector2i] = []
 var _prev_player_chunk_position: Vector2i = Vector2i.MIN
 
@@ -16,8 +16,8 @@ var _prev_player_chunk_position: Vector2i = Vector2i.MIN
 
 func _process(_delta: float) -> void:
 	var player_chunk_position := floor(
-			(local_to_map(player.position)/Vector2i(2,2) as Vector2) /
-			(chunk_size as Vector2)) as Vector2i
+			(local_to_map(player.position) / (scale as Vector2i)) /
+			chunk_size) as Vector2i
 	
 	if player_chunk_position != _prev_player_chunk_position:
 		load_chunks(player_chunk_position)

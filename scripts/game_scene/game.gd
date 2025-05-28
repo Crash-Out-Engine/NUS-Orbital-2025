@@ -1,13 +1,18 @@
 extends Node2D
 
+var power: float = 100.0 # HACK: power should be a separate system instead of existing within game.gd
+
 @onready var target_provider := load("res://resources/target_provider.tres") as TargetProvider
 @onready var player := $EntityContainer/Player as Player
-@onready var _timer_label := $UI/HUD/TimerLabel as TimerLabel
 
 func _ready() -> void:
 	target_provider.set_entity_container($EntityContainer)
 	try_connect_ranged(player)
 	player.turret_spawned.connect(add_entity)
+
+
+func _physics_process(delta: float) -> void:
+	power -= delta
 
 
 func try_connect_ranged(entity: Node2D):
@@ -23,6 +28,3 @@ func add_entity(entity: Node2D) -> void:
 
 func add_misc(misc: Node2D) -> void:
 	$MiscContainer.add_child(misc)
-
-func get_time() -> float:
-	return _timer_label.elapsed_time

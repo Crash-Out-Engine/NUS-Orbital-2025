@@ -1,24 +1,24 @@
-[gd_scene load_steps=32 format=3 uid="uid://kcqha4xx46r7"]
+[gd_scene load_steps=33 format=3 uid="uid://kcqha4xx46r7"]
 
 [ext_resource type="Script" uid="uid://b2oqcghmenmfd" path="res://scripts/enemy_scene/enemy.gd" id="1_7p1mj"]
 [ext_resource type="Script" uid="uid://cndl5nak0qpxp" path="res://scripts/properties/movement_prop.gd" id="2_md0e3"]
-[ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox_comp.gd" id="3_4ra3w"]
+[ext_resource type="Script" path="res://scripts/components/hitbox_comp.gd" id="3_4ra3w"]
 [ext_resource type="Texture2D" uid="uid://csa25hojkjg65" path="res://assets/sprites/enemy_spritesheet.png" id="3_otmr2"]
-[ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/effects/effect_base.gd" id="3_s1ycm"]
+[ext_resource type="Script" path="res://scripts/effects/effect_base.gd" id="3_s1ycm"]
 [ext_resource type="Script" uid="uid://bg2iinlcp53aa" path="res://scripts/properties/health_prop.gd" id="4_5uy6h"]
 [ext_resource type="Script" uid="uid://2fh28xow6f1j" path="res://scripts/effects/health_effect.gd" id="4_shcg2"]
-[ext_resource type="Script" uid="uid://bx0i0x84j70ct" path="res://scripts/components/melee_comp.gd" id="5_nenq2"]
+[ext_resource type="Script" path="res://scripts/components/melee_comp.gd" id="5_nenq2"]
 [ext_resource type="AudioStream" uid="uid://dn6k75a1tyl8k" path="res://assets/audio/sound_effects/hit_sound.wav" id="5_wtq4b"]
 [ext_resource type="Script" uid="uid://cu55fh5hl5rxd" path="res://scripts/properties/melee_cooldown_prop.gd" id="6_nenq2"]
 [ext_resource type="Script" uid="uid://dve6ix5ogwfw" path="res://scripts/properties/melee_damage_prop.gd" id="7_ipns3"]
-[ext_resource type="Script" uid="uid://bhi7w6ril3da2" path="res://scripts/components/ranged_AI_comp.gd" id="8_8qclf"]
+[ext_resource type="Script" path="res://scripts/components/ranged_AI_comp.gd" id="8_8qclf"]
 [ext_resource type="Script" uid="uid://cwdm3dvyba0l3" path="res://scripts/properties/ranged_cooldown_prop.gd" id="9_ipns3"]
 [ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/properties/target_priority_prop.gd" id="11_w8i8w"]
 [ext_resource type="Script" uid="uid://b003j8v8bhc26" path="res://scripts/enemy_scene/visuals.gd" id="13_j0cyh"]
 [ext_resource type="Script" uid="uid://ceeipidvq5rqy" path="res://scripts/enemy_scene/audio.gd" id="14_g0wcc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8qclf"]
-radius = 20.0
+radius = 9.0
 
 [sub_resource type="Resource" id="Resource_ile5s"]
 script = ExtResource("4_shcg2")
@@ -28,17 +28,20 @@ _factor = -5.0
 metadata/_custom_type_script = "uid://2fh28xow6f1j"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j0cyh"]
-radius = 20.2
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wtq4b"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s1ycm"]
+radius = 6.0
+height = 24.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shcg2"]
 atlas = ExtResource("3_otmr2")
-region = Rect2(0, 0, 36, 36)
+region = Rect2(0, 0, 20, 21)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_j0cyh"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wtq4b")
+"texture": SubResource("AtlasTexture_shcg2")
 }],
 "loop": true,
 "name": &"default",
@@ -47,22 +50,22 @@ animations = [{
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g0wcc"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_g0wcc"]
-atlas = ExtResource("3_otmr2")
-region = Rect2(0, 36, 36, 36)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_s1ycm"]
 atlas = ExtResource("3_otmr2")
-region = Rect2(36, 36, 36, 36)
+region = Rect2(20, 1, 6, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wrm80"]
+atlas = ExtResource("3_otmr2")
+region = Rect2(20, 7, 6, 6)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_shcg2"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_g0wcc")
+"texture": SubResource("AtlasTexture_s1ycm")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_s1ycm")
+"texture": SubResource("AtlasTexture_wrm80")
 }],
 "loop": true,
 "name": &"default",
@@ -73,19 +76,19 @@ animations = [{
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ile5s"]
 atlas = ExtResource("3_otmr2")
-region = Rect2(0, 72, 36, 36)
+region = Rect2(0, 22, 32, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1x4g4"]
 atlas = ExtResource("3_otmr2")
-region = Rect2(36, 72, 36, 36)
+region = Rect2(32, 22, 32, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2pwtc"]
 atlas = ExtResource("3_otmr2")
-region = Rect2(72, 72, 36, 36)
+region = Rect2(64, 22, 32, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rogs8"]
 atlas = ExtResource("3_otmr2")
-region = Rect2(108, 72, 36, 36)
+region = Rect2(96, 22, 32, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wrm80"]
 animations = [{
@@ -122,7 +125,7 @@ shape = SubResource("CircleShape2D_8qclf")
 
 [node name="MovementProp" type="Node" parent="Properties" node_paths=PackedStringArray("target_priority")]
 script = ExtResource("2_md0e3")
-initial_speed = 150.0
+initial_speed = 75.0
 target_priority = NodePath("../TargetPriorityProp")
 
 [node name="HealthProp" type="Node" parent="Properties"]
@@ -154,6 +157,13 @@ effects = Array[ExtResource("3_s1ycm")]([SubResource("Resource_ile5s")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Components/MeleeComp"]
 shape = SubResource("CircleShape2D_j0cyh")
+debug_color = Color(0.7, 0, 0, 0.419608)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Components/MeleeComp"]
+position = Vector2(0, 11)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_s1ycm")
+debug_color = Color(0.7, 0, 0, 0.419608)
 
 [node name="HitboxComp" type="Node" parent="Components"]
 script = ExtResource("3_4ra3w")
@@ -167,26 +177,25 @@ target_priority = NodePath("../../Properties/TargetPriorityProp")
 metadata/_custom_type_script = "uid://bhi7w6ril3da2"
 
 [node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("health_prop", "target_priority_prop")]
-position = Vector2(0, 10)
-scale = Vector2(2, 2)
 script = ExtResource("13_j0cyh")
 health_prop = NodePath("../Properties/HealthProp")
 target_priority_prop = NodePath("../Properties/TargetPriorityProp")
 
 [node name="BodySprite" type="AnimatedSprite2D" parent="Visuals"]
 sprite_frames = SubResource("SpriteFrames_j0cyh")
+offset = Vector2(0, 0.5)
 
 [node name="FlamesSprite" type="AnimatedSprite2D" parent="Visuals"]
 material = SubResource("ShaderMaterial_g0wcc")
 use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_shcg2")
-frame_progress = 0.934823
+offset = Vector2(0, 13)
 
 [node name="LegsSprite" type="AnimatedSprite2D" parent="Visuals"]
 material = SubResource("ShaderMaterial_s1ycm")
 use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_wrm80")
-frame_progress = 0.896492
+offset = Vector2(0, 13)
 
 [node name="Audio" type="Node" parent="." node_paths=PackedStringArray("melee_comp")]
 script = ExtResource("14_g0wcc")

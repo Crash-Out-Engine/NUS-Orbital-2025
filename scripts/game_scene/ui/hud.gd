@@ -1,0 +1,50 @@
+extends Control
+
+@export var player: Player
+@export var game: Node2D
+
+@onready var health_bar := $VBoxContainer/HealthBar/TextureProgressBar as TextureProgressBar
+@onready var health_label := $VBoxContainer/HealthBar/TextureProgressBar/MarginContainer/Label as Label
+@onready var power_bar := $VBoxContainer/PowerBar/TextureProgressBar as TextureProgressBar
+@onready var power_label := $VBoxContainer/PowerBar/TextureProgressBar/MarginContainer/Label as Label
+@onready var power_slots := [$"VBoxContainer/PowerBar/1Bar", $"VBoxContainer/PowerBar/2Bar", $"VBoxContainer/PowerBar/4Bar", $"VBoxContainer/PowerBar/8Bar", $"VBoxContainer/PowerBar/16Bar"] as Array[Control]
+@onready var power_slots_on = [$"VBoxContainer/PowerBar/1Bar/On", $"VBoxContainer/PowerBar/2Bar/On", $"VBoxContainer/PowerBar/4Bar/On", $"VBoxContainer/PowerBar/8Bar/On", $"VBoxContainer/PowerBar/16Bar/On"] as Array[TextureRect]
+@onready var power_slots_off = [$"VBoxContainer/PowerBar/1Bar/Off", $"VBoxContainer/PowerBar/2Bar/Off", $"VBoxContainer/PowerBar/4Bar/Off", $"VBoxContainer/PowerBar/8Bar/Off", $"VBoxContainer/PowerBar/16Bar/Off"] as Array[TextureRect]
+@onready var scrap_label := $VBoxContainer/ScrapCounter/Icon/Label as Label
+
+func _ready() -> void:
+	player.health_changed.connect(update_health_bar)
+	player.scrap_changed.connect(update_scrap_counter)
+
+
+func _process(_delta: float) -> void:
+	update_power_bar(game.power as int)
+
+
+func update_health_bar(new_ratio: float) -> void:
+	health_bar.value = 100.0 * new_ratio
+	health_label.text = "%d/%d" % [player.get_health(), player.get_health_capacity()]
+
+
+func update_power_bar(new_amount: int) -> void:
+	power_bar.value = new_amount % 100
+	power_label.text = str(new_amount % 100)
+	new_amount /= 100
+	for i in 5:
+		if (new_amount % 2 == 1):
+			power_slots_on[i].visible = true
+			power_slots_off[i].visible = false
+		else:
+			power_slots_on[i].visible = false
+			power_slots_off[i].visible = true
+		new_amount /= 2
+
+	var is_on = false
+	for i in range(4, -1, -1):
+		if power_slots_on[i].visible:
+			is_on = true
+		power_slots[i].visible = is_on
+
+
+func update_scrap_counter(new_amount: int) -> void:
+	scrap_label.text = str(new_amount)

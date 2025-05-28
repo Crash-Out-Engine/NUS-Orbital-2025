@@ -2,7 +2,7 @@ class_name Bullet
 extends Area2D
 
 const _EXPLOSION_SCENE = preload("res://scenes/explosion.tscn")
-const SPEED = 700
+const SPEED = 800
 
 @export var lives: LivesProp
 

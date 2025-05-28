@@ -1,3 +1,4 @@
+class_name PlayerVisuals
 extends Node2D
 
 const V_MODULATE := 100000000.0
@@ -9,8 +10,11 @@ signal melee_finished()
 @export var player_melee: MeleeComp
 @export var player: Player
 
+var hand_locked: bool = false
+
 @onready var player_sprite := $PlayerSprite as AnimatedSprite2D
 @onready var gun_sprite := $GunSprite as AnimatedSprite2D
+@onready var gun_blast_sprite := $GunSprite/GunBlastSprite as AnimatedSprite2D
 
 
 func _ready() -> void:
@@ -34,9 +38,10 @@ func _process(delta: float) -> void:
 			player_sprite.modulate.v = 1
 
 	# gun_sprite processes
-	gun_sprite.look_at(get_global_mouse_position())
-	gun_sprite.flip_v = get_global_mouse_position().x < player_ranged.global_position.x
-	gun_sprite.offset.y = -1 if (get_global_mouse_position().x < player_ranged.global_position.x) else 1
+	if !hand_locked:
+		gun_sprite.look_at(get_global_mouse_position())
+		gun_sprite.flip_v = get_global_mouse_position().x < player_ranged.global_position.x
+		gun_sprite.offset.y = -1 if (get_global_mouse_position().x < player_ranged.global_position.x) else 1
 
 
 func _physics_process(_delta: float) -> void:
@@ -45,19 +50,18 @@ func _physics_process(_delta: float) -> void:
 	
 	if Input.is_action_just_released("add turret"):
 		gun_sprite.play("gun_idle")
-	
-	if Input.is_action_just_pressed("melee"):
-		play_melee_fire()
 
 
 func play_gun_fire(_bullet):
 	gun_sprite.sprite_frames.set_animation_speed("gun_fire", 4.0 / player_ranged.ranged_cooldown.value)
 	gun_sprite.play("gun_fire")
+	gun_blast_sprite.play()
 
 func play_melee_fire():
 	player_melee.look_at(get_global_mouse_position())
-	gun_sprite.sprite_frames.set_animation_speed("melee_fire", 8.0 / (2 * player_melee.melee_cooldown.value))
+	gun_sprite.offset.x = 28.5 # HACK: prefer to adjust sprite offset in spritesheet instead
 	gun_sprite.play("melee_fire")
+	hand_locked = true
 
 func play_bleed(_new_ratio):
 	player_sprite.modulate.v = V_MODULATE
@@ -75,3 +79,5 @@ func _on_gun_sprite_animation_finished() -> void:
 	if (gun_sprite.animation == "melee_fire"):
 		gun_sprite.play("gun_idle")
 		melee_finished.emit()
+		gun_sprite.offset.x = 14.5 # HACK: prefer to adjust sprite offset in spritesheet instead
+		hand_locked = false

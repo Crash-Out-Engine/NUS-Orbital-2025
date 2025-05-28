@@ -1,4 +1,7 @@
+class_name EnemyVisuals
 extends Node2D
+
+signal bleed_finished()
 
 const BLEED_TIME = 0.04
 const V_MODULATE = 100000000
@@ -25,6 +28,7 @@ func _process(delta: float) -> void:
 		body_sprite.modulate.v -= V_MODULATE * delta / BLEED_TIME
 		if (body_sprite.modulate.v <= 1):
 			body_sprite.modulate.v = 1
+			bleed_finished.emit()
 
 	# sprite direction
 	var target = target_provider.get_target(global_position, target_priority_prop.team)

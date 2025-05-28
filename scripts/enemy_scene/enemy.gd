@@ -7,12 +7,15 @@ signal vfx_emitted(Node2D)
 
 var loot_scene = preload("res://scenes/loot.tscn")
 
+@onready var visuals := $Visuals as EnemyVisuals
+
 
 func _ready() -> void:
 	health_prop.just_emptied.connect(die)
 
 
 func die():
+	await visuals.bleed_finished
 	queue_free()
 	
 	var loot = loot_scene.instantiate()
