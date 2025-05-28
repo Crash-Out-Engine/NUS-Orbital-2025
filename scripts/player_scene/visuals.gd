@@ -40,8 +40,7 @@ func _process(delta: float) -> void:
 	# gun_sprite processes
 	if !hand_locked:
 		gun_sprite.look_at(get_global_mouse_position())
-		gun_sprite.flip_v = get_global_mouse_position().x < player_ranged.global_position.x
-		gun_sprite.offset.y = -1 if (get_global_mouse_position().x < player_ranged.global_position.x) else 1
+		gun_sprite.scale.y =  -1 if get_global_mouse_position().x < player_ranged.global_position.x else 1
 
 
 func _physics_process(_delta: float) -> void:

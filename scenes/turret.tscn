@@ -1,17 +1,17 @@
 [gd_scene load_steps=21 format=3 uid="uid://iqyedsof74fp"]
 
 [ext_resource type="Script" uid="uid://47onqbsq6sc8" path="res://scripts/turret_scene/turret.gd" id="1_x3mc5"]
-[ext_resource type="Script" path="res://scripts/components/hitbox_comp.gd" id="2_el7wl"]
+[ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox_comp.gd" id="2_el7wl"]
 [ext_resource type="Script" uid="uid://cwdm3dvyba0l3" path="res://scripts/properties/ranged_cooldown_prop.gd" id="3_pp6j5"]
 [ext_resource type="Script" uid="uid://bg2iinlcp53aa" path="res://scripts/properties/health_prop.gd" id="4_eo4u0"]
-[ext_resource type="Script" path="res://scripts/components/ranged_AI_comp.gd" id="5_mqfwu"]
+[ext_resource type="Script" uid="uid://bhi7w6ril3da2" path="res://scripts/components/ranged_AI_comp.gd" id="5_mqfwu"]
 [ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/properties/target_priority_prop.gd" id="6_dirdf"]
 [ext_resource type="Script" uid="uid://qxcwl20lyaga" path="res://scripts/effect_mod.gd" id="6_mqfwu"]
 [ext_resource type="Resource" uid="uid://dl56w1h7wf83j" path="res://resources/effect_mods/base_damage.tres" id="7_mqfwu"]
 [ext_resource type="Texture2D" uid="uid://06sdtfwasbao" path="res://assets/sprites/turret_spritesheet.png" id="8_0dv4j"]
 [ext_resource type="AudioStream" uid="uid://dc66si5kieoq4" path="res://assets/audio/sound_effects/laser_gunshot.wav" id="9_tg0ex"]
-[ext_resource type="Script" path="res://scripts/turret_scene/audio.gd" id="10_6k4ik"]
-[ext_resource type="Script" path="res://scripts/turret_scene/visuals.gd" id="12_fp1kq"]
+[ext_resource type="Script" uid="uid://crg4hg2cfow05" path="res://scripts/turret_scene/audio.gd" id="10_6k4ik"]
+[ext_resource type="Script" uid="uid://cywswu1o8bqjs" path="res://scripts/turret_scene/visuals.gd" id="12_fp1kq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0dv4j"]
 radius = 8.0

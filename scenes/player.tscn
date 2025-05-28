@@ -5,11 +5,11 @@
 [ext_resource type="Texture2D" uid="uid://dvanyjoqcolwr" path="res://assets/sprites/player_spritesheet.png" id="2_y4r1p"]
 [ext_resource type="Texture2D" uid="uid://d3irto6bnhwwx" path="res://assets/sprites/playergun_spritesheet.png" id="3_d2wvv"]
 [ext_resource type="Script" uid="uid://bg2iinlcp53aa" path="res://scripts/properties/health_prop.gd" id="3_qhqgy"]
-[ext_resource type="Script" path="res://scripts/components/hitbox_comp.gd" id="4_dqkch"]
+[ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox_comp.gd" id="4_dqkch"]
 [ext_resource type="Script" uid="uid://cwdm3dvyba0l3" path="res://scripts/properties/ranged_cooldown_prop.gd" id="6_tuyoq"]
 [ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/properties/target_priority_prop.gd" id="7_fjrip"]
 [ext_resource type="Script" uid="uid://s08wfqwqu2jn" path="res://scripts/components/ranged_player_comp.gd" id="7_smehm"]
-[ext_resource type="Script" path="res://scripts/properties/health_capacity_prop.gd" id="8_4ni07"]
+[ext_resource type="Script" uid="uid://cceowy0wh5ufb" path="res://scripts/properties/health_capacity_prop.gd" id="8_4ni07"]
 [ext_resource type="Script" uid="uid://qxcwl20lyaga" path="res://scripts/effect_mod.gd" id="8_y4r1p"]
 [ext_resource type="Resource" uid="uid://dl56w1h7wf83j" path="res://resources/effect_mods/base_damage.tres" id="9_ur7pv"]
 [ext_resource type="AudioStream" uid="uid://dc66si5kieoq4" path="res://assets/audio/sound_effects/laser_gunshot.wav" id="12_3v2ag"]
@@ -17,10 +17,10 @@
 [ext_resource type="AudioStream" uid="uid://dk7lmxukxhhcr" path="res://assets/audio/sound_effects/error.wav" id="13_f1ej7"]
 [ext_resource type="AudioStream" uid="uid://ciu1er752oye4" path="res://assets/audio/sound_effects/sand_steps.wav" id="13_jej6c"]
 [ext_resource type="Script" uid="uid://ddhfg683ma0hh" path="res://scripts/player_scene/visuals.gd" id="14_oprun"]
-[ext_resource type="Script" path="res://scripts/components/melee_comp.gd" id="17_4r5pv"]
+[ext_resource type="Script" uid="uid://bx0i0x84j70ct" path="res://scripts/components/melee_comp.gd" id="17_4r5pv"]
 [ext_resource type="AudioStream" uid="uid://dn6k75a1tyl8k" path="res://assets/audio/sound_effects/hit_sound.wav" id="17_60mlk"]
 [ext_resource type="Script" uid="uid://cu55fh5hl5rxd" path="res://scripts/properties/melee_cooldown_prop.gd" id="18_60mlk"]
-[ext_resource type="Script" path="res://scripts/effects/effect_base.gd" id="19_a38lo"]
+[ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/effects/effect_base.gd" id="19_a38lo"]
 [ext_resource type="Script" uid="uid://dve6ix5ogwfw" path="res://scripts/properties/melee_damage_prop.gd" id="19_i4ail"]
 [ext_resource type="Script" uid="uid://2fh28xow6f1j" path="res://scripts/effects/health_effect.gd" id="20_4ni07"]
 
@@ -351,7 +351,6 @@ _health_capacity = 50.0
 script = ExtResource("4_dqkch")
 
 [node name="RangedComp" type="Node2D" parent="Components" node_paths=PackedStringArray("barrel", "ranged_cooldown", "target_priority")]
-position = Vector2(0, -1)
 script = ExtResource("7_smehm")
 active = true
 barrel = NodePath("Barrel")
@@ -365,7 +364,6 @@ position = Vector2(21, 0)
 
 [node name="MeleeComp" type="Area2D" parent="Components" node_paths=PackedStringArray("melee_cooldown", "target_priority")]
 process_mode = 4
-visible = false
 script = ExtResource("17_4r5pv")
 melee_cooldown = NodePath("../../Properties/MeleeCooldownProp")
 target_priority = NodePath("../../Properties/TargetPriorityProp")
@@ -391,7 +389,6 @@ animation = &"gun_fire"
 offset = Vector2(14.5, 1.5)
 
 [node name="GunBlastSprite" type="AnimatedSprite2D" parent="Visuals/GunSprite"]
-position = Vector2(0, 1)
 sprite_frames = SubResource("SpriteFrames_jc3p3")
 frame = 3
 frame_progress = 1.0
