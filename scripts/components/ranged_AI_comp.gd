@@ -17,13 +17,7 @@ func _physics_process(_delta: float) -> void:
 	look_at(target.global_position)
 	
 	var bullet: Bullet = _BULLET_SCENE.instantiate()
-	bullet.effects.assign(
-		effect_mods
-		.map(func(effect_mod: EffectMod): return effect_mod.get_effects())
-		.reduce(func(acc, e):
-			acc.append_array(e)
-			return acc,
-			[])) # TODO: Consider whether to deep copy effects (to preserve them in the event the entity despawns)
+	bullet.effects.assign(EffectMod.compile_effects(effect_mods))
 	bullet.target_filter = target_filter
 	bullet.global_position = barrel.global_position
 	bullet.direction = barrel.global_position.angle_to_point(target.global_position)
