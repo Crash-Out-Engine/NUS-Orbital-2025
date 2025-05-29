@@ -18,4 +18,4 @@ func _physics_process(_delta: float) -> void:
 	_prev_value = value
 
 func repair() -> void:
-	sabotaged = 0.0
+	value = 0.0

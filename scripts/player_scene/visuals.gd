@@ -51,7 +51,6 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_released("add turret"):
 		gun_sprite.play("gun_idle")
 
-
 func play_gun_fire(_bullet):
 	gun_sprite.sprite_frames.set_animation_speed("gun_fire", 4.0 / player_ranged.ranged_cooldown.value)
 	gun_sprite.play("gun_fire")
@@ -68,7 +67,7 @@ func play_bleed(_new_ratio):
 	player_sprite.modulate.v = V_MODULATE
 
 func _on_gun_sprite_animation_finished() -> void:
-	if (gun_sprite.animation == "melee_fire"):
+	if gun_sprite.animation == "melee_fire": 
 		gun_sprite.play("gun_idle")
 		melee_finished.emit()
 		gun_sprite.offset.x = 14.5 # HACK: prefer to adjust sprite offset in spritesheet instead

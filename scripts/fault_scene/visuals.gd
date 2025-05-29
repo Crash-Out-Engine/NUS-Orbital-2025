@@ -7,22 +7,29 @@ extends Node2D
 @onready var anim_player := $AnimationPlayer as AnimationPlayer
 
 @export var fault : Fault
-
-const DISAPPEAR_TIME = 0.5
-const V_MODULATE = 1000000
-
-signal disappeared
-
-func _process(delta: float) -> void:
-	if fault.state == Fault.State.REBOOTING:
-		rebooting_bar.value = fault.get_time_progress_ratio() * 100
+signal disappear_finished
 
 func _ready() -> void:
 	anim.play("sabotaged")
 	repair_bar.visible = false
 	rebooting_bar.visible = false
 	fault.state_changed.connect(handle_state_changed)
-	fault.repair_progress.connect(update_repair_progress)
+	fault.repair_progressed.connect(update_repair_progress)
+
+func _process(_delta: float) -> void:
+	if fault.state == Fault.State.REBOOTING:
+		rebooting_bar.value = fault.get_time_progress_ratio() * 100
+
+func handle_state_changed(from: Turret.State, to: Turret.State) -> void:
+	match [from, to]:
+		[Fault.State.SABOTAGED, Fault.State.REBOOTING]:
+			play_rebooting()
+		
+		[Fault.State.REBOOTING, Fault.State.SABOTAGED]:
+			play_sabotaged()
+		
+		[Fault.State.REBOOTING, Fault.State.FIXED]:
+			play_fixed()
 
 func play_rebooting():
 	anim.play("rebooting")
@@ -42,21 +49,10 @@ func play_sabotaged():
 	anim_player.play("sabotaged")
 	repair_bar.visible = false
 
-func exit():
-	disappeared.emit()
-
-func handle_state_changed(from: Turret.State, to: Turret.State) -> void:
-	match [from, to]:
-		[Fault.State.SABOTAGED, Fault.State.REBOOTING]:
-			play_rebooting()
-		
-		[Fault.State.REBOOTING, Fault.State.SABOTAGED]:
-			play_sabotaged()
-		
-		[Fault.State.REBOOTING, Fault.State.FIXED]:
-			play_fixed()
+func emit_disappear_finished():
+	disappear_finished.emit()
 
 func update_repair_progress(progress: float):
 	repair_bar.value = progress * 100
-	if(repair_bar.value > 0):
+	if repair_bar.value > 0:
 		repair_bar.visible = true

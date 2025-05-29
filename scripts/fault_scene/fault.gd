@@ -1,16 +1,18 @@
 class_name Fault
 extends StaticBody2D
 
+signal state_changed(from: State, to: State)
+signal repair_progressed(progress: float)
+
 enum State {
 	SABOTAGED,
 	REBOOTING,
 	FIXED
 }
 
-@onready var reboot_timer := $RebootTimer as Timer
-
 @export var repair_target : float
 @export var repair_prop : RepairProp
+@export var sabotage_prop : SabotageProp
 @export var hitbox : HitboxComp
 
 var state: State:
@@ -21,10 +23,12 @@ var state: State:
 			handle_state_changed(prev_state, state)
 			state_changed.emit(prev_state, state)
 
-signal state_changed(from: State, to: State)
+@onready var reboot_timer := $RebootTimer as Timer
 
 func _ready() -> void:
+	state = State.SABOTAGED
 	repair_prop.just_changed.connect(check_repair)
+	sabotage_prop.just_changed.connect(check_sabotage)
 
 
 func handle_state_changed(from: State, to: State):
@@ -32,6 +36,7 @@ func handle_state_changed(from: State, to: State):
 		[State.SABOTAGED, State.REBOOTING]:
 			reboot_timer.start()
 			hitbox.team = Enums.Team.REBOOTING_FAULT
+			sabotage_prop.repair()
 		
 		[State.REBOOTING, State.SABOTAGED]:
 			reboot_timer.stop()
@@ -43,22 +48,21 @@ func handle_state_changed(from: State, to: State):
 		[_, _]:
 			assert(false, "Invalid state change from %s to %s." % [State.find_key(from), State.find_key(to)])
 
-signal repair_progress(progress: float)
-
 func check_repair(value: float) -> void:
 	if state == State.SABOTAGED:
-		if(value >= repair_target):
+		if value >= repair_target:
 			state = State.REBOOTING
-		repair_progress.emit(value / repair_target)
+		repair_progressed.emit(value / repair_target)
 
+func check_sabotage(new_value: bool) -> void:
+	if new_value:
+		state = State.SABOTAGED
 
-
-func _on_visuals_disappeared() -> void:
-	queue_free()
-
+func get_time_progress_ratio() -> float:
+	return 1 - (reboot_timer.time_left / reboot_timer.wait_time)
 
 func _on_reboot_timer_timeout() -> void:
 	state = State.FIXED
 
-func get_time_progress_ratio() -> float:
-	return 1 - (reboot_timer.time_left / reboot_timer.wait_time)
+func _on_visuals_disappear_finished() -> void:
+	queue_free()
