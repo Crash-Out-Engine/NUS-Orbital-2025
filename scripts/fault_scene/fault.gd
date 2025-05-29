@@ -15,6 +15,8 @@ enum State {
 @export var sabotage_prop : SabotageProp
 @export var hitbox : HitboxComp
 
+var _power_output
+
 var state: State:
 	set(value):
 		var prev_state = state
@@ -29,7 +31,6 @@ func _ready() -> void:
 	state = State.SABOTAGED
 	repair_prop.just_changed.connect(check_repair)
 	sabotage_prop.just_changed.connect(check_sabotage)
-
 
 func handle_state_changed(from: State, to: State):
 	match [from, to]:
@@ -48,6 +49,9 @@ func handle_state_changed(from: State, to: State):
 		[_, _]:
 			assert(false, "Invalid state change from %s to %s." % [State.find_key(from), State.find_key(to)])
 
+func set_power_output(node) -> void:
+	_power_output = node
+
 func check_repair(value: float) -> void:
 	if state == State.SABOTAGED:
 		if value >= repair_target:
@@ -65,4 +69,5 @@ func _on_reboot_timer_timeout() -> void:
 	state = State.FIXED
 
 func _on_visuals_disappear_finished() -> void:
+	_power_output.power += 20
 	queue_free()

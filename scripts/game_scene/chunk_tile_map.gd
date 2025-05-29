@@ -63,4 +63,4 @@ func _clear_chunk(at_chunk: Vector2i) -> void:
 			var tile_coords = at_chunk * chunk_size + Vector2i(x, y)
 				
 			set_cell(tile_coords)
-			_loaded_chunks.erase(at_chunk)
+			_loaded_chunks.erase(at_chunk) #should this be at this level of indentation?
