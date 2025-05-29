@@ -8,6 +8,7 @@ signal melee_finished()
 
 @export var player_ranged: RangedBaseComp
 @export var player_melee: MeleeComp
+@export var player_repair: MeleeComp
 @export var player: Player
 
 var hand_locked: bool = false
@@ -58,21 +59,13 @@ func play_gun_fire(_bullet):
 
 func play_melee_fire():
 	player_melee.look_at(get_global_mouse_position())
+	player_repair.look_at(get_global_mouse_position())
 	gun_sprite.offset.x = 28.5 # HACK: prefer to adjust sprite offset in spritesheet instead
 	gun_sprite.play("melee_fire")
 	hand_locked = true
 
 func play_bleed(_new_ratio):
 	player_sprite.modulate.v = V_MODULATE
-
-
-func _on_gun_sprite_frame_changed() -> void:
-	if (gun_sprite.animation == "melee_fire"):
-		if (gun_sprite.frame == 2):
-			player_melee.monitoring = true
-		elif (gun_sprite.frame == 7):
-			player_melee.monitoring = false
-
 
 func _on_gun_sprite_animation_finished() -> void:
 	if (gun_sprite.animation == "melee_fire"):

@@ -1,0 +1,526 @@
+[gd_scene load_steps=43 format=3 uid="uid://dhntafslopc4h"]
+
+[ext_resource type="Script" uid="uid://d1ycqyouy38vt" path="res://scripts/fault_scene/fault.gd" id="1_poe5t"]
+[ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox_comp.gd" id="2_8twt2"]
+[ext_resource type="Script" uid="uid://cf6drkuqld4ft" path="res://scripts/properties/repair_prop.gd" id="2_iirbo"]
+[ext_resource type="Script" uid="uid://fkksvdjg1cog" path="res://scripts/fault_scene/visuals.gd" id="2_j0lcy"]
+[ext_resource type="Texture2D" uid="uid://ci6bybddr7cy2" path="res://assets/sprites/power_fault_spritesheet.png" id="2_k0tyb"]
+[ext_resource type="Script" uid="uid://wl0p66q8tmcl" path="res://scripts/properties/sabotage_prop.gd" id="3_qcmb2"]
+[ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet_v2.png" id="4_j0lcy"]
+[ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/properties/target_priority_prop.gd" id="4_kmo7v"]
+[ext_resource type="FontFile" uid="uid://cj53anigafm5t" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="5_rtx38"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8twt2"]
+size = Vector2(32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rtx38"]
+atlas = ExtResource("2_k0tyb")
+region = Rect2(136, 34, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8twt2"]
+atlas = ExtResource("2_k0tyb")
+region = Rect2(0, 68, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iirbo"]
+atlas = ExtResource("2_k0tyb")
+region = Rect2(34, 68, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qcmb2"]
+atlas = ExtResource("2_k0tyb")
+region = Rect2(68, 68, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kmo7v"]
+atlas = ExtResource("2_k0tyb")
+region = Rect2(102, 68, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_li0y2"]
+atlas = ExtResource("2_k0tyb")
+region = Rect2(136, 68, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sp3rc"]
+atlas = ExtResource("2_k0tyb")
+region = Rect2(170, 68, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qkcih"]
+atlas = ExtResource("2_k0tyb")
+region = Rect2(0, 0, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_of21w"]
+atlas = ExtResource("2_k0tyb")
+region = Rect2(34, 0, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bergw"]
+atlas = ExtResource("2_k0tyb")
+region = Rect2(68, 0, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_srlrk"]
+atlas = ExtResource("2_k0tyb")
+region = Rect2(102, 0, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qta3d"]
+atlas = ExtResource("2_k0tyb")
+region = Rect2(136, 0, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_co4qj"]
+atlas = ExtResource("2_k0tyb")
+region = Rect2(170, 0, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ngvxm"]
+atlas = ExtResource("2_k0tyb")
+region = Rect2(0, 34, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3bw1"]
+atlas = ExtResource("2_k0tyb")
+region = Rect2(34, 34, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nsea2"]
+atlas = ExtResource("2_k0tyb")
+region = Rect2(68, 34, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_odwx1"]
+atlas = ExtResource("2_k0tyb")
+region = Rect2(102, 34, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6w7uq"]
+atlas = ExtResource("2_k0tyb")
+region = Rect2(136, 34, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j0lcy"]
+atlas = ExtResource("2_k0tyb")
+region = Rect2(0, 0, 34, 34)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rtx38"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rtx38")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8twt2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iirbo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qcmb2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kmo7v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_li0y2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sp3rc")
+}],
+"loop": false,
+"name": &"fixed",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qkcih")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_of21w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bergw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_srlrk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qta3d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_co4qj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ngvxm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s3bw1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nsea2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_odwx1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6w7uq")
+}],
+"loop": false,
+"name": &"rebooting",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j0lcy")
+}],
+"loop": false,
+"name": &"sabotaged",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3krp6"]
+atlas = ExtResource("4_j0lcy")
+region = Rect2(1597, 89, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l07x0"]
+atlas = ExtResource("4_j0lcy")
+region = Rect2(1581, 89, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hwmfp"]
+atlas = ExtResource("4_j0lcy")
+region = Rect2(1541, 101, 38, 6)
+margin = Rect2(1, 1, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t1jdq"]
+atlas = ExtResource("4_j0lcy")
+region = Rect2(1539, 83, 40, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8hjnn"]
+atlas = ExtResource("4_j0lcy")
+region = Rect2(1541, 93, 38, 6)
+
+[sub_resource type="LabelSettings" id="LabelSettings_k0vgd"]
+font = ExtResource("5_rtx38")
+font_size = 64
+font_color = Color(0.631373, 0.992157, 0.231373, 1)
+outline_size = 16
+outline_color = Color(0.0980392, 0.364706, 0.0509804, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_rtx38"]
+font = ExtResource("5_rtx38")
+font_size = 64
+font_color = Color(1, 0, 0, 1)
+outline_size = 16
+outline_color = Color(0.33, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_o2jve"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RebootingProgressBar:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RepairProgressBar:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RepairProgressBar:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("RebootingProgressBar:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-20, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("SabotagedLabel:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("SabotagedLabel:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-169, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hum4q"]
+resource_name = "display_reboot"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RebootingProgressBar:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.166667, 0.333333, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1.2, 1.2), Vector2(0.8, 0.8), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RepairProgressBar:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0001, 0.0333333, 0.166667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1), Vector2(1.2, 1.2), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RepairProgressBar:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_rtx38"]
+resource_name = "fixed"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RebootingProgressBar:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.5, 1.5), Vector2(0.75, 0.75), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RebootingProgressBar:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.166667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-20, 0), Vector2(-20, -26)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.166667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"fixed", 1.0, false],
+"method": &"play"
+}]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"exit"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_8twt2"]
+resource_name = "sabotaged"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SabotagedLabel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-169, 6), Vector2(-169, -27)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SabotagedLabel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0001, 0.0002, 0.0003, 0.0004, 0.133333, 0.466667, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8y7r4"]
+_data = {
+&"RESET": SubResource("Animation_o2jve"),
+&"display_reboot": SubResource("Animation_hum4q"),
+&"fixed": SubResource("Animation_rtx38"),
+&"sabotaged": SubResource("Animation_8twt2")
+}
+
+[node name="Fault" type="StaticBody2D" node_paths=PackedStringArray("repair_prop", "hitbox")]
+script = ExtResource("1_poe5t")
+repair_target = 100.0
+repair_prop = NodePath("Properties/RepairProp")
+hitbox = NodePath("Components/HitboxComp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 100
+shape = SubResource("RectangleShape2D_8twt2")
+
+[node name="Properties" type="Node" parent="."]
+
+[node name="RepairProp" type="Node" parent="Properties"]
+script = ExtResource("2_iirbo")
+
+[node name="SabotageProp" type="Node" parent="Properties"]
+script = ExtResource("3_qcmb2")
+
+[node name="TargetPriorityProp" type="Node" parent="Properties"]
+script = ExtResource("4_kmo7v")
+initial_priority = 10.0
+
+[node name="Components" type="Node2D" parent="."]
+
+[node name="HitboxComp" type="Node" parent="Components"]
+script = ExtResource("2_8twt2")
+team = 4
+metadata/_custom_type_script = "uid://wwqkkrfhwiyn"
+
+[node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("fault")]
+script = ExtResource("2_j0lcy")
+fault = NodePath("..")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visuals"]
+sprite_frames = SubResource("SpriteFrames_rtx38")
+animation = &"fixed"
+
+[node name="RepairProgressBar" type="TextureProgressBar" parent="Visuals"]
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+pivot_offset = Vector2(8, 8)
+value = 14.0
+fill_mode = 4
+texture_under = SubResource("AtlasTexture_3krp6")
+texture_progress = SubResource("AtlasTexture_l07x0")
+
+[node name="RebootingProgressBar" type="TextureProgressBar" parent="Visuals"]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 8.0
+grow_horizontal = 2
+pivot_offset = Vector2(20, 0)
+value = 50.0
+texture_under = SubResource("AtlasTexture_hwmfp")
+texture_over = SubResource("AtlasTexture_t1jdq")
+texture_progress = SubResource("AtlasTexture_8hjnn")
+texture_progress_offset = Vector2(1, 1)
+
+[node name="Label" type="Label" parent="Visuals/RebootingProgressBar"]
+layout_mode = 0
+offset_left = -5.0
+offset_top = -9.0
+offset_right = 333.0
+offset_bottom = 48.0
+scale = Vector2(0.15, 0.15)
+text = "REBOOTING"
+label_settings = SubResource("LabelSettings_k0vgd")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SabotagedLabel" type="Label" parent="Visuals"]
+visible = false
+offset_left = -169.0
+offset_right = 169.0
+offset_bottom = 57.0
+scale = Vector2(0.15, 0.15)
+pivot_offset = Vector2(169, 0)
+text = "SABOTAGED"
+label_settings = SubResource("LabelSettings_rtx38")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Visuals"]
+libraries = {
+&"": SubResource("AnimationLibrary_8y7r4")
+}
+
+[node name="RebootTimer" type="Timer" parent="."]
+wait_time = 10.0
+
+[connection signal="disappeared" from="Visuals" to="." method="_on_visuals_disappeared"]
+[connection signal="timeout" from="RebootTimer" to="." method="_on_reboot_timer_timeout"]
