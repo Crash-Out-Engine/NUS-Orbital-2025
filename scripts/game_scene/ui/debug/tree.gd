@@ -19,25 +19,36 @@ func _ready(): # TODO: Finish setting up Debug options
 	var game = root.create_child()
 	game.set_text(0, "Game")
 
-	var power = game.create_child()
-	power.set_cell_mode(0, TreeItem.CELL_MODE_CHECK)
-	power.set_text(0, "God mode")
-	power.set_tooltip_text(0, "Infinite power, health, and scraps")
-	power.set_editable(0, true)
+	var god = game.create_child()
+	god.set_cell_mode(0, TreeItem.CELL_MODE_CHECK)
+	god.set_text(0, "God mode")
+	god.set_tooltip_text(0, "Infinite god, health, and scraps")
+	god.set_editable(0, true)
+	
+	var spawn_rate = game.create_child()
+	spawn_rate.set_text(0, "Spawn rate (per sec)")
+	var spawn_rate_range = spawn_rate.create_child()
+	spawn_rate_range.set_cell_mode(0, TreeItem.CELL_MODE_RANGE)
+	spawn_rate_range.set_range_config(0, 0, 100, 0.1, true)
+	spawn_rate_range.set_editable(0, true)
 
 	# === Player ===
 	var player = root.create_child()
 	player.set_text(0, "Player")
 	
 	var health = player.create_child()
-	health.set_cell_mode(0, TreeItem.CELL_MODE_RANGE)
 	health.set_text(0, "Set health")
-	health.set_editable(0, true)
+	var health_range = health.create_child()
+	health_range.set_cell_mode(0, TreeItem.CELL_MODE_RANGE)
+	health_range.set_range_config(0, -1, 50, 0.1)
+	health_range.set_editable(0, true)
 	
 	var scraps = player.create_child()
-	scraps.set_cell_mode(0, TreeItem.CELL_MODE_RANGE)
 	scraps.set_text(0, "Set scraps")
-	scraps.set_editable(0, true)
+	var scraps_range = scraps.create_child()
+	scraps_range.set_cell_mode(0, TreeItem.CELL_MODE_RANGE)
+	scraps_range.set_range_config(0, -1, 50, 0.1)
+	scraps_range.set_editable(0, true)
 
 
 func _on_button_toggled(toggled_on: bool) -> void:
