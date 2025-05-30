@@ -366,7 +366,7 @@ libraries = {
 
 [node name="MovementProp" type="Node" parent="Properties" node_paths=PackedStringArray("target_priority")]
 script = ExtResource("2_g2els")
-initial_speed = 800.0
+initial_speed = 80.0
 is_player = true
 target_priority = NodePath("../TargetPriorityProp")
 

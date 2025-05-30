@@ -14,7 +14,11 @@ var _prev_player_chunk_position: Vector2i = Vector2i.MIN
 
 @onready var player := $"../EntityContainer/Player" as Player
 
+var rng = RandomNumberGenerator.new()
 
+func _ready():
+	noise.offset.x = randf_range(-1000, 1000)
+	noise.offset.y = randf_range(-1000, 1000)
 
 func _process(_delta: float) -> void:
 	var player_chunk_position := floor(player.global_position as Vector2i / grid_size / chunk_size) as Vector2i
@@ -54,7 +58,7 @@ func _generate_chunk(at_chunk: Vector2i) -> void:
 			var tile_coords = at_chunk * chunk_size + Vector2i(x, y)
 				
 			var noise_value = curve.sample(
-					noise.get_noise_2d(tile_coords.x, tile_coords.y))
+					noise.get_noise_2d(tile_coords.x, tile_coords.y)) #HACK: generation should not be completely random and be controlled such that faults are spread evenly
 			
 			if noise_value > 0.99995: #HACK
 				create_fault(tile_coords * grid_size)
@@ -64,9 +68,12 @@ func _generate_chunk(at_chunk: Vector2i) -> void:
 
 func _clear_chunk(at_chunk: Vector2i) -> void:
 	var min_point = at_chunk * chunk_size * grid_size
-	var max_point = (at_chunk + chunk_size) * chunk_size * grid_size
+	var max_point = (at_chunk * chunk_size + chunk_size) * grid_size
 	var to_remove = entity_container.get_children().filter(func(obj): return obj is Fault).filter(func(fault): return fault_check(fault, min_point, max_point))
+	print("min:" + str(min_point))
+	print("max:" + str(max_point))
 	for fault in to_remove:
+		print("fault:" + str(fault.global_position))
 		fault.queue_free()
 	_loaded_chunks.erase(at_chunk)
 
