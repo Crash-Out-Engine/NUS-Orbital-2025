@@ -19,7 +19,10 @@ const KNOCKBACK_DURATION = 0.5
 const KNOCKBACK_AMOUNT = 300.0
 const PICKUP_RANGE = 40
 
+@export_group("Components")
 @export var ranged: RangedBaseComp
+
+@export_group("Properties")
 @export var health: HealthProp
 @export var health_capacity: HealthCapacityProp
 @export var melee_cooldown: MeleeCooldownProp
