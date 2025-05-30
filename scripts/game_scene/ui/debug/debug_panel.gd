@@ -37,8 +37,8 @@ func _on_tree_item_edited() -> void: # HACK: Greatly relies on the node paths be
 		TreeItem.CELL_MODE_RANGE:
 			match item.get_parent().get_text(0):
 				"Spawn rate (per sec)":
-					$/root/Game/Spawner/SpawnTimer.wait_time = 1.0 / item.get_range(0)
-					$/root/Game/Spawner/SpawnTimer.start()
+					$/root/Game/EnemySpawner/SpawnTimer.wait_time = 1.0 / item.get_range(0)
+					$/root/Game/EnemySpawner/SpawnTimer.start()
 				"Set health":
 					$/root/Game/EntityContainer/Player/Properties/HealthProp.value = item.get_range(0)
 				"Set scraps":

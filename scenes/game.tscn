@@ -1,8 +1,9 @@
-[gd_scene load_steps=43 format=3 uid="uid://bbtrde7tvkisy"]
+[gd_scene load_steps=46 format=3 uid="uid://bbtrde7tvkisy"]
 
 [ext_resource type="PackedScene" uid="uid://ytw0s5xnqwvt" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://d2o1hku0svi7t" path="res://scripts/game_scene/game.gd" id="1_yqjtg"]
 [ext_resource type="Script" uid="uid://d05ojyvqdl0s7" path="res://scripts/game_scene/camera_2d.gd" id="4_lbhrr"]
+[ext_resource type="Script" uid="uid://ccldnij14thxu" path="res://scripts/game_scene/object_spawner.gd" id="5_264po"]
 [ext_resource type="Script" uid="uid://dixn701xl56vv" path="res://scripts/game_scene/spawner.gd" id="5_iywne"]
 [ext_resource type="Script" uid="uid://bcocptbr3821k" path="res://scripts/game_scene/ui/pause_menu.gd" id="5_p57ef"]
 [ext_resource type="Script" uid="uid://brohp3alww54k" path="res://scripts/game_scene/ui/ui.gd" id="5_u5sy4"]
@@ -17,7 +18,7 @@
 [ext_resource type="Theme" uid="uid://d0hhc2538lbdn" path="res://resources/debug_ui.tres" id="14_264po"]
 [ext_resource type="Script" uid="uid://b5ihjg2jg7kkh" path="res://scripts/game_scene/ui/debug/debug_panel.gd" id="15_264po"]
 [ext_resource type="AudioStream" uid="uid://c3lyo02lbnyxw" path="res://assets/audio/songs/8_bit_mimic.wav" id="15_ir15t"]
-[ext_resource type="Script" uid="uid://cse3mqdmlr8dq" path="res://scripts/game_scene/ui/debug/tree.gd" id="16_1kice"]
+[ext_resource type="Script" path="res://scripts/game_scene/ui/debug/tree.gd" id="16_1kice"]
 [ext_resource type="Texture2D" uid="uid://ccfwh73q4xx04" path="res://assets/tilesheets/tilemap.png" id="16_264po"]
 
 [sub_resource type="Environment" id="Environment_yqjtg"]
@@ -25,6 +26,13 @@ background_mode = 3
 glow_enabled = true
 glow_blend_mode = 0
 glow_hdr_threshold = 0.93
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_1kice"]
+frequency = 1.0
+
+[sub_resource type="Curve" id="Curve_37s47"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1e-05, 0), 0.0337082, 0.0337082, 0, 0, Vector2(2e-05, 1), 0.0, 0.0, 0, 0, Vector2(0.0531915, 0), 0.0, 0.0, 0, 0, Vector2(0.12234, 0), 0.0, 0.0, 0, 0, Vector2(0.132979, 0.123596), 0.0, 0.0, 0, 0, Vector2(0.159574, 0), 0.0, 0.0, 0, 0, Vector2(0.170213, 0.52809), 0.0, 0.0, 0, 0, Vector2(0.191489, 1), 0.0, 0.0, 0, 0, Vector2(0.223404, 0), 0.0, 0.0, 0, 0, Vector2(0.260638, 0.820225), 0.0, 0.0, 0, 0, Vector2(0.308511, 0), 0.0, 0.0, 0, 0, Vector2(0.335106, 0.606742), 0.0, 0.0, 0, 0, Vector2(0.367021, 0), 0.0, 0.0, 0, 0, Vector2(0.388298, 0.741573), 0.0, 0.0, 0, 0, Vector2(0.425532, 1), 0.0, 0.0, 0, 0, Vector2(0.441489, 0), 0.0, 0.0, 0, 0, Vector2(0.515957, 0), 0.0, 0.0, 0, 0, Vector2(0.526596, 0.685393), 0.0, 0.0, 0, 0, Vector2(0.574468, 1), 0.0, 0.0, 0, 0, Vector2(0.579787, 0), 0.0, 0.0, 0, 0, Vector2(0.643617, 0), 0.0, 0.0, 0, 0, Vector2(0.648936, 0.539326), 0.0, 0.0, 0, 0, Vector2(0.696809, 0), 0.0, 0.0, 0, 0, Vector2(0.723404, 1), 0.0, 0.0, 0, 0, Vector2(0.781915, 0.561798), 0.0, 0.0, 0, 0, Vector2(0.797872, 0), 0.0, 0.0, 0, 0, Vector2(0.851064, 1), 0.0, 0.0, 0, 0, Vector2(0.87766, 0.460674), 0.0, 0.0, 0, 0, Vector2(0.882979, 0.730337), 0.0, 0.0, 0, 0, Vector2(0.893617, 0), 0.0, 0.0, 0, 0, Vector2(0.941489, 0), 0.0, 0.0, 0, 0, Vector2(0.968085, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 34
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1kice"]
 atlas = ExtResource("6_1kice")
@@ -84,7 +92,7 @@ outline_size = 8
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rysoc"]
 atlas = ExtResource("6_1kice")
-region = Rect2(1611, 91, 16, 16)
+region = Rect2(1614, 90, 16, 16)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ca42v"]
 font = ExtResource("9_kvuet")
@@ -166,15 +174,21 @@ environment = SubResource("Environment_yqjtg")
 
 [node name="Camera2D" type="Camera2D" parent="EntityContainer/Player"]
 offset = Vector2(2.76, 0)
-zoom = Vector2(2, 2)
+zoom = Vector2(2.4, 2.4)
 process_callback = 0
 position_smoothing_enabled = true
 script = ExtResource("4_lbhrr")
 
-[node name="Spawner" type="Node2D" parent="."]
+[node name="ObjectSpawner" type="Node2D" parent="." node_paths=PackedStringArray("entity_container")]
+script = ExtResource("5_264po")
+noise = SubResource("FastNoiseLite_1kice")
+curve = SubResource("Curve_37s47")
+entity_container = NodePath("../EntityContainer")
+
+[node name="EnemySpawner" type="Node2D" parent="."]
 script = ExtResource("5_iywne")
 
-[node name="SpawnTimer" type="Timer" parent="Spawner"]
+[node name="SpawnTimer" type="Timer" parent="EnemySpawner"]
 wait_time = 0.8
 autostart = true
 
@@ -564,8 +578,8 @@ bus = &"Music"
 
 [connection signal="child_entered_tree" from="EntityContainer" to="." method="_on_entities_child_entered_tree"]
 [connection signal="child_exiting_tree" from="EntityContainer" to="." method="_on_entities_child_exiting_tree"]
-[connection signal="timeout" from="Spawner/SpawnTimer" to="." method="_on_timer_timeout"]
-[connection signal="timeout" from="Spawner/SpawnTimer" to="Spawner" method="_on_spawn_timer_timeout"]
+[connection signal="timeout" from="EnemySpawner/SpawnTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="EnemySpawner/SpawnTimer" to="EnemySpawner" method="_on_spawn_timer_timeout"]
 [connection signal="pressed" from="UI/PauseMenu/PanelContainer/VBoxContainer/Resume" to="UI/PauseMenu" method="_on_resume_pressed"]
 [connection signal="pressed" from="UI/PauseMenu/PanelContainer/VBoxContainer/Restart" to="UI/PauseMenu" method="_on_restart_pressed"]
 [connection signal="pressed" from="UI/PauseMenu/PanelContainer/VBoxContainer/Quit" to="UI/PauseMenu" method="_on_quit_pressed"]
