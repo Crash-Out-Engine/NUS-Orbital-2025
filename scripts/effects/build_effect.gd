@@ -1,5 +1,6 @@
-class_name RepairEffect
+class_name BuildEffect
 extends EffectBase
 
+
 func _can_effect(property: PropertyBase) -> bool:
-	return property is RepairProp
+	return property is BuildProp

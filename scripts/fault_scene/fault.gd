@@ -11,7 +11,7 @@ enum State {
 }
 
 @export var repair_target : float
-@export var repair_prop : RepairProp
+@export var build_prop : BuildProp
 @export var sabotage_prop : SabotageProp
 @export var hitbox : HitboxComp
 
@@ -29,7 +29,7 @@ var state: State:
 
 func _ready() -> void:
 	state = State.SABOTAGED
-	repair_prop.just_changed.connect(check_repair)
+	build_prop.just_changed.connect(check_repair)
 	sabotage_prop.just_changed.connect(check_sabotage)
 
 func handle_state_changed(from: State, to: State):

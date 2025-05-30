@@ -177,7 +177,7 @@ environment = SubResource("Environment_yqjtg")
 
 [node name="Camera2D" type="Camera2D" parent="EntityContainer/Player"]
 offset = Vector2(2.76, 0)
-zoom = Vector2(2.4, 2.4)
+zoom = Vector2(0.24, 0.24)
 process_callback = 0
 position_smoothing_enabled = true
 script = ExtResource("4_lbhrr")

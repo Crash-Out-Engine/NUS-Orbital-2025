@@ -20,7 +20,7 @@
 [ext_resource type="Script" uid="uid://ddhfg683ma0hh" path="res://scripts/player_scene/visuals.gd" id="14_oprun"]
 [ext_resource type="Script" uid="uid://bx0i0x84j70ct" path="res://scripts/components/melee_comp.gd" id="17_4r5pv"]
 [ext_resource type="AudioStream" uid="uid://dn6k75a1tyl8k" path="res://assets/audio/sound_effects/hit_sound.wav" id="17_60mlk"]
-[ext_resource type="Script" uid="uid://di7e0ivcn6r1e" path="res://scripts/effects/repair_effect.gd" id="17_ke2ow"]
+[ext_resource type="Script" uid="uid://c038au8w13gc1" path="res://scripts/effects/build_effect.gd" id="17_ke2ow"]
 [ext_resource type="Script" uid="uid://cu55fh5hl5rxd" path="res://scripts/properties/melee_cooldown_prop.gd" id="18_60mlk"]
 [ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/effects/effect_base.gd" id="19_a38lo"]
 [ext_resource type="Script" uid="uid://dve6ix5ogwfw" path="res://scripts/properties/melee_damage_prop.gd" id="19_i4ail"]
@@ -120,8 +120,8 @@ metadata/_custom_type_script = "uid://bc5nkvlgktyor"
 script = ExtResource("17_ke2ow")
 _interval = -1.0
 _repeat = 0
-_factor = 22.0
-metadata/_custom_type_script = "uid://di7e0ivcn6r1e"
+_factor = 0.0
+metadata/_custom_type_script = "uid://c038au8w13gc1"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a38lo"]
 atlas = ExtResource("2_y4r1p")
@@ -366,7 +366,7 @@ libraries = {
 
 [node name="MovementProp" type="Node" parent="Properties" node_paths=PackedStringArray("target_priority")]
 script = ExtResource("2_g2els")
-initial_speed = 80.0
+initial_speed = 800.0
 is_player = true
 target_priority = NodePath("../TargetPriorityProp")
 

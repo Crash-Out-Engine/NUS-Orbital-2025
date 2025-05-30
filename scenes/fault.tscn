@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d1ycqyouy38vt" path="res://scripts/fault_scene/fault.gd" id="1_poe5t"]
 [ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox_comp.gd" id="2_8twt2"]
-[ext_resource type="Script" uid="uid://cf6drkuqld4ft" path="res://scripts/properties/repair_prop.gd" id="2_iirbo"]
+[ext_resource type="Script" uid="uid://cf6drkuqld4ft" path="res://scripts/properties/build_prop.gd" id="2_iirbo"]
 [ext_resource type="Script" uid="uid://fkksvdjg1cog" path="res://scripts/fault_scene/visuals.gd" id="2_j0lcy"]
 [ext_resource type="Texture2D" uid="uid://ci6bybddr7cy2" path="res://assets/sprites/power_fault_spritesheet.png" id="2_k0tyb"]
 [ext_resource type="Script" uid="uid://wl0p66q8tmcl" path="res://scripts/properties/sabotage_prop.gd" id="3_qcmb2"]
@@ -174,8 +174,7 @@ region = Rect2(1581, 89, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hwmfp"]
 atlas = ExtResource("4_j0lcy")
-region = Rect2(1541, 101, 38, 6)
-margin = Rect2(1, 1, 1, 1)
+region = Rect2(1539, 103, 40, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t1jdq"]
 atlas = ExtResource("4_j0lcy")
@@ -183,7 +182,7 @@ region = Rect2(1539, 83, 40, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8hjnn"]
 atlas = ExtResource("4_j0lcy")
-region = Rect2(1541, 93, 38, 6)
+region = Rect2(1539, 93, 40, 8)
 
 [sub_resource type="LabelSettings" id="LabelSettings_k0vgd"]
 font = ExtResource("5_rtx38")
@@ -452,10 +451,10 @@ _data = {
 &"sabotaged": SubResource("Animation_8twt2")
 }
 
-[node name="Fault" type="StaticBody2D" node_paths=PackedStringArray("repair_prop", "sabotage_prop", "hitbox")]
+[node name="Fault" type="StaticBody2D" node_paths=PackedStringArray("build_prop", "sabotage_prop", "hitbox")]
 script = ExtResource("1_poe5t")
 repair_target = 100.0
-repair_prop = NodePath("Properties/RepairProp")
+build_prop = NodePath("Properties/BuildProp")
 sabotage_prop = NodePath("Properties/SabotageProp")
 hitbox = NodePath("Components/HitboxComp")
 
@@ -465,7 +464,7 @@ shape = SubResource("RectangleShape2D_8twt2")
 
 [node name="Properties" type="Node" parent="."]
 
-[node name="RepairProp" type="Node" parent="Properties"]
+[node name="BuildProp" type="Node" parent="Properties"]
 script = ExtResource("2_iirbo")
 
 [node name="SabotageProp" type="Node" parent="Properties"]
@@ -502,7 +501,6 @@ texture_under = SubResource("AtlasTexture_3krp6")
 texture_progress = SubResource("AtlasTexture_l07x0")
 
 [node name="RebootingProgressBar" type="TextureProgressBar" parent="Visuals"]
-visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -515,7 +513,6 @@ value = 50.0
 texture_under = SubResource("AtlasTexture_hwmfp")
 texture_over = SubResource("AtlasTexture_t1jdq")
 texture_progress = SubResource("AtlasTexture_8hjnn")
-texture_progress_offset = Vector2(1, 1)
 
 [node name="Label" type="Label" parent="Visuals/RebootingProgressBar"]
 layout_mode = 0

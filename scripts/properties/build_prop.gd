@@ -1,4 +1,4 @@
-class_name RepairProp
+class_name BuildProp
 extends PropertyBase
 
 signal just_changed(new_value: float)
