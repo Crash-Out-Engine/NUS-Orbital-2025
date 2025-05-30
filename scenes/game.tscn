@@ -15,8 +15,10 @@
 [ext_resource type="Script" uid="uid://dlfl58jvcogf5" path="res://scripts/game_scene/chunk_debug.gd" id="10_vtaks"]
 [ext_resource type="AudioStream" uid="uid://d0bs4frau5lf8" path="res://assets/audio/sound_effects/pause_sound.wav" id="11_ca42v"]
 [ext_resource type="Theme" uid="uid://c8t8fqq1p8n4l" path="res://resources/custom_ui.tres" id="12_ssvqc"]
-[ext_resource type="Script" uid="uid://b5ihjg2jg7kkh" path="res://scripts/debug.gd" id="15_264po"]
+[ext_resource type="Theme" uid="uid://d0hhc2538lbdn" path="res://resources/debug_ui.tres" id="14_264po"]
+[ext_resource type="Script" uid="uid://b5ihjg2jg7kkh" path="res://scripts/game_scene/ui/debug/debug_panel.gd" id="15_264po"]
 [ext_resource type="AudioStream" uid="uid://c3lyo02lbnyxw" path="res://assets/audio/songs/8_bit_mimic.wav" id="15_ir15t"]
+[ext_resource type="Script" uid="uid://cse3mqdmlr8dq" path="res://scripts/game_scene/ui/debug/tree.gd" id="16_1kice"]
 [ext_resource type="Texture2D" uid="uid://ccfwh73q4xx04" path="res://assets/tilesheets/tilemap.png" id="16_264po"]
 
 [sub_resource type="Environment" id="Environment_yqjtg"]
@@ -98,11 +100,6 @@ font_size = 24
 shadow_size = 4
 shadow_color = Color(0, 0, 0, 0.74902)
 shadow_offset = Vector2(2, 2)
-
-[sub_resource type="LabelSettings" id="LabelSettings_1kice"]
-font = ExtResource("9_kvuet")
-shadow_color = Color(0, 0, 0, 1)
-shadow_offset = Vector2(2, 1)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kvpfn"]
 texture = ExtResource("16_264po")
@@ -492,6 +489,7 @@ stream = ExtResource("11_ca42v")
 bus = &"SFX"
 
 [node name="Inventory" type="Control" parent="UI"]
+process_mode = 1
 custom_minimum_size = Vector2(1152, 648)
 layout_mode = 3
 anchors_preset = 0
@@ -518,21 +516,35 @@ text = "THIS IS AN INVENTORY PLACEHOLDER"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Debug" type="Control" parent="UI" node_paths=PackedStringArray("player")]
-visible = false
+[node name="DebugPanel" type="Control" parent="UI"]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -304.0
+offset_bottom = 632.0
+grow_horizontal = 0
+theme = ExtResource("14_264po")
 script = ExtResource("15_264po")
-player = NodePath("../../EntityContainer/Player")
 
-[node name="Label" type="Label" parent="UI/Debug"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-text = "afdsas"
-label_settings = SubResource("LabelSettings_1kice")
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/DebugPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="UI/DebugPanel/VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+text = "Debug Panel"
+
+[node name="Tree" type="Tree" parent="UI/DebugPanel/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("16_1kice")
 
 [node name="SandTileMap" type="TileMapLayer" parent="."]
 z_index = -100
@@ -574,3 +586,6 @@ bus = &"Music"
 [connection signal="value_changed" from="UI/PauseMenu/PanelContainer/VBoxContainer/MasterVolumeContainer/MasterVolumeSlider" to="UI/PauseMenu" method="_on_master_volume_slider_value_changed"]
 [connection signal="value_changed" from="UI/PauseMenu/PanelContainer/VBoxContainer/MusicVolumeContainer/MusicVolumeSlider" to="UI/PauseMenu" method="_on_music_volume_slider_value_changed"]
 [connection signal="value_changed" from="UI/PauseMenu/PanelContainer/VBoxContainer/SFXVolumeContainer/SFXVolumeSlider" to="UI/PauseMenu" method="_on_sfx_volume_slider_value_changed"]
+[connection signal="toggled" from="UI/DebugPanel/VBoxContainer/Button" to="UI/DebugPanel/VBoxContainer/Tree" method="_on_button_toggled"]
+[connection signal="button_clicked" from="UI/DebugPanel/VBoxContainer/Tree" to="UI/DebugPanel" method="_on_tree_button_clicked"]
+[connection signal="item_edited" from="UI/DebugPanel/VBoxContainer/Tree" to="UI/DebugPanel" method="_on_tree_item_edited"]
