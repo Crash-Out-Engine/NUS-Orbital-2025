@@ -54,7 +54,8 @@ func _generate_chunk(at_chunk: Vector2i) -> void:
 			var tile_value = floor((noise_value) * tileset_dimensions.x * tileset_dimensions.y) as int
 			
 			set_cell(tile_coords, 0, Vector2i(tile_value % tileset_dimensions.x + zeroth_tile.x, tile_value / tileset_dimensions.x + zeroth_tile.y))
-			_loaded_chunks.append(at_chunk)
+
+	_loaded_chunks.append(at_chunk)
 
 
 func _clear_chunk(at_chunk: Vector2i) -> void:
@@ -63,4 +64,5 @@ func _clear_chunk(at_chunk: Vector2i) -> void:
 			var tile_coords = at_chunk * chunk_size + Vector2i(x, y)
 				
 			set_cell(tile_coords)
-			_loaded_chunks.erase(at_chunk) #should this be at this level of indentation?
+
+	_loaded_chunks.erase(at_chunk)

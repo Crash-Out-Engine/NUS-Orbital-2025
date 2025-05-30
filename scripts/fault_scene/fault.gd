@@ -10,12 +10,12 @@ enum State {
 	FIXED
 }
 
-@export var repair_target : float
-@export var build_prop : BuildProp
-@export var sabotage_prop : SabotageProp
-@export var hitbox : HitboxComp
+@export var repair_target: float
+@export var build_prop: BuildProp
+@export var sabotage_prop: SabotageProp
+@export var hitbox: HitboxComp
 
-var _power_output
+var _power_output: Node
 
 var state: State:
 	set(value):
@@ -27,10 +27,12 @@ var state: State:
 
 @onready var reboot_timer := $RebootTimer as Timer
 
+
 func _ready() -> void:
 	state = State.SABOTAGED
 	build_prop.just_changed.connect(check_repair)
 	sabotage_prop.just_changed.connect(check_sabotage)
+
 
 func handle_state_changed(from: State, to: State):
 	match [from, to]:
@@ -49,8 +51,10 @@ func handle_state_changed(from: State, to: State):
 		[_, _]:
 			assert(false, "Invalid state change from %s to %s." % [State.find_key(from), State.find_key(to)])
 
-func set_power_output(node) -> void:
+
+func set_power_output(node: Node) -> void:
 	_power_output = node
+
 
 func check_repair(value: float) -> void:
 	if state == State.SABOTAGED:
@@ -58,15 +62,19 @@ func check_repair(value: float) -> void:
 			state = State.REBOOTING
 		repair_progressed.emit(value / repair_target)
 
+
 func check_sabotage(new_value: bool) -> void:
 	if new_value:
 		state = State.SABOTAGED
 
+
 func get_time_progress_ratio() -> float:
 	return 1 - (reboot_timer.time_left / reboot_timer.wait_time)
 
+
 func _on_reboot_timer_timeout() -> void:
 	state = State.FIXED
+
 
 func _on_visuals_disappear_finished() -> void:
 	_power_output.power += 20

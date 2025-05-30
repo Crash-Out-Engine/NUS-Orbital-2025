@@ -41,7 +41,7 @@ func _process(delta: float) -> void:
 	# gun_sprite processes
 	if !hand_locked:
 		gun_sprite.look_at(get_global_mouse_position())
-		gun_sprite.scale.y =  -1 if get_global_mouse_position().x < player_ranged.global_position.x else 1
+		gun_sprite.scale.y = -1 if get_global_mouse_position().x < player_ranged.global_position.x else 1
 
 
 func _physics_process(_delta: float) -> void:
@@ -51,10 +51,12 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_released("add turret"):
 		gun_sprite.play("gun_idle")
 
+
 func play_gun_fire(_bullet):
 	gun_sprite.sprite_frames.set_animation_speed("gun_fire", 4.0 / player_ranged.ranged_cooldown.value)
 	gun_sprite.play("gun_fire")
 	gun_blast_sprite.play()
+
 
 func play_melee_fire():
 	player_melee.look_at(get_global_mouse_position())
@@ -63,11 +65,13 @@ func play_melee_fire():
 	gun_sprite.play("melee_fire")
 	hand_locked = true
 
+
 func play_bleed(_new_ratio):
 	player_sprite.modulate.v = V_MODULATE
 
+
 func _on_gun_sprite_animation_finished() -> void:
-	if gun_sprite.animation == "melee_fire": 
+	if gun_sprite.animation == "melee_fire":
 		gun_sprite.play("gun_idle")
 		melee_finished.emit()
 		gun_sprite.offset.x = 14.5 # HACK: prefer to adjust sprite offset in spritesheet instead

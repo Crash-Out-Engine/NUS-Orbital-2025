@@ -17,5 +17,6 @@ func _physics_process(_delta: float) -> void:
 		just_changed.emit(value > _prev_value)
 	_prev_value = value
 
+
 func repair() -> void:
 	value = 0.0

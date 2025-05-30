@@ -1,6 +1,6 @@
 extends Node2D
 
-var _FAULT_SCENE = preload("res://scenes/fault.tscn") #HACK: Objects in the map should be collected in a group
+var _FAULT_SCENE = preload("res://scenes/fault.tscn") # HACK: Objects in the map should be collected in a group
 
 @export var noise: Noise
 @export var curve: Curve
@@ -29,7 +29,7 @@ func _process(_delta: float) -> void:
 	
 	_prev_player_chunk_position = player_chunk_position
 
-func create_fault(pos: Vector2) -> void: #HACK: world generation should be general, honestly this whole script is a hack
+func create_fault(pos: Vector2) -> void: # HACK: world generation should be general, honestly this whole script is a hack
 	var fault = _FAULT_SCENE.instantiate()
 	fault.global_position = pos
 	fault.set_power_output(get_parent())
@@ -58,9 +58,9 @@ func _generate_chunk(at_chunk: Vector2i) -> void:
 			var tile_coords = at_chunk * chunk_size + Vector2i(x, y)
 				
 			var noise_value = curve.sample(
-					noise.get_noise_2d(tile_coords.x, tile_coords.y)) #HACK: generation should not be completely random and be controlled such that faults are spread evenly
+					noise.get_noise_2d(tile_coords.x, tile_coords.y)) # HACK: generation should not be completely random and be controlled such that faults are spread evenly
 			
-			if noise_value > 0.99995: #HACK
+			if noise_value > 0.99995: # HACK
 				create_fault(tile_coords * grid_size)
 			
 	_loaded_chunks.append(at_chunk)
