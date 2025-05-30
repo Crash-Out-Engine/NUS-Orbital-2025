@@ -6,7 +6,7 @@ var _FAULT_SCENE = preload("res://scenes/fault.tscn") # HACK: Objects in the map
 @export var curve: Curve
 @export var entity_container: Node
 
-var chunk_radius := 3
+var chunk_radius := 4
 var chunk_size := Vector2i(8.0, 8.0)
 var grid_size := Vector2i(32.0, 32.0)
 var _loaded_chunks: Array[Vector2i] = []
@@ -70,11 +70,9 @@ func _clear_chunk(at_chunk: Vector2i) -> void:
 	var min_point = at_chunk * chunk_size * grid_size
 	var max_point = (at_chunk * chunk_size + chunk_size) * grid_size
 	var to_remove = entity_container.get_children().filter(func(obj): return obj is Fault).filter(func(fault): return fault_check(fault, min_point, max_point))
-	print("min:" + str(min_point))
-	print("max:" + str(max_point))
 	for fault in to_remove:
 		print("fault:" + str(fault.global_position))
-		fault.queue_free()
+		get_parent().remove_misc(fault)
 	_loaded_chunks.erase(at_chunk)
 
 func fault_check(fault: Fault, min_point: Vector2, max_point: Vector2) -> bool:

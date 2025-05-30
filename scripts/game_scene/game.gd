@@ -28,3 +28,6 @@ func add_entity(entity: Node2D) -> void:
 
 func add_misc(misc: Node2D) -> void:
 	$MiscContainer.add_child(misc)
+
+func remove_misc(misc: Node2D) -> void:
+	misc.queue_free()

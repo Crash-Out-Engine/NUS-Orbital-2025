@@ -45,5 +45,5 @@ func _on_tree_item_edited() -> void: # HACK: Greatly relies on the node paths be
 					$/root/Game/EntityContainer/Player.scrap = item.get_range(0)
 
 
-func _on_tree_button_clicked(item: TreeItem, column: int, id: int, mouse_button_index: int) -> void:
+func _on_tree_button_clicked(_item: TreeItem, _column: int, _id: int, _mouse_button_index: int) -> void:
 	pass # Replace with function body.

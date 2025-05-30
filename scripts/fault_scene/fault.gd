@@ -44,6 +44,7 @@ func handle_state_changed(from: State, to: State):
 		[State.REBOOTING, State.SABOTAGED]:
 			reboot_timer.stop()
 			hitbox.team = Enums.Team.SABOTAGED_FAULT
+			build_prop.reset()
 		
 		[State.REBOOTING, State.FIXED]:
 			hitbox.team = Enums.Team.NONE
