@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://ytw0s5xnqwvt"]
+[gd_scene load_steps=64 format=3 uid="uid://ytw0s5xnqwvt"]
 
 [ext_resource type="Script" uid="uid://c8f8kowfp34yp" path="res://scripts/player_scene/player.gd" id="1_f1ej7"]
 [ext_resource type="Script" uid="uid://cndl5nak0qpxp" path="res://scripts/properties/movement_prop.gd" id="2_g2els"]
@@ -10,16 +10,18 @@
 [ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/properties/target_priority_prop.gd" id="7_fjrip"]
 [ext_resource type="Script" uid="uid://s08wfqwqu2jn" path="res://scripts/components/ranged_player_comp.gd" id="7_smehm"]
 [ext_resource type="Script" uid="uid://cceowy0wh5ufb" path="res://scripts/properties/health_capacity_prop.gd" id="8_4ni07"]
-[ext_resource type="Script" uid="uid://qxcwl20lyaga" path="res://scripts/effect_mod.gd" id="8_y4r1p"]
-[ext_resource type="Resource" uid="uid://dl56w1h7wf83j" path="res://resources/effect_mods/base_damage.tres" id="9_ur7pv"]
 [ext_resource type="AudioStream" uid="uid://dc66si5kieoq4" path="res://assets/audio/sound_effects/laser_gunshot.wav" id="12_3v2ag"]
 [ext_resource type="Script" uid="uid://dng6x4ecq2npd" path="res://scripts/player_scene/audio.gd" id="13_a8ls1"]
 [ext_resource type="AudioStream" uid="uid://dk7lmxukxhhcr" path="res://assets/audio/sound_effects/error.wav" id="13_f1ej7"]
 [ext_resource type="AudioStream" uid="uid://ciu1er752oye4" path="res://assets/audio/sound_effects/sand_steps.wav" id="13_jej6c"]
+[ext_resource type="Resource" uid="uid://dtogyr1espqpy" path="res://resources/effects/health.tres" id="13_l71n6"]
 [ext_resource type="Script" uid="uid://bc5nkvlgktyor" path="res://scripts/target_filter.gd" id="14_l71n6"]
 [ext_resource type="Script" uid="uid://ddhfg683ma0hh" path="res://scripts/player_scene/visuals.gd" id="14_oprun"]
 [ext_resource type="Script" uid="uid://bx0i0x84j70ct" path="res://scripts/components/melee_comp.gd" id="17_4r5pv"]
 [ext_resource type="AudioStream" uid="uid://dn6k75a1tyl8k" path="res://assets/audio/sound_effects/hit_sound.wav" id="17_60mlk"]
+[ext_resource type="Script" uid="uid://bnt7cwx8k0nm0" path="res://scripts/components/mod_slot_comp.gd" id="17_ke2ow"]
+[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mod_base.gd" id="17_ujl30"]
+[ext_resource type="Script" uid="uid://qxcwl20lyaga" path="res://scripts/effect_mod.gd" id="18_31cv2"]
 [ext_resource type="Script" uid="uid://cu55fh5hl5rxd" path="res://scripts/properties/melee_cooldown_prop.gd" id="18_60mlk"]
 [ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/effects/effect_base.gd" id="19_a38lo"]
 [ext_resource type="Script" uid="uid://dve6ix5ogwfw" path="res://scripts/properties/melee_damage_prop.gd" id="19_i4ail"]
@@ -85,6 +87,11 @@ metadata/_custom_type_script = "uid://2fh28xow6f1j"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a38lo"]
 size = Vector2(60, 40)
+
+[sub_resource type="Resource" id="Resource_dt7fs"]
+script = ExtResource("18_31cv2")
+effects = Array[ExtResource("19_a38lo")]([ExtResource("13_l71n6")])
+metadata/_custom_type_script = "uid://qxcwl20lyaga"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a38lo"]
 atlas = ExtResource("2_y4r1p")
@@ -368,7 +375,7 @@ active = true
 barrel = NodePath("Barrel")
 ranged_cooldown = NodePath("../../Properties/RangedCooldownProp")
 target_filter = SubResource("Resource_ujl30")
-effect_mods = Array[ExtResource("8_y4r1p")]([ExtResource("9_ur7pv")])
+effects = Array[ExtResource("19_a38lo")]([ExtResource("13_l71n6")])
 metadata/_custom_type_script = "uid://s08wfqwqu2jn"
 
 [node name="Barrel" type="Node2D" parent="Components/RangedComp"]
@@ -387,6 +394,13 @@ z_index = 100
 position = Vector2(28, 0)
 shape = SubResource("RectangleShape2D_a38lo")
 debug_color = Color(0.7, 0, 0, 0.419608)
+
+[node name="ModSlotComp" type="Node" parent="Components" node_paths=PackedStringArray("entity", "attack_comp")]
+script = ExtResource("17_ke2ow")
+mods = Array[ExtResource("17_ujl30")]([SubResource("Resource_dt7fs")])
+entity = NodePath("../..")
+attack_comp = NodePath("../RangedComp")
+metadata/_custom_type_script = "uid://bnt7cwx8k0nm0"
 
 [node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("player_ranged", "player_melee", "player")]
 script = ExtResource("14_oprun")
