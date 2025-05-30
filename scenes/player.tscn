@@ -120,7 +120,7 @@ metadata/_custom_type_script = "uid://bc5nkvlgktyor"
 script = ExtResource("17_ke2ow")
 _interval = -1.0
 _repeat = 0
-_factor = 0.0
+_factor = 10.0
 metadata/_custom_type_script = "uid://c038au8w13gc1"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a38lo"]
