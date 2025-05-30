@@ -64,4 +64,5 @@ func emit_disappear_finished():
 func update_repair_progress(progress: float):
 	repair_bar.value = progress * 100
 	if repair_bar.value > 0:
+		repair_bar.scale = Vector2i(1, 1)
 		repair_bar.visible = true

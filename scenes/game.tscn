@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://bbtrde7tvkisy"]
+[gd_scene load_steps=50 format=3 uid="uid://bbtrde7tvkisy"]
 
 [ext_resource type="PackedScene" uid="uid://ytw0s5xnqwvt" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://d2o1hku0svi7t" path="res://scripts/game_scene/game.gd" id="1_yqjtg"]
@@ -8,17 +8,19 @@
 [ext_resource type="Script" uid="uid://bcocptbr3821k" path="res://scripts/game_scene/ui/pause_menu.gd" id="5_p57ef"]
 [ext_resource type="Script" uid="uid://brohp3alww54k" path="res://scripts/game_scene/ui/ui.gd" id="5_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet_v2.png" id="6_1kice"]
-[ext_resource type="Script" uid="uid://ysb1rej05rno" path="res://scripts/game_scene/ui/hud.gd" id="6_rysoc"]
+[ext_resource type="Script" uid="uid://ysb1rej05rno" path="res://scripts/game_scene/ui/hud_bars.gd" id="6_rysoc"]
 [ext_resource type="Script" uid="uid://cyt60aunvq71y" path="res://scripts/game_scene/ui/inventory.gd" id="8_kvpfn"]
 [ext_resource type="FontFile" uid="uid://cj53anigafm5t" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="9_kvuet"]
 [ext_resource type="Script" uid="uid://6avt386x6skk" path="res://scripts/game_scene/chunk_tile_map.gd" id="9_vtaks"]
+[ext_resource type="Script" uid="uid://kvm0revtye6k" path="res://scripts/game_scene/ui/hud_map.gd" id="10_5newe"]
 [ext_resource type="Script" uid="uid://dlfl58jvcogf5" path="res://scripts/game_scene/chunk_debug.gd" id="10_vtaks"]
+[ext_resource type="Texture2D" uid="uid://mk53qh8h10ke" path="res://assets/sprites/map_icons_spritesheet.png" id="11_37s47"]
 [ext_resource type="AudioStream" uid="uid://d0bs4frau5lf8" path="res://assets/audio/sound_effects/pause_sound.wav" id="11_ca42v"]
 [ext_resource type="Theme" uid="uid://c8t8fqq1p8n4l" path="res://resources/custom_ui.tres" id="12_ssvqc"]
 [ext_resource type="Theme" uid="uid://d0hhc2538lbdn" path="res://resources/debug_ui.tres" id="14_264po"]
 [ext_resource type="Script" uid="uid://b5ihjg2jg7kkh" path="res://scripts/game_scene/ui/debug/debug_panel.gd" id="15_264po"]
 [ext_resource type="AudioStream" uid="uid://c3lyo02lbnyxw" path="res://assets/audio/songs/8_bit_mimic.wav" id="15_ir15t"]
-[ext_resource type="Script" path="res://scripts/game_scene/ui/debug/tree.gd" id="16_1kice"]
+[ext_resource type="Script" uid="uid://cse3mqdmlr8dq" path="res://scripts/game_scene/ui/debug/tree.gd" id="16_1kice"]
 [ext_resource type="Texture2D" uid="uid://ccfwh73q4xx04" path="res://assets/tilesheets/tilemap.png" id="16_264po"]
 
 [sub_resource type="Environment" id="Environment_yqjtg"]
@@ -100,6 +102,16 @@ font_size = 24
 shadow_size = 4
 shadow_color = Color(0, 0, 0, 0.74902)
 shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wljb1"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1kice"]
+texture = ExtResource("6_1kice")
+texture_margin_left = 32.0
+texture_margin_top = 32.0
+texture_margin_right = 32.0
+texture_margin_bottom = 32.0
+region_rect = Rect2(1798, 4, 106, 106)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kvpfn"]
 texture = ExtResource("16_264po")
@@ -196,7 +208,7 @@ autostart = true
 process_mode = 3
 script = ExtResource("5_u5sy4")
 
-[node name="HUD" type="Control" parent="UI" node_paths=PackedStringArray("player", "game")]
+[node name="HUDBars" type="Control" parent="UI" node_paths=PackedStringArray("player", "game")]
 process_mode = 1
 custom_minimum_size = Vector2(1152, 648)
 layout_mode = 3
@@ -207,29 +219,29 @@ script = ExtResource("6_rysoc")
 player = NodePath("../../EntityContainer/Player")
 game = NodePath("../..")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/HUD"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/HUDBars"]
 layout_mode = 0
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 44.0
 offset_bottom = 44.0
 
-[node name="PowerBar" type="HBoxContainer" parent="UI/HUD/VBoxContainer"]
+[node name="PowerBar" type="HBoxContainer" parent="UI/HUDBars/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="Icon" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar"]
+[node name="Icon" type="TextureRect" parent="UI/HUDBars/VBoxContainer/PowerBar"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_1kice")
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="UI/HUD/VBoxContainer/PowerBar"]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="UI/HUDBars/VBoxContainer/PowerBar"]
 layout_mode = 2
 value = 100.0
 texture_under = SubResource("AtlasTexture_37s47")
 texture_over = SubResource("AtlasTexture_bt5mj")
 texture_progress = SubResource("AtlasTexture_e1j6l")
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/HUD/VBoxContainer/PowerBar/TextureProgressBar"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/HUDBars/VBoxContainer/PowerBar/TextureProgressBar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -239,118 +251,118 @@ grow_vertical = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_right = 56
 
-[node name="Label" type="Label" parent="UI/HUD/VBoxContainer/PowerBar/TextureProgressBar/MarginContainer"]
+[node name="Label" type="Label" parent="UI/HUDBars/VBoxContainer/PowerBar/TextureProgressBar/MarginContainer"]
 layout_mode = 2
 text = "100"
 label_settings = SubResource("LabelSettings_5newe")
 vertical_alignment = 1
 
-[node name="1Bar" type="Control" parent="UI/HUD/VBoxContainer/PowerBar"]
+[node name="1Bar" type="Control" parent="UI/HUDBars/VBoxContainer/PowerBar"]
 custom_minimum_size = Vector2(81, 0)
 layout_mode = 2
 
-[node name="On" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar/1Bar"]
+[node name="On" type="TextureRect" parent="UI/HUDBars/VBoxContainer/PowerBar/1Bar"]
 layout_mode = 0
 offset_left = -36.0
 offset_right = 81.0
 offset_bottom = 50.0
 texture = SubResource("AtlasTexture_5newe")
 
-[node name="Off" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar/1Bar"]
+[node name="Off" type="TextureRect" parent="UI/HUDBars/VBoxContainer/PowerBar/1Bar"]
 layout_mode = 0
 offset_left = -36.0
 offset_right = 82.0
 offset_bottom = 50.0
 texture = SubResource("AtlasTexture_pl11u")
 
-[node name="2Bar" type="Control" parent="UI/HUD/VBoxContainer/PowerBar"]
+[node name="2Bar" type="Control" parent="UI/HUDBars/VBoxContainer/PowerBar"]
 custom_minimum_size = Vector2(81, 0)
 layout_mode = 2
 
-[node name="On" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar/2Bar"]
+[node name="On" type="TextureRect" parent="UI/HUDBars/VBoxContainer/PowerBar/2Bar"]
 layout_mode = 0
 offset_left = -36.0
 offset_right = 81.0
 offset_bottom = 50.0
 texture = SubResource("AtlasTexture_5newe")
 
-[node name="Off" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar/2Bar"]
+[node name="Off" type="TextureRect" parent="UI/HUDBars/VBoxContainer/PowerBar/2Bar"]
 layout_mode = 0
 offset_left = -36.0
 offset_right = 82.0
 offset_bottom = 50.0
 texture = SubResource("AtlasTexture_pl11u")
 
-[node name="4Bar" type="Control" parent="UI/HUD/VBoxContainer/PowerBar"]
+[node name="4Bar" type="Control" parent="UI/HUDBars/VBoxContainer/PowerBar"]
 custom_minimum_size = Vector2(81, 0)
 layout_mode = 2
 
-[node name="On" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar/4Bar"]
+[node name="On" type="TextureRect" parent="UI/HUDBars/VBoxContainer/PowerBar/4Bar"]
 layout_mode = 0
 offset_left = -36.0
 offset_right = 81.0
 offset_bottom = 50.0
 texture = SubResource("AtlasTexture_5newe")
 
-[node name="Off" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar/4Bar"]
+[node name="Off" type="TextureRect" parent="UI/HUDBars/VBoxContainer/PowerBar/4Bar"]
 layout_mode = 0
 offset_left = -36.0
 offset_right = 82.0
 offset_bottom = 50.0
 texture = SubResource("AtlasTexture_pl11u")
 
-[node name="8Bar" type="Control" parent="UI/HUD/VBoxContainer/PowerBar"]
+[node name="8Bar" type="Control" parent="UI/HUDBars/VBoxContainer/PowerBar"]
 custom_minimum_size = Vector2(81, 0)
 layout_mode = 2
 
-[node name="On" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar/8Bar"]
+[node name="On" type="TextureRect" parent="UI/HUDBars/VBoxContainer/PowerBar/8Bar"]
 layout_mode = 0
 offset_left = -36.0
 offset_right = 81.0
 offset_bottom = 50.0
 texture = SubResource("AtlasTexture_5newe")
 
-[node name="Off" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar/8Bar"]
+[node name="Off" type="TextureRect" parent="UI/HUDBars/VBoxContainer/PowerBar/8Bar"]
 layout_mode = 0
 offset_left = -36.0
 offset_right = 82.0
 offset_bottom = 50.0
 texture = SubResource("AtlasTexture_pl11u")
 
-[node name="16Bar" type="Control" parent="UI/HUD/VBoxContainer/PowerBar"]
+[node name="16Bar" type="Control" parent="UI/HUDBars/VBoxContainer/PowerBar"]
 custom_minimum_size = Vector2(81, 0)
 layout_mode = 2
 
-[node name="On" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar/16Bar"]
+[node name="On" type="TextureRect" parent="UI/HUDBars/VBoxContainer/PowerBar/16Bar"]
 layout_mode = 0
 offset_left = -36.0
 offset_right = 81.0
 offset_bottom = 50.0
 texture = SubResource("AtlasTexture_5newe")
 
-[node name="Off" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar/16Bar"]
+[node name="Off" type="TextureRect" parent="UI/HUDBars/VBoxContainer/PowerBar/16Bar"]
 layout_mode = 0
 offset_left = -36.0
 offset_right = 82.0
 offset_bottom = 50.0
 texture = SubResource("AtlasTexture_pl11u")
 
-[node name="HealthBar" type="HBoxContainer" parent="UI/HUD/VBoxContainer"]
+[node name="HealthBar" type="HBoxContainer" parent="UI/HUDBars/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="Icon" type="TextureRect" parent="UI/HUD/VBoxContainer/HealthBar"]
+[node name="Icon" type="TextureRect" parent="UI/HUDBars/VBoxContainer/HealthBar"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_bhx41")
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="UI/HUD/VBoxContainer/HealthBar"]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="UI/HUDBars/VBoxContainer/HealthBar"]
 layout_mode = 2
 value = 100.0
 texture_under = SubResource("AtlasTexture_qnb83")
 texture_over = SubResource("AtlasTexture_sww3w")
 texture_progress = SubResource("AtlasTexture_suyxu")
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/HUD/VBoxContainer/HealthBar/TextureProgressBar"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/HUDBars/VBoxContainer/HealthBar/TextureProgressBar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -360,22 +372,22 @@ grow_vertical = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_right = 56
 
-[node name="Label" type="Label" parent="UI/HUD/VBoxContainer/HealthBar/TextureProgressBar/MarginContainer"]
+[node name="Label" type="Label" parent="UI/HUDBars/VBoxContainer/HealthBar/TextureProgressBar/MarginContainer"]
 layout_mode = 2
 text = "50/50"
 label_settings = SubResource("LabelSettings_37s47")
 vertical_alignment = 1
 
-[node name="ScrapCounter" type="MarginContainer" parent="UI/HUD/VBoxContainer"]
+[node name="ScrapCounter" type="MarginContainer" parent="UI/HUDBars/VBoxContainer"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="Icon" type="TextureRect" parent="UI/HUD/VBoxContainer/ScrapCounter"]
+[node name="Icon" type="TextureRect" parent="UI/HUDBars/VBoxContainer/ScrapCounter"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_rysoc")
 
-[node name="Label" type="Label" parent="UI/HUD/VBoxContainer/ScrapCounter/Icon"]
+[node name="Label" type="Label" parent="UI/HUDBars/VBoxContainer/ScrapCounter/Icon"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -391,6 +403,40 @@ text = "50"
 label_settings = SubResource("LabelSettings_ca42v")
 horizontal_alignment = 2
 vertical_alignment = 2
+
+[node name="HUDMap" type="Control" parent="UI" node_paths=PackedStringArray("player", "icon_template", "map")]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
+script = ExtResource("10_5newe")
+player = NodePath("../../EntityContainer/Player")
+icon_template = NodePath("Icon")
+map = NodePath("Map")
+
+[node name="Icon" type="Sprite2D" parent="UI/HUDMap"]
+visible = false
+texture = ExtResource("11_37s47")
+hframes = 3
+region_rect = Rect2(1, 1, 24, 24)
+
+[node name="Map" type="Panel" parent="UI/HUDMap"]
+layout_mode = 0
+offset_left = -234.0
+offset_top = 14.0
+offset_right = -14.0
+offset_bottom = 234.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_wljb1")
+
+[node name="MapOverlay" type="Panel" parent="UI/HUDMap"]
+z_index = 10
+layout_mode = 0
+offset_left = -244.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = 244.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_1kice")
 
 [node name="PauseMenu" type="Control" parent="UI"]
 process_mode = 2
@@ -517,6 +563,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="DebugPanel" type="Control" parent="UI"]
+visible = false
 layout_mode = 3
 anchors_preset = 1
 anchor_left = 1.0
@@ -577,7 +624,9 @@ autoplay = true
 bus = &"Music"
 
 [connection signal="child_entered_tree" from="EntityContainer" to="." method="_on_entities_child_entered_tree"]
+[connection signal="child_entered_tree" from="EntityContainer" to="UI/HUDMap" method="_on_entity_container_child_entered_tree"]
 [connection signal="child_exiting_tree" from="EntityContainer" to="." method="_on_entities_child_exiting_tree"]
+[connection signal="child_exiting_tree" from="EntityContainer" to="UI/HUDMap" method="_on_entity_container_child_exiting_tree"]
 [connection signal="timeout" from="EnemySpawner/SpawnTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="EnemySpawner/SpawnTimer" to="EnemySpawner" method="_on_spawn_timer_timeout"]
 [connection signal="pressed" from="UI/PauseMenu/PanelContainer/VBoxContainer/Resume" to="UI/PauseMenu" method="_on_resume_pressed"]
