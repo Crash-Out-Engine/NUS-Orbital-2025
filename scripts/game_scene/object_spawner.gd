@@ -71,7 +71,7 @@ func _clear_chunk(at_chunk: Vector2i) -> void:
 	var max_point = (at_chunk * chunk_size + chunk_size) * grid_size
 	var to_remove = entity_container.get_children().filter(func(obj): return obj is Fault).filter(func(fault): return fault_check(fault, min_point, max_point))
 	for fault in to_remove:
-		get_parent().remove_misc(fault)
+		fault.queue_free()
 	_loaded_chunks.erase(at_chunk)
 
 func fault_check(fault: Fault, min_point: Vector2, max_point: Vector2) -> bool:
