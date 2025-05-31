@@ -42,8 +42,8 @@ var scrap = 50:
 	set(value):
 		scrap = value
 		scrap_changed.emit(value)
-var turrets_placed = 0 # HACK: temporary for lift-off demonstration
-var turret_cost = 5 # HACK: temporary for lift-off demonstration
+
+var turret_cost = 25
 
 @onready var visuals := $Visuals as PlayerVisuals
 @onready var melee_player := $MeleePlayer as AnimationPlayer
@@ -111,8 +111,6 @@ func _physics_process(_delta: float) -> void:
 			if can_place_turret():
 				current_turret.advance_state()
 				scrap -= turret_cost
-				turrets_placed += 1
-				turret_cost = (turrets_placed + 1) * turrets_placed * 5 / 2
 			else:
 				current_turret.state = Turret.State.CANCELLED
 				turret_placement_failed.emit()

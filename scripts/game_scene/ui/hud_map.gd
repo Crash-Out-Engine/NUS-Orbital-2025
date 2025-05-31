@@ -24,6 +24,7 @@ func create_building_icon(node: Node) -> MapIcon:
 	var icon = icon_template.duplicate() as MapIcon
 	if node is Player:
 		icon.frame = 1
+		icon.z_index = 1
 		return icon
 	if node is Fault:
 		icon.frame = 2

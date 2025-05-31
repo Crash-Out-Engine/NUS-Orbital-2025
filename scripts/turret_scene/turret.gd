@@ -78,9 +78,7 @@ func handle_state_changed(from: State, to: State):
 			ranged.active = true
 
 		[_, State.DESTROYED]:
-			if (player != null): # HACK: turret should not call player code (not that often, at least)
-				player.turrets_placed -= 1
-				player.turret_cost = (player.turrets_placed + 1) * player.turrets_placed * 5 / 2
+			#TODO: implement loot drops
 			queue_free()
 
 		[_, State.CANCELLED]:
