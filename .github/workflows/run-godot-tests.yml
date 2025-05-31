@@ -16,7 +16,7 @@ jobs:
     environment: development
     steps:
       - uses: actions/checkout@v4.2.2
-      - uses: Cxyu629/godot-tester@v1.1.0
+      - uses: Cxyu629/godot-tester@v1.2.0
         with:
           version: ${{ vars.GODOT_VERSION }}
           release_type: "stable"
