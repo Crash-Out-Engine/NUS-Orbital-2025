@@ -4,8 +4,6 @@ func test_move_forward():
 	var player := preload("res://scenes/player.tscn").instantiate() as Player
 	assert_true(player != null)
 	
-	add_child_autofree(player)
-	
 	var curr_position = player.position
 	await wait_frames(2)
 	var new_position = player.position
