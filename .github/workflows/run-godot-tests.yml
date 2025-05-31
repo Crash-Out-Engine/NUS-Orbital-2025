@@ -18,11 +18,11 @@ jobs:
       - uses: actions/checkout@v4.2.2
       - uses: croconut/godot-tester@v5.2
         with:
-          version: ${{vars.GODOT_VERSION}}
+          version: ${{ vars.GODOT_VERSION }}
           release_type: "stable"
           import-time: "5"
           test-timeout: "45"
           minimum-pass: "1.0"
           test-dir: "res://tests"
-          custom-godot-dl-url: "https://github.com/godotengine/godot/releases/download/${{ env.godot-version }}-stable/Godot_v${{ env.godot-version }}-stable_linux.x86_64.zip"
+          custom-godot-dl-url: "https://github.com/godotengine/godot/releases/download/${{ vars.GODOT_VERSION }}-stable/Godot_v${{ vars.GODOT_VERSION }}-stable_linux.x86_64.zip"
           result-output-file: "test_results.xml"
