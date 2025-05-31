@@ -1,0 +1,10 @@
+class_name Enums
+
+enum Team {
+	NONE,
+	PLAYER,
+	ENEMY,
+	TURRET,
+	SABOTAGED_FAULT,
+	REBOOTING_FAULT,
+}

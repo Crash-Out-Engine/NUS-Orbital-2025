@@ -1,13 +1,13 @@
 extends Node
 
+@export var player: Player
+@export var player_ranged: RangedBaseComp
+@export var player_melee: MeleeComp
+
 @onready var footsteps_sound := $FootstepsSound as AudioStreamPlayer
 @onready var laser_sound := $LaserSound as AudioStreamPlayer
 @onready var turret_placement_error_sound := $TurretPlacementErrorSound as AudioStreamPlayer
-@onready var player := $".." as Player
-@onready var player_ranged := $"../Ranged" as RangedBase
-@onready var player_melee := $"../Melee" as Melee
 @onready var hit_sound := $HitSound as AudioStreamPlayer
-
 
 
 func _ready() -> void:

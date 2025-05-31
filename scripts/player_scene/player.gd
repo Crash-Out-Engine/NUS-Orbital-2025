@@ -4,7 +4,7 @@ extends CharacterBody2D
 signal turret_spawned(turret: Node2D)
 signal turret_placement_failed()
 signal health_changed(new_ratio: float)
-signal scrap_changed(new_amount: int)
+signal scrap_changed(new_value: int)
 
 const _TURRET_SCENE := preload("res://scenes/turret.tscn")
 
@@ -16,9 +16,16 @@ enum Hand {
 }
 
 const KNOCKBACK_DURATION = 0.5
-
 const KNOCKBACK_AMOUNT = 300.0
 const PICKUP_RANGE = 40
+
+@export_group("Components")
+@export var ranged: RangedBaseComp
+
+@export_group("Properties")
+@export var health: HealthProp
+@export var health_capacity: HealthCapacityProp
+@export var melee_cooldown: MeleeCooldownProp
 
 var hand_action = Hand.HOLDING_GUN
 var direction: Callable = func(_delta: float) -> Vector2:
@@ -29,20 +36,20 @@ var direction: Callable = func(_delta: float) -> Vector2:
 var knockback = 0.0
 var knockback_direction = Vector2(0, 0)
 var current_turret = null
-var scrap = 50
+var scrap = 50:
+	set(value):
+		scrap = value
+		scrap_changed.emit(value)
 var turrets_placed = 0 # HACK: temporary for lift-off demonstration
 var turret_cost = 5 # HACK: temporary for lift-off demonstration
 
-@onready var ranged := $Ranged as RangedBase
-@onready var hitbox := $CollisionShape2D as CollisionShape2D
-@onready var animation_player := $AnimationPlayer as AnimationPlayer
-@onready var visuals = $Visuals
+@onready var visuals := $Visuals as PlayerVisuals
+@onready var melee_player := $MeleePlayer as AnimationPlayer
+
 
 func _ready() -> void:
 	health_changed.emit(1.0)
 	ranged.active = false
-	$Melee.process_mode = Node.PROCESS_MODE_DISABLED
-	$Melee.visible = false
 
 
 func _process(delta: float) -> void:
@@ -63,12 +70,10 @@ func _physics_process(_delta: float) -> void:
 		hand_action = Hand.HOLDING_GUN
 	
 	if Input.is_action_just_pressed("melee"):
-		
-		if(hand_action == Hand.HOLDING_GUN and $MeleeCooldown.try_melee()):
+		if hand_action == Hand.HOLDING_GUN and melee_cooldown.can_melee():
 			hand_action = Hand.FIRING_WRENCH
-			animation_player.play("melee_attack")
+			melee_player.play("melee_attack")
 			visuals.play_melee_fire()
-		
 	
 	if Input.is_action_just_pressed("add turret"):
 		hand_action = Hand.HOLDING_WRENCH
@@ -81,9 +86,9 @@ func _physics_process(_delta: float) -> void:
 		if current_turret != null:
 			current_turret.global_position = get_global_mouse_position()
 			if !can_place_turret():
-				current_turret.set_visual_modulate(Color(1, 0, 0, 0.5))
+				current_turret.get_node_or_null(^"Visuals").set_visual_modulate(Color(1, 0, 0, 0.5))
 			else:
-				current_turret.set_visual_modulate(Color(0, 1, 1, 0.5))
+				current_turret.get_node_or_null(^"Visuals").set_visual_modulate(Color(0, 1, 1, 0.5))
 	
 	if Input.is_action_just_released("add turret"):
 		if current_turret != null:
@@ -94,7 +99,6 @@ func _physics_process(_delta: float) -> void:
 				scrap -= turret_cost
 				turrets_placed += 1
 				turret_cost = (turrets_placed + 1) * turrets_placed * 5 / 2
-				scrap_changed.emit(scrap)
 			else:
 				current_turret.state = Turret.State.CANCELLED
 				turret_placement_failed.emit()
@@ -106,15 +110,16 @@ func can_place_turret() -> bool:
 	return current_turret != null and !current_turret.is_overlapping() and turret_cost <= scrap
 
 
-func get_health() -> int:
-	return $Health.value
+func get_health() -> float:
+	return health.value
 
-func get_health_capacity() -> int:
-	return $HealthCapacity.value
+
+func get_health_capacity() -> float:
+	return health_capacity.value
+
 
 func gain_scrap(amount: int) -> void:
 	scrap += amount
-	scrap_changed.emit(scrap)
 
 
 func _on_health_just_emptied() -> void:
@@ -122,7 +127,7 @@ func _on_health_just_emptied() -> void:
 
 
 func _on_health_just_changed(_old_value: float, new_value: float) -> void:
-	health_changed.emit(new_value / $Health.health_capacity)
+	health_changed.emit(new_value / health.health_capacity)
 
 
 func apply_knockback(source: Node2D) -> void:
@@ -131,6 +136,3 @@ func apply_knockback(source: Node2D) -> void:
 
 func _on_visuals_melee_finished() -> void:
 	hand_action = Hand.HOLDING_GUN
-
-func mouse_is_in_player() -> bool:
-	return abs(get_global_mouse_position().x - hitbox.global_position.x) < hitbox.shape.size.x and abs(get_global_mouse_position().y - hitbox.global_position.y) < hitbox.shape.size.y

@@ -1,7 +1,7 @@
 class_name MovementEffect
-extends Effect
-## A MovementEffect should be applied to Movement.
+extends EffectBase
+## A MovementEffect should be applied to MovementProp.
 	
 
-func _can_effect(property: Effectable) -> bool:
-	return property is Movement
+func _can_effect(property: PropertyBase) -> bool:
+	return property is MovementProp

@@ -1,0 +1,26 @@
+name: "Run Godot Tests"
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on pull request events but only for the "dev" branch
+  pull_request:
+    branches: ["dev"]
+    types: [opened, synchronize, reopened, edited]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4.2.2
+    - uses: croconut/godot-tester@v5.2
+      with:
+        version: "4.4.1"
+        release_type: "stable"
+        import-time: "5"
+        test-timeout: "45"
+        minimum-pass: "1.0"
+        test-dir: "res://tests"
+        result-output-file: "test_results.xml"

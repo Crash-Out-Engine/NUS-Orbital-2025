@@ -1,63 +1,18 @@
-[gd_scene load_steps=19 format=3 uid="uid://iqyedsof74fp"]
+[gd_scene load_steps=23 format=3 uid="uid://iqyedsof74fp"]
 
 [ext_resource type="Script" uid="uid://47onqbsq6sc8" path="res://scripts/turret_scene/turret.gd" id="1_x3mc5"]
-[ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox.gd" id="2_el7wl"]
-[ext_resource type="Script" uid="uid://cwdm3dvyba0l3" path="res://scripts/effectables/ranged_cooldown.gd" id="3_pp6j5"]
-[ext_resource type="Script" uid="uid://bg2iinlcp53aa" path="res://scripts/effectables/health.gd" id="4_eo4u0"]
-[ext_resource type="Script" uid="uid://bhi7w6ril3da2" path="res://scripts/components/ranged_AI.gd" id="5_mqfwu"]
-[ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/effectables/target_priority.gd" id="6_dirdf"]
-[ext_resource type="Script" uid="uid://qxcwl20lyaga" path="res://scripts/effect_mod.gd" id="6_mqfwu"]
-[ext_resource type="Resource" uid="uid://dl56w1h7wf83j" path="res://resources/effect_mods/base_damage.tres" id="7_mqfwu"]
+[ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox_comp.gd" id="2_el7wl"]
+[ext_resource type="Script" uid="uid://cwdm3dvyba0l3" path="res://scripts/properties/ranged_cooldown_prop.gd" id="3_pp6j5"]
+[ext_resource type="Script" uid="uid://bg2iinlcp53aa" path="res://scripts/properties/health_prop.gd" id="4_eo4u0"]
+[ext_resource type="Script" uid="uid://bhi7w6ril3da2" path="res://scripts/components/ranged_AI_comp.gd" id="5_mqfwu"]
+[ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/properties/target_priority_prop.gd" id="6_dirdf"]
+[ext_resource type="Script" uid="uid://bc5nkvlgktyor" path="res://scripts/target_filter.gd" id="7_726tt"]
 [ext_resource type="Texture2D" uid="uid://06sdtfwasbao" path="res://assets/sprites/turret_spritesheet.png" id="8_0dv4j"]
+[ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/effects/effect_base.gd" id="8_726tt"]
+[ext_resource type="Resource" uid="uid://dtogyr1espqpy" path="res://resources/effects/health.tres" id="9_8c4bs"]
 [ext_resource type="AudioStream" uid="uid://dc66si5kieoq4" path="res://assets/audio/sound_effects/laser_gunshot.wav" id="9_tg0ex"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_eo4u0"]
-atlas = ExtResource("8_0dv4j")
-region = Rect2(0, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6k4ik"]
-atlas = ExtResource("8_0dv4j")
-region = Rect2(32, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fp1kq"]
-atlas = ExtResource("8_0dv4j")
-region = Rect2(64, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_726tt"]
-atlas = ExtResource("8_0dv4j")
-region = Rect2(96, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8c4bs"]
-atlas = ExtResource("8_0dv4j")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_eo4u0"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_eo4u0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6k4ik")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fp1kq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_726tt")
-}],
-"loop": false,
-"name": &"fire",
-"speed": 12.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8c4bs")
-}],
-"loop": false,
-"name": &"idle",
-"speed": 0.0
-}]
+[ext_resource type="Script" uid="uid://crg4hg2cfow05" path="res://scripts/turret_scene/audio.gd" id="10_6k4ik"]
+[ext_resource type="Script" uid="uid://cywswu1o8bqjs" path="res://scripts/turret_scene/visuals.gd" id="12_fp1kq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0dv4j"]
 radius = 8.0
@@ -65,55 +20,67 @@ radius = 8.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_tg0ex"]
 radius = 16.0
 
-[node name="Turret" type="StaticBody2D" groups=["allies"]]
+[sub_resource type="Resource" id="Resource_8c4bs"]
+script = ExtResource("7_726tt")
+targets = Array[int]([2])
+metadata/_custom_type_script = "uid://bc5nkvlgktyor"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fp1kq"]
+atlas = ExtResource("8_0dv4j")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_726tt"]
+atlas = ExtResource("8_0dv4j")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8c4bs"]
+atlas = ExtResource("8_0dv4j")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0mdkh"]
+atlas = ExtResource("8_0dv4j")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ue5km"]
+atlas = ExtResource("8_0dv4j")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_eo4u0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fp1kq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_726tt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8c4bs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0mdkh")
+}],
+"loop": false,
+"name": &"fire",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ue5km")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 0.0
+}]
+
+[node name="Turret" type="StaticBody2D" node_paths=PackedStringArray("health", "ranged", "hitbox") groups=["allies"]]
 script = ExtResource("1_x3mc5")
-
-[node name="BaseSprite" type="Sprite2D" parent="."]
-texture = ExtResource("8_0dv4j")
-offset = Vector2(-2, 0)
-hframes = 4
-vframes = 2
-
-[node name="Hitbox" type="Node" parent="."]
-script = ExtResource("2_el7wl")
-metadata/_custom_type_script = "uid://wwqkkrfhwiyn"
-
-[node name="Health" type="Node" parent="."]
-script = ExtResource("4_eo4u0")
-health_capacity = 200.0
-metadata/_custom_type_script = "uid://bg2iinlcp53aa"
-
-[node name="RangedCooldown" type="Node" parent="."]
-script = ExtResource("3_pp6j5")
-ranged_cooldown = 0.2
-
-[node name="TargetPriority" type="Node" parent="."]
-script = ExtResource("6_dirdf")
-team = "allies"
-
-[node name="Ranged" type="Node2D" parent="." node_paths=PackedStringArray("ranged_cooldown", "barrel", "target_priority")]
-script = ExtResource("5_mqfwu")
-active = true
-ranged_cooldown = NodePath("../RangedCooldown")
-barrel = NodePath("Barrel")
-target_priority = NodePath("../TargetPriority")
-effect_mods = Array[ExtResource("6_mqfwu")]([ExtResource("7_mqfwu")])
-metadata/_custom_type_script = "uid://bhi7w6ril3da2"
-
-[node name="Barrel" type="Node2D" parent="Ranged"]
-position = Vector2(12, 0)
-
-[node name="GunSprite" type="AnimatedSprite2D" parent="Ranged"]
-sprite_frames = SubResource("SpriteFrames_eo4u0")
-animation = &"idle"
-
-[node name="GunSound" type="AudioStreamPlayer" parent="Ranged"]
-stream = ExtResource("9_tg0ex")
-volume_db = -8.0
-pitch_scale = 2.0
-bus = &"SFX"
+health = NodePath("Properties/HealthProp")
+ranged = NodePath("Components/RangedComp")
+hitbox = NodePath("Components/HitboxComp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 100
 shape = SubResource("CircleShape2D_0dv4j")
 
 [node name="PlacementArea" type="Area2D" parent="."]
@@ -121,4 +88,66 @@ collision_layer = 2
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlacementArea"]
+z_index = 100
 shape = SubResource("CircleShape2D_tg0ex")
+debug_color = Color(0.7, 0.7, 0, 0.419608)
+
+[node name="Properties" type="Node" parent="."]
+
+[node name="HealthProp" type="Node" parent="Properties"]
+script = ExtResource("4_eo4u0")
+health_capacity = 200.0
+metadata/_custom_type_script = "uid://bg2iinlcp53aa"
+
+[node name="RangedCooldownProp" type="Node" parent="Properties"]
+script = ExtResource("3_pp6j5")
+ranged_cooldown = 0.2
+
+[node name="TargetPriorityProp" type="Node" parent="Properties"]
+script = ExtResource("6_dirdf")
+
+[node name="Components" type="Node2D" parent="."]
+
+[node name="HitboxComp" type="Node" parent="Components"]
+script = ExtResource("2_el7wl")
+team = 3
+metadata/_custom_type_script = "uid://wwqkkrfhwiyn"
+
+[node name="RangedComp" type="Node2D" parent="Components" node_paths=PackedStringArray("barrel", "ranged_cooldown")]
+script = ExtResource("5_mqfwu")
+active = true
+barrel = NodePath("Barrel")
+ranged_cooldown = NodePath("../../Properties/RangedCooldownProp")
+target_filter = SubResource("Resource_8c4bs")
+effects = Array[ExtResource("8_726tt")]([ExtResource("9_8c4bs")])
+metadata/_custom_type_script = "uid://bhi7w6ril3da2"
+
+[node name="Barrel" type="Node2D" parent="Components/RangedComp"]
+position = Vector2(12, 0)
+
+[node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("turret", "turret_ranged", "turret_health")]
+script = ExtResource("12_fp1kq")
+turret = NodePath("..")
+turret_ranged = NodePath("../Components/RangedComp")
+turret_health = NodePath("../Properties/HealthProp")
+
+[node name="BodySprite" type="AnimatedSprite2D" parent="Visuals"]
+z_index = 1
+sprite_frames = SubResource("SpriteFrames_eo4u0")
+animation = &"idle"
+
+[node name="BaseSprite" type="Sprite2D" parent="Visuals"]
+texture = ExtResource("8_0dv4j")
+offset = Vector2(-2, 0)
+hframes = 4
+vframes = 2
+
+[node name="Audio" type="Node" parent="." node_paths=PackedStringArray("turret_ranged")]
+script = ExtResource("10_6k4ik")
+turret_ranged = NodePath("../Components/RangedComp")
+
+[node name="GunSound" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("9_tg0ex")
+volume_db = -8.0
+pitch_scale = 2.0
+bus = &"SFX"

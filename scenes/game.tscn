@@ -1,21 +1,26 @@
-[gd_scene load_steps=44 format=3 uid="uid://bbtrde7tvkisy"]
+[gd_scene load_steps=50 format=3 uid="uid://bbtrde7tvkisy"]
 
 [ext_resource type="PackedScene" uid="uid://ytw0s5xnqwvt" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://d2o1hku0svi7t" path="res://scripts/game_scene/game.gd" id="1_yqjtg"]
 [ext_resource type="Script" uid="uid://d05ojyvqdl0s7" path="res://scripts/game_scene/camera_2d.gd" id="4_lbhrr"]
-[ext_resource type="Script" uid="uid://dixn701xl56vv" path="res://scripts/game_scene/spawner.gd" id="5_iywne"]
+[ext_resource type="Script" uid="uid://ccldnij14thxu" path="res://scripts/game_scene/object_spawner.gd" id="5_264po"]
+[ext_resource type="Script" path="res://scripts/game_scene/spawner.gd" id="5_iywne"]
 [ext_resource type="Script" uid="uid://bcocptbr3821k" path="res://scripts/game_scene/ui/pause_menu.gd" id="5_p57ef"]
 [ext_resource type="Script" uid="uid://brohp3alww54k" path="res://scripts/game_scene/ui/ui.gd" id="5_u5sy4"]
-[ext_resource type="Texture2D" uid="uid://d20hm0rl44yhs" path="res://assets/sprites/new_ui_spritesheet.png" id="7_ssvqc"]
+[ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet_v2.png" id="6_1kice"]
+[ext_resource type="Script" uid="uid://ysb1rej05rno" path="res://scripts/game_scene/ui/hud_bars.gd" id="6_rysoc"]
 [ext_resource type="Script" uid="uid://cyt60aunvq71y" path="res://scripts/game_scene/ui/inventory.gd" id="8_kvpfn"]
 [ext_resource type="FontFile" uid="uid://cj53anigafm5t" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="9_kvuet"]
 [ext_resource type="Script" uid="uid://6avt386x6skk" path="res://scripts/game_scene/chunk_tile_map.gd" id="9_vtaks"]
-[ext_resource type="Script" uid="uid://hq086q0hvtut" path="res://scripts/progress_bars.gd" id="10_264po"]
+[ext_resource type="Script" uid="uid://kvm0revtye6k" path="res://scripts/game_scene/ui/hud_map.gd" id="10_5newe"]
 [ext_resource type="Script" uid="uid://dlfl58jvcogf5" path="res://scripts/game_scene/chunk_debug.gd" id="10_vtaks"]
+[ext_resource type="Texture2D" uid="uid://mk53qh8h10ke" path="res://assets/sprites/map_icons_spritesheet.png" id="11_37s47"]
 [ext_resource type="AudioStream" uid="uid://d0bs4frau5lf8" path="res://assets/audio/sound_effects/pause_sound.wav" id="11_ca42v"]
 [ext_resource type="Theme" uid="uid://c8t8fqq1p8n4l" path="res://resources/custom_ui.tres" id="12_ssvqc"]
-[ext_resource type="Script" path="res://scripts/debug.gd" id="15_264po"]
+[ext_resource type="Theme" uid="uid://d0hhc2538lbdn" path="res://resources/debug_ui.tres" id="14_264po"]
+[ext_resource type="Script" uid="uid://b5ihjg2jg7kkh" path="res://scripts/game_scene/ui/debug/debug_panel.gd" id="15_264po"]
 [ext_resource type="AudioStream" uid="uid://c3lyo02lbnyxw" path="res://assets/audio/songs/8_bit_mimic.wav" id="15_ir15t"]
+[ext_resource type="Script" uid="uid://cse3mqdmlr8dq" path="res://scripts/game_scene/ui/debug/tree.gd" id="16_1kice"]
 [ext_resource type="Texture2D" uid="uid://ccfwh73q4xx04" path="res://assets/tilesheets/tilemap.png" id="16_264po"]
 
 [sub_resource type="Environment" id="Environment_yqjtg"]
@@ -24,73 +29,72 @@ glow_enabled = true
 glow_blend_mode = 0
 glow_hdr_threshold = 0.93
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5newe"]
-atlas = ExtResource("7_ssvqc")
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_1kice"]
+frequency = 1.0
+
+[sub_resource type="Curve" id="Curve_37s47"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1e-05, 0), 0.0337082, 0.0337082, 0, 0, Vector2(2e-05, 1), 0.0, 0.0, 0, 0, Vector2(0.0531915, 0), 0.0, 0.0, 0, 0, Vector2(0.12234, 0), 0.0, 0.0, 0, 0, Vector2(0.132979, 0.123596), 0.0, 0.0, 0, 0, Vector2(0.159574, 0), 0.0, 0.0, 0, 0, Vector2(0.170213, 0.52809), 0.0, 0.0, 0, 0, Vector2(0.191489, 1), 0.0, 0.0, 0, 0, Vector2(0.223404, 0), 0.0, 0.0, 0, 0, Vector2(0.260638, 0.820225), 0.0, 0.0, 0, 0, Vector2(0.308511, 0), 0.0, 0.0, 0, 0, Vector2(0.335106, 0.606742), 0.0, 0.0, 0, 0, Vector2(0.367021, 0), 0.0, 0.0, 0, 0, Vector2(0.388298, 0.741573), 0.0, 0.0, 0, 0, Vector2(0.425532, 1), 0.0, 0.0, 0, 0, Vector2(0.441489, 0), 0.0, 0.0, 0, 0, Vector2(0.515957, 0), 0.0, 0.0, 0, 0, Vector2(0.526596, 0.685393), 0.0, 0.0, 0, 0, Vector2(0.574468, 1), 0.0, 0.0, 0, 0, Vector2(0.579787, 0), 0.0, 0.0, 0, 0, Vector2(0.643617, 0), 0.0, 0.0, 0, 0, Vector2(0.648936, 0.539326), 0.0, 0.0, 0, 0, Vector2(0.696809, 0), 0.0, 0.0, 0, 0, Vector2(0.723404, 1), 0.0, 0.0, 0, 0, Vector2(0.781915, 0.561798), 0.0, 0.0, 0, 0, Vector2(0.797872, 0), 0.0, 0.0, 0, 0, Vector2(0.851064, 1), 0.0, 0.0, 0, 0, Vector2(0.87766, 0.460674), 0.0, 0.0, 0, 0, Vector2(0.882979, 0.730337), 0.0, 0.0, 0, 0, Vector2(0.893617, 0), 0.0, 0.0, 0, 0, Vector2(0.941489, 0), 0.0, 0.0, 0, 0, Vector2(0.968085, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 34
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1kice"]
+atlas = ExtResource("6_1kice")
 region = Rect2(4, 4, 54, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_37s47"]
-atlas = ExtResource("7_ssvqc")
+atlas = ExtResource("6_1kice")
 region = Rect2(520, 8, 454, 42)
-margin = Rect2(4, 4, 0, 8)
+margin = Rect2(4, 4, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bt5mj"]
-atlas = ExtResource("7_ssvqc")
+atlas = ExtResource("6_1kice")
 region = Rect2(978, 4, 464, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e1j6l"]
-atlas = ExtResource("7_ssvqc")
+atlas = ExtResource("6_1kice")
 region = Rect2(62, 8, 454, 42)
-margin = Rect2(4, 4, 6, 8)
-
-[sub_resource type="LabelSettings" id="LabelSettings_rysoc"]
-font = ExtResource("9_kvuet")
-font_size = 120
-font_color = Color(0, 0, 0, 1)
-outline_size = 25
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pl11u"]
-atlas = ExtResource("7_ssvqc")
-region = Rect2(1446, 4, 117, 50)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ssvqc"]
-atlas = ExtResource("7_ssvqc")
-region = Rect2(1567, 4, 117, 50)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bhx41"]
-atlas = ExtResource("7_ssvqc")
-region = Rect2(1446, 4, 117, 50)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_264po"]
-atlas = ExtResource("7_ssvqc")
-region = Rect2(1567, 4, 117, 50)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qnb83"]
-atlas = ExtResource("7_ssvqc")
-region = Rect2(4, 58, 44, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_sww3w"]
-atlas = ExtResource("7_ssvqc")
-region = Rect2(410, 62, 354, 32)
-margin = Rect2(4, 4, 0, 8)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_suyxu"]
-atlas = ExtResource("7_ssvqc")
-region = Rect2(768, 58, 364, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_sgl2t"]
-atlas = ExtResource("7_ssvqc")
-region = Rect2(52, 62, 354, 32)
-margin = Rect2(4, 4, 6, 8)
+margin = Rect2(4, 4, 8, 8)
 
 [sub_resource type="LabelSettings" id="LabelSettings_5newe"]
 font = ExtResource("9_kvuet")
-font_size = 96
+font_size = 30
 font_color = Color(0, 0, 0, 1)
-outline_size = 20
+outline_size = 8
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qouja"]
-atlas = ExtResource("7_ssvqc")
-region = Rect2(1611, 91, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_5newe"]
+atlas = ExtResource("6_1kice")
+region = Rect2(1446, 4, 118, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pl11u"]
+atlas = ExtResource("6_1kice")
+region = Rect2(1567, 4, 118, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bhx41"]
+atlas = ExtResource("6_1kice")
+region = Rect2(4, 58, 44, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qnb83"]
+atlas = ExtResource("6_1kice")
+region = Rect2(410, 62, 354, 32)
+margin = Rect2(4, 4, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sww3w"]
+atlas = ExtResource("6_1kice")
+region = Rect2(768, 58, 364, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_suyxu"]
+atlas = ExtResource("6_1kice")
+region = Rect2(52, 62, 354, 32)
+margin = Rect2(4, 4, 8, 8)
+
+[sub_resource type="LabelSettings" id="LabelSettings_37s47"]
+font = ExtResource("9_kvuet")
+font_size = 24
+font_color = Color(0, 0, 0, 1)
+outline_size = 8
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rysoc"]
+atlas = ExtResource("6_1kice")
+region = Rect2(1614, 90, 16, 16)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ca42v"]
 font = ExtResource("9_kvuet")
@@ -99,10 +103,15 @@ shadow_size = 4
 shadow_color = Color(0, 0, 0, 0.74902)
 shadow_offset = Vector2(2, 2)
 
-[sub_resource type="LabelSettings" id="LabelSettings_1kice"]
-font = ExtResource("9_kvuet")
-shadow_color = Color(0, 0, 0, 1)
-shadow_offset = Vector2(2, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wljb1"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1kice"]
+texture = ExtResource("6_1kice")
+texture_margin_left = 32.0
+texture_margin_top = 32.0
+texture_margin_right = 32.0
+texture_margin_bottom = 32.0
+region_rect = Rect2(1798, 4, 106, 106)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kvpfn"]
 texture = ExtResource("16_264po")
@@ -176,16 +185,22 @@ environment = SubResource("Environment_yqjtg")
 [node name="Player" parent="EntityContainer" instance=ExtResource("1_uwrxv")]
 
 [node name="Camera2D" type="Camera2D" parent="EntityContainer/Player"]
-zoom = Vector2(2, 2)
-
+offset = Vector2(2.76, 0)
+zoom = Vector2(2.4, 2.4)
 process_callback = 0
 position_smoothing_enabled = true
 script = ExtResource("4_lbhrr")
 
-[node name="Spawner" type="Node2D" parent="."]
+[node name="ObjectSpawner" type="Node2D" parent="." node_paths=PackedStringArray("entity_container")]
+script = ExtResource("5_264po")
+noise = SubResource("FastNoiseLite_1kice")
+curve = SubResource("Curve_37s47")
+entity_container = NodePath("../EntityContainer")
+
+[node name="EnemySpawner" type="Node2D" parent="."]
 script = ExtResource("5_iywne")
 
-[node name="SpawnTimer" type="Timer" parent="Spawner"]
+[node name="SpawnTimer" type="Timer" parent="EnemySpawner"]
 wait_time = 0.8
 autostart = true
 
@@ -193,166 +208,238 @@ autostart = true
 process_mode = 3
 script = ExtResource("5_u5sy4")
 
-[node name="HUD" type="Control" parent="UI"]
+[node name="HUDBars" type="Control" parent="UI" node_paths=PackedStringArray("player", "game")]
 process_mode = 1
 custom_minimum_size = Vector2(1152, 648)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1600.0
 offset_bottom = 900.0
+script = ExtResource("6_rysoc")
+player = NodePath("../../EntityContainer/Player")
+game = NodePath("../..")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/HUD" node_paths=PackedStringArray("player", "game")]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/HUDBars"]
 layout_mode = 0
 offset_left = 4.0
 offset_top = 4.0
-offset_right = 879.0
-offset_bottom = 170.0
-script = ExtResource("10_264po")
-player = NodePath("../../../EntityContainer/Player")
-game = NodePath("../../..")
+offset_right = 44.0
+offset_bottom = 44.0
 
-[node name="PowerBar" type="HBoxContainer" parent="UI/HUD/VBoxContainer"]
+[node name="PowerBar" type="HBoxContainer" parent="UI/HUDBars/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 0
 
-[node name="Symbol" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar"]
+[node name="Icon" type="TextureRect" parent="UI/HUDBars/VBoxContainer/PowerBar"]
 layout_mode = 2
-texture = SubResource("AtlasTexture_5newe")
+texture = SubResource("AtlasTexture_1kice")
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="UI/HUD/VBoxContainer/PowerBar"]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="UI/HUDBars/VBoxContainer/PowerBar"]
 layout_mode = 2
 value = 100.0
 texture_under = SubResource("AtlasTexture_37s47")
 texture_over = SubResource("AtlasTexture_bt5mj")
 texture_progress = SubResource("AtlasTexture_e1j6l")
 
-[node name="Label" type="Label" parent="UI/HUD/VBoxContainer/PowerBar/TextureProgressBar"]
-offset_top = -4.0
-offset_right = 422.0
-offset_bottom = 236.0
-scale = Vector2(0.25, 0.25)
-text = " 100"
-label_settings = SubResource("LabelSettings_rysoc")
-vertical_alignment = 1
+[node name="MarginContainer" type="MarginContainer" parent="UI/HUDBars/VBoxContainer/PowerBar/TextureProgressBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_right = 56
 
-[node name="1Bar" type="Control" parent="UI/HUD/VBoxContainer/PowerBar"]
-custom_minimum_size = Vector2(45, 0)
+[node name="Label" type="Label" parent="UI/HUDBars/VBoxContainer/PowerBar/TextureProgressBar/MarginContainer"]
 layout_mode = 2
-
-[node name="On" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar/1Bar"]
-layout_mode = 2
-offset_left = -36.0
-offset_right = 81.0
-offset_bottom = 50.0
-texture = SubResource("AtlasTexture_pl11u")
-
-[node name="Off" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar/1Bar"]
-offset_left = -36.0
-offset_right = 81.0
-offset_bottom = 50.0
-texture = SubResource("AtlasTexture_ssvqc")
-
-[node name="2Bar" type="Control" parent="UI/HUD/VBoxContainer/PowerBar"]
-custom_minimum_size = Vector2(81, 0)
-layout_mode = 2
-
-[node name="On" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar/2Bar"]
-offset_right = 117.0
-offset_bottom = 50.0
-texture = SubResource("AtlasTexture_bhx41")
-
-[node name="Off" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar/2Bar"]
-layout_mode = 2
-offset_right = 117.0
-offset_bottom = 50.0
-texture = SubResource("AtlasTexture_264po")
-
-[node name="4Bar" type="Control" parent="UI/HUD/VBoxContainer/PowerBar"]
-custom_minimum_size = Vector2(81, 0)
-layout_mode = 2
-
-[node name="On" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar/4Bar"]
-offset_right = 117.0
-offset_bottom = 50.0
-texture = SubResource("AtlasTexture_bhx41")
-
-[node name="Off" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar/4Bar"]
-offset_right = 117.0
-offset_bottom = 50.0
-texture = SubResource("AtlasTexture_264po")
-
-[node name="8Bar" type="Control" parent="UI/HUD/VBoxContainer/PowerBar"]
-custom_minimum_size = Vector2(81, 0)
-layout_mode = 2
-
-[node name="On" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar/8Bar"]
-offset_right = 117.0
-offset_bottom = 50.0
-texture = SubResource("AtlasTexture_bhx41")
-
-[node name="Off" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar/8Bar"]
-offset_right = 117.0
-offset_bottom = 50.0
-texture = SubResource("AtlasTexture_264po")
-
-[node name="16Bar" type="Control" parent="UI/HUD/VBoxContainer/PowerBar"]
-custom_minimum_size = Vector2(45, 0)
-layout_mode = 2
-
-[node name="On" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar/16Bar"]
-offset_right = 117.0
-offset_bottom = 50.0
-texture = SubResource("AtlasTexture_bhx41")
-
-[node name="Off" type="TextureRect" parent="UI/HUD/VBoxContainer/PowerBar/16Bar"]
-offset_right = 117.0
-offset_bottom = 50.0
-texture = SubResource("AtlasTexture_264po")
-
-[node name="HealthBar" type="HBoxContainer" parent="UI/HUD/VBoxContainer"]
-layout_mode = 2
-
-[node name="Symbol" type="TextureRect" parent="UI/HUD/VBoxContainer/HealthBar"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_qnb83")
-
-[node name="TextureProgressBar" type="TextureProgressBar" parent="UI/HUD/VBoxContainer/HealthBar"]
-layout_mode = 2
-value = 100.0
-texture_under = SubResource("AtlasTexture_sww3w")
-texture_over = SubResource("AtlasTexture_suyxu")
-texture_progress = SubResource("AtlasTexture_sgl2t")
-
-[node name="Label" type="Label" parent="UI/HUD/VBoxContainer/HealthBar/TextureProgressBar"]
-offset_top = -4.0
-offset_right = 113.0
-offset_bottom = 188.0
-scale = Vector2(0.25, 0.25)
-text = " 50/50"
+text = "100"
 label_settings = SubResource("LabelSettings_5newe")
 vertical_alignment = 1
 
-[node name="ScrapCounter" type="MarginContainer" parent="UI/HUD/VBoxContainer"]
+[node name="1Bar" type="Control" parent="UI/HUDBars/VBoxContainer/PowerBar"]
+custom_minimum_size = Vector2(81, 0)
+layout_mode = 2
+
+[node name="On" type="TextureRect" parent="UI/HUDBars/VBoxContainer/PowerBar/1Bar"]
+layout_mode = 0
+offset_left = -36.0
+offset_right = 81.0
+offset_bottom = 50.0
+texture = SubResource("AtlasTexture_5newe")
+
+[node name="Off" type="TextureRect" parent="UI/HUDBars/VBoxContainer/PowerBar/1Bar"]
+layout_mode = 0
+offset_left = -36.0
+offset_right = 82.0
+offset_bottom = 50.0
+texture = SubResource("AtlasTexture_pl11u")
+
+[node name="2Bar" type="Control" parent="UI/HUDBars/VBoxContainer/PowerBar"]
+custom_minimum_size = Vector2(81, 0)
+layout_mode = 2
+
+[node name="On" type="TextureRect" parent="UI/HUDBars/VBoxContainer/PowerBar/2Bar"]
+layout_mode = 0
+offset_left = -36.0
+offset_right = 81.0
+offset_bottom = 50.0
+texture = SubResource("AtlasTexture_5newe")
+
+[node name="Off" type="TextureRect" parent="UI/HUDBars/VBoxContainer/PowerBar/2Bar"]
+layout_mode = 0
+offset_left = -36.0
+offset_right = 82.0
+offset_bottom = 50.0
+texture = SubResource("AtlasTexture_pl11u")
+
+[node name="4Bar" type="Control" parent="UI/HUDBars/VBoxContainer/PowerBar"]
+custom_minimum_size = Vector2(81, 0)
+layout_mode = 2
+
+[node name="On" type="TextureRect" parent="UI/HUDBars/VBoxContainer/PowerBar/4Bar"]
+layout_mode = 0
+offset_left = -36.0
+offset_right = 81.0
+offset_bottom = 50.0
+texture = SubResource("AtlasTexture_5newe")
+
+[node name="Off" type="TextureRect" parent="UI/HUDBars/VBoxContainer/PowerBar/4Bar"]
+layout_mode = 0
+offset_left = -36.0
+offset_right = 82.0
+offset_bottom = 50.0
+texture = SubResource("AtlasTexture_pl11u")
+
+[node name="8Bar" type="Control" parent="UI/HUDBars/VBoxContainer/PowerBar"]
+custom_minimum_size = Vector2(81, 0)
+layout_mode = 2
+
+[node name="On" type="TextureRect" parent="UI/HUDBars/VBoxContainer/PowerBar/8Bar"]
+layout_mode = 0
+offset_left = -36.0
+offset_right = 81.0
+offset_bottom = 50.0
+texture = SubResource("AtlasTexture_5newe")
+
+[node name="Off" type="TextureRect" parent="UI/HUDBars/VBoxContainer/PowerBar/8Bar"]
+layout_mode = 0
+offset_left = -36.0
+offset_right = 82.0
+offset_bottom = 50.0
+texture = SubResource("AtlasTexture_pl11u")
+
+[node name="16Bar" type="Control" parent="UI/HUDBars/VBoxContainer/PowerBar"]
+custom_minimum_size = Vector2(81, 0)
+layout_mode = 2
+
+[node name="On" type="TextureRect" parent="UI/HUDBars/VBoxContainer/PowerBar/16Bar"]
+layout_mode = 0
+offset_left = -36.0
+offset_right = 81.0
+offset_bottom = 50.0
+texture = SubResource("AtlasTexture_5newe")
+
+[node name="Off" type="TextureRect" parent="UI/HUDBars/VBoxContainer/PowerBar/16Bar"]
+layout_mode = 0
+offset_left = -36.0
+offset_right = 82.0
+offset_bottom = 50.0
+texture = SubResource("AtlasTexture_pl11u")
+
+[node name="HealthBar" type="HBoxContainer" parent="UI/HUDBars/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Icon" type="TextureRect" parent="UI/HUDBars/VBoxContainer/HealthBar"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_bhx41")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="UI/HUDBars/VBoxContainer/HealthBar"]
+layout_mode = 2
+value = 100.0
+texture_under = SubResource("AtlasTexture_qnb83")
+texture_over = SubResource("AtlasTexture_sww3w")
+texture_progress = SubResource("AtlasTexture_suyxu")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/HUDBars/VBoxContainer/HealthBar/TextureProgressBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_right = 56
+
+[node name="Label" type="Label" parent="UI/HUDBars/VBoxContainer/HealthBar/TextureProgressBar/MarginContainer"]
+layout_mode = 2
+text = "50/50"
+label_settings = SubResource("LabelSettings_37s47")
+vertical_alignment = 1
+
+[node name="ScrapCounter" type="MarginContainer" parent="UI/HUDBars/VBoxContainer"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="TextureRect" type="TextureRect" parent="UI/HUD/VBoxContainer/ScrapCounter"]
+[node name="Icon" type="TextureRect" parent="UI/HUDBars/VBoxContainer/ScrapCounter"]
 layout_mode = 2
-texture = SubResource("AtlasTexture_qouja")
+texture = SubResource("AtlasTexture_rysoc")
 
-[node name="Label" type="Label" parent="UI/HUD/VBoxContainer/ScrapCounter/TextureRect"]
-layout_mode = 2
-offset_top = -4.0
-offset_right = 52.0
-offset_bottom = 48.0
+[node name="Label" type="Label" parent="UI/HUDBars/VBoxContainer/ScrapCounter/Icon"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -44.0
+offset_top = -48.0
+offset_right = 4.0
+grow_horizontal = 0
+grow_vertical = 0
 text = "50"
 label_settings = SubResource("LabelSettings_ca42v")
 horizontal_alignment = 2
 vertical_alignment = 2
 
+[node name="HUDMap" type="Control" parent="UI" node_paths=PackedStringArray("player", "icon_template", "map")]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
+script = ExtResource("10_5newe")
+player = NodePath("../../EntityContainer/Player")
+icon_template = NodePath("Icon")
+map = NodePath("Map")
+
+[node name="Icon" type="Sprite2D" parent="UI/HUDMap"]
+visible = false
+texture = ExtResource("11_37s47")
+hframes = 3
+region_rect = Rect2(1, 1, 24, 24)
+
+[node name="Map" type="Panel" parent="UI/HUDMap"]
+layout_mode = 0
+offset_left = -234.0
+offset_top = 14.0
+offset_right = -14.0
+offset_bottom = 234.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_wljb1")
+
+[node name="MapOverlay" type="Panel" parent="UI/HUDMap"]
+z_index = 10
+layout_mode = 0
+offset_left = -244.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = 244.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_1kice")
+
 [node name="PauseMenu" type="Control" parent="UI"]
 process_mode = 2
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1600.0
@@ -448,7 +535,7 @@ stream = ExtResource("11_ca42v")
 bus = &"SFX"
 
 [node name="Inventory" type="Control" parent="UI"]
-visible = false
+process_mode = 1
 custom_minimum_size = Vector2(1152, 648)
 layout_mode = 3
 anchors_preset = 0
@@ -475,21 +562,36 @@ text = "THIS IS AN INVENTORY PLACEHOLDER"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Debug" type="Control" parent="UI" node_paths=PackedStringArray("player")]
+[node name="DebugPanel" type="Control" parent="UI"]
 visible = false
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -304.0
+offset_bottom = 632.0
+grow_horizontal = 0
+theme = ExtResource("14_264po")
 script = ExtResource("15_264po")
-player = NodePath("../../EntityContainer/Player")
 
-[node name="Label" type="Label" parent="UI/Debug"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-text = "afdsas"
-label_settings = SubResource("LabelSettings_1kice")
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/DebugPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="UI/DebugPanel/VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+text = "Debug Panel"
+
+[node name="Tree" type="Tree" parent="UI/DebugPanel/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("16_1kice")
 
 [node name="SandTileMap" type="TileMapLayer" parent="."]
 z_index = -100
@@ -516,18 +618,23 @@ zeroth_tile = Vector2i(4, 0)
 z_index = 100
 script = ExtResource("10_vtaks")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="GameMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("15_ir15t")
 autoplay = true
 bus = &"Music"
 
 [connection signal="child_entered_tree" from="EntityContainer" to="." method="_on_entities_child_entered_tree"]
+[connection signal="child_entered_tree" from="EntityContainer" to="UI/HUDMap" method="_on_entity_container_child_entered_tree"]
 [connection signal="child_exiting_tree" from="EntityContainer" to="." method="_on_entities_child_exiting_tree"]
-[connection signal="timeout" from="Spawner/SpawnTimer" to="." method="_on_timer_timeout"]
-[connection signal="timeout" from="Spawner/SpawnTimer" to="Spawner" method="_on_spawn_timer_timeout"]
+[connection signal="child_exiting_tree" from="EntityContainer" to="UI/HUDMap" method="_on_entity_container_child_exiting_tree"]
+[connection signal="timeout" from="EnemySpawner/SpawnTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="EnemySpawner/SpawnTimer" to="EnemySpawner" method="_on_spawn_timer_timeout"]
 [connection signal="pressed" from="UI/PauseMenu/PanelContainer/VBoxContainer/Resume" to="UI/PauseMenu" method="_on_resume_pressed"]
 [connection signal="pressed" from="UI/PauseMenu/PanelContainer/VBoxContainer/Restart" to="UI/PauseMenu" method="_on_restart_pressed"]
 [connection signal="pressed" from="UI/PauseMenu/PanelContainer/VBoxContainer/Quit" to="UI/PauseMenu" method="_on_quit_pressed"]
 [connection signal="value_changed" from="UI/PauseMenu/PanelContainer/VBoxContainer/MasterVolumeContainer/MasterVolumeSlider" to="UI/PauseMenu" method="_on_master_volume_slider_value_changed"]
 [connection signal="value_changed" from="UI/PauseMenu/PanelContainer/VBoxContainer/MusicVolumeContainer/MusicVolumeSlider" to="UI/PauseMenu" method="_on_music_volume_slider_value_changed"]
 [connection signal="value_changed" from="UI/PauseMenu/PanelContainer/VBoxContainer/SFXVolumeContainer/SFXVolumeSlider" to="UI/PauseMenu" method="_on_sfx_volume_slider_value_changed"]
+[connection signal="toggled" from="UI/DebugPanel/VBoxContainer/Button" to="UI/DebugPanel/VBoxContainer/Tree" method="_on_button_toggled"]
+[connection signal="button_clicked" from="UI/DebugPanel/VBoxContainer/Tree" to="UI/DebugPanel" method="_on_tree_button_clicked"]
+[connection signal="item_edited" from="UI/DebugPanel/VBoxContainer/Tree" to="UI/DebugPanel" method="_on_tree_item_edited"]

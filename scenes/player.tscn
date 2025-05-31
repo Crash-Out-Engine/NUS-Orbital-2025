@@ -1,78 +1,177 @@
-
-[gd_scene load_steps=54 format=3 uid="uid://ytw0s5xnqwvt"]
-
+[gd_scene load_steps=66 format=3 uid="uid://ytw0s5xnqwvt"]
 
 [ext_resource type="Script" uid="uid://c8f8kowfp34yp" path="res://scripts/player_scene/player.gd" id="1_f1ej7"]
-[ext_resource type="Script" uid="uid://cndl5nak0qpxp" path="res://scripts/effectables/movement.gd" id="2_g2els"]
+[ext_resource type="Script" uid="uid://cndl5nak0qpxp" path="res://scripts/properties/movement_prop.gd" id="2_g2els"]
 [ext_resource type="Texture2D" uid="uid://dvanyjoqcolwr" path="res://assets/sprites/player_spritesheet.png" id="2_y4r1p"]
-[ext_resource type="Script" uid="uid://d06c3u8kh3ek0" path="res://scripts/effectables/health_capacity.gd" id="3_4ni07"]
 [ext_resource type="Texture2D" uid="uid://d3irto6bnhwwx" path="res://assets/sprites/playergun_spritesheet.png" id="3_d2wvv"]
-[ext_resource type="Script" uid="uid://bg2iinlcp53aa" path="res://scripts/effectables/health.gd" id="3_qhqgy"]
-[ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox.gd" id="4_dqkch"]
-[ext_resource type="Script" uid="uid://cwdm3dvyba0l3" path="res://scripts/effectables/ranged_cooldown.gd" id="6_tuyoq"]
-[ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/effectables/target_priority.gd" id="7_fjrip"]
-[ext_resource type="Script" uid="uid://s08wfqwqu2jn" path="res://scripts/components/ranged_player.gd" id="7_smehm"]
-[ext_resource type="Script" uid="uid://qxcwl20lyaga" path="res://scripts/effect_mod.gd" id="8_y4r1p"]
-[ext_resource type="Resource" uid="uid://dl56w1h7wf83j" path="res://resources/effect_mods/base_damage.tres" id="9_ur7pv"]
+[ext_resource type="Script" uid="uid://bg2iinlcp53aa" path="res://scripts/properties/health_prop.gd" id="3_qhqgy"]
+[ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox_comp.gd" id="4_dqkch"]
+[ext_resource type="Script" uid="uid://cwdm3dvyba0l3" path="res://scripts/properties/ranged_cooldown_prop.gd" id="6_tuyoq"]
+[ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/properties/target_priority_prop.gd" id="7_fjrip"]
+[ext_resource type="Script" uid="uid://s08wfqwqu2jn" path="res://scripts/components/ranged_player_comp.gd" id="7_smehm"]
+[ext_resource type="Script" uid="uid://cceowy0wh5ufb" path="res://scripts/properties/health_capacity_prop.gd" id="8_4ni07"]
 [ext_resource type="AudioStream" uid="uid://dc66si5kieoq4" path="res://assets/audio/sound_effects/laser_gunshot.wav" id="12_3v2ag"]
 [ext_resource type="Script" uid="uid://dng6x4ecq2npd" path="res://scripts/player_scene/audio.gd" id="13_a8ls1"]
 [ext_resource type="AudioStream" uid="uid://dk7lmxukxhhcr" path="res://assets/audio/sound_effects/error.wav" id="13_f1ej7"]
 [ext_resource type="AudioStream" uid="uid://ciu1er752oye4" path="res://assets/audio/sound_effects/sand_steps.wav" id="13_jej6c"]
+[ext_resource type="Resource" uid="uid://dtogyr1espqpy" path="res://resources/effects/health.tres" id="13_l71n6"]
+[ext_resource type="Script" uid="uid://bc5nkvlgktyor" path="res://scripts/target_filter.gd" id="14_l71n6"]
 [ext_resource type="Script" uid="uid://ddhfg683ma0hh" path="res://scripts/player_scene/visuals.gd" id="14_oprun"]
-[ext_resource type="Script" uid="uid://bx0i0x84j70ct" path="res://scripts/components/melee.gd" id="17_4r5pv"]
+[ext_resource type="Script" uid="uid://bnt7cwx8k0nm0" path="res://scripts/components/mod_slot_comp.gd" id="16_ke2ow"]
+[ext_resource type="Script" uid="uid://bx0i0x84j70ct" path="res://scripts/components/melee_comp.gd" id="17_4r5pv"]
 [ext_resource type="AudioStream" uid="uid://dn6k75a1tyl8k" path="res://assets/audio/sound_effects/hit_sound.wav" id="17_60mlk"]
-[ext_resource type="Script" uid="uid://cu55fh5hl5rxd" path="res://scripts/effectables/melee_cooldown.gd" id="18_60mlk"]
-[ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/effects/effect.gd" id="19_a38lo"]
-[ext_resource type="Script" uid="uid://dve6ix5ogwfw" path="res://scripts/effectables/melee_damage.gd" id="19_i4ail"]
+[ext_resource type="Script" uid="uid://c038au8w13gc1" path="res://scripts/effects/build_effect.gd" id="17_ke2ow"]
+[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mod_base.gd" id="17_ujl30"]
+[ext_resource type="Resource" uid="uid://dl56w1h7wf83j" path="res://resources/effect_mods/base_damage.tres" id="18_31cv2"]
+[ext_resource type="Script" uid="uid://cu55fh5hl5rxd" path="res://scripts/properties/melee_cooldown_prop.gd" id="18_60mlk"]
+[ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/effects/effect_base.gd" id="19_a38lo"]
+[ext_resource type="Script" path="res://scripts/properties/melee_damage_prop.gd" id="19_i4ail"]
 [ext_resource type="Script" uid="uid://2fh28xow6f1j" path="res://scripts/effects/health_effect.gd" id="20_4ni07"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
+radius = 5.0
+height = 26.0
+
+[sub_resource type="Animation" id="Animation_l71n6"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_4ni07"]
+resource_name = "melee_attack"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Components/MeleeComp:process_mode")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [4, 0, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Components/MeleeComp:visible")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Components/RepairComp:process_mode")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [4, 0, 4]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Components/RepairComp:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l71n6"]
+_data = {
+&"RESET": SubResource("Animation_l71n6"),
+&"melee_attack": SubResource("Animation_4ni07")
+}
+
+[sub_resource type="Resource" id="Resource_ujl30"]
+script = ExtResource("14_l71n6")
+targets = Array[int]([2])
+metadata/_custom_type_script = "uid://bc5nkvlgktyor"
+
+[sub_resource type="Resource" id="Resource_pf23h"]
+script = ExtResource("14_l71n6")
+targets = Array[int]([2])
+metadata/_custom_type_script = "uid://bc5nkvlgktyor"
+
+[sub_resource type="Resource" id="Resource_l71n6"]
+script = ExtResource("20_4ni07")
+_interval = -1.0
+_repeat = 0
+_factor = -20.0
+metadata/_custom_type_script = "uid://2fh28xow6f1j"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a38lo"]
+size = Vector2(60, 40)
+
+[sub_resource type="Resource" id="Resource_ke2ow"]
+script = ExtResource("14_l71n6")
+targets = Array[int]([4, 3])
+metadata/_custom_type_script = "uid://bc5nkvlgktyor"
+
+[sub_resource type="Resource" id="Resource_31cv2"]
+script = ExtResource("17_ke2ow")
+_interval = -1.0
+_repeat = 0
+_factor = 10.0
+metadata/_custom_type_script = "uid://c038au8w13gc1"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a38lo"]
 atlas = ExtResource("2_y4r1p")
-region = Rect2(0, 0, 32, 32)
+region = Rect2(0, 0, 30, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hax0n"]
 atlas = ExtResource("2_y4r1p")
-region = Rect2(32, 0, 32, 32)
+region = Rect2(32, 0, 30, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t4otl"]
 atlas = ExtResource("2_y4r1p")
-region = Rect2(64, 0, 32, 32)
+region = Rect2(64, 0, 30, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j2b1d"]
 atlas = ExtResource("2_y4r1p")
-region = Rect2(96, 0, 32, 32)
+region = Rect2(96, 0, 30, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cs1tg"]
 atlas = ExtResource("2_y4r1p")
-region = Rect2(0, 32, 32, 32)
+region = Rect2(0, 32, 30, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2dvfe"]
 atlas = ExtResource("2_y4r1p")
-region = Rect2(32, 32, 32, 32)
+region = Rect2(32, 32, 30, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_giy8y"]
 atlas = ExtResource("2_y4r1p")
-region = Rect2(64, 32, 32, 32)
+region = Rect2(64, 32, 30, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fdfoy"]
 atlas = ExtResource("2_y4r1p")
-region = Rect2(96, 32, 32, 32)
+region = Rect2(96, 32, 30, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hhpqf"]
 atlas = ExtResource("2_y4r1p")
-region = Rect2(128, 32, 32, 32)
+region = Rect2(128, 32, 30, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g5jhy"]
 atlas = ExtResource("2_y4r1p")
-region = Rect2(160, 32, 32, 32)
+region = Rect2(160, 32, 30, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_holxr"]
 atlas = ExtResource("2_y4r1p")
-region = Rect2(192, 32, 32, 32)
+region = Rect2(192, 32, 30, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mx1m4"]
 atlas = ExtResource("2_y4r1p")
-region = Rect2(224, 32, 32, 32)
+region = Rect2(224, 32, 30, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4ni07"]
 animations = [{
@@ -143,23 +242,23 @@ region = Rect2(60, 0, 15, 9)
 atlas = ExtResource("3_d2wvv")
 region = Rect2(0, 0, 15, 9)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dt7fs"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_pf23h"]
 atlas = ExtResource("3_d2wvv")
 region = Rect2(9, 9, 64, 47)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wqfne"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_dt7fs"]
 atlas = ExtResource("3_d2wvv")
 region = Rect2(73, 9, 64, 47)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wnwbv"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_wqfne"]
 atlas = ExtResource("3_d2wvv")
 region = Rect2(9, 56, 64, 47)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gl8cc"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_wnwbv"]
 atlas = ExtResource("3_d2wvv")
 region = Rect2(73, 56, 64, 47)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pf23h"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_gl8cc"]
 atlas = ExtResource("3_d2wvv")
 region = Rect2(0, 9, 9, 18)
 
@@ -192,6 +291,9 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_pf23h")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_dt7fs")
 }, {
 "duration": 1.0,
@@ -199,9 +301,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_wnwbv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gl8cc")
 }],
 "loop": false,
 "name": &"melee_fire",
@@ -209,183 +308,175 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_pf23h")
+"texture": SubResource("AtlasTexture_gl8cc")
 }],
 "loop": false,
 "name": &"melee_idle",
 "speed": 0.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4gjji"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_487ah"]
 atlas = ExtResource("3_d2wvv")
 region = Rect2(89, 0, 15, 5)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_u2ulf"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_md1ol"]
 atlas = ExtResource("3_d2wvv")
 region = Rect2(104, 0, 15, 5)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6e8lb"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_bj30b"]
 atlas = ExtResource("3_d2wvv")
 region = Rect2(119, 0, 15, 5)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_2gdjj"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_jc3p3"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_4gjji")
+"texture": SubResource("AtlasTexture_487ah")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_u2ulf")
+"texture": SubResource("AtlasTexture_md1ol")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6e8lb")
+"texture": SubResource("AtlasTexture_bj30b")
+}, {
+"duration": 1.0,
+"texture": null
 }],
 "loop": false,
 "name": &"default",
 "speed": 15.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4gjji"]
-size = Vector2(10, 26)
-
-[sub_resource type="Resource" id="Resource_l71n6"]
-script = ExtResource("20_4ni07")
-_interval = -1.0
-_repeat = 0
-_factor = -20.0
-metadata/_custom_type_script = "uid://2fh28xow6f1j"
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_487ah"]
-size = Vector2(60, 40)
-
-[sub_resource type="Animation" id="Animation_4ni07"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Melee:process_mode")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Melee:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="Animation" id="Animation_a38lo"]
-resource_name = "melee_attack"
-length = 0.40001
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Melee:process_mode")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.3),
-"transitions": PackedFloat32Array(1e+06, 1e+06, 1e+06),
-"update": 1,
-"values": [4, 0, 4]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Melee:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.3),
-"transitions": PackedFloat32Array(1, 1e+06, 1e+06),
-"update": 1,
-"values": [false, true, false]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_l71n6"]
-_data = {
-&"RESET": SubResource("Animation_4ni07"),
-&"melee_attack": SubResource("Animation_a38lo")
-}
-
-[node name="Player" type="CharacterBody2D" groups=["allies"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("ranged", "health", "health_capacity", "melee_cooldown") groups=["allies"]]
 script = ExtResource("1_f1ej7")
+ranged = NodePath("Components/RangedComp")
+health = NodePath("Properties/HealthProp")
+health_capacity = NodePath("Properties/HealthCapacityProp")
+melee_cooldown = NodePath("Properties/MeleeCooldownProp")
 
-[node name="Movement" type="Node" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 100
+shape = SubResource("CapsuleShape2D_g2els")
+
+[node name="MeleePlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Visuals")
+libraries = {
+&"": SubResource("AnimationLibrary_l71n6")
+}
+
+[node name="Properties" type="Node" parent="."]
+
+[node name="MovementProp" type="Node" parent="Properties" node_paths=PackedStringArray("target_priority")]
 script = ExtResource("2_g2els")
 initial_speed = 80.0
 is_player = true
+target_priority = NodePath("../TargetPriorityProp")
 
-[node name="HealthCapacity" type="Node" parent="."]
-script = ExtResource("3_4ni07")
-health_capacity = 50.0
-
-[node name="Health" type="Node" parent="."]
+[node name="HealthProp" type="Node" parent="Properties"]
 script = ExtResource("3_qhqgy")
 health_capacity = 50.0
 
-[node name="Hitbox" type="Node" parent="."]
-script = ExtResource("4_dqkch")
-metadata/_custom_type_script = "uid://wwqkkrfhwiyn"
-
-[node name="RangedCooldown" type="Node" parent="."]
+[node name="RangedCooldownProp" type="Node" parent="Properties"]
 script = ExtResource("6_tuyoq")
 ranged_cooldown = 0.2
 
-[node name="TargetPriority" type="Node" parent="."]
+[node name="TargetPriorityProp" type="Node" parent="Properties"]
 script = ExtResource("7_fjrip")
 initial_priority = 2.0
-team = "allies"
 
-[node name="Ranged" type="Node2D" parent="." node_paths=PackedStringArray("ranged_cooldown", "barrel", "target_priority")]
+[node name="MeleeCooldownProp" type="Node" parent="Properties"]
+script = ExtResource("18_60mlk")
+
+[node name="MeleeDamageProp" type="Node" parent="Properties"]
+script = ExtResource("19_i4ail")
+damage = null
+
+[node name="HealthCapacityProp" type="Node" parent="Properties"]
+script = ExtResource("8_4ni07")
+_health_capacity = 50.0
+
+[node name="Components" type="Node2D" parent="."]
+
+[node name="HitboxComp" type="Node" parent="Components"]
+script = ExtResource("4_dqkch")
+team = 1
+
+[node name="RangedComp" type="Node2D" parent="Components" node_paths=PackedStringArray("barrel", "ranged_cooldown")]
 script = ExtResource("7_smehm")
 active = true
-ranged_cooldown = NodePath("../RangedCooldown")
 barrel = NodePath("Barrel")
-target_priority = NodePath("../TargetPriority")
-effect_mods = Array[ExtResource("8_y4r1p")]([ExtResource("9_ur7pv")])
+ranged_cooldown = NodePath("../../Properties/RangedCooldownProp")
+target_filter = SubResource("Resource_ujl30")
+effects = Array[ExtResource("19_a38lo")]([ExtResource("13_l71n6")])
 metadata/_custom_type_script = "uid://s08wfqwqu2jn"
 
-[node name="Barrel" type="Node2D" parent="Ranged"]
+[node name="Barrel" type="Node2D" parent="Components/RangedComp"]
 position = Vector2(21, 0)
 
-[node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("melee_cooldown")]
+[node name="MeleeComp" type="Area2D" parent="Components" node_paths=PackedStringArray("melee_cooldown", "target_priority")]
+process_mode = 4
+visible = false
+script = ExtResource("17_4r5pv")
+melee_cooldown = NodePath("../../Properties/MeleeCooldownProp")
+target_priority = NodePath("../../Properties/TargetPriorityProp")
+target_filter = SubResource("Resource_pf23h")
+effects = Array[ExtResource("19_a38lo")]([SubResource("Resource_l71n6")])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Components/MeleeComp"]
+z_index = 100
+position = Vector2(28, 0)
+shape = SubResource("RectangleShape2D_a38lo")
+debug_color = Color(0.7, 0, 0, 0.419608)
+
+[node name="ModSlotComp" type="Node" parent="Components" node_paths=PackedStringArray("entity", "attack_comp")]
+script = ExtResource("16_ke2ow")
+mods = Array[ExtResource("17_ujl30")]([ExtResource("18_31cv2")])
+entity = NodePath("../..")
+attack_comp = NodePath("../RangedComp")
+metadata/_custom_type_script = "uid://bnt7cwx8k0nm0"
+
+[node name="RepairComp" type="Area2D" parent="Components" node_paths=PackedStringArray("melee_cooldown", "target_priority")]
+process_mode = 4
+visible = false
+script = ExtResource("17_4r5pv")
+melee_cooldown = NodePath("../../Properties/MeleeCooldownProp")
+target_priority = NodePath("../../Properties/TargetPriorityProp")
+target_filter = SubResource("Resource_ke2ow")
+effects = Array[ExtResource("19_a38lo")]([SubResource("Resource_31cv2")])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Components/RepairComp"]
+z_index = 100
+position = Vector2(28, 0)
+shape = SubResource("RectangleShape2D_a38lo")
+debug_color = Color(0.0583333, 0.7, 0, 0.419608)
+
+[node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("player_ranged", "player_melee", "player_repair", "player")]
 script = ExtResource("14_oprun")
-melee_cooldown = NodePath("../MeleeCooldown")
+player_ranged = NodePath("../Components/RangedComp")
+player_melee = NodePath("../Components/MeleeComp")
+player_repair = NodePath("../Components/RepairComp")
+player = NodePath("..")
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="Visuals"]
 sprite_frames = SubResource("SpriteFrames_4ni07")
 animation = &"idle"
-frame_progress = 0.640455
-offset = Vector2(1, 0)
 
 [node name="GunSprite" type="AnimatedSprite2D" parent="Visuals"]
 sprite_frames = SubResource("SpriteFrames_pf23h")
-animation = &"melee_fire"
+animation = &"gun_fire"
 offset = Vector2(14.5, 1.5)
 
 [node name="GunBlastSprite" type="AnimatedSprite2D" parent="Visuals/GunSprite"]
-visible = false
-sprite_frames = SubResource("SpriteFrames_2gdjj")
+sprite_frames = SubResource("SpriteFrames_jc3p3")
+frame = 3
+frame_progress = 1.0
 offset = Vector2(27.5, -0.5)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_4gjji")
-
-[node name="Audio" type="Node" parent="."]
+[node name="Audio" type="Node" parent="." node_paths=PackedStringArray("player", "player_ranged", "player_melee")]
 script = ExtResource("13_a8ls1")
+player = NodePath("..")
+player_ranged = NodePath("../Components/RangedComp")
+player_melee = NodePath("../Components/MeleeComp")
 
 [node name="LaserSound" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("12_3v2ag")
@@ -408,31 +499,7 @@ bus = &"SFX"
 stream = ExtResource("17_60mlk")
 bus = &"SFX"
 
-[node name="Melee" type="Area2D" parent="." node_paths=PackedStringArray("melee_cooldown")]
-script = ExtResource("17_4r5pv")
-melee_cooldown = NodePath("../MeleeCooldown")
-effects = Array[ExtResource("19_a38lo")]([SubResource("Resource_l71n6")])
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Melee"]
-position = Vector2(30, 0)
-shape = SubResource("RectangleShape2D_487ah")
-debug_color = Color(0.7, 0, 0.0116665, 0.419608)
-
-[node name="MeleeCooldown" type="Node" parent="."]
-script = ExtResource("18_60mlk")
-
-[node name="MeleeDamage" type="Node" parent="."]
-script = ExtResource("19_i4ail")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_l71n6")
-}
-
-[connection signal="just_changed" from="Health" to="." method="_on_health_just_changed"]
-[connection signal="just_emptied" from="Health" to="." method="_on_health_just_emptied"]
+[connection signal="just_changed" from="Properties/HealthProp" to="." method="_on_health_just_changed"]
+[connection signal="just_emptied" from="Properties/HealthProp" to="." method="_on_health_just_emptied"]
 [connection signal="melee_finished" from="Visuals" to="." method="_on_visuals_melee_finished"]
 [connection signal="animation_finished" from="Visuals/GunSprite" to="Visuals" method="_on_gun_sprite_animation_finished"]
-[connection signal="frame_changed" from="Visuals/GunSprite" to="Visuals" method="_on_gun_sprite_frame_changed"]
-[connection signal="animation_finished" from="Visuals/GunSprite/GunBlastSprite" to="Visuals" method="_on_gun_blast_sprite_animation_finished"]
-[connection signal="body_entered" from="Melee" to="Melee" method="_on_body_entered"]
