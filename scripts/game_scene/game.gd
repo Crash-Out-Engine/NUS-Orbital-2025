@@ -1,4 +1,4 @@
-extends Node2D
+extends Node2D # TODO: Remember to turn on master volume when releasing
 
 var power: float = 100.0 # HACK: power should be a separate system instead of existing within game.gd
 
