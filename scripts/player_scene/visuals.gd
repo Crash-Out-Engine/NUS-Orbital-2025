@@ -11,8 +11,6 @@ signal melee_finished()
 @export var player_repair: MeleeComp
 @export var player: Player
 
-var hand_locked: bool = false
-
 @onready var player_sprite := $PlayerSprite as AnimatedSprite2D
 @onready var gun_sprite := $GunSprite as AnimatedSprite2D
 @onready var gun_blast_sprite := $GunSprite/GunBlastSprite as AnimatedSprite2D
@@ -54,6 +52,7 @@ func _physics_process(_delta: float) -> void:
 	
 	if Input.is_action_just_released("add turret"):
 		gun_sprite.play("gun_idle")
+
 
 func play_gun_fire(_bullet):
 	gun_sprite.sprite_frames.set_animation_speed("gun_fire", 4.0 / player_ranged.ranged_cooldown.value)

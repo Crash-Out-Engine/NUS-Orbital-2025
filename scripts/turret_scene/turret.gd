@@ -18,11 +18,11 @@ enum State {
 @export_group("Properties")
 @export var health_capacity: HealthCapacityProp
 @export var health: HealthProp
+@export var build_prop: BuildProp
 
 @export_group("Components")
 @export var ranged: RangedBaseComp
 @export var hitbox: HitboxComp
-@export var build_prop: BuildProp
 
 var state: State:
 	set(value):
@@ -38,8 +38,8 @@ var player: Player
 
 func _ready() -> void:
 	state = State.PLACING
-	health.just_emptied.connect(func(): state = State.DESTROYED)
-	build_prop.just_changed.connect(build_or_repair)
+	health.emptied.connect(func(): state = State.DESTROYED)
+	build_prop.changed.connect(build_or_repair)
 
 
 func advance_state():
@@ -88,12 +88,13 @@ func handle_state_changed(from: State, to: State):
 			assert(false, "Invalid state change from %s to %s." % [State.find_key(from), State.find_key(to)])
 	
 
-
 func set_collidable(value: bool) -> void:
 	$CollisionShape2D.set_deferred("disabled", not value)
 
+
 func is_overlapping() -> bool:
 	return $PlacementArea.get_overlapping_bodies().any(func(body): return body.get_node_or_null(^"Components/HitboxComp") != null)
+
 
 func build_or_repair(from: float, to: float) -> void:
 	if state == State.PLANNED:
@@ -101,6 +102,6 @@ func build_or_repair(from: float, to: float) -> void:
 			state = State.OPERATIONAL
 		build_progressed.emit(to / build_target)
 	if state == State.OPERATIONAL:
-		var cost = min(player.scrap, min((to - from) * 10, health_capacity.value - health.value)/20)
+		var cost = min(player.scrap, min((to - from) * 10, health_capacity.value - health.value) / 20)
 		player.scrap -= cost
 		health.value += cost * 20

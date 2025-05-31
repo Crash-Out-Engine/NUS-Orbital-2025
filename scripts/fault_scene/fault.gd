@@ -32,8 +32,8 @@ var state: State:
 
 func _ready() -> void:
 	state = State.SABOTAGED
-	build_prop.just_changed.connect(func(_from, to): check_repair(to))
-	sabotage_prop.just_changed.connect(check_sabotage)
+	build_prop.changed.connect(func(_from, to): check_repair(to))
+	sabotage_prop.changed.connect(func(_from, to): check_sabotage(to))
 
 
 func handle_state_changed(from: State, to: State):
@@ -44,7 +44,7 @@ func handle_state_changed(from: State, to: State):
 			set_collision_mask_value(1, true)
 			reboot_timer.start()
 			hitbox.team = Enums.Team.PLAYER_BUILDING
-			sabotage_prop.repair()
+			sabotage_prop.reset()
 		
 		[State.REBOOTING, State.SABOTAGED]:
 			set_collision_layer_value(1, false)

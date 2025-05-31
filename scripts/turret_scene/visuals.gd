@@ -16,8 +16,8 @@ const GREEN = Color("#36e312")
 
 func _ready() -> void:
 	turret_ranged.bullet_spawned.connect(func(_bullet): play_fire_anim())
-	turret_health.just_reduced.connect(func(_amount): bleed())
-	turret_health.just_changed.connect(func(_from, to): update_healthbar(to))
+	turret_health.changed.connect(func(from, to): if from > to: bleed())
+	turret_health.changed.connect(func(_from, to): update_health_bar(to))
 	turret.state_changed.connect(handle_state_changed)
 	turret.build_progressed.connect(handle_build_progress)
 	base_sprite.rotation = randf_range(0.0, 360.0)
@@ -77,6 +77,6 @@ func set_visual_modulate(color: Color) -> void:
 func bleed() -> void:
 	body_sprite.modulate.v = V_MODULATE
 
-func update_healthbar(value: float) -> void:
+func update_health_bar(value: float) -> void:
 	build_progress.value = value / turret_health_capacity.value * 100
 	build_progress.visible = build_progress.value < 100

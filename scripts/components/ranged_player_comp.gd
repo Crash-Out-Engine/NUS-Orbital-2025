@@ -1,7 +1,7 @@
 class_name RangedPlayerComp
 extends RangedBaseComp
 
-@export var player : Player
+@export var player: Player
 
 const _BULLET_SCENE = preload("res://scenes/bullet.tscn")
 

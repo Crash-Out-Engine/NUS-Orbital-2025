@@ -135,17 +135,14 @@ func gain_scrap(amount: int) -> void:
 	scrap += amount
 
 
-func _on_health_just_emptied() -> void:
+func _on_health_emptied() -> void:
 	get_tree().reload_current_scene()
-
-
-func _on_health_just_changed(_old_value: float, new_value: float) -> void:
-	health_changed.emit(new_value / health.health_capacity)
 
 
 func apply_knockback(source: Node2D) -> void:
 	knockback_direction = (global_position - source.global_position).normalized()
 	knockback = KNOCKBACK_AMOUNT
+
 
 func _on_visuals_melee_finished() -> void:
 	if Input.is_action_pressed("melee"):
@@ -153,3 +150,7 @@ func _on_visuals_melee_finished() -> void:
 	else:
 		hand_action = Hand.HOLDING_GUN
 	hand_locked = false
+
+
+func _on_health_changed(_from: float, to: float) -> void:
+	health_changed.emit(to / health_capacity.value)

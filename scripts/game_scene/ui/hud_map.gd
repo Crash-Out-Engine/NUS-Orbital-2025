@@ -2,13 +2,13 @@ extends Control
 
 const MAP_SCALE = Vector2(8.0, 8.0)
 
-@export var player : Player
-@export var icon_template : MapIcon
-@export var map : Panel
+@export var player: Player
+@export var icon_template: MapIcon
+@export var map: Panel
 
-var _center : Vector2
+var _center: Vector2
 var _map_size: Vector2
-var _icons : Array[Sprite2D] = []
+var _icons: Array[Sprite2D] = []
 var _buildings: Array[Node2D] = []
 
 func _ready() -> void:

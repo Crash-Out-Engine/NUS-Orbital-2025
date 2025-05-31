@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://bg2iinlcp53aa" path="res://scripts/properties/health_prop.gd" id="4_eo4u0"]
 [ext_resource type="Script" uid="uid://bhi7w6ril3da2" path="res://scripts/components/ranged_AI_comp.gd" id="5_mqfwu"]
 [ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/properties/target_priority_prop.gd" id="6_dirdf"]
-[ext_resource type="Script" path="res://scripts/target_filter.gd" id="7_726tt"]
+[ext_resource type="Script" uid="uid://bc5nkvlgktyor" path="res://scripts/target_filter.gd" id="7_726tt"]
 [ext_resource type="Texture2D" uid="uid://06sdtfwasbao" path="res://assets/sprites/turret_spritesheet.png" id="8_0dv4j"]
 [ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/effects/effect_base.gd" id="8_726tt"]
 [ext_resource type="Resource" uid="uid://dtogyr1espqpy" path="res://resources/effects/health.tres" id="9_8c4bs"]
@@ -84,14 +84,14 @@ region = Rect2(1597, 89, 16, 16)
 atlas = ExtResource("13_0mdkh")
 region = Rect2(1581, 89, 16, 16)
 
-[node name="Turret" type="StaticBody2D" node_paths=PackedStringArray("health_capacity", "health", "ranged", "hitbox", "build_prop") groups=["allies"]]
+[node name="Turret" type="StaticBody2D" node_paths=PackedStringArray("health_capacity", "health", "build_prop", "ranged", "hitbox") groups=["allies"]]
 script = ExtResource("1_x3mc5")
 build_target = 100.0
 health_capacity = NodePath("Properties/HealthCapacityProp")
 health = NodePath("Properties/HealthProp")
+build_prop = NodePath("Properties/BuildProp")
 ranged = NodePath("Components/RangedComp")
 hitbox = NodePath("Components/HitboxComp")
-build_prop = NodePath("Properties/BuildProp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 100
@@ -116,7 +116,7 @@ metadata/_custom_type_script = "uid://cceowy0wh5ufb"
 
 [node name="HealthProp" type="Node" parent="Properties"]
 script = ExtResource("4_eo4u0")
-health_capacity = 200.0
+health = 200.0
 metadata/_custom_type_script = "uid://bg2iinlcp53aa"
 
 [node name="RangedCooldownProp" type="Node" parent="Properties"]
