@@ -46,7 +46,7 @@ func _process(delta: float) -> void:
 
 func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_released("melee"):
-		if !player.hand_locked and gun_sprite.animation == "melee_idle" and player.hand_action == player.Hand.HOLDING_WRENCH:
+		if !player.hand_locked and gun_sprite.animation == "melee_idle" and !Input.is_action_pressed("add turret"):
 			gun_sprite.play("gun_idle")
 	
 	if Input.is_action_just_pressed("add turret"):

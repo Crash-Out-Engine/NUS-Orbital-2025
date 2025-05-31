@@ -1,7 +1,8 @@
-[gd_scene load_steps=27 format=3 uid="uid://iqyedsof74fp"]
+[gd_scene load_steps=28 format=3 uid="uid://iqyedsof74fp"]
 
 [ext_resource type="Script" uid="uid://47onqbsq6sc8" path="res://scripts/turret_scene/turret.gd" id="1_x3mc5"]
 [ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox_comp.gd" id="2_el7wl"]
+[ext_resource type="Script" uid="uid://cceowy0wh5ufb" path="res://scripts/properties/health_capacity_prop.gd" id="2_ue5km"]
 [ext_resource type="Script" uid="uid://cwdm3dvyba0l3" path="res://scripts/properties/ranged_cooldown_prop.gd" id="3_pp6j5"]
 [ext_resource type="Script" uid="uid://cf6drkuqld4ft" path="res://scripts/properties/build_prop.gd" id="4_8c4bs"]
 [ext_resource type="Script" uid="uid://bg2iinlcp53aa" path="res://scripts/properties/health_prop.gd" id="4_eo4u0"]
@@ -83,9 +84,10 @@ region = Rect2(1597, 89, 16, 16)
 atlas = ExtResource("13_0mdkh")
 region = Rect2(1581, 89, 16, 16)
 
-[node name="Turret" type="StaticBody2D" node_paths=PackedStringArray("health", "ranged", "hitbox", "build_prop") groups=["allies"]]
+[node name="Turret" type="StaticBody2D" node_paths=PackedStringArray("health_capacity", "health", "ranged", "hitbox", "build_prop") groups=["allies"]]
 script = ExtResource("1_x3mc5")
 build_target = 100.0
+health_capacity = NodePath("Properties/HealthCapacityProp")
 health = NodePath("Properties/HealthProp")
 ranged = NodePath("Components/RangedComp")
 hitbox = NodePath("Components/HitboxComp")
@@ -106,6 +108,11 @@ shape = SubResource("CircleShape2D_tg0ex")
 debug_color = Color(0.7, 0.7, 0, 0.419608)
 
 [node name="Properties" type="Node" parent="."]
+
+[node name="HealthCapacityProp" type="Node" parent="Properties"]
+script = ExtResource("2_ue5km")
+_health_capacity = 200.0
+metadata/_custom_type_script = "uid://cceowy0wh5ufb"
 
 [node name="HealthProp" type="Node" parent="Properties"]
 script = ExtResource("4_eo4u0")
@@ -142,11 +149,12 @@ metadata/_custom_type_script = "uid://bhi7w6ril3da2"
 [node name="Barrel" type="Node2D" parent="Components/RangedComp"]
 position = Vector2(12, 0)
 
-[node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("turret", "turret_ranged", "turret_health")]
+[node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("turret", "turret_ranged", "turret_health", "turret_health_capacity")]
 script = ExtResource("12_fp1kq")
 turret = NodePath("..")
 turret_ranged = NodePath("../Components/RangedComp")
 turret_health = NodePath("../Properties/HealthProp")
+turret_health_capacity = NodePath("../Properties/HealthCapacityProp")
 
 [node name="BodySprite" type="AnimatedSprite2D" parent="Visuals"]
 z_index = 1
@@ -160,11 +168,14 @@ hframes = 4
 vframes = 2
 
 [node name="BuildProgressBar" type="TextureProgressBar" parent="Visuals"]
+visible = false
+z_index = 2
 offset_left = -8.0
 offset_top = -8.0
 offset_right = 8.0
 offset_bottom = 8.0
 pivot_offset = Vector2(8, 8)
+value = 100.0
 fill_mode = 4
 texture_under = SubResource("AtlasTexture_mpvso")
 texture_progress = SubResource("AtlasTexture_137wx")

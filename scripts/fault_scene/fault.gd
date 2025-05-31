@@ -32,7 +32,7 @@ var state: State:
 
 func _ready() -> void:
 	state = State.SABOTAGED
-	build_prop.just_changed.connect(check_repair)
+	build_prop.just_changed.connect(func(_from, to): check_repair(to))
 	sabotage_prop.just_changed.connect(check_sabotage)
 
 

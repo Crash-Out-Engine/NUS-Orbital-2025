@@ -499,11 +499,13 @@ sprite_frames = SubResource("SpriteFrames_4ni07")
 animation = &"idle"
 
 [node name="GunSprite" type="AnimatedSprite2D" parent="Visuals"]
+z_index = 5
 sprite_frames = SubResource("SpriteFrames_pf23h")
 animation = &"gun_fire"
 offset = Vector2(28.5, 1.5)
 
 [node name="GunBlastSprite" type="AnimatedSprite2D" parent="Visuals/GunSprite"]
+z_index = 6
 sprite_frames = SubResource("SpriteFrames_jc3p3")
 frame = 3
 frame_progress = 1.0

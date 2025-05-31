@@ -1,7 +1,7 @@
 class_name BuildProp
 extends PropertyBase
 
-signal just_changed(new_value: float)
+signal just_changed(from: float, to: float)
 
 @export var build_progress: float = 0.0;
 
@@ -14,7 +14,8 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	if value != _prev_value:
-		just_changed.emit(value)
+		print(value)
+		just_changed.emit(_prev_value, value)
 	_prev_value = value
 
 
