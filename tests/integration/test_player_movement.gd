@@ -1,7 +1,7 @@
 extends GutTest
 
 func test_move_forward():
-	var player := preload("res://scenes/player.tscn").instantiate() as Player
+	var player := load("res://scenes/player.tscn").instantiate() as Player
 	assert_true(player != null)
 	
 	var curr_position = player.position
