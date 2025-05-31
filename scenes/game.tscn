@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://bbtrde7tvkisy"]
+[gd_scene load_steps=51 format=3 uid="uid://bbtrde7tvkisy"]
 
 [ext_resource type="PackedScene" uid="uid://ytw0s5xnqwvt" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://d2o1hku0svi7t" path="res://scripts/game_scene/game.gd" id="1_yqjtg"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://dlfl58jvcogf5" path="res://scripts/game_scene/chunk_debug.gd" id="10_vtaks"]
 [ext_resource type="Texture2D" uid="uid://mk53qh8h10ke" path="res://assets/sprites/map_icons_spritesheet.png" id="11_37s47"]
 [ext_resource type="AudioStream" uid="uid://d0bs4frau5lf8" path="res://assets/audio/sound_effects/pause_sound.wav" id="11_ca42v"]
+[ext_resource type="Script" uid="uid://u6jcdubmrey0" path="res://scripts/game_scene/ui/map_icon.gd" id="12_bt5mj"]
 [ext_resource type="Theme" uid="uid://c8t8fqq1p8n4l" path="res://resources/custom_ui.tres" id="12_ssvqc"]
 [ext_resource type="Theme" uid="uid://d0hhc2538lbdn" path="res://resources/debug_ui.tres" id="14_264po"]
 [ext_resource type="Script" uid="uid://b5ihjg2jg7kkh" path="res://scripts/game_scene/ui/debug/debug_panel.gd" id="15_264po"]
@@ -412,14 +413,15 @@ anchor_right = 1.0
 grow_horizontal = 0
 script = ExtResource("10_5newe")
 player = NodePath("../../EntityContainer/Player")
-icon_template = NodePath("Icon")
+icon_template = NodePath("MapIcon")
 map = NodePath("Map")
 
-[node name="Icon" type="Sprite2D" parent="UI/HUDMap"]
+[node name="MapIcon" type="Sprite2D" parent="UI/HUDMap"]
 visible = false
 texture = ExtResource("11_37s47")
-hframes = 3
+hframes = 5
 region_rect = Rect2(1, 1, 24, 24)
+script = ExtResource("12_bt5mj")
 
 [node name="Map" type="Panel" parent="UI/HUDMap"]
 layout_mode = 0
@@ -564,6 +566,7 @@ vertical_alignment = 1
 
 [node name="DebugPanel" type="Control" parent="UI"]
 visible = false
+z_index = 100
 layout_mode = 3
 anchors_preset = 1
 anchor_left = 1.0

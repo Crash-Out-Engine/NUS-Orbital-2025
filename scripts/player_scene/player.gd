@@ -93,8 +93,6 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_released("add turret"):
 		if current_turret != null:
 			if can_place_turret():
-				current_turret.advance_state() # TODO: implement other turret states properly
-				current_turret.advance_state()
 				current_turret.advance_state()
 				scrap -= turret_cost
 				turrets_placed += 1

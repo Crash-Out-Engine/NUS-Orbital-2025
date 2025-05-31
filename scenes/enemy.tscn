@@ -24,12 +24,12 @@ radius = 9.0
 
 [sub_resource type="Resource" id="Resource_shcg2"]
 script = ExtResource("9_shcg2")
-targets = Array[int]([1, 3, 5])
+targets = Array[int]([1, 4])
 metadata/_custom_type_script = "uid://bc5nkvlgktyor"
 
 [sub_resource type="Resource" id="Resource_1x4g4"]
 script = ExtResource("9_shcg2")
-targets = Array[int]([1, 3, 5])
+targets = Array[int]([1, 4])
 metadata/_custom_type_script = "uid://bc5nkvlgktyor"
 
 [sub_resource type="Resource" id="Resource_ile5s"]

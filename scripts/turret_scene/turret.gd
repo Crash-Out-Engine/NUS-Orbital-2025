@@ -2,16 +2,18 @@ class_name Turret
 extends StaticBody2D
 
 signal state_changed(from: State, to: State)
+signal build_progressed(progress: float)
 
 enum State {
 	DEFAULT,
 	PLACING,
 	PLANNED,
-	BUILDING,
 	OPERATIONAL,
 	DESTROYED,
 	CANCELLED,
 }
+
+@export var build_target: float
 
 @export_group("Properties")
 @export var health: HealthProp
@@ -19,6 +21,7 @@ enum State {
 @export_group("Components")
 @export var ranged: RangedBaseComp
 @export var hitbox: HitboxComp
+@export var build_prop: BuildProp
 
 
 var state: State:
@@ -36,6 +39,7 @@ var player: Player
 func _ready() -> void:
 	state = State.PLACING
 	health.just_emptied.connect(func(): state = State.DESTROYED)
+	build_prop.just_changed.connect(check_build)
 
 
 func advance_state():
@@ -43,8 +47,6 @@ func advance_state():
 		State.PLACING:
 			state = State.PLANNED
 		State.PLANNED:
-			state = State.BUILDING
-		State.BUILDING:
 			state = State.OPERATIONAL
 		State.OPERATIONAL:
 			state = State.DESTROYED
@@ -66,14 +68,13 @@ func handle_state_changed(from: State, to: State):
 			set_collision_layer_value(1, false)
 			set_collision_layer_value(2, true)
 			set_collision_mask_value(1, false)
+			hitbox.team = Enums.Team.TO_BUILD
 
-		[_, State.BUILDING]:
+		[_, State.OPERATIONAL]:
 			set_collision_layer_value(1, true)
 			set_collision_layer_value(2, false)
 			set_collision_mask_value(1, true)
 			hitbox.team = _team
-
-		[_, State.OPERATIONAL]:
 			ranged.active = true
 
 		[_, State.DESTROYED]:
@@ -87,6 +88,7 @@ func handle_state_changed(from: State, to: State):
 
 		[_, _]:
 			assert(false, "Invalid state change from %s to %s." % [State.find_key(from), State.find_key(to)])
+	
 
 
 func set_collidable(value: bool) -> void:
@@ -95,3 +97,9 @@ func set_collidable(value: bool) -> void:
 
 func is_overlapping() -> bool:
 	return $PlacementArea.get_overlapping_bodies().any(func(body): return body.get_node_or_null(^"Components/HitboxComp") != null)
+
+func check_build(value: float) -> void:
+	if state == State.PLANNED:
+		if value >= build_target:
+			state = State.OPERATIONAL
+		build_progressed.emit(value / build_target)

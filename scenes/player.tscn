@@ -348,6 +348,8 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("ranged", "health", "health_capacity", "melee_cooldown") groups=["allies"]]
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_f1ej7")
 ranged = NodePath("Components/RangedComp")
 health = NodePath("Properties/HealthProp")
@@ -385,6 +387,9 @@ script = ExtResource("7_fjrip")
 initial_priority = 2.0
 
 [node name="MeleeCooldownProp" type="Node" parent="Properties"]
+script = ExtResource("18_60mlk")
+
+[node name="MeleeCooldownProp2" type="Node" parent="Properties"]
 script = ExtResource("18_60mlk")
 
 [node name="MeleeDamageProp" type="Node" parent="Properties"]
@@ -438,8 +443,10 @@ metadata/_custom_type_script = "uid://bnt7cwx8k0nm0"
 [node name="RepairComp" type="Area2D" parent="Components" node_paths=PackedStringArray("melee_cooldown", "target_priority")]
 process_mode = 4
 visible = false
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("17_4r5pv")
-melee_cooldown = NodePath("../../Properties/MeleeCooldownProp")
+melee_cooldown = NodePath("../../Properties/MeleeCooldownProp2")
 target_priority = NodePath("../../Properties/TargetPriorityProp")
 target_filter = SubResource("Resource_ke2ow")
 effects = Array[ExtResource("19_a38lo")]([SubResource("Resource_31cv2")])

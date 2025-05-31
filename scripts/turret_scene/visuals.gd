@@ -9,12 +9,14 @@ const V_MODULATE = 100000000
 
 @onready var base_sprite := $BaseSprite as Sprite2D
 @onready var body_sprite := $BodySprite as AnimatedSprite2D
+@onready var build_progress := $BuildProgressBar as TextureProgressBar
 
 
 func _ready() -> void:
 	turret_ranged.bullet_spawned.connect(func(_bullet): play_fire_anim())
 	turret_health.just_reduced.connect(func(_amount): bleed())
 	turret.state_changed.connect(handle_state_changed)
+	turret.build_progressed.connect(handle_build_progress)
 	base_sprite.rotation = randf_range(0.0, 360.0)
 
 
@@ -35,17 +37,22 @@ func _process(delta: float) -> void:
 func handle_state_changed(from: Turret.State, to: Turret.State) -> void:
 	match [from, to]:
 		[_, Turret.State.PLACING]:
+			build_progress.visible = false
+			body_sprite.visible = true
 			set_visual_modulate(Color(0, 1, 1, 0.5))
 
 		[_, Turret.State.PLANNED]:
-			set_visual_modulate(Color(1, 1, 1, 0.1))
-
-		[_, Turret.State.BUILDING]:
-			set_visual_modulate(Color(1, 1, 1, 0.5))
-
-		[_, Turret.State.OPERATIONAL]:
+			build_progress.visible = true
+			body_sprite.visible = false
 			set_visual_modulate(Color(1, 1, 1, 1))
 
+		[_, Turret.State.OPERATIONAL]:
+			build_progress.visible = false
+			body_sprite.visible = true
+			set_visual_modulate(Color(1, 1, 1, 1))
+
+func handle_build_progress(progress: float) -> void:
+	build_progress.value = progress * 100
 
 func play_idle_anim() -> void:
 	body_sprite.play("idle")
