@@ -31,7 +31,7 @@ func create_building_icon(node: Node) -> MapIcon:
 	if node is Turret:
 		icon.frame = 0
 		icon.set_map([-1, Turret.State.PLANNED, Turret.State.OPERATIONAL], [0, 3, 4])
-		node.state_changed.connect(func(from, to): icon.swap_icon(to))
+		node.state_changed.connect(func(_from, to): icon.swap_icon(to))
 		return icon
 	return null
 

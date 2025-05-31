@@ -12,7 +12,8 @@ enum Hand {
 	HOLDING_GUN,
 	FIRING_GUN,
 	HOLDING_WRENCH,
-	FIRING_WRENCH
+	FIRING_WRENCH,
+	PLANNING_WRENCH
 }
 
 const KNOCKBACK_DURATION = 0.5
@@ -28,6 +29,7 @@ const PICKUP_RANGE = 40
 @export var melee_cooldown: MeleeCooldownProp
 
 var hand_action = Hand.HOLDING_GUN
+var hand_locked: bool = false
 var direction: Callable = func(_delta: float) -> Vector2:
 	return Vector2(
 		Input.get_axis("left", "right"),
@@ -60,23 +62,37 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if Input.is_action_just_pressed("shoot"):
-		if (hand_action == Hand.HOLDING_GUN):
+	if Input.is_action_pressed("shoot"):
+		if hand_action == Hand.HOLDING_GUN:
 			hand_action = Hand.FIRING_GUN
 			ranged.active = true
 	
 	if Input.is_action_just_released("shoot"):
-		ranged.active = false
-		hand_action = Hand.HOLDING_GUN
+		if hand_action == Hand.FIRING_GUN:
+			ranged.active = false
+			hand_action = Hand.HOLDING_GUN
 	
 	if Input.is_action_just_pressed("melee"):
 		if hand_action == Hand.HOLDING_GUN and melee_cooldown.can_melee():
 			hand_action = Hand.FIRING_WRENCH
 			melee_player.play("melee_attack")
 			visuals.play_melee_fire()
+			hand_locked = true
+	
+	if Input.is_action_pressed("melee"):
+		if (hand_action == Hand.HOLDING_WRENCH or hand_action == Hand.HOLDING_GUN) and melee_cooldown.can_melee():
+			melee_player.play("melee_attack")
+			visuals.play_melee_fire()
+			hand_locked = true
+	
+	if Input.is_action_just_released("melee"):
+		if !hand_locked and hand_action == Hand.HOLDING_WRENCH:
+			hand_action = Hand.HOLDING_GUN
 	
 	if Input.is_action_just_pressed("add turret"):
-		hand_action = Hand.HOLDING_WRENCH
+		hand_action = Hand.PLANNING_WRENCH
+		ranged.active = false
+		hand_locked = false
 		current_turret = _TURRET_SCENE.instantiate()
 		current_turret.global_position = get_global_mouse_position()
 		current_turret.player = self
@@ -133,4 +149,8 @@ func apply_knockback(source: Node2D) -> void:
 	knockback = KNOCKBACK_AMOUNT
 
 func _on_visuals_melee_finished() -> void:
-	hand_action = Hand.HOLDING_GUN
+	if Input.is_action_pressed("melee"):
+		hand_action = Hand.HOLDING_WRENCH
+	else:
+		hand_action = Hand.HOLDING_GUN
+	hand_locked = false
