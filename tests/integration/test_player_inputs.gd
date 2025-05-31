@@ -14,7 +14,6 @@ func test_movement():
 	
 	add_child_autofree(player)
 	
-	
 	var curr_position = player.position
 	_sender.action_down("right").wait_frames(1)
 	await _sender.idle
