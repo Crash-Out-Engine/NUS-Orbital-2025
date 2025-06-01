@@ -11,19 +11,30 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    env:
-      GODOT_VERSION: 4.4.1
+  run-test-scripts:
+    name: "Run test scripts"
     runs-on: ubuntu-latest
+    environment: development
+    continue-on-error: true
     steps:
       - uses: actions/checkout@v4.2.2
       - uses: Cxyu629/godot-tester@v1.3.0
         with:
-          version: ${{ env.GODOT_VERSION }}
+          version: ${{ vars.GODOT_VERSION }}
           release_type: "stable"
           import-time: "60"
           test-timeout: "45"
           minimum-pass: "1.0"
           test-dir: "res://tests"
-          custom-godot-dl-url: "https://github.com/godotengine/godot/releases/download/${{ env.GODOT_VERSION }}-stable/Godot_v${{ env.GODOT_VERSION }}-stable_linux.x86_64.zip"
+          custom-godot-dl-url: "https://github.com/godotengine/godot/releases/download/${{ vars.GODOT_VERSION }}-stable/Godot_v${{ vars.GODOT_VERSION }}-stable_linux.x86_64.zip"
           result-output-file: "test_results.xml"
+
+  run-gdlint:
+    name: "Run static lint checks"
+    runs-on: ubuntu-latest
+    environment: development
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - uses: Scony/godot-gdscript-toolkit@master
+      - run: gdlint scripts/
+      - run: gdlint tests/
