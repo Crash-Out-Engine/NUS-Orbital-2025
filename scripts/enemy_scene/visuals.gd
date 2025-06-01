@@ -16,8 +16,8 @@ const FLIP_THRESHOLD: float = 0.001
 
 
 func _ready() -> void:
-	health.just_emptied.connect(play_die_effect)
-	health.just_reduced.connect(func(_bleed): play_bleed_effect())
+	health.emptied.connect(play_die_effect)
+	health.reduced.connect(func(_bleed): play_bleed_effect())
 	flames_sprite.play("default")
 	legs_sprite.play("default")
 

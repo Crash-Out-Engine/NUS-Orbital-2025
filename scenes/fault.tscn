@@ -452,6 +452,8 @@ _data = {
 }
 
 [node name="Fault" type="StaticBody2D" node_paths=PackedStringArray("build_prop", "sabotage_prop", "hitbox")]
+collision_layer = 2
+collision_mask = 0
 script = ExtResource("1_poe5t")
 repair_target = 100.0
 build_prop = NodePath("Properties/BuildProp")
@@ -472,13 +474,13 @@ script = ExtResource("3_qcmb2")
 
 [node name="TargetPriorityProp" type="Node" parent="Properties"]
 script = ExtResource("4_kmo7v")
-initial_priority = 10.0
+priority = 10.0
 
 [node name="Components" type="Node2D" parent="."]
 
 [node name="HitboxComp" type="Node" parent="Components"]
 script = ExtResource("2_8twt2")
-team = 4
+team = 3
 metadata/_custom_type_script = "uid://wwqkkrfhwiyn"
 
 [node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("fault")]

@@ -28,7 +28,10 @@ func apply_effect(property: PropertyBase) -> void:
 			if timer != null:
 				timer.stop()
 				timer.one_shot = true
-				timer.timeout.connect(_minus_if_not_null(property, actual_factor))
+				timer.timeout.connect(func():
+						if property != null:
+							property.value -= actual_factor
+				)
 				timer.start()
 
 		elif timer == null:
@@ -45,10 +48,6 @@ func apply_effect(property: PropertyBase) -> void:
 func _can_effect(_property: PropertyBase) -> bool:
 	return false
 
-func _minus_if_not_null(property: PropertyBase, factor: float) -> Callable:
-	return func():
-			if property != null:
-				property.value -= factor
 
 func _countdown(timer: Timer, property: PropertyBase, factor: float) -> Callable:
 	return func():
