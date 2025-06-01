@@ -13,6 +13,6 @@ func handle_state_changed(from: Fault.State, to: Fault.State):
 	match [from, to]:
 		[Fault.State.REBOOTING, Fault.State.SABOTAGED]:
 			sabotaged_sound.play()
-		
+
 		[Fault.State.REBOOTING, Fault.State.FIXED]:
 			success_sound.play()

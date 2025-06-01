@@ -2,14 +2,13 @@ extends Camera2D
 
 const PEEK_FACTOR = 0.15
 
+@export var player : Player
+
 var max_rect: Vector2
 var mouse_offset: Vector2
 var desired_offset: Vector2
 var min_offset: int = -100
 var max_offset: int = 100
-
-@export var player : Player
-
 
 func _ready() -> void:
 	get_tree().get_root().size_changed.connect(resize)

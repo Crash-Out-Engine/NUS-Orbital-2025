@@ -71,7 +71,7 @@ func _physics_process(_delta: float) -> void:
 		if hand_action == Hand.FIRING_GUN:
 			ranged.active = false
 			hand_action = Hand.HOLDING_GUN
-      
+
 	if Input.is_action_pressed("melee"):
 		if hand_action in [Hand.HOLDING_GUN, Hand.HOLDING_WRENCH] and melee_cooldown.can_melee():
 			hand_action = Hand.FIRING_WRENCH
