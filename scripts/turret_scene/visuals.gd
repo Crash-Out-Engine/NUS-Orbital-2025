@@ -18,7 +18,10 @@ const GREEN = Color("#36e312")
 
 func _ready() -> void:
 	turret_ranged.bullet_spawned.connect(func(_bullet): play_fire_anim())
-	turret_health.changed.connect(func(from, to): if from > to: bleed())
+	turret_health.changed.connect(func(from, to):
+			if from > to:
+				bleed()
+	)
 	turret_health.changed.connect(func(_from, to): update_health_bar(to))
 	turret.state_changed.connect(handle_state_changed)
 	turret.build_progressed.connect(handle_build_progress)
@@ -31,7 +34,7 @@ func _process(delta: float) -> void:
 		play_idle_anim()
 	body_sprite.transform = body_sprite.transform.rotated(
 			turret_ranged.transform.get_rotation() - body_sprite.transform.get_rotation())
-	
+
 	# Modulate effect
 	if (body_sprite.modulate.v > 1.0):
 		body_sprite.modulate.v -= V_MODULATE * delta / BLEED_TIME

@@ -6,8 +6,6 @@ signal turret_placement_failed()
 signal health_changed(new_ratio: float)
 signal scrap_changed(new_value: int)
 
-const _TURRET_SCENE := preload("res://scenes/turret.tscn")
-
 enum Hand {
 	HOLDING_GUN,
 	FIRING_GUN,
@@ -16,6 +14,7 @@ enum Hand {
 	PLANNING_WRENCH
 }
 
+const _TURRET_SCENE := preload("res://scenes/turret.tscn")
 const KNOCKBACK_DURATION = 0.5
 const KNOCKBACK_AMOUNT = 300.0
 const PICKUP_RANGE = 40
@@ -67,32 +66,24 @@ func _physics_process(_delta: float) -> void:
 		if hand_action == Hand.HOLDING_GUN:
 			hand_action = Hand.FIRING_GUN
 			ranged.active = true
-	
+
 	if Input.is_action_just_released("shoot"):
 		if hand_action == Hand.FIRING_GUN:
 			ranged.active = false
 			hand_action = Hand.HOLDING_GUN
-	
-	if Input.is_action_just_pressed("melee"):
-		if hand_action == Hand.HOLDING_GUN and melee_cooldown.can_melee():
-			hand_action = Hand.FIRING_WRENCH
-			melee_player.play("melee_attack")
-			visuals.play_melee_fire()
-			audio.play_melee_swing_sound()
-			hand_locked = true
-	
+      
 	if Input.is_action_pressed("melee"):
-		if (hand_action == Hand.HOLDING_WRENCH or hand_action == Hand.HOLDING_GUN) and melee_cooldown.can_melee():
+		if hand_action in [Hand.HOLDING_GUN, Hand.HOLDING_WRENCH] and melee_cooldown.can_melee():
 			hand_action = Hand.FIRING_WRENCH
 			melee_player.play("melee_attack")
 			visuals.play_melee_fire()
 			audio.play_melee_swing_sound()
 			hand_locked = true
-	
+
 	if Input.is_action_just_released("melee"):
 		if !hand_locked and hand_action == Hand.HOLDING_WRENCH:
 			hand_action = Hand.HOLDING_GUN
-	
+
 	if Input.is_action_just_pressed("add turret"):
 		hand_action = Hand.PLANNING_WRENCH
 		ranged.active = false
@@ -101,7 +92,7 @@ func _physics_process(_delta: float) -> void:
 		current_turret.global_position = get_global_mouse_position()
 		current_turret.player = self
 		turret_spawned.emit(current_turret)
-	
+
 	if Input.is_action_pressed("add turret"):
 		if current_turret != null:
 			current_turret.global_position = get_global_mouse_position()
@@ -109,7 +100,7 @@ func _physics_process(_delta: float) -> void:
 				current_turret.get_node_or_null(^"Visuals").set_visual_modulate(Color(1, 0, 0, 0.5))
 			else:
 				current_turret.get_node_or_null(^"Visuals").set_visual_modulate(Color(0, 1, 1, 0.5))
-	
+
 	if Input.is_action_just_released("add turret"):
 		if current_turret != null:
 			if can_place_turret():

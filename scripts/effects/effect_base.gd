@@ -21,39 +21,40 @@ func apply_effect(property: PropertyBase) -> void:
 			timer = Timer.new()
 			timer.wait_time = _interval
 			property.add_child(timer)
-		
-		var actual_factor = -property.value if property.value + _factor < 0 else _factor
+
+		var actual_factor = - property.value if property.value + _factor < 0 else _factor
 		if _repeat == 0:
 			property.value += actual_factor
 			if timer != null:
 				timer.stop()
 				timer.one_shot = true
-				timer.timeout.connect(
-					func():
+				timer.timeout.connect(func():
 						if property != null:
 							property.value -= actual_factor
-						)
+				)
 				timer.start()
-		
+
 		elif timer == null:
 			return
-				
+
 		else: # effect.repeat != 0 and effect.timer != null
 			_counter = _repeat
 			timer.stop()
 			timer.one_shot = false
-			timer.timeout.connect(
-				func():
-					if _counter == 0 or property == null:
-						timer.one_shot = true
-						timer.stop()
-					else:
-						property.value += actual_factor
-						property.value = max(property.value, 0)
-						_counter -= 1
-					)
+			timer.timeout.connect(_countdown(timer, property, actual_factor))
 			timer.start()
 
 
 func _can_effect(_property: PropertyBase) -> bool:
 	return false
+
+
+func _countdown(timer: Timer, property: PropertyBase, factor: float) -> Callable:
+	return func():
+			if _counter == 0 or property == null:
+				timer.one_shot = true
+				timer.stop()
+			else:
+				property.value += factor
+				property.value = max(property.value, 0)
+				_counter -= 1

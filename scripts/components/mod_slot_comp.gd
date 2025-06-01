@@ -11,8 +11,10 @@ extends Node
 
 
 func _ready() -> void:
-	assert(is_instance_valid(entity) and entity.get_node_or_null(^"Properties") != null, "Entity should have a Properties child node.")
-	assert(is_instance_valid(attack_comp) and "effects" in attack_comp, "Attack component should have an effects variable.")
+	assert(is_instance_valid(entity) and entity.get_node_or_null(^"Properties") != null,
+			"Entity should have a Properties child node.")
+	assert(is_instance_valid(attack_comp) and "effects" in attack_comp,
+			"Attack component should have an effects variable.")
 
 
 func _handle_mods_changed() -> void:
@@ -30,7 +32,7 @@ func _handle_mods_changed() -> void:
 	for upgrade in UpgradeMod.compile_upgrades(upgrade_mods):
 		for prop_node in entity_properties:
 			upgrade.apply_upgrade(prop_node)
-	
+
 	var effects := EffectMod.compile_effects(effect_mods)
 	attack_comp.effects.assign(effects)
 

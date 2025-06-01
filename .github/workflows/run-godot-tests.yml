@@ -1,0 +1,40 @@
+name: "Run Godot Tests"
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on pull request events but only for the "dev" branch
+  pull_request:
+    branches: ["dev"]
+    types: [opened, synchronize, reopened, edited]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  run-test-scripts:
+    name: "Run test scripts"
+    runs-on: ubuntu-latest
+    environment: development
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - uses: Cxyu629/godot-tester@v1.3.0
+        with:
+          version: ${{ vars.GODOT_VERSION }}
+          release_type: "stable"
+          import-time: "60"
+          test-timeout: "45"
+          minimum-pass: "1.0"
+          test-dir: "res://tests"
+          custom-godot-dl-url: "https://github.com/godotengine/godot/releases/download/${{ vars.GODOT_VERSION }}-stable/Godot_v${{ vars.GODOT_VERSION }}-stable_linux.x86_64.zip"
+          result-output-file: "test_results.xml"
+
+  run-gdlint:
+    name: "Run static lint checks"
+    runs-on: ubuntu-latest
+    environment: development
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - uses: Scony/godot-gdscript-toolkit@master
+      - run: gdlint scripts/
+      - run: gdlint tests/

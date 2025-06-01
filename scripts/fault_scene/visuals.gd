@@ -28,10 +28,10 @@ func handle_state_changed(from: Fault.State, to: Fault.State) -> void:
 	match [from, to]:
 		[Fault.State.SABOTAGED, Fault.State.REBOOTING]:
 			play_rebooting()
-		
+
 		[Fault.State.REBOOTING, Fault.State.SABOTAGED]:
 			play_sabotaged()
-		
+
 		[Fault.State.REBOOTING, Fault.State.FIXED]:
 			play_fixed()
 
