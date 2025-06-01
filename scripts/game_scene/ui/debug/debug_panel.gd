@@ -8,7 +8,8 @@ extends Control
 func _process(_delta: float) -> void:
 	tree.fps.set_text(0,
 			"FPS: %0.2f / Physics FPS: %0.2f"
-			% [1.0 / Performance.get_monitor(Performance.TIME_PROCESS), 1.0 / Performance.get_monitor(Performance.TIME_PHYSICS_PROCESS)])
+			% [1.0 / Performance.get_monitor(Performance.TIME_PROCESS),
+					1.0 / Performance.get_monitor(Performance.TIME_PHYSICS_PROCESS)])
 	tree.entities.set_text(0,
 			"Entities: %s / Misc: %s"
 			% [$/root/Game/EntityContainer.get_child_count(), $/root/Game/MiscContainer.get_child_count()])
@@ -33,7 +34,7 @@ func _on_tree_item_edited() -> void: # HACK: Greatly relies on the node paths be
 						$/root/Game.power = 100
 						$/root/Game/EntityContainer/Player/Properties/HealthProp.value = 50
 						$/root/Game/EntityContainer/Player.scrap = 50
-						
+
 		TreeItem.CELL_MODE_RANGE:
 			match item.get_parent().get_text(0):
 				"Spawn rate (per sec)":
@@ -43,7 +44,3 @@ func _on_tree_item_edited() -> void: # HACK: Greatly relies on the node paths be
 					$/root/Game/EntityContainer/Player/Properties/HealthProp.value = item.get_range(0)
 				"Set scraps":
 					$/root/Game/EntityContainer/Player.scrap = item.get_range(0)
-
-
-func _on_tree_button_clicked(_item: TreeItem, _column: int, _id: int, _mouse_button_index: int) -> void:
-	pass # Replace with function body.

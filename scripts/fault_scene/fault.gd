@@ -17,8 +17,6 @@ enum State {
 @export var sabotage_prop: SabotageProp
 @export var hitbox: HitboxComp
 
-var _power_output: Node
-
 var state: State:
 	set(value):
 		var prev_state = state
@@ -26,6 +24,8 @@ var state: State:
 		if prev_state != state:
 			handle_state_changed(prev_state, state)
 			state_changed.emit(prev_state, state)
+
+var _power_output: Node
 
 @onready var reboot_timer := $RebootTimer as Timer
 
@@ -45,7 +45,7 @@ func handle_state_changed(from: State, to: State):
 			reboot_timer.start()
 			hitbox.team = Enums.Team.PLAYER_BUILDING
 			sabotage_prop.reset()
-		
+
 		[State.REBOOTING, State.SABOTAGED]:
 			set_collision_layer_value(1, false)
 			set_collision_layer_value(2, true)
@@ -53,10 +53,10 @@ func handle_state_changed(from: State, to: State):
 			reboot_timer.stop()
 			hitbox.team = Enums.Team.TO_BUILD
 			build_prop.reset()
-		
+
 		[State.REBOOTING, State.FIXED]:
 			hitbox.team = Enums.Team.NONE
-		
+
 		[_, _]:
 			assert(false, "Invalid state change from %s to %s." % [State.find_key(from), State.find_key(to)])
 

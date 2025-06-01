@@ -625,5 +625,4 @@ bus = &"Music"
 [connection signal="value_changed" from="UI/PauseMenu/PanelContainer/VBoxContainer/MusicVolumeContainer/MusicVolumeSlider" to="UI/PauseMenu" method="_on_music_volume_slider_value_changed"]
 [connection signal="value_changed" from="UI/PauseMenu/PanelContainer/VBoxContainer/SFXVolumeContainer/SFXVolumeSlider" to="UI/PauseMenu" method="_on_sfx_volume_slider_value_changed"]
 [connection signal="toggled" from="UI/DebugPanel/VBoxContainer/Button" to="UI/DebugPanel/VBoxContainer/Tree" method="_on_button_toggled"]
-[connection signal="button_clicked" from="UI/DebugPanel/VBoxContainer/Tree" to="UI/DebugPanel" method="_on_tree_button_clicked"]
 [connection signal="item_edited" from="UI/DebugPanel/VBoxContainer/Tree" to="UI/DebugPanel" method="_on_tree_item_edited"]

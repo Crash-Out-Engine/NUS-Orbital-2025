@@ -11,4 +11,3 @@ var value: float:
         if _value != prev_value:
             value = _value
             changed.emit(prev_value, value)
-        

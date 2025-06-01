@@ -1,9 +1,11 @@
 extends Control
 
 @onready var _master_bus = AudioServer.get_bus_index("Master")
-@onready var _master_vol_slider = $PanelContainer/VBoxContainer/MasterVolumeContainer/MasterVolumeSlider
+@onready var _master_vol_slider = (
+		$PanelContainer/VBoxContainer/MasterVolumeContainer/MasterVolumeSlider)
 @onready var _music_bus = AudioServer.get_bus_index("Music")
-@onready var _music_vol_slider = $PanelContainer/VBoxContainer/MusicVolumeContainer/MusicVolumeSlider
+@onready var _music_vol_slider = (
+		$PanelContainer/VBoxContainer/MusicVolumeContainer/MusicVolumeSlider)
 @onready var _sfx_bus = AudioServer.get_bus_index("SFX")
 @onready var _sfx_vol_slider = $PanelContainer/VBoxContainer/SFXVolumeContainer/SFXVolumeSlider
 

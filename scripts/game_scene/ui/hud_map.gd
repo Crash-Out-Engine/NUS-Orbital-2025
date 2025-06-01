@@ -47,7 +47,7 @@ func setup_icon(node: Node) -> MapIcon:
 		node.state_changed.connect(swapper)
 	else: # Node is not an entity to be mapped.
 		return null
-	
+
 	# Adding icon to map
 	var other_icon = _entities_icons.get_or_add(node, icon)
 	if other_icon != icon:
@@ -55,10 +55,7 @@ func setup_icon(node: Node) -> MapIcon:
 	map.add_child(icon)
 
 	# Setting up cleanup function
-	node.tree_exiting.connect(func(): 
-			icon.queue_free()
-			_entities_icons.erase(node)
-			)
+	node.tree_exiting.connect(_cleanup(icon, node))
 	return icon
 
 
@@ -67,4 +64,12 @@ func _to_map_coord(pos: Vector2) -> Vector2:
 
 
 func _is_within_map(mapped_pos: Vector2) -> bool:
-	return mapped_pos.x >= 0 and mapped_pos.x <= _map_size.x and mapped_pos.y >= 0 and mapped_pos.y <= _map_size.y
+	return (mapped_pos.x >= 0
+			and mapped_pos.x <= _map_size.x
+			and mapped_pos.y >= 0
+			and mapped_pos.y <= _map_size.y)
+
+func _cleanup(icon: MapIcon, node: Node2D) -> Callable:
+	return func():
+		icon.queue_free()
+		_entities_icons.erase(node)

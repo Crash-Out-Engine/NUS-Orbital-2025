@@ -16,8 +16,8 @@ func try_ranged() -> bool:
 	if _timer.is_stopped():
 		_timer.start(value)
 		return true
-	else:
-		return false
+
+	return false
 
 
 func can_ranged() -> bool:

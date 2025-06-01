@@ -4,12 +4,32 @@ extends Control
 @export var game: Node2D
 
 @onready var health_bar := $VBoxContainer/HealthBar/TextureProgressBar as TextureProgressBar
-@onready var health_label := $VBoxContainer/HealthBar/TextureProgressBar/MarginContainer/Label as Label
+@onready var health_label := (
+		$VBoxContainer/HealthBar/TextureProgressBar/MarginContainer/Label as Label)
 @onready var power_bar := $VBoxContainer/PowerBar/TextureProgressBar as TextureProgressBar
-@onready var power_label := $VBoxContainer/PowerBar/TextureProgressBar/MarginContainer/Label as Label
-@onready var power_slots := [$"VBoxContainer/PowerBar/1Bar", $"VBoxContainer/PowerBar/2Bar", $"VBoxContainer/PowerBar/4Bar", $"VBoxContainer/PowerBar/8Bar", $"VBoxContainer/PowerBar/16Bar"] as Array[Control]
-@onready var power_slots_on = [$"VBoxContainer/PowerBar/1Bar/On", $"VBoxContainer/PowerBar/2Bar/On", $"VBoxContainer/PowerBar/4Bar/On", $"VBoxContainer/PowerBar/8Bar/On", $"VBoxContainer/PowerBar/16Bar/On"] as Array[TextureRect]
-@onready var power_slots_off = [$"VBoxContainer/PowerBar/1Bar/Off", $"VBoxContainer/PowerBar/2Bar/Off", $"VBoxContainer/PowerBar/4Bar/Off", $"VBoxContainer/PowerBar/8Bar/Off", $"VBoxContainer/PowerBar/16Bar/Off"] as Array[TextureRect]
+@onready var power_label := (
+		$VBoxContainer/PowerBar/TextureProgressBar/MarginContainer/Label as Label)
+@onready var power_slots := [
+	$"VBoxContainer/PowerBar/1Bar",
+	$"VBoxContainer/PowerBar/2Bar",
+	$"VBoxContainer/PowerBar/4Bar",
+	$"VBoxContainer/PowerBar/8Bar",
+	$"VBoxContainer/PowerBar/16Bar"
+] as Array[Control]
+@onready var power_slots_on = [
+	$"VBoxContainer/PowerBar/1Bar/On",
+	$"VBoxContainer/PowerBar/2Bar/On",
+	$"VBoxContainer/PowerBar/4Bar/On",
+	$"VBoxContainer/PowerBar/8Bar/On",
+	$"VBoxContainer/PowerBar/16Bar/On"
+] as Array[TextureRect]
+@onready var power_slots_off = [
+	$"VBoxContainer/PowerBar/1Bar/Off",
+	$"VBoxContainer/PowerBar/2Bar/Off",
+	$"VBoxContainer/PowerBar/4Bar/Off",
+	$"VBoxContainer/PowerBar/8Bar/Off",
+	$"VBoxContainer/PowerBar/16Bar/Off"
+] as Array[TextureRect]
 @onready var scrap_label := $VBoxContainer/ScrapCounter/Icon/Label as Label
 
 func _ready() -> void:

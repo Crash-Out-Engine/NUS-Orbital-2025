@@ -86,14 +86,16 @@ func handle_state_changed(from: State, to: State):
 
 		[_, _]:
 			assert(false, "Invalid state change from %s to %s." % [State.find_key(from), State.find_key(to)])
-	
+
 
 func set_collidable(value: bool) -> void:
 	$CollisionShape2D.set_deferred("disabled", not value)
 
 
 func is_overlapping() -> bool:
-	return $PlacementArea.get_overlapping_bodies().any(func(body): return body.get_node_or_null(^"Components/HitboxComp") != null)
+	return ($PlacementArea
+			.get_overlapping_bodies()
+			.any(func(body): return body.get_node_or_null(^"Components/HitboxComp") != null))
 
 
 func build_or_repair(from: float, to: float) -> void:

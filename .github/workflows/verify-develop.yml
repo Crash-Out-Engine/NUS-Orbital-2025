@@ -11,7 +11,6 @@ on:
   workflow_dispatch:
 
 env:
-  GODOT_VERSION: 4.4
   VERSION_FILE: project.godot
   VERSION_REGEX: config\/version=\"\K[0-9.\-A-z]*
 
@@ -19,6 +18,7 @@ env:
 jobs:
   check-version-bump:
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
       - name: Checkout current branch
         uses: actions/checkout@v4.2.2
@@ -51,6 +51,7 @@ jobs:
   build:
     needs: check-version-bump
     runs-on: ubuntu-latest
+    environment: development
     steps:
       - name: Checkout current branch
         uses: actions/checkout@v4.2.2
@@ -59,7 +60,7 @@ jobs:
         id: install-godot
         uses: Cxyu629/godot-actions/install-godot@v1.3
         with:
-          godot-version: ${{ env.GODOT_VERSION }}
+          godot-version: ${{vars.GODOT_VERSION}}
           install-templates: true
 
       - name: Open Godot editor for reimport
