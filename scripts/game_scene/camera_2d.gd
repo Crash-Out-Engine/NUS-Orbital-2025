@@ -1,26 +1,41 @@
 extends Camera2D
 
-const PEEK_FACTOR = 0.15
+## The proportion of peeking relative to mouse position.
+##
+## If [code]PEEK_FACTOR = 0.2[/code], for every unit distance the mouse moves
+## left of screen center, the player camera peeks an additional 0.2 unit
+## distance to the left and 0.2 unit distance less to the right.
+const PEEK_FACTOR = 0.5
 
-@export var player : Player
+## The proportion of maximum peekable distance to viewport size.
+##
+## If [code]MAX_RECT_PROPORTION = 1.0[/code], then the maximum peekable distance
+## will be such that the player lies right at the border of the viewport.
+##
+## Note that if this value is higher than [member PEEK_FACTOR], then the player
+## will only hit the offset limit when the cursor is somewhere outside the
+## viewport.
+const MAX_RECT_PROPORTION = 0.5
 
-var max_rect: Vector2
-var mouse_offset: Vector2
-var desired_offset: Vector2
-var min_offset: int = -100
-var max_offset: int = 100
+@export var player: Player
+
+var _max_offset_rect: Vector2
+
 
 func _ready() -> void:
-	get_tree().get_root().size_changed.connect(resize)
-	resize()
+	get_tree().get_root().size_changed.connect(_resize)
+	_resize()
 
 
 func _process(_delta: float) -> void:
-	desired_offset = (get_global_mouse_position() - position) * 0.5
-	desired_offset.x = clamp(desired_offset.x, min_offset, max_offset)
-	desired_offset.y = clamp(desired_offset.y, min_offset / 2, max_offset / 2)
+	var desired_offset = (get_local_mouse_position()) * PEEK_FACTOR
+	desired_offset = desired_offset.clamp(-_max_offset_rect / 2, _max_offset_rect / 2)
 	global_position = player.global_position + desired_offset
 
 
-func resize() -> void:
-	max_rect = get_viewport().size * 0.2
+func _resize() -> void:
+	var cam_size := (
+			get_viewport_rect() *
+			get_canvas_transform().affine_inverse()
+			).size
+	_max_offset_rect = cam_size * MAX_RECT_PROPORTION
