@@ -45,6 +45,7 @@ var scrap = 50:
 var turret_cost = 25
 
 @onready var visuals := $Visuals as PlayerVisuals
+@onready var audio := $Audio as PlayerAudio
 @onready var melee_player := $MeleePlayer as AnimationPlayer
 
 
@@ -76,6 +77,7 @@ func _physics_process(_delta: float) -> void:
 			hand_action = Hand.FIRING_WRENCH
 			melee_player.play("melee_attack")
 			visuals.play_melee_fire()
+			audio.play_melee_swing_sound()
 			hand_locked = true
 
 	if Input.is_action_just_released("melee"):

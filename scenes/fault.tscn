@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://dhntafslopc4h"]
+[gd_scene load_steps=46 format=3 uid="uid://dhntafslopc4h"]
 
 [ext_resource type="Script" uid="uid://d1ycqyouy38vt" path="res://scripts/fault_scene/fault.gd" id="1_poe5t"]
 [ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox_comp.gd" id="2_8twt2"]
@@ -9,6 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet_v2.png" id="4_j0lcy"]
 [ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/properties/target_priority_prop.gd" id="4_kmo7v"]
 [ext_resource type="FontFile" uid="uid://cj53anigafm5t" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="5_rtx38"]
+[ext_resource type="AudioStream" uid="uid://dxkyv1bjpvfkn" path="res://assets/audio/sound_effects/success_sound.wav" id="10_li0y2"]
+[ext_resource type="Script" path="res://scripts/fault_scene/audio.gd" id="10_of21w"]
+[ext_resource type="AudioStream" uid="uid://dk7lmxukxhhcr" path="res://assets/audio/sound_effects/error.wav" id="10_sp3rc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8twt2"]
 size = Vector2(28, 28)
@@ -545,6 +548,19 @@ libraries = {
 
 [node name="RebootTimer" type="Timer" parent="."]
 wait_time = 10.0
+
+[node name="Audio" type="Node" parent="." node_paths=PackedStringArray("fault")]
+script = ExtResource("10_of21w")
+fault = NodePath("..")
+
+[node name="SabotagedSound" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("10_sp3rc")
+volume_db = -5.0
+bus = &"SFX"
+
+[node name="SuccessSound" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("10_li0y2")
+bus = &"SFX"
 
 [connection signal="disappear_finished" from="Visuals" to="." method="_on_visuals_disappear_finished"]
 [connection signal="timeout" from="RebootTimer" to="." method="_on_reboot_timer_timeout"]

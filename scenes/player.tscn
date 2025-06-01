@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://ytw0s5xnqwvt"]
+[gd_scene load_steps=68 format=3 uid="uid://ytw0s5xnqwvt"]
 
 [ext_resource type="Script" uid="uid://c8f8kowfp34yp" path="res://scripts/player_scene/player.gd" id="1_f1ej7"]
 [ext_resource type="Script" uid="uid://cndl5nak0qpxp" path="res://scripts/properties/movement_prop.gd" id="2_g2els"]
@@ -27,6 +27,8 @@
 [ext_resource type="Script" uid="uid://2fh28xow6f1j" path="res://scripts/effects/health_effect.gd" id="20_4ni07"]
 [ext_resource type="Texture2D" uid="uid://qffoquvsdmfp" path="res://assets/sprites/playerhand_spritesheet.png" id="22_pf23h"]
 [ext_resource type="Texture2D" uid="uid://cai86xvs48gye" path="res://assets/sprites/gunblast_spritesheet.png" id="23_pf23h"]
+[ext_resource type="AudioStream" uid="uid://cba76dqigqmco" path="res://assets/audio/sound_effects/metal_hit.wav" id="28_pf23h"]
+[ext_resource type="AudioStream" uid="uid://vfvy3e572ida" path="res://assets/audio/sound_effects/melee_swing.wav" id="29_dt7fs"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
 radius = 5.0
@@ -150,7 +152,7 @@ metadata/_custom_type_script = "uid://bc5nkvlgktyor"
 script = ExtResource("17_ke2ow")
 _interval = -1.0
 _repeat = 0
-_factor = 10.0
+_factor = 26.0
 metadata/_custom_type_script = "uid://c038au8w13gc1"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a38lo"]
@@ -506,11 +508,12 @@ frame = 3
 frame_progress = 1.0
 offset = Vector2(27.5, -0.5)
 
-[node name="Audio" type="Node" parent="." node_paths=PackedStringArray("player", "player_ranged", "player_melee")]
+[node name="Audio" type="Node" parent="." node_paths=PackedStringArray("player", "player_ranged", "player_melee", "player_repair")]
 script = ExtResource("13_a8ls1")
 player = NodePath("..")
 player_ranged = NodePath("../Components/RangedComp")
 player_melee = NodePath("../Components/MeleeComp")
+player_repair = NodePath("../Components/RepairComp")
 
 [node name="LaserSound" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("12_3v2ag")
@@ -531,6 +534,17 @@ bus = &"SFX"
 
 [node name="HitSound" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("17_60mlk")
+volume_db = 5.0
+bus = &"SFX"
+
+[node name="RepairSound" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("28_pf23h")
+volume_db = -5.0
+bus = &"SFX"
+
+[node name="MeleeSwing" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("29_dt7fs")
+volume_db = -7.0
 bus = &"SFX"
 
 [connection signal="changed" from="Properties/HealthProp" to="." method="_on_health_changed"]
