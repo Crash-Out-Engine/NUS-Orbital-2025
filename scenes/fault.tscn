@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://cf6drkuqld4ft" path="res://scripts/properties/build_prop.gd" id="2_iirbo"]
 [ext_resource type="Script" uid="uid://fkksvdjg1cog" path="res://scripts/fault_scene/visuals.gd" id="2_j0lcy"]
 [ext_resource type="Texture2D" uid="uid://ci6bybddr7cy2" path="res://assets/sprites/power_fault_spritesheet.png" id="2_k0tyb"]
-[ext_resource type="Script" path="res://scripts/properties/sabotage_prop.gd" id="3_qcmb2"]
+[ext_resource type="Script" uid="uid://wl0p66q8tmcl" path="res://scripts/properties/sabotage_prop.gd" id="3_qcmb2"]
 [ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet_v2.png" id="4_j0lcy"]
 [ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/properties/target_priority_prop.gd" id="4_kmo7v"]
 [ext_resource type="FontFile" uid="uid://cj53anigafm5t" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="5_rtx38"]
@@ -452,6 +452,8 @@ _data = {
 }
 
 [node name="Fault" type="StaticBody2D" node_paths=PackedStringArray("build_prop", "sabotage_prop", "hitbox")]
+collision_layer = 2
+collision_mask = 0
 script = ExtResource("1_poe5t")
 repair_target = 100.0
 build_prop = NodePath("Properties/BuildProp")
@@ -472,13 +474,13 @@ script = ExtResource("3_qcmb2")
 
 [node name="TargetPriorityProp" type="Node" parent="Properties"]
 script = ExtResource("4_kmo7v")
-initial_priority = 10.0
+priority = 10.0
 
 [node name="Components" type="Node2D" parent="."]
 
 [node name="HitboxComp" type="Node" parent="Components"]
 script = ExtResource("2_8twt2")
-team = 4
+team = 3
 metadata/_custom_type_script = "uid://wwqkkrfhwiyn"
 
 [node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("fault")]

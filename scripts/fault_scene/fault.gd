@@ -11,6 +11,8 @@ enum State {
 }
 
 @export var repair_target: float
+
+@export_group("Components")
 @export var build_prop: BuildProp
 @export var sabotage_prop: SabotageProp
 @export var hitbox: HitboxComp
@@ -30,20 +32,26 @@ var state: State:
 
 func _ready() -> void:
 	state = State.SABOTAGED
-	build_prop.just_changed.connect(check_repair)
-	sabotage_prop.just_changed.connect(check_sabotage)
+	build_prop.changed.connect(func(_from, to): check_repair(to))
+	sabotage_prop.changed.connect(func(_from, to): check_sabotage(to))
 
 
 func handle_state_changed(from: State, to: State):
 	match [from, to]:
 		[State.SABOTAGED, State.REBOOTING]:
+			set_collision_layer_value(1, true)
+			set_collision_layer_value(2, false)
+			set_collision_mask_value(1, true)
 			reboot_timer.start()
-			hitbox.team = Enums.Team.REBOOTING_FAULT
-			sabotage_prop.repair()
+			hitbox.team = Enums.Team.PLAYER_BUILDING
+			sabotage_prop.reset()
 		
 		[State.REBOOTING, State.SABOTAGED]:
+			set_collision_layer_value(1, false)
+			set_collision_layer_value(2, true)
+			set_collision_mask_value(1, false)
 			reboot_timer.stop()
-			hitbox.team = Enums.Team.SABOTAGED_FAULT
+			hitbox.team = Enums.Team.TO_BUILD
 			build_prop.reset()
 		
 		[State.REBOOTING, State.FIXED]:

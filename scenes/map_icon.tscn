@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dj8p5rry6xb7n"]
+
+[ext_resource type="Texture2D" uid="uid://mk53qh8h10ke" path="res://assets/sprites/map_icons_spritesheet.png" id="1_2yqxl"]
+[ext_resource type="Script" uid="uid://u6jcdubmrey0" path="res://scripts/game_scene/ui/map_icon.gd" id="2_73uoh"]
+
+[node name="MapIcon" type="Sprite2D"]
+visible = false
+texture = ExtResource("1_2yqxl")
+hframes = 5
+region_rect = Rect2(1, 1, 24, 24)
+script = ExtResource("2_73uoh")

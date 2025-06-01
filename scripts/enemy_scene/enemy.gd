@@ -11,7 +11,7 @@ var loot_scene = preload("res://scenes/loot.tscn")
 
 
 func _ready() -> void:
-	health_prop.just_emptied.connect(die)
+	health_prop.emptied.connect(die)
 
 
 func die():

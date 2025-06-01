@@ -6,7 +6,7 @@ var max_rect: Vector2
 var mouse_offset: Vector2
 var desired_offset: Vector2
 var min_offset: int = -100
-var max_offset: int = 10
+var max_offset: int = 100
 
 @onready var player := get_parent() as Player
 

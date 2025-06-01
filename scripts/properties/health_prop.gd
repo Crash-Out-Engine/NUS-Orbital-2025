@@ -1,29 +1,26 @@
 class_name HealthProp
 extends PropertyBase
 
-signal just_emptied
-signal just_reduced(by: float)
-signal just_changed(old_value: float, new_value: float)
+signal emptied
+signal reduced(by: float)
 
-@export var health_capacity: float = 20.0;
-
-var _health_emptied: bool
-var _prev_value: float
+@export var health: float = 20.0;
+@export var _health_capacity_prop: HealthCapacityProp
 
 
 func _ready() -> void:
-	value = health_capacity
-	_prev_value = value
-	_health_emptied = false
+	if _health_capacity_prop != null:
+		assert(0 <= health and health <= _health_capacity_prop.value, "Initial health value should be between 0 and health capacity.")
+	value = health
+	changed.connect(_check_empty)
+	changed.connect(_check_reduced)
+	
+
+func _check_empty(old_value: float, new_value: float) -> void:
+	if new_value <= 0 and old_value > 0:
+		emptied.emit()
 
 
-func _physics_process(_delta: float) -> void:
-	if value <= 0 and !_health_emptied:
-		just_emptied.emit()
-		_health_emptied = true
-		
-	if value != _prev_value and !_health_emptied:
-		just_reduced.emit(_prev_value - value)
-		just_changed.emit(_prev_value, value)
-		
-	_prev_value = value
+func _check_reduced(old_value: float, new_value: float) -> void:
+	if old_value > new_value:
+		reduced.emit(old_value - new_value)

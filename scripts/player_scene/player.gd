@@ -12,7 +12,8 @@ enum Hand {
 	HOLDING_GUN,
 	FIRING_GUN,
 	HOLDING_WRENCH,
-	FIRING_WRENCH
+	FIRING_WRENCH,
+	PLANNING_WRENCH
 }
 
 const KNOCKBACK_DURATION = 0.5
@@ -28,6 +29,7 @@ const PICKUP_RANGE = 40
 @export var melee_cooldown: MeleeCooldownProp
 
 var hand_action = Hand.HOLDING_GUN
+var hand_locked: bool = false
 var direction: Callable = func(_delta: float) -> Vector2:
 	return Vector2(
 		Input.get_axis("left", "right"),
@@ -40,8 +42,8 @@ var scrap = 50:
 	set(value):
 		scrap = value
 		scrap_changed.emit(value)
-var turrets_placed = 0 # HACK: temporary for lift-off demonstration
-var turret_cost = 5 # HACK: temporary for lift-off demonstration
+
+var turret_cost = 25
 
 @onready var visuals := $Visuals as PlayerVisuals
 @onready var melee_player := $MeleePlayer as AnimationPlayer
@@ -60,23 +62,38 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if Input.is_action_just_pressed("shoot"):
-		if (hand_action == Hand.HOLDING_GUN):
+	if Input.is_action_pressed("shoot"):
+		if hand_action == Hand.HOLDING_GUN:
 			hand_action = Hand.FIRING_GUN
 			ranged.active = true
 	
 	if Input.is_action_just_released("shoot"):
-		ranged.active = false
-		hand_action = Hand.HOLDING_GUN
+		if hand_action == Hand.FIRING_GUN:
+			ranged.active = false
+			hand_action = Hand.HOLDING_GUN
 	
 	if Input.is_action_just_pressed("melee"):
 		if hand_action == Hand.HOLDING_GUN and melee_cooldown.can_melee():
 			hand_action = Hand.FIRING_WRENCH
 			melee_player.play("melee_attack")
 			visuals.play_melee_fire()
+			hand_locked = true
+	
+	if Input.is_action_pressed("melee"):
+		if (hand_action == Hand.HOLDING_WRENCH or hand_action == Hand.HOLDING_GUN) and melee_cooldown.can_melee():
+			hand_action = Hand.FIRING_WRENCH
+			melee_player.play("melee_attack")
+			visuals.play_melee_fire()
+			hand_locked = true
+	
+	if Input.is_action_just_released("melee"):
+		if !hand_locked and hand_action == Hand.HOLDING_WRENCH:
+			hand_action = Hand.HOLDING_GUN
 	
 	if Input.is_action_just_pressed("add turret"):
-		hand_action = Hand.HOLDING_WRENCH
+		hand_action = Hand.PLANNING_WRENCH
+		ranged.active = false
+		hand_locked = false
 		current_turret = _TURRET_SCENE.instantiate()
 		current_turret.global_position = get_global_mouse_position()
 		current_turret.player = self
@@ -93,12 +110,8 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_released("add turret"):
 		if current_turret != null:
 			if can_place_turret():
-				current_turret.advance_state() # TODO: implement other turret states properly
-				current_turret.advance_state()
 				current_turret.advance_state()
 				scrap -= turret_cost
-				turrets_placed += 1
-				turret_cost = (turrets_placed + 1) * turrets_placed * 5 / 2
 			else:
 				current_turret.state = Turret.State.CANCELLED
 				turret_placement_failed.emit()
@@ -122,17 +135,22 @@ func gain_scrap(amount: int) -> void:
 	scrap += amount
 
 
-func _on_health_just_emptied() -> void:
+func _on_health_emptied() -> void:
 	get_tree().reload_current_scene()
-
-
-func _on_health_just_changed(_old_value: float, new_value: float) -> void:
-	health_changed.emit(new_value / health.health_capacity)
 
 
 func apply_knockback(source: Node2D) -> void:
 	knockback_direction = (global_position - source.global_position).normalized()
 	knockback = KNOCKBACK_AMOUNT
 
+
 func _on_visuals_melee_finished() -> void:
-	hand_action = Hand.HOLDING_GUN
+	if Input.is_action_pressed("melee"):
+		hand_action = Hand.HOLDING_WRENCH
+	else:
+		hand_action = Hand.HOLDING_GUN
+	hand_locked = false
+
+
+func _on_health_changed(_from: float, to: float) -> void:
+	health_changed.emit(to / health_capacity.value)

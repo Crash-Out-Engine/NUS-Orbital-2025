@@ -1,11 +1,14 @@
 class_name RangedPlayerComp
 extends RangedBaseComp
 
+@export var player: Player
+
 const _BULLET_SCENE = preload("res://scenes/bullet.tscn")
 
 
 func _physics_process(_delta: float) -> void:
-	look_at(get_global_mouse_position())
+	if !player.hand_locked:
+		look_at(get_global_mouse_position())
 	
 	if !active or !ranged_cooldown.can_ranged():
 		return

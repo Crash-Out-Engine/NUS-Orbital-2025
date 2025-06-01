@@ -1,62 +1,70 @@
 extends Control
 
-const MAP_SCALE = Vector2(8.0, 8.0)
+const MAP_SCALE := Vector2(8.0, 8.0)
+const _MAP_ICON_SCENE := preload("res://scenes/map_icon.tscn")
 
-@export var player : Player
-@export var icon_template : Sprite2D
-@export var map : Panel
+@export var player: Player
+@export var map: Panel
+@export var entity_container: Node
 
-var _center : Vector2
+var _center: Vector2
 var _map_size: Vector2
-var _icons : Array[Sprite2D] = []
-var _buildings: Array[Node2D] = []
+var _entities_icons: Dictionary[Node2D, Sprite2D] = {}
+
 
 func _ready() -> void:
 	_map_size = map.size
 	_center = _map_size / Vector2(2, 2)
-	var player_icon = icon_template.duplicate() as Sprite2D
-	player_icon.frame = 0
-	player_icon.position = _center
-	player_icon.z_index = 1
-	player_icon.visible = true
-	map.add_child(player_icon)
-	_buildings.append(player)
-	_icons.append(player_icon)
+
+	# Ensures that node order is irrelevant to its function.
+	entity_container.child_entered_tree.connect(setup_icon)
+	for entity in entity_container.get_children():
+		setup_icon(entity)
+
 
 func _process(_delta: float) -> void:
-	for icon in map.get_children():
-		icon.position = to_map_coord(find_reference(icon).global_position)
-		icon.visible = within_map(icon.position)
+	for entity: Node2D in _entities_icons.keys():
+		var icon = _entities_icons.get(entity)
+		icon.position = _to_map_coord(entity.global_position)
+		icon.visible = _is_within_map(icon.position)
 
-func get_building_type(node: Node) -> int: #HACK: Objects in the map should be collected in a group
+
+func setup_icon(node: Node) -> MapIcon:
+	var icon = _MAP_ICON_SCENE.instantiate()
+
 	if node is Player:
-		return 0
-	if node is Fault:
-		return 1
-	if node is Turret:
-		return 2
-	return -1
+		icon.frame = MapIcon.Icon.PLAYER
+		icon.z_index = 1
+	elif node is Fault:
+		icon.frame = MapIcon.Icon.FAULT
+	elif node is Turret:
+		var icon_map: Dictionary[Turret.State, MapIcon.Icon] = {
+				Turret.State.PLANNED: icon.Icon.PLANNED_TURRET,
+				Turret.State.OPERATIONAL: icon.Icon.BUILT_TURRET
+				}
+		var swapper = func(_from, to: Turret.State):
+				icon.swap(icon_map.get(to, icon.Icon.EMPTY))
+		node.state_changed.connect(swapper)
+	else: # Node is not an entity to be mapped.
+		return null
+	
+	# Adding icon to map
+	var other_icon = _entities_icons.get_or_add(node, icon)
+	if other_icon != icon:
+		other_icon.queue_free()
+	map.add_child(icon)
 
-func to_map_coord(pos: Vector2) -> Vector2:
+	# Setting up cleanup function
+	node.tree_exiting.connect(func(): 
+			icon.queue_free()
+			_entities_icons.erase(node)
+			)
+	return icon
+
+
+func _to_map_coord(pos: Vector2) -> Vector2:
 	return (pos - player.global_position) / MAP_SCALE + _center
 
-func find_reference(icon: Sprite2D) -> Node2D:
-	return _buildings[_icons.find(icon)]
 
-func within_map(pos: Vector2) -> bool:
-	return pos.x >= 0 and pos.x <= _map_size.x and pos.y >= 0 and pos.y <= _map_size.y
-
-func _on_entity_container_child_entered_tree(node: Node) -> void:
-	var i = get_building_type(node)
-	if i >= 0:
-		_buildings.append(node)
-		var icon = icon_template.duplicate() as Sprite2D
-		icon.frame = i
-		map.add_child(icon)
-		_icons.append(icon)
-
-func _on_entity_container_child_exiting_tree(node: Node) -> void:
-	var i = _buildings.find(node)
-	if i >= 0:
-		_icons.remove_at(i)
-		_buildings.remove_at(i)
+func _is_within_map(mapped_pos: Vector2) -> bool:
+	return mapped_pos.x >= 0 and mapped_pos.x <= _map_size.x and mapped_pos.y >= 0 and mapped_pos.y <= _map_size.y

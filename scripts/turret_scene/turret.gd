@@ -2,24 +2,27 @@ class_name Turret
 extends StaticBody2D
 
 signal state_changed(from: State, to: State)
+signal build_progressed(progress: float)
 
 enum State {
 	DEFAULT,
 	PLACING,
 	PLANNED,
-	BUILDING,
 	OPERATIONAL,
 	DESTROYED,
 	CANCELLED,
 }
 
+@export var build_target: float
+
 @export_group("Properties")
+@export var health_capacity: HealthCapacityProp
 @export var health: HealthProp
+@export var build_prop: BuildProp
 
 @export_group("Components")
 @export var ranged: RangedBaseComp
 @export var hitbox: HitboxComp
-
 
 var state: State:
 	set(value):
@@ -35,7 +38,8 @@ var player: Player
 
 func _ready() -> void:
 	state = State.PLACING
-	health.just_emptied.connect(func(): state = State.DESTROYED)
+	health.emptied.connect(func(): state = State.DESTROYED)
+	build_prop.changed.connect(build_or_repair)
 
 
 func advance_state():
@@ -43,8 +47,6 @@ func advance_state():
 		State.PLACING:
 			state = State.PLANNED
 		State.PLANNED:
-			state = State.BUILDING
-		State.BUILDING:
 			state = State.OPERATIONAL
 		State.OPERATIONAL:
 			state = State.DESTROYED
@@ -66,20 +68,17 @@ func handle_state_changed(from: State, to: State):
 			set_collision_layer_value(1, false)
 			set_collision_layer_value(2, true)
 			set_collision_mask_value(1, false)
+			hitbox.team = Enums.Team.TO_BUILD
 
-		[_, State.BUILDING]:
+		[_, State.OPERATIONAL]:
 			set_collision_layer_value(1, true)
 			set_collision_layer_value(2, false)
 			set_collision_mask_value(1, true)
 			hitbox.team = _team
-
-		[_, State.OPERATIONAL]:
 			ranged.active = true
 
 		[_, State.DESTROYED]:
-			if (player != null): # HACK: turret should not call player code (not that often, at least)
-				player.turrets_placed -= 1
-				player.turret_cost = (player.turrets_placed + 1) * player.turrets_placed * 5 / 2
+			#TODO: implement loot drops
 			queue_free()
 
 		[_, State.CANCELLED]:
@@ -87,7 +86,7 @@ func handle_state_changed(from: State, to: State):
 
 		[_, _]:
 			assert(false, "Invalid state change from %s to %s." % [State.find_key(from), State.find_key(to)])
-
+	
 
 func set_collidable(value: bool) -> void:
 	$CollisionShape2D.set_deferred("disabled", not value)
@@ -95,3 +94,14 @@ func set_collidable(value: bool) -> void:
 
 func is_overlapping() -> bool:
 	return $PlacementArea.get_overlapping_bodies().any(func(body): return body.get_node_or_null(^"Components/HitboxComp") != null)
+
+
+func build_or_repair(from: float, to: float) -> void:
+	if state == State.PLANNED:
+		if to >= build_target:
+			state = State.OPERATIONAL
+		build_progressed.emit(to / build_target)
+	if state == State.OPERATIONAL:
+		var cost = min(player.scrap, min((to - from) * 10, health_capacity.value - health.value) / 20)
+		player.scrap -= cost
+		health.value += cost * 20
