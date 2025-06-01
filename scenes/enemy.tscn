@@ -169,6 +169,11 @@ script = ExtResource("11_w8i8w")
 
 [node name="Components" type="Node2D" parent="."]
 
+[node name="HitboxComp" type="Node" parent="Components"]
+script = ExtResource("3_4ra3w")
+team = 2
+metadata/_custom_type_script = "uid://wwqkkrfhwiyn"
+
 [node name="MeleeComp" type="Area2D" parent="Components" node_paths=PackedStringArray("melee_cooldown", "target_priority")]
 script = ExtResource("5_nenq2")
 melee_cooldown = NodePath("../../Properties/MeleeCooldownProp")
@@ -187,11 +192,6 @@ position = Vector2(0, 11)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_s1ycm")
 debug_color = Color(0.7, 0, 0, 0.419608)
-
-[node name="HitboxComp" type="Node" parent="Components"]
-script = ExtResource("3_4ra3w")
-team = 2
-metadata/_custom_type_script = "uid://wwqkkrfhwiyn"
 
 [node name="RangedComp" type="Node2D" parent="Components" node_paths=PackedStringArray("barrel", "ranged_cooldown")]
 script = ExtResource("8_8qclf")
