@@ -24,7 +24,7 @@ func _process(delta: float) -> void:
 		play_idle_anim()
 	body_sprite.transform = body_sprite.transform.rotated(
 			turret_ranged.transform.get_rotation() - body_sprite.transform.get_rotation())
-	
+
 	# Modulate effect
 	if (body_sprite.modulate.v > 1.0):
 		body_sprite.modulate.v -= V_MODULATE * delta / BLEED_TIME

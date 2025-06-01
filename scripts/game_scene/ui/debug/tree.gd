@@ -7,7 +7,7 @@ var entities: TreeItem
 func _ready(): # TODO: Finish setting up Debug options
 	var root = create_item()
 	hide_root = true
-	
+
 	# === Statistics ===
 	var statistics = root.create_child()
 	statistics.set_text(0, "Statistics")
@@ -24,7 +24,7 @@ func _ready(): # TODO: Finish setting up Debug options
 	god.set_text(0, "God mode")
 	god.set_tooltip_text(0, "Infinite god, health, and scraps")
 	god.set_editable(0, true)
-	
+
 	var spawn_rate = game.create_child()
 	spawn_rate.set_text(0, "Spawn rate (per sec)")
 	var spawn_rate_range = spawn_rate.create_child()
@@ -35,14 +35,14 @@ func _ready(): # TODO: Finish setting up Debug options
 	# === Player ===
 	var player = root.create_child()
 	player.set_text(0, "Player")
-	
+
 	var health = player.create_child()
 	health.set_text(0, "Set health")
 	var health_range = health.create_child()
 	health_range.set_cell_mode(0, TreeItem.CELL_MODE_RANGE)
 	health_range.set_range_config(0, -1, 50, 0.1)
 	health_range.set_editable(0, true)
-	
+
 	var scraps = player.create_child()
 	scraps.set_text(0, "Set scraps")
 	var scraps_range = scraps.create_child()

@@ -11,14 +11,14 @@ func _ready() -> void:
 	_timer.one_shot = true
 	_timer.stop()
 	add_child(_timer)
-	
+
 
 func try_melee() -> bool:
 	if _timer.is_stopped():
 		_timer.start(value)
 		return true
-	else:
-		return false
+
+	return false
 
 
 func can_melee() -> bool:

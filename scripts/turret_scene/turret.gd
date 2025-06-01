@@ -94,4 +94,5 @@ func set_collidable(value: bool) -> void:
 
 
 func is_overlapping() -> bool:
-	return $PlacementArea.get_overlapping_bodies().any(func(body): return body.get_node_or_null(^"Components/HitboxComp") != null)
+	return $PlacementArea.get_overlapping_bodies().any(
+			func(body): return body.get_node_or_null(^"Components/HitboxComp") != null)

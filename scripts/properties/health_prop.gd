@@ -21,9 +21,9 @@ func _physics_process(_delta: float) -> void:
 	if value <= 0 and !_health_emptied:
 		just_emptied.emit()
 		_health_emptied = true
-		
+
 	if value != _prev_value and !_health_emptied:
 		just_reduced.emit(_prev_value - value)
 		just_changed.emit(_prev_value, value)
-		
+
 	_prev_value = value

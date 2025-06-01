@@ -1,10 +1,10 @@
 class_name PlayerVisuals
 extends Node2D
 
+signal melee_finished()
+
 const V_MODULATE := 100000000.0
 const BLEED_TIME := 2.0 / 30.0
-
-signal melee_finished()
 
 @export var player_ranged: RangedBaseComp
 @export var player_melee: MeleeComp
@@ -47,7 +47,7 @@ func _process(delta: float) -> void:
 func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("add turret"):
 		gun_sprite.play("melee_idle")
-	
+
 	if Input.is_action_just_released("add turret"):
 		gun_sprite.play("gun_idle")
 

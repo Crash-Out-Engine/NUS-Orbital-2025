@@ -1,6 +1,7 @@
 extends Node2D
 
-var power: float = 100.0 # HACK: power should be a separate system instead of existing within game.gd
+# HACK: power should be a separate system instead of existing within game.gd
+var power: float = 100.0
 
 @onready var target_provider := load("res://resources/target_provider.tres") as TargetProvider
 @onready var player := $EntityContainer/Player as Player
@@ -16,7 +17,8 @@ func _physics_process(delta: float) -> void:
 
 
 func try_connect_ranged(entity: Node2D):
-	var ranged: RangedBaseComp = entity.get_node_or_null(^"Components/RangedComp") # HACK: Take away reliance on the node being named "Ranged"
+	# HACK: Take away reliance on the node being named "Ranged"
+	var ranged: RangedBaseComp = entity.get_node_or_null(^"Components/RangedComp")
 	if ranged != null:
 		ranged.bullet_spawned.connect(add_entity)
 

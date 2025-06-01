@@ -1,8 +1,8 @@
 extends Node2D
 
-@export var active := true
+const _ENEMY_SCENE = preload("res://scenes/enemy.tscn")
 
-var _ENEMY_SCENE = preload("res://scenes/enemy.tscn")
+@export var active := true
 
 @onready var player := $"../EntityContainer/Player" as Player
 
@@ -10,9 +10,11 @@ var _ENEMY_SCENE = preload("res://scenes/enemy.tscn")
 func _on_spawn_timer_timeout() -> void:
 	if active:
 		var enemy = _ENEMY_SCENE.instantiate()
-		
-		enemy.global_position = player.global_position
-		enemy.global_position += get_viewport_rect().size.length() * 0.6 * Vector2.from_angle(randf_range(0, 2 * PI))
-		
+
+		var center = player.global_position
+		var radius = get_viewport_rect().size.length() * 0.6
+		var angle_vector = Vector2.from_angle(randf_range(0, 2 * PI))
+		enemy.global_position = center + radius * angle_vector
+
 		get_parent().add_entity(enemy)
 		enemy.vfx_emitted.connect(get_parent().add_misc)

@@ -17,7 +17,7 @@ func _ready() -> void:
 func die():
 	await visuals.bleed_finished
 	queue_free()
-	
+
 	var loot = loot_scene.instantiate()
 	loot.global_position = global_position
 	vfx_emitted.emit(loot)
