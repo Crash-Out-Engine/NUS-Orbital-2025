@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://iqyedsof74fp"]
+[gd_scene load_steps=29 format=3 uid="uid://iqyedsof74fp"]
 
 [ext_resource type="Script" uid="uid://47onqbsq6sc8" path="res://scripts/turret_scene/turret.gd" id="1_x3mc5"]
 [ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox_comp.gd" id="2_el7wl"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://crg4hg2cfow05" path="res://scripts/turret_scene/audio.gd" id="10_6k4ik"]
 [ext_resource type="Script" uid="uid://cywswu1o8bqjs" path="res://scripts/turret_scene/visuals.gd" id="12_fp1kq"]
 [ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet_v2.png" id="13_0mdkh"]
+[ext_resource type="AudioStream" uid="uid://cba76dqigqmco" path="res://assets/audio/sound_effects/metal_hit.wav" id="17_mpvso"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0dv4j"]
 radius = 8.0
@@ -169,6 +170,7 @@ vframes = 2
 
 [node name="BuildProgressBar" type="TextureProgressBar" parent="Visuals"]
 visible = false
+modulate = Color(0.89, 0.780827, 0.0712, 1)
 z_index = 2
 offset_left = -8.0
 offset_top = -8.0
@@ -189,3 +191,7 @@ stream = ExtResource("9_tg0ex")
 volume_db = -8.0
 pitch_scale = 2.0
 bus = &"SFX"
+
+[node name="BuildSound" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("17_mpvso")
+volume_db = -8.0

@@ -2,6 +2,8 @@ extends Node2D
 
 const BLEED_TIME = 0.125
 const V_MODULATE = 100000000
+const RED = Color("#e31212")
+const YELLOW = Color("#e3c712")
 const GREEN = Color("#36e312")
 
 @export var turret: Turret
@@ -47,13 +49,14 @@ func handle_state_changed(from: Turret.State, to: Turret.State) -> void:
 		[_, Turret.State.PLANNED]:
 			build_progress.modulate = Color(1, 1, 1, 1)
 			build_progress.value = 0
+			build_progress.fill_mode = 4
 			build_progress.visible = true
 			body_sprite.visible = false
 			set_visual_modulate(Color(1, 1, 1, 1))
 
 		[_, Turret.State.OPERATIONAL]:
 			build_progress.visible = false
-			build_progress.modulate = GREEN
+			build_progress.fill_mode = 5
 			body_sprite.visible = true
 			set_visual_modulate(Color(1, 1, 1, 1))
 
@@ -78,5 +81,7 @@ func bleed() -> void:
 	body_sprite.modulate.v = V_MODULATE
 
 func update_health_bar(value: float) -> void:
-	build_progress.value = value / turret_health_capacity.value * 100
-	build_progress.visible = build_progress.value < 100
+	var v = value / turret_health_capacity.value * 100
+	build_progress.value = v
+	build_progress.visible = v < 100
+	build_progress.modulate = GREEN if v >= 50 else YELLOW if v >= 25 else RED

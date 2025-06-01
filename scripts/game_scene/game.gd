@@ -13,6 +13,8 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	power -= delta
+	if power <= 0:
+		get_tree().reload_current_scene()
 
 
 func try_connect_ranged(entity: Node2D):

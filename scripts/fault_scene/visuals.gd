@@ -24,7 +24,7 @@ func _process(_delta: float) -> void:
 		rebooting_bar.value = fault.get_time_progress_ratio() * 100
 
 
-func handle_state_changed(from: Turret.State, to: Turret.State) -> void:
+func handle_state_changed(from: Fault.State, to: Fault.State) -> void:
 	match [from, to]:
 		[Fault.State.SABOTAGED, Fault.State.REBOOTING]:
 			play_rebooting()

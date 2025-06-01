@@ -3,7 +3,7 @@ extends Node2D
 @export var active: bool = false
 
 @onready var player: Player = $"/root/Game/EntityContainer/Player"
-@onready var player_camera: Camera2D = $"/root/Game/EntityContainer/Player/Camera2D"
+@onready var player_camera: Camera2D = $"/root/Game/EntityContainer/Camera2D"
 @onready var parent := get_parent() as ChunkTileMap
 
 

@@ -8,7 +8,7 @@ var desired_offset: Vector2
 var min_offset: int = -100
 var max_offset: int = 100
 
-@onready var player := get_parent() as Player
+@export var player : Player
 
 
 func _ready() -> void:
