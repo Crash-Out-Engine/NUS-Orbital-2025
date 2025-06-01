@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.2.2
-      - uses: Cxyu629/godot-tester@v1.2.0
+      - uses: Cxyu629/godot-tester@v1.3.0
         with:
           version: ${{ env.GODOT_VERSION }}
           release_type: "stable"
