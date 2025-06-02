@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://ytw0s5xnqwvt"]
+[gd_scene load_steps=70 format=3 uid="uid://ytw0s5xnqwvt"]
 
 [ext_resource type="Script" uid="uid://c8f8kowfp34yp" path="res://scripts/player_scene/player.gd" id="1_f1ej7"]
 [ext_resource type="Script" uid="uid://cndl5nak0qpxp" path="res://scripts/properties/movement_prop.gd" id="2_g2els"]
@@ -24,6 +24,7 @@
 [ext_resource type="Resource" uid="uid://dl56w1h7wf83j" path="res://resources/effect_mods/base_damage.tres" id="18_31cv2"]
 [ext_resource type="Script" uid="uid://cu55fh5hl5rxd" path="res://scripts/properties/melee_cooldown_prop.gd" id="18_60mlk"]
 [ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/effects/effect_base.gd" id="19_a38lo"]
+[ext_resource type="Script" uid="uid://155skx5u4uks" path="res://scripts/components/loot_collector_comp.gd" id="19_wqfne"]
 [ext_resource type="Script" uid="uid://2fh28xow6f1j" path="res://scripts/effects/health_effect.gd" id="20_4ni07"]
 [ext_resource type="Texture2D" uid="uid://qffoquvsdmfp" path="res://assets/sprites/playerhand_spritesheet.png" id="22_pf23h"]
 [ext_resource type="Texture2D" uid="uid://cai86xvs48gye" path="res://assets/sprites/gunblast_spritesheet.png" id="23_pf23h"]
@@ -154,6 +155,9 @@ _interval = -1.0
 _repeat = 0
 _factor = 26.0
 metadata/_custom_type_script = "uid://c038au8w13gc1"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wqfne"]
+radius = 40.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a38lo"]
 atlas = ExtResource("2_y4r1p")
@@ -483,6 +487,16 @@ z_index = 100
 position = Vector2(28, 0)
 shape = SubResource("RectangleShape2D_a38lo")
 debug_color = Color(0.0583333, 0.7, 0, 0.419608)
+
+[node name="LootCollectorComp" type="Area2D" parent="Components" node_paths=PackedStringArray("player")]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("19_wqfne")
+player = NodePath("../..")
+metadata/_custom_type_script = "uid://155skx5u4uks"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Components/LootCollectorComp"]
+shape = SubResource("CircleShape2D_wqfne")
 
 [node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("player_ranged", "player_melee", "player_repair", "player")]
 script = ExtResource("14_oprun")

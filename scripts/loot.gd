@@ -1,28 +1,10 @@
 class_name Loot
 extends Area2D
 
-const SPEED = 250
-
 var value = 1 # scrap can have multiple types of values to accomodate for large
 							# numbers of scrap rewards without spawning too much of the same
 							# scene. The sprite will have to change accordingly.
-var _velocity := Vector2.ZERO
-
-@onready var player := $/root/Game/EntityContainer/Player as Player
 
 
 func _ready() -> void:
 	rotation = randf_range(0.0, 360.0)
-
-
-func _physics_process(delta: float) -> void:
-	if (global_position.distance_to(player.global_position) <= player.PICKUP_RANGE):
-		var direction = global_position.angle_to_point(player.global_position)
-		_velocity = Vector2.from_angle(direction) * SPEED
-		global_position += _velocity * delta
-
-
-func _on_body_entered(body: Node2D) -> void:
-	if body is Player and body.get_node_or_null(^"Components/HitboxComp") != null:
-		body.gain_scrap(value)
-		queue_free()
