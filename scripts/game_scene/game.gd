@@ -8,6 +8,7 @@ var power: float = 100.0
 
 func _ready() -> void:
 	target_provider.set_entity_container($EntityContainer)
+	MotionTracker.attach_to(player) # TODO: move entity container to its own system
 	try_connect_ranged(player)
 	player.turret_spawned.connect(add_entity)
 
@@ -26,6 +27,7 @@ func try_connect_ranged(entity: Node2D):
 
 
 func add_entity(entity: Node2D) -> void:
+	MotionTracker.attach_to(entity) # TODO: move entity container to its own system
 	$EntityContainer.add_child(entity)
 	try_connect_ranged(entity)
 
