@@ -432,6 +432,13 @@ _health_capacity = 50.0
 script = ExtResource("4_dqkch")
 team = 1
 
+[node name="ModSlotComp" type="Node" parent="Components" node_paths=PackedStringArray("entity", "attack_comp")]
+script = ExtResource("16_ke2ow")
+mods = Array[ExtResource("17_ujl30")]([ExtResource("18_31cv2")])
+entity = NodePath("../..")
+attack_comp = NodePath("../RangedComp")
+metadata/_custom_type_script = "uid://bnt7cwx8k0nm0"
+
 [node name="RangedComp" type="Node2D" parent="Components" node_paths=PackedStringArray("player", "barrel", "ranged_cooldown")]
 script = ExtResource("7_smehm")
 player = NodePath("../..")
@@ -459,13 +466,6 @@ z_index = 100
 position = Vector2(28, 0)
 shape = SubResource("RectangleShape2D_a38lo")
 debug_color = Color(0.7, 0, 0, 0.419608)
-
-[node name="ModSlotComp" type="Node" parent="Components" node_paths=PackedStringArray("entity", "attack_comp")]
-script = ExtResource("16_ke2ow")
-mods = Array[ExtResource("17_ujl30")]([ExtResource("18_31cv2")])
-entity = NodePath("../..")
-attack_comp = NodePath("../RangedComp")
-metadata/_custom_type_script = "uid://bnt7cwx8k0nm0"
 
 [node name="RepairComp" type="Area2D" parent="Components" node_paths=PackedStringArray("melee_cooldown", "target_priority")]
 process_mode = 4

@@ -10,6 +10,11 @@ signal bullet_spawned(bullet: Node2D)
 @export var effects: Array[EffectBase] = []
 
 
+func _init() -> void:
+	assert(get_class() != "RangedBaseComp",
+			"RangedBaseComp is an abstract base class and cannot be instantiated.")
+
+
 func _ready() -> void:
 	var parent = $"../../"
 	assert(parent is Node2D, "Grandparent must extend Node2D.")

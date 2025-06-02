@@ -11,4 +11,4 @@ var type: Type
 
 
 func _init() -> void:
-	assert(false, "ModBase is an abstract class and cannot be initialized.")
+	assert(false, "ModBase is an abstract class and cannot be instantiated.")
