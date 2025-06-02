@@ -10,6 +10,11 @@ extends Resource
 var _counter: int
 
 
+func _init() -> void:
+	assert(get_class() != "EffectBase",
+			"EffectBase is an abstract base class and cannot be instantiated.")
+
+
 func set_factor(value: float) -> void:
 	_factor = value
 
