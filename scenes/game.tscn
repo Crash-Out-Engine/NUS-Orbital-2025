@@ -178,22 +178,22 @@ script = ExtResource("1_yqjtg")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_yqjtg")
 
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("player")]
+zoom = Vector2(2, 2)
+process_callback = 0
+position_smoothing_enabled = true
+script = ExtResource("4_lbhrr")
+player = NodePath("../EntityContainer/Player")
+
+[node name="CameraDebug" type="Node2D" parent="Camera2D"]
+script = ExtResource("4_37s47")
+metadata/_custom_type_script = "uid://rpe1k6t1qksx"
+
 [node name="MiscContainer" type="Node" parent="."]
 
 [node name="EntityContainer" type="Node" parent="."]
 
 [node name="Player" parent="EntityContainer" instance=ExtResource("1_uwrxv")]
-
-[node name="Camera2D" type="Camera2D" parent="EntityContainer" node_paths=PackedStringArray("player")]
-zoom = Vector2(2, 2)
-process_callback = 0
-position_smoothing_enabled = true
-script = ExtResource("4_lbhrr")
-player = NodePath("../Player")
-
-[node name="CameraDebug" type="Node2D" parent="EntityContainer/Camera2D"]
-script = ExtResource("4_37s47")
-metadata/_custom_type_script = "uid://rpe1k6t1qksx"
 
 [node name="ObjectSpawner" type="Node2D" parent="." node_paths=PackedStringArray("entity_container")]
 script = ExtResource("5_264po")
@@ -600,9 +600,10 @@ noise = SubResource("FastNoiseLite_vtaks")
 curve = SubResource("Curve_kvpfn")
 tileset_dimensions = Vector2i(4, 4)
 
-[node name="ChunkDebug" type="Node2D" parent="SandTileMap"]
+[node name="ChunkDebug" type="Node2D" parent="SandTileMap" node_paths=PackedStringArray("player_camera")]
 z_index = 100
 script = ExtResource("10_vtaks")
+player_camera = NodePath("../../Camera2D")
 
 [node name="OverlayTileMap" type="TileMapLayer" parent="."]
 z_index = -100
@@ -613,9 +614,10 @@ curve = SubResource("Curve_5newe")
 tileset_dimensions = Vector2i(3, 4)
 zeroth_tile = Vector2i(4, 0)
 
-[node name="ChunkDebug" type="Node2D" parent="OverlayTileMap"]
+[node name="ChunkDebug" type="Node2D" parent="OverlayTileMap" node_paths=PackedStringArray("player_camera")]
 z_index = 100
 script = ExtResource("10_vtaks")
+player_camera = NodePath("../../Camera2D")
 
 [node name="GameMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("21_5newe")

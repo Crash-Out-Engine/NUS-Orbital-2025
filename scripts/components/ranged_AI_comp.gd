@@ -13,10 +13,13 @@ func _physics_process(_delta: float) -> void:
 	if target == null:
 		return
 
-	# Ranged now has a valid target and can fire.
 	var motion_tracker := target.get_node(^"MotionTracker") as MotionTracker
 	var predicted_position = _predict_position(motion_tracker.position,
 			motion_tracker.velocity, Bullet.SPEED)
+	if is_nan(predicted_position.x) or is_nan(predicted_position.y):
+		return # Formula failed for whatever reason.
+
+	# Ranged now has a valid target and can fire.
 	look_at(predicted_position)
 
 	var bullet: Bullet = _BULLET_SCENE.instantiate()

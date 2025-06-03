@@ -20,10 +20,13 @@ func _physics_process(delta: float) -> void:
 
 
 func try_connect_ranged(entity: Node2D):
-	# HACK: Take away reliance on the node being named "Ranged"
-	var ranged: RangedBaseComp = entity.get_node_or_null(^"Components/RangedComp")
-	if ranged != null:
-		ranged.bullet_spawned.connect(add_entity)
+	var components_node = entity.get_node_or_null(^"Components")
+	if components_node != null:
+		var ranged_comps := (components_node
+				.get_children()
+				.filter(func(node): return node is RangedBaseComp))
+		for ranged_comp: RangedBaseComp in ranged_comps:
+			ranged_comp.bullet_spawned.connect(add_entity)
 
 
 func add_entity(entity: Node2D) -> void:

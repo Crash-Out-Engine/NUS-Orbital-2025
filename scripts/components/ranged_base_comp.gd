@@ -7,7 +7,7 @@ signal bullet_spawned(bullet: Node2D)
 @export var barrel: Node2D
 @export var ranged_cooldown: RangedCooldownProp
 @export var target_filter: TargetFilter
-@export var effects: Array[EffectBase] = []
+@export var effects: Array[EffectBase]
 
 
 func _init() -> void:

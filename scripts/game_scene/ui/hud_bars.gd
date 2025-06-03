@@ -33,16 +33,19 @@ extends Control
 @onready var scrap_label := $VBoxContainer/ScrapCounter/Icon/Label as Label
 
 func _ready() -> void:
+	update_health_bar()
+	update_scraps_counter()
 	player.health_changed.connect(update_health_bar)
-	player.scrap_changed.connect(update_scrap_counter)
+	player.scraps_changed.connect(update_scraps_counter)
 
 
 func _process(_delta: float) -> void:
 	update_power_bar(game.power as int)
 
 
-func update_health_bar(new_ratio: float) -> void:
-	health_bar.value = 100.0 * new_ratio
+func update_health_bar() -> void:
+	var ratio = player.get_health() / player.get_health_capacity()
+	health_bar.value = 100.0 * ratio
 	health_label.text = "%d/%d" % [player.get_health(), player.get_health_capacity()]
 
 
@@ -66,5 +69,5 @@ func update_power_bar(new_amount: int) -> void:
 		power_slots[i].visible = is_on
 
 
-func update_scrap_counter(new_amount: int) -> void:
-	scrap_label.text = str(new_amount)
+func update_scraps_counter() -> void:
+	scrap_label.text = str(player.get_scraps())
