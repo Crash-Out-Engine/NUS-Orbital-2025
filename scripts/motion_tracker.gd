@@ -10,6 +10,8 @@ var position: Vector2
 var velocity: Vector2
 var acceleration: Vector2
 var _entity: Node2D
+var _first_frame: bool = true
+var _second_frame: bool = true
 
 
 ## Attaches a [class MotionTracker] node to an entity.
@@ -33,5 +35,11 @@ func _physics_process(delta: float) -> void:
 		var prev_velocity = velocity
 
 		position = _entity.global_position
-		velocity = (position - prev_position) / delta
-		acceleration = (velocity - prev_velocity) / delta
+		if !_first_frame:
+			velocity = (position - prev_position) / delta
+		if !_second_frame:
+			acceleration = (velocity - prev_velocity) / delta
+		
+		if !_first_frame:
+			_second_frame = false
+		_first_frame = false

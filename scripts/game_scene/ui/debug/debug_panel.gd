@@ -27,9 +27,9 @@ func _on_tree_item_edited() -> void: # HACK: Greatly relies on the node paths be
 			match item.get_text(0):
 				"God mode":
 					if item.is_checked(0):
-						$/root/Game.power = INF / 2
-						$/root/Game/EntityContainer/Player/Properties/HealthProp.value = INF / 2
-						$/root/Game/EntityContainer/Player/Components/InventoryComp._scraps = int(INF) / 2
+						$/root/Game.power = abs(INF / 2)
+						$/root/Game/EntityContainer/Player/Properties/HealthProp.value = abs(INF / 2)
+						$/root/Game/EntityContainer/Player/Components/InventoryComp._scraps = absi(int(INF)) / 2
 					else:
 						$/root/Game.power = 100
 						$/root/Game/EntityContainer/Player/Properties/HealthProp.value = 50
