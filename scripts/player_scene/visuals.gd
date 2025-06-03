@@ -68,7 +68,7 @@ func play_melee_fire():
 	gun_sprite.play("melee_fire")
 
 
-func play_bleed(_new_ratio):
+func play_bleed():
 	player_sprite.modulate.v = V_MODULATE
 
 

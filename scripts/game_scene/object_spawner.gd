@@ -14,6 +14,7 @@ var rng := RandomNumberGenerator.new()
 var _loaded_chunks: Array[Vector2i] = []
 var _prev_player_chunk_position: Vector2i = Vector2i.MIN
 
+# TODO: Decouple player in multiplayer implementation
 @onready var player := $"../EntityContainer/Player" as Player
 
 

@@ -4,7 +4,8 @@ extends Area2D
 const LOOT_SPEED: float = 250
 const CONSUME_RADIUS: float = 3
 
-@export var player: Player
+@export_group("Components")
+@export var inventory: InventoryComp
 
 var _loots: Array[Loot] = []
 
@@ -14,13 +15,16 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	_loots = _loots.filter(func(loot): return loot != null)
 	for loot in _loots:
+		if loot == null:
+			continue
+
 		var displacement = (global_position - loot.global_position)
 
 		if displacement.length() < CONSUME_RADIUS:
-			player.gain_scrap(loot.value)
+			inventory.register_item(loot.item)
 			loot.queue_free()
-			_loots.erase(loot)
 			continue
 
 		var direction = displacement.normalized()
