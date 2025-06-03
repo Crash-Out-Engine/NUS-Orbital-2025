@@ -6,13 +6,15 @@ extends Control
 
 
 func _process(_delta: float) -> void:
-	tree.fps.set_text(0,
-			"FPS: %0.2f / Physics FPS: %0.2f"
-			% [1.0 / Performance.get_monitor(Performance.TIME_PROCESS),
-					1.0 / Performance.get_monitor(Performance.TIME_PHYSICS_PROCESS)])
-	tree.entities.set_text(0,
-			"Entities: %s / Misc: %s"
-			% [$/root/Game/EntityContainer.get_child_count(), $/root/Game/MiscContainer.get_child_count()])
+	try_debug()
+	if visible:
+		tree.fps.set_text(0,
+				"FPS: %0.2f / Physics FPS: %0.2f"
+				% [1.0 / Performance.get_monitor(Performance.TIME_PROCESS),
+						1.0 / Performance.get_monitor(Performance.TIME_PHYSICS_PROCESS)])
+		tree.entities.set_text(0,
+				"Entities: %s / Misc: %s"
+				% [$/root/Game/EntityContainer.get_child_count(), $/root/Game/MiscContainer.get_child_count()])
 
 
 func try_debug():
