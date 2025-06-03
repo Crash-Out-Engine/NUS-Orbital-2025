@@ -39,7 +39,7 @@ func _physics_process(delta: float) -> void:
 			velocity = (position - prev_position) / delta
 		if !_second_frame:
 			acceleration = (velocity - prev_velocity) / delta
-		
+
 		if !_first_frame:
 			_second_frame = false
 		_first_frame = false
