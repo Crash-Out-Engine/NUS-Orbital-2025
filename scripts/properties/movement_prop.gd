@@ -15,15 +15,19 @@ extends PropertyBase
 @export_group("Properties")
 @export var target_priority: TargetPriorityProp
 
+var active
 
 func _ready() -> void:
 	assert($"../../" is RigidBody2D or (is_player and $"../../" is CharacterBody2D),
 			"MovementProp's grandparent should be a RigidBody2D or CharacterBody2D.")
 
 	value = initial_speed
+	active = true
 
 
 func _physics_process(delta: float) -> void:
+	if !active: return
+
 	if is_player:
 		var player := $"../../" as Player
 		var knockback_vel = player.knockback * player.knockback_direction

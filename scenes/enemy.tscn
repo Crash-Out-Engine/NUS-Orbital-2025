@@ -12,7 +12,7 @@
 [ext_resource type="Script" uid="uid://cu55fh5hl5rxd" path="res://scripts/properties/melee_cooldown_prop.gd" id="6_nenq2"]
 [ext_resource type="Script" uid="uid://bhi7w6ril3da2" path="res://scripts/components/ranged_AI_comp.gd" id="8_8qclf"]
 [ext_resource type="Script" uid="uid://cwdm3dvyba0l3" path="res://scripts/properties/ranged_cooldown_prop.gd" id="9_ipns3"]
-[ext_resource type="Script" uid="uid://bc5nkvlgktyor" path="res://scripts/target_filter.gd" id="9_shcg2"]
+[ext_resource type="Script" path="res://scripts/target_filter.gd" id="9_shcg2"]
 [ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/properties/target_priority_prop.gd" id="11_w8i8w"]
 [ext_resource type="Script" uid="uid://bkccmmojcqpl5" path="res://scripts/mods/effects/sabotage_effect.gd" id="12_ile5s"]
 [ext_resource type="Script" uid="uid://b003j8v8bhc26" path="res://scripts/enemy_scene/visuals.gd" id="13_j0cyh"]
@@ -133,13 +133,15 @@ animations = [{
 "speed": 1.0
 }]
 
-[node name="Enemy" type="RigidBody2D" node_paths=PackedStringArray("health_prop") groups=["enemies"]]
+[node name="Enemy" type="RigidBody2D" node_paths=PackedStringArray("health_prop", "movement_prop") groups=["enemies"]]
+gravity_scale = 0.0
 lock_rotation = true
 continuous_cd = 1
 contact_monitor = true
 max_contacts_reported = 620
 script = ExtResource("1_7p1mj")
 health_prop = NodePath("Properties/HealthProp")
+movement_prop = NodePath("Properties/MovementProp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 100

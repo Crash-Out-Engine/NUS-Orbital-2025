@@ -4,6 +4,7 @@ extends RigidBody2D
 signal vfx_emitted(Node2D)
 
 @export var health_prop: HealthProp
+@export var movement_prop: MovementProp
 
 var loot_scene = preload("res://scenes/loot.tscn")
 
@@ -21,3 +22,7 @@ func die():
 	var loot = loot_scene.instantiate()
 	loot.global_position = global_position
 	vfx_emitted.emit(loot)
+
+func deactivate():
+	movement_prop.active = false
+	linear_velocity = Vector2(0, 0)
