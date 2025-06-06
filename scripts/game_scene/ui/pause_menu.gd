@@ -2,12 +2,12 @@ extends Control
 
 @onready var _master_bus = AudioServer.get_bus_index("Master")
 @onready var _master_vol_slider = (
-		$PanelContainer/VBoxContainer/MasterVolumeContainer/MasterVolumeSlider)
+		$PanelContainer/VBoxContainer/VolumesContainer/VBoxContainer/MasterVolumeContainer/MasterVolumeSlider)
 @onready var _music_bus = AudioServer.get_bus_index("Music")
 @onready var _music_vol_slider = (
-		$PanelContainer/VBoxContainer/MusicVolumeContainer/MusicVolumeSlider)
+		$PanelContainer/VBoxContainer/VolumesContainer/VBoxContainer/MusicVolumeContainer/MusicVolumeSlider)
 @onready var _sfx_bus = AudioServer.get_bus_index("SFX")
-@onready var _sfx_vol_slider = $PanelContainer/VBoxContainer/SFXVolumeContainer/SFXVolumeSlider
+@onready var _sfx_vol_slider = $PanelContainer/VBoxContainer/VolumesContainer/VBoxContainer/SFXVolumeContainer/SFXVolumeSlider
 
 
 func _ready() -> void:
@@ -16,6 +16,7 @@ func _ready() -> void:
 	$PanelContainer/VBoxContainer/Resume.pressed.connect(resume)
 	$PanelContainer/VBoxContainer/Restart.pressed.connect(restart)
 	$PanelContainer/VBoxContainer/Quit.pressed.connect(quit)
+	$PanelContainer/VBoxContainer/Close.pressed.connect(close_game)
 
 	_master_vol_slider.value = AudioServer.get_bus_volume_linear(_master_bus)
 	_music_vol_slider.value = AudioServer.get_bus_volume_linear(_music_bus)
@@ -35,10 +36,13 @@ func pause():
 
 func restart():
 	get_tree().paused = false
-	get_tree().reload_current_scene()
-
+	Functions.load_screen_to_scene("res://scenes/game.tscn")
 
 func quit():
+	get_tree().paused = false
+	Functions.load_screen_to_scene("res://scenes/game_menu.tscn")
+
+func close_game():
 	get_tree().quit()
 
 

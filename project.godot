@@ -19,6 +19,10 @@ config/features=PackedStringArray("4.4", "GL Compatibility")
 
 buses/default_bus_layout="res://resources/default_bus_layout.tres"
 
+[autoload]
+
+Functions="*res://scripts/functions.gd"
+
 [debug]
 
 gdscript/warnings/unused_signal=0

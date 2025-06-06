@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://bbtrde7tvkisy"]
+[gd_scene load_steps=53 format=3 uid="uid://dt3s6jcvlntpj"]
 
 [ext_resource type="PackedScene" uid="uid://ytw0s5xnqwvt" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://d2o1hku0svi7t" path="res://scripts/game_scene/game.gd" id="1_yqjtg"]
@@ -483,13 +483,15 @@ script = ExtResource("14_bt5mj")
 
 [node name="PanelContainer" type="PanelContainer" parent="UI/PauseMenu"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 384.0
-offset_top = 128.0
-offset_right = -384.0
-offset_bottom = -128.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -386.0
+offset_top = -186.0
+offset_right = 386.0
+offset_bottom = 186.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("12_ssvqc")
@@ -498,7 +500,66 @@ theme = ExtResource("12_ssvqc")
 layout_mode = 2
 alignment = 1
 
+[node name="VolumesContainer" type="MarginContainer" parent="UI/PauseMenu/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(700, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PauseMenu/PanelContainer/VBoxContainer/VolumesContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="MasterVolumeContainer" type="VBoxContainer" parent="UI/PauseMenu/PanelContainer/VBoxContainer/VolumesContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="UI/PauseMenu/PanelContainer/VBoxContainer/VolumesContainer/VBoxContainer/MasterVolumeContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_kvuet")
+text = "Master volume:"
+
+[node name="MasterVolumeSlider" type="HSlider" parent="UI/PauseMenu/PanelContainer/VBoxContainer/VolumesContainer/VBoxContainer/MasterVolumeContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="MusicVolumeContainer" type="VBoxContainer" parent="UI/PauseMenu/PanelContainer/VBoxContainer/VolumesContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="UI/PauseMenu/PanelContainer/VBoxContainer/VolumesContainer/VBoxContainer/MusicVolumeContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_kvuet")
+text = "Music volume:"
+
+[node name="MusicVolumeSlider" type="HSlider" parent="UI/PauseMenu/PanelContainer/VBoxContainer/VolumesContainer/VBoxContainer/MusicVolumeContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="SFXVolumeContainer" type="VBoxContainer" parent="UI/PauseMenu/PanelContainer/VBoxContainer/VolumesContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="UI/PauseMenu/PanelContainer/VBoxContainer/VolumesContainer/VBoxContainer/SFXVolumeContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_kvuet")
+text = "SFX volume:"
+
+[node name="SFXVolumeSlider" type="HSlider" parent="UI/PauseMenu/PanelContainer/VBoxContainer/VolumesContainer/VBoxContainer/SFXVolumeContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 1.0
+
 [node name="Resume" type="Button" parent="UI/PauseMenu/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(225, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("12_ssvqc")
@@ -506,64 +567,26 @@ theme_override_fonts/font = ExtResource("9_kvuet")
 text = "Resume"
 
 [node name="Restart" type="Button" parent="UI/PauseMenu/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(225, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("9_kvuet")
 text = "Restart"
 
 [node name="Quit" type="Button" parent="UI/PauseMenu/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(225, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("9_kvuet")
-text = "Quit"
+text = "Quit to Title Screen"
 
-[node name="MasterVolumeContainer" type="VBoxContainer" parent="UI/PauseMenu/PanelContainer/VBoxContainer"]
+[node name="Close" type="Button" parent="UI/PauseMenu/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(225, 0)
 layout_mode = 2
-alignment = 1
-
-[node name="Label" type="Label" parent="UI/PauseMenu/PanelContainer/VBoxContainer/MasterVolumeContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("9_kvuet")
-text = "Master volume:"
-
-[node name="MasterVolumeSlider" type="HSlider" parent="UI/PauseMenu/PanelContainer/VBoxContainer/MasterVolumeContainer"]
-layout_mode = 2
-max_value = 1.0
-step = 0.01
-value = 1.0
-
-[node name="MusicVolumeContainer" type="VBoxContainer" parent="UI/PauseMenu/PanelContainer/VBoxContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="Label" type="Label" parent="UI/PauseMenu/PanelContainer/VBoxContainer/MusicVolumeContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("9_kvuet")
-text = "Music volume:"
-
-[node name="MusicVolumeSlider" type="HSlider" parent="UI/PauseMenu/PanelContainer/VBoxContainer/MusicVolumeContainer"]
-layout_mode = 2
-max_value = 1.0
-step = 0.01
-value = 1.0
-
-[node name="SFXVolumeContainer" type="VBoxContainer" parent="UI/PauseMenu/PanelContainer/VBoxContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="Label" type="Label" parent="UI/PauseMenu/PanelContainer/VBoxContainer/SFXVolumeContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("9_kvuet")
-text = "SFX volume:"
-
-[node name="SFXVolumeSlider" type="HSlider" parent="UI/PauseMenu/PanelContainer/VBoxContainer/SFXVolumeContainer"]
-layout_mode = 2
-max_value = 1.0
-step = 0.01
-value = 1.0
+text = "Close Game
+"
 
 [node name="PauseSound" type="AudioStreamPlayer" parent="UI/PauseMenu"]
 stream = ExtResource("11_ca42v")
@@ -642,16 +665,25 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Restart" type="Button" parent="UI/GameOverPanel/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(225, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("9_kvuet")
 text = "Restart"
 
 [node name="Quit" type="Button" parent="UI/GameOverPanel/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(225, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("9_kvuet")
-text = "Quit"
+text = "Quit to Title Screen"
+
+[node name="Close" type="Button" parent="UI/GameOverPanel/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(225, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("9_kvuet")
+text = "Close Game"
 
 [node name="SandTileMap" type="TileMapLayer" parent="."]
 z_index = -100
@@ -685,11 +717,12 @@ autoplay = true
 bus = &"Music"
 
 [connection signal="timeout" from="EnemySpawner/SpawnTimer" to="EnemySpawner" method="_on_spawn_timer_timeout"]
+[connection signal="value_changed" from="UI/PauseMenu/PanelContainer/VBoxContainer/VolumesContainer/VBoxContainer/MasterVolumeContainer/MasterVolumeSlider" to="UI/PauseMenu" method="_on_master_volume_slider_value_changed"]
+[connection signal="value_changed" from="UI/PauseMenu/PanelContainer/VBoxContainer/VolumesContainer/VBoxContainer/MusicVolumeContainer/MusicVolumeSlider" to="UI/PauseMenu" method="_on_music_volume_slider_value_changed"]
+[connection signal="value_changed" from="UI/PauseMenu/PanelContainer/VBoxContainer/VolumesContainer/VBoxContainer/SFXVolumeContainer/SFXVolumeSlider" to="UI/PauseMenu" method="_on_sfx_volume_slider_value_changed"]
 [connection signal="pressed" from="UI/PauseMenu/PanelContainer/VBoxContainer/Resume" to="UI/PauseMenu" method="_on_resume_pressed"]
 [connection signal="pressed" from="UI/PauseMenu/PanelContainer/VBoxContainer/Restart" to="UI/PauseMenu" method="_on_restart_pressed"]
 [connection signal="pressed" from="UI/PauseMenu/PanelContainer/VBoxContainer/Quit" to="UI/PauseMenu" method="_on_quit_pressed"]
-[connection signal="value_changed" from="UI/PauseMenu/PanelContainer/VBoxContainer/MasterVolumeContainer/MasterVolumeSlider" to="UI/PauseMenu" method="_on_master_volume_slider_value_changed"]
-[connection signal="value_changed" from="UI/PauseMenu/PanelContainer/VBoxContainer/MusicVolumeContainer/MusicVolumeSlider" to="UI/PauseMenu" method="_on_music_volume_slider_value_changed"]
-[connection signal="value_changed" from="UI/PauseMenu/PanelContainer/VBoxContainer/SFXVolumeContainer/SFXVolumeSlider" to="UI/PauseMenu" method="_on_sfx_volume_slider_value_changed"]
+[connection signal="pressed" from="UI/PauseMenu/PanelContainer/VBoxContainer/Close" to="UI/PauseMenu" method="_on_quit_pressed"]
 [connection signal="toggled" from="UI/DebugPanel/VBoxContainer/Button" to="UI/DebugPanel/VBoxContainer/Tree" method="_on_button_toggled"]
 [connection signal="item_edited" from="UI/DebugPanel/VBoxContainer/Tree" to="UI/DebugPanel" method="_on_tree_item_edited"]

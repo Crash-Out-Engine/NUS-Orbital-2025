@@ -17,7 +17,6 @@ func _ready() -> void:
 	_sfx_vol_slider.value = AudioServer.get_bus_volume_linear(_sfx_bus)
 
 func _input(event: InputEvent) -> void:
-	print("huh")
 	if event is InputEventMouseButton:
 		if mouse_over:
 			visible = false

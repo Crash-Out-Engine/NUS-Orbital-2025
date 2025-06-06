@@ -7,6 +7,7 @@ func _ready() -> void:
 	game_scene.game_over.connect(display)
 	$PanelContainer/VBoxContainer/Restart.pressed.connect(restart)
 	$PanelContainer/VBoxContainer/Quit.pressed.connect(quit)
+	$PanelContainer/VBoxContainer/Close.pressed.connect(close_game)
 	
 
 func display(message: String) -> void:
@@ -15,7 +16,10 @@ func display(message: String) -> void:
 
 func restart():
 	get_tree().paused = false
-	get_tree().reload_current_scene()
+	Functions.load_screen_to_scene("res://scenes/game.tscn")
 
 func quit():
+	Functions.load_screen_to_scene("res://scenes/game_menu.tscn")
+
+func close_game():
 	get_tree().quit()
