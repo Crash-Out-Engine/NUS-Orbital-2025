@@ -69,7 +69,7 @@ func play_melee_fire():
 	player_repair.rotation = gun_sprite.rotation
 	gun_sprite.play("melee_fire")
 
-func play_bleed(_new_ratio):
+func play_bleed():
 	if player.can_control:
 		player_sprite.modulate.v = V_MODULATE
 

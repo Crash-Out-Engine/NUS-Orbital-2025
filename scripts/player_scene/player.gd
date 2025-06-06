@@ -4,8 +4,8 @@ extends CharacterBody2D
 signal turret_spawned(turret: Node2D)
 signal turret_placement_failed()
 
-signal health_changed(new_ratio: float)
-signal scrap_changed(new_value: int)
+signal health_changed()
+signal scraps_changed()
 signal no_lives()
 
 enum Hand {
@@ -182,3 +182,5 @@ func deactivate():
 	can_control = false
 	visuals.deactivate()
 
+func _on_health_changed(_from: float, _to: float) -> void:
+	health_changed.emit()

@@ -196,7 +196,6 @@ player = NodePath("../EntityContainer/Player")
 
 [node name="CameraDebug" type="Node2D" parent="Camera2D"]
 visible = false
-
 script = ExtResource("4_37s47")
 metadata/_custom_type_script = "uid://rpe1k6t1qksx"
 
@@ -699,7 +698,6 @@ player = NodePath("../EntityContainer/Player")
 
 [node name="ChunkDebug" type="Node2D" parent="SandTileMap" node_paths=PackedStringArray("player_camera")]
 visible = false
-
 z_index = 100
 script = ExtResource("10_vtaks")
 player_camera = NodePath("../../Camera2D")

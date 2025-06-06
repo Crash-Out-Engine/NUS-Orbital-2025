@@ -1,4 +1,4 @@
-[gd_scene load_steps=87 format=3 uid="uid://ytw0s5xnqwvt"]
+[gd_scene load_steps=90 format=3 uid="uid://ytw0s5xnqwvt"]
 
 [ext_resource type="Script" uid="uid://c8f8kowfp34yp" path="res://scripts/player_scene/player.gd" id="1_f1ej7"]
 [ext_resource type="Script" uid="uid://cndl5nak0qpxp" path="res://scripts/properties/movement_prop.gd" id="2_g2els"]
@@ -157,6 +157,8 @@ _repeat = 0
 _factor = 26.0
 metadata/_custom_type_script = "uid://c038au8w13gc1"
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_wqfne"]
+radius = 40.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lxlsd"]
 atlas = ExtResource("2_y4r1p")
@@ -221,10 +223,6 @@ region = Rect2(192, 96, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_2w11d"]
 atlas = ExtResource("2_y4r1p")
 region = Rect2(224, 96, 32, 32)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_wqfne"]
-radius = 40.0
-
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a38lo"]
 atlas = ExtResource("2_y4r1p")
@@ -714,6 +712,7 @@ stream = ExtResource("29_dt7fs")
 volume_db = -7.0
 bus = &"SFX"
 
+[connection signal="changed" from="Properties/HealthProp" to="." method="_on_health_prop_changed"]
 [connection signal="changed" from="Properties/HealthProp" to="." method="_on_health_changed"]
 [connection signal="emptied" from="Properties/HealthProp" to="." method="_on_health_emptied"]
 [connection signal="melee_finished" from="Visuals" to="." method="_on_visuals_melee_finished"]
