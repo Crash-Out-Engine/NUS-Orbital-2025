@@ -27,13 +27,13 @@ func _on_tree_item_edited() -> void: # HACK: Greatly relies on the node paths be
 			match item.get_text(0):
 				"God mode":
 					if item.is_checked(0):
-						$/root/Game.power = INF
-						$/root/Game/EntityContainer/Player/Properties/HealthProp.value = INF
-						$/root/Game/EntityContainer/Player.scrap = INF
+						$/root/Game.power = abs(INF / 2)
+						$/root/Game/EntityContainer/Player/Properties/HealthProp.value = abs(INF / 2)
+						$/root/Game/EntityContainer/Player/Components/InventoryComp._scraps = absi(int(INF)) / 2
 					else:
 						$/root/Game.power = 100
 						$/root/Game/EntityContainer/Player/Properties/HealthProp.value = 50
-						$/root/Game/EntityContainer/Player.scrap = 50
+						$/root/Game/EntityContainer/Player/Components/InventoryComp._scraps = 50
 
 		TreeItem.CELL_MODE_RANGE:
 			match item.get_parent().get_text(0):
@@ -43,4 +43,4 @@ func _on_tree_item_edited() -> void: # HACK: Greatly relies on the node paths be
 				"Set health":
 					$/root/Game/EntityContainer/Player/Properties/HealthProp.value = item.get_range(0)
 				"Set scraps":
-					$/root/Game/EntityContainer/Player.scrap = item.get_range(0)
+					$/root/Game/EntityContainer/Player/Components/InventoryComp._scraps = item.get_range(0)

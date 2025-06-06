@@ -24,7 +24,9 @@
 [ext_resource type="Resource" uid="uid://dl56w1h7wf83j" path="res://resources/effect_mods/base_damage.tres" id="18_31cv2"]
 [ext_resource type="Script" uid="uid://cu55fh5hl5rxd" path="res://scripts/properties/melee_cooldown_prop.gd" id="18_60mlk"]
 [ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/mods/effects/effect_base.gd" id="19_a38lo"]
+[ext_resource type="Script" uid="uid://155skx5u4uks" path="res://scripts/components/loot_collector_comp.gd" id="19_wqfne"]
 [ext_resource type="Script" uid="uid://2fh28xow6f1j" path="res://scripts/mods/effects/health_effect.gd" id="20_4ni07"]
+[ext_resource type="Script" uid="uid://j8sk0rxpd865" path="res://scripts/components/inventory_comp.gd" id="20_wnwbv"]
 [ext_resource type="Texture2D" uid="uid://qffoquvsdmfp" path="res://assets/sprites/playerhand_spritesheet.png" id="22_pf23h"]
 [ext_resource type="Texture2D" uid="uid://cai86xvs48gye" path="res://assets/sprites/gunblast_spritesheet.png" id="23_pf23h"]
 [ext_resource type="AudioStream" uid="uid://cba76dqigqmco" path="res://assets/audio/sound_effects/metal_hit.wav" id="28_pf23h"]
@@ -155,6 +157,7 @@ _repeat = 0
 _factor = 26.0
 metadata/_custom_type_script = "uid://c038au8w13gc1"
 
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_lxlsd"]
 atlas = ExtResource("2_y4r1p")
 region = Rect2(0, 64, 32, 32)
@@ -218,6 +221,10 @@ region = Rect2(192, 96, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_2w11d"]
 atlas = ExtResource("2_y4r1p")
 region = Rect2(224, 96, 32, 32)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wqfne"]
+radius = 40.0
+
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a38lo"]
 atlas = ExtResource("2_y4r1p")
@@ -520,11 +527,12 @@ animations = [{
 "speed": 15.0
 }]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("ranged", "health", "health_capacity", "melee_cooldown") groups=["allies"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("ranged", "inventory", "health", "health_capacity", "melee_cooldown") groups=["allies"]]
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_f1ej7")
 ranged = NodePath("Components/RangedComp")
+inventory = NodePath("Components/InventoryComp")
 health = NodePath("Properties/HealthProp")
 health_capacity = NodePath("Properties/HealthCapacityProp")
 melee_cooldown = NodePath("Properties/MeleeCooldownProp")
@@ -577,7 +585,7 @@ team = 1
 
 [node name="ModSlotComp" type="Node" parent="Components" node_paths=PackedStringArray("entity", "attack_comp")]
 script = ExtResource("16_ke2ow")
-mods = Array[ExtResource("17_ujl30")]([ExtResource("18_31cv2")])
+initial_mods = Array[ExtResource("17_ujl30")]([ExtResource("18_31cv2")])
 entity = NodePath("../..")
 attack_comp = NodePath("../RangedComp")
 metadata/_custom_type_script = "uid://bnt7cwx8k0nm0"
@@ -626,6 +634,22 @@ z_index = 100
 position = Vector2(28, 0)
 shape = SubResource("RectangleShape2D_a38lo")
 debug_color = Color(0.0583333, 0.7, 0, 0.419608)
+
+[node name="LootCollectorComp" type="Area2D" parent="Components" node_paths=PackedStringArray("inventory")]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("19_wqfne")
+inventory = NodePath("../InventoryComp")
+metadata/_custom_type_script = "uid://155skx5u4uks"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Components/LootCollectorComp"]
+shape = SubResource("CircleShape2D_wqfne")
+
+[node name="InventoryComp" type="Node" parent="Components"]
+script = ExtResource("20_wnwbv")
+initial_mods = Array[ExtResource("17_ujl30")]([ExtResource("18_31cv2"), ExtResource("18_31cv2"), ExtResource("18_31cv2"), ExtResource("18_31cv2")])
+initial_scraps = 60
+metadata/_custom_type_script = "uid://j8sk0rxpd865"
 
 [node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("player_ranged", "player_melee", "player_repair", "player")]
 script = ExtResource("14_oprun")

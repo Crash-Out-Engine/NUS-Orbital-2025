@@ -5,6 +5,7 @@ extends TileMapLayer
 @export var curve: Curve
 @export var tileset_dimensions: Vector2i
 @export var zeroth_tile: Vector2i
+# TODO: Remove dependency in multiplayer implementation.
 @export var player: Player
 
 var chunk_radius := 6

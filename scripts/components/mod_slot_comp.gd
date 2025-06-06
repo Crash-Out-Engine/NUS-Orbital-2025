@@ -2,12 +2,12 @@ class_name ModSlotComp
 extends Node
 ## ModSlotComp overrides the attack_comp's effects.
 
-@export var mods: Array[ModBase]:
-	set(value):
-		mods = value
-		_handle_mods_changed()
+@export var initial_mods: Array[ModBase]
 @export var entity: Node
 @export var attack_comp: Node
+
+var _mods: Array[ModBase]
+var _readonly_mods: Array[ModBase]
 
 
 func _ready() -> void:
@@ -16,17 +16,37 @@ func _ready() -> void:
 	assert(is_instance_valid(attack_comp) and "effects" in attack_comp,
 			"Attack component should have an effects variable.")
 
+	# Workaround to ensure turrets don't share the same array instance.
+	_mods = initial_mods.duplicate()
+	_handle_mods_changed()
+
+
+func set_slot(index: int, mod: ModBase) -> void:
+	_mods[index] = mod
+	_handle_mods_changed()
+
+
+func get_mods() -> Array[ModBase]:
+	return _readonly_mods
+
 
 func _handle_mods_changed() -> void:
+	_readonly_mods = _mods.duplicate()
+	_readonly_mods.make_read_only()
 	if !is_node_ready():
 		await ready
+	if !attack_comp.is_node_ready():
+		await attack_comp.ready
 
 	var upgrade_mods: Array[UpgradeMod]
 	var effect_mods: Array[EffectMod]
 	var application_mods: Array # TODO: Implement application mod
-	upgrade_mods.assign(mods.filter(func(mod): return mod.type == ModBase.Type.UPGRADE))
-	effect_mods.assign(mods.filter(func(mod): return mod.type == ModBase.Type.EFFECT))
-	application_mods.assign(mods.filter(func(mod): return mod.type == ModBase.Type.APPLICATION))
+	upgrade_mods.assign(
+			_mods.filter(func(mod): return mod != null and mod.type == ModBase.Type.UPGRADE))
+	effect_mods.assign(
+			_mods.filter(func(mod): return mod != null and mod.type == ModBase.Type.EFFECT))
+	application_mods.assign(
+			_mods.filter(func(mod): return mod != null and mod.type == ModBase.Type.APPLICATION))
 
 	var entity_properties := entity.get_node(^"Properties").get_children()
 	for upgrade in UpgradeMod.compile_upgrades(upgrade_mods):

@@ -31,7 +31,7 @@ var state: State:
 		if prev_state != state:
 			handle_state_changed(prev_state, state)
 			state_changed.emit(prev_state, state)
-var player: Player
+var player: Player # TODO: Decouple player in multiplayer implementation.
 
 @onready var _team: Enums.Team = hitbox.team
 
@@ -104,6 +104,7 @@ func build_or_repair(from: float, to: float) -> void:
 			state = State.OPERATIONAL
 		build_progressed.emit(to / build_target)
 	if state == State.OPERATIONAL:
-		var cost = min(player.scrap, min((to - from) * 10, health_capacity.value - health.value) / 20)
-		player.scrap -= cost
+		var cost = min(max(0, player.get_scraps()), min((to - from) * 10,
+				health_capacity.value - health.value) / 20)
+		player.use_scraps(cost)
 		health.value += cost * 20

@@ -29,7 +29,13 @@ func _process(_delta: float) -> void:
 		icon.visible = _is_within_map(icon.position)
 
 
-func setup_icon(node: Node) -> MapIcon:
+func setup_icon(node: Node) -> void:
+	if node in _entities_icons:
+		return
+
+	if not (node is Player or node is Fault or node is Turret):
+		return
+
 	var icon = _MAP_ICON_SCENE.instantiate()
 
 	if node is Player:
@@ -46,17 +52,13 @@ func setup_icon(node: Node) -> MapIcon:
 				icon.swap(icon_map.get(to, icon.Icon.EMPTY))
 		node.state_changed.connect(swapper)
 	else: # Node is not an entity to be mapped.
-		return null
+		assert(false, "This should be unreachable.")
 
 	# Adding icon to map
-	var other_icon = _entities_icons.get_or_add(node, icon)
-	if other_icon != icon:
-		other_icon.queue_free()
-	map.add_child(icon)
+	map.add_child(_entities_icons.get_or_add(node, icon))
 
 	# Setting up cleanup function
 	node.tree_exiting.connect(_cleanup(icon, node))
-	return icon
 
 
 func _to_map_coord(pos: Vector2) -> Vector2:

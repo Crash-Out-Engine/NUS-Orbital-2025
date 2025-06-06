@@ -3,6 +3,7 @@ extends CharacterBody2D
 
 signal turret_spawned(turret: Node2D)
 signal turret_placement_failed()
+
 signal health_changed(new_ratio: float)
 signal scrap_changed(new_value: int)
 signal no_lives()
@@ -18,10 +19,10 @@ enum Hand {
 const _TURRET_SCENE := preload("res://scenes/turret.tscn")
 const KNOCKBACK_DURATION = 0.5
 const KNOCKBACK_AMOUNT = 300.0
-const PICKUP_RANGE = 40
 
 @export_group("Components")
 @export var ranged: RangedBaseComp
+@export var inventory: InventoryComp
 
 @export_group("Properties")
 @export var health: HealthProp
@@ -39,11 +40,6 @@ var direction: Callable = func(_delta: float) -> Vector2:
 var knockback = 0.0
 var knockback_direction = Vector2(0, 0)
 var current_turret = null
-var scrap = 50:
-	set(value):
-		scrap = value
-		scrap_changed.emit(value)
-
 var turret_cost = 25
 
 @onready var visuals := $Visuals as PlayerVisuals
@@ -52,7 +48,8 @@ var turret_cost = 25
 
 
 func _ready() -> void:
-	health_changed.emit(1.0)
+	inventory.scraps_changed.connect(func(_from: int, _to: int): scraps_changed.emit())
+	health_changed.emit()
 	ranged.active = false
 	can_control = true
 
@@ -95,22 +92,24 @@ func _physics_process(_delta: float) -> void:
 		hand_locked = false
 		current_turret = _TURRET_SCENE.instantiate()
 		current_turret.global_position = get_global_mouse_position()
-		current_turret.player = self
+		current_turret.player = self # TODO: Decouple player in multiplayer implementation
 		turret_spawned.emit(current_turret)
 
 	if Input.is_action_pressed("add turret"):
 		if current_turret != null:
 			current_turret.global_position = get_global_mouse_position()
-			if !can_place_turret():
+			if !_can_place_turret():
 				current_turret.get_node_or_null(^"Visuals").set_visual_modulate(Color(1, 0, 0, 0.5))
 			else:
 				current_turret.get_node_or_null(^"Visuals").set_visual_modulate(Color(0, 1, 1, 0.5))
 
 	if Input.is_action_just_released("add turret"):
 		if current_turret != null:
-			if can_place_turret():
+			if _can_place_turret():
 				current_turret.advance_state()
-				scrap -= turret_cost
+				inventory.use_scraps(turret_cost)
+				add_random_mod(current_turret)
+				add_random_mod(current_turret)
 			else:
 				current_turret.state = Turret.State.CANCELLED
 				turret_placement_failed.emit()
@@ -118,8 +117,21 @@ func _physics_process(_delta: float) -> void:
 		hand_action = Hand.HOLDING_GUN
 
 
-func can_place_turret() -> bool:
-	return current_turret != null and !current_turret.is_overlapping() and turret_cost <= scrap
+# HACK: Temporary for testing, @deltaMinor please remove
+func add_random_mod(turret: Turret) -> void:
+	if (turret.get_node_or_null(^"Components/ModSlotComp") != null
+			and turret.get_node(^"Components/ModSlotComp").get_mods().find(null) == -1):
+		assert(false, "WOT?")
+	var inventory_mods = inventory.get_mods()
+	for key: ModBase in inventory_mods.keys():
+		if inventory_mods[key] > 0:
+			inventory.access_entity(turret)
+			inventory._handle_mod_equipped(key)
+			inventory.unaccess_entity()
+			return
+
+
+# region forwarding
 
 
 func get_health() -> float:
@@ -130,8 +142,15 @@ func get_health_capacity() -> float:
 	return health_capacity.value
 
 
-func gain_scrap(amount: int) -> void:
-	scrap += amount
+func get_scraps() -> int:
+	return inventory.get_scraps()
+
+
+func use_scraps(amount: int) -> void:
+	inventory.use_scraps(amount)
+
+
+# endregion
 
 
 func _on_health_emptied() -> void:
@@ -146,6 +165,12 @@ func apply_knockback(source: Node2D) -> void:
 	knockback = KNOCKBACK_AMOUNT
 
 
+func _can_place_turret() -> bool:
+	return (current_turret != null
+			and !current_turret.is_overlapping()
+			and turret_cost <= inventory.get_scraps())
+
+
 func _on_visuals_melee_finished() -> void:
 	if Input.is_action_pressed("melee"):
 		hand_action = Hand.HOLDING_WRENCH
@@ -153,10 +178,7 @@ func _on_visuals_melee_finished() -> void:
 		hand_action = Hand.HOLDING_GUN
 	hand_locked = false
 
-
-func _on_health_changed(_from: float, to: float) -> void:
-	health_changed.emit(to / health_capacity.value)
-
 func deactivate():
 	can_control = false
 	visuals.deactivate()
+
