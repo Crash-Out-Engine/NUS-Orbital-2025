@@ -4,6 +4,7 @@ const _ENEMY_SCENE = preload("res://scenes/enemy.tscn")
 
 @export var active := true
 
+# TODO: Decouple player in multiplayer implementation.
 @onready var player := $"../EntityContainer/Player" as Player
 
 

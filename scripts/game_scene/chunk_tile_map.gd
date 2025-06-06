@@ -11,6 +11,7 @@ var chunk_size := Vector2i(8, 8)
 var _loaded_chunks: Array[Vector2i] = []
 var _prev_player_chunk_position: Vector2i = Vector2i.MIN
 
+# TODO: Remove dependency in multiplayer implementation.
 @export var player: Player
 
 
