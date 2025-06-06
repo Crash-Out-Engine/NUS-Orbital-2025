@@ -1,5 +1,7 @@
 extends Control
 
+@export var game : Game
+
 @onready var _master_bus = AudioServer.get_bus_index("Master")
 @onready var _master_vol_slider = (
 		$PanelContainer/VBoxContainer/VolumesContainer/VBoxContainer/MasterVolumeContainer/MasterVolumeSlider)

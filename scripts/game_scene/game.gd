@@ -8,25 +8,27 @@ var power: float = 100.0
 var power_delta: float = 1.0
 
 var game_ongoing: bool
+var transitioning
 
 @onready var target_provider := load("res://resources/target_provider.tres") as TargetProvider
 @onready var player := $EntityContainer/Player as Player
 @onready var entity_container := $EntityContainer as Node
 
 func _ready() -> void:
+	game_ongoing = false
+	transitioning = true
 	target_provider.set_entity_container($EntityContainer)
 	MotionTracker.attach_to(player) # TODO: move entity container to its own system
 	try_connect_ranged(player)
 	player.no_lives.connect(func(): end_game("You died"))
 	player.turret_spawned.connect(add_entity)
-	game_ongoing = true
-
 
 func _physics_process(delta: float) -> void:
 	power -= delta * power_delta
 	if power <= 0:
 		if game_ongoing:
 			end_game("Power has run out")
+
 
 
 func try_connect_ranged(entity: Node2D):

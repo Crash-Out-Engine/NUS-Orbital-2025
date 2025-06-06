@@ -71,7 +71,8 @@ func play_melee_fire():
 
 
 func play_bleed(_new_ratio):
-	player_sprite.modulate.v = V_MODULATE
+	if player.can_control:
+		player_sprite.modulate.v = V_MODULATE
 
 
 func _on_gun_sprite_animation_finished() -> void:

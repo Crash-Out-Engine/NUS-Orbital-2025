@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bafixdtie6tof"]
+[gd_scene load_steps=9 format=3 uid="uid://bafixdtie6tof"]
 
 [ext_resource type="Script" uid="uid://bp8ffv2kqohmu" path="res://scripts/loading_screen.gd" id="1_hprjd"]
 [ext_resource type="FontFile" uid="uid://cj53anigafm5t" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="2_ku3bi"]
@@ -11,7 +11,44 @@ gradient = SubResource("Gradient_5phy8")
 
 [sub_resource type="LabelSettings" id="LabelSettings_qygbf"]
 font = ExtResource("2_ku3bi")
-font_size = 32
+font_size = 64
+
+[sub_resource type="Animation" id="Animation_hprjd"]
+resource_name = "init"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/TextureRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ku3bi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/TextureRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5phy8"]
+_data = {
+&"RESET": SubResource("Animation_ku3bi"),
+&"init": SubResource("Animation_hprjd")
+}
 
 [node name="LoadingScreen" type="CanvasLayer"]
 script = ExtResource("1_hprjd")
@@ -49,3 +86,8 @@ text = "Loading..."
 label_settings = SubResource("LabelSettings_qygbf")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_5phy8")
+}

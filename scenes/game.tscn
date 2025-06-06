@@ -201,6 +201,7 @@ script = ExtResource("4_lbhrr")
 player = NodePath("../Player")
 
 [node name="CameraDebug" type="Node2D" parent="EntityContainer/Camera2D"]
+visible = false
 script = ExtResource("4_37s47")
 metadata/_custom_type_script = "uid://rpe1k6t1qksx"
 
@@ -473,13 +474,14 @@ text = "THIS IS AN INVENTORY PLACEHOLDER"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PauseMenu" type="Control" parent="UI"]
+[node name="PauseMenu" type="Control" parent="UI" node_paths=PackedStringArray("game")]
 process_mode = 2
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1600.0
 offset_bottom = 900.0
 script = ExtResource("14_bt5mj")
+game = NodePath("../..")
 
 [node name="PanelContainer" type="PanelContainer" parent="UI/PauseMenu"]
 layout_mode = 1
@@ -685,19 +687,21 @@ size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("9_kvuet")
 text = "Close Game"
 
-[node name="SandTileMap" type="TileMapLayer" parent="."]
+[node name="SandTileMap" type="TileMapLayer" parent="." node_paths=PackedStringArray("player")]
 z_index = -100
 tile_set = SubResource("TileSet_dinhu")
 script = ExtResource("9_vtaks")
 noise = SubResource("FastNoiseLite_vtaks")
 curve = SubResource("Curve_kvpfn")
 tileset_dimensions = Vector2i(4, 4)
+player = NodePath("../EntityContainer/Player")
 
 [node name="ChunkDebug" type="Node2D" parent="SandTileMap"]
+visible = false
 z_index = 100
 script = ExtResource("10_vtaks")
 
-[node name="OverlayTileMap" type="TileMapLayer" parent="."]
+[node name="OverlayTileMap" type="TileMapLayer" parent="." node_paths=PackedStringArray("player")]
 z_index = -100
 tile_set = SubResource("TileSet_1kice")
 script = ExtResource("9_vtaks")
@@ -705,8 +709,10 @@ noise = SubResource("FastNoiseLite_264po")
 curve = SubResource("Curve_5newe")
 tileset_dimensions = Vector2i(3, 4)
 zeroth_tile = Vector2i(4, 0)
+player = NodePath("../EntityContainer/Player")
 
 [node name="ChunkDebug" type="Node2D" parent="OverlayTileMap"]
+visible = false
 z_index = 100
 script = ExtResource("10_vtaks")
 

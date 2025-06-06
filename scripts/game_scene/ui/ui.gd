@@ -1,6 +1,8 @@
 extends CanvasLayer
 
+@onready var game = get_parent() as Game
 
 func _process(_delta: float) -> void:
-	$PauseMenu.try_esc()
-	$DebugPanel.try_debug()
+	if !game.transitioning:
+		$PauseMenu.try_esc()
+		$DebugPanel.try_debug()

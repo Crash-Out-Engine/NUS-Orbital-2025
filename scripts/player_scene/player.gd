@@ -28,7 +28,7 @@ const PICKUP_RANGE = 40
 @export var health_capacity: HealthCapacityProp
 @export var melee_cooldown: MeleeCooldownProp
 
-var can_control = true
+var can_control = false
 var hand_action = Hand.HOLDING_GUN
 var hand_locked: bool = false
 var direction: Callable = func(_delta: float) -> Vector2:
@@ -54,6 +54,7 @@ var turret_cost = 25
 func _ready() -> void:
 	health_changed.emit(1.0)
 	ranged.active = false
+	can_control = true
 
 
 func _process(delta: float) -> void:
