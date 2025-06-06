@@ -16,7 +16,7 @@ func _draw() -> void:
 
 	var chunk_coords_size := parent.chunk_size * parent.tile_set.tile_size
 	var offset = Vector2i(parent.tile_set.tile_size)
-	var start_chunk := floor(start / Vector2(chunk_coords_size)) as Vector2i 
+	var start_chunk := floor(start / Vector2(chunk_coords_size)) as Vector2i
 	var end_chunk := ceil(end / Vector2(chunk_coords_size)) as Vector2i
 	var chunk_rect := end_chunk - start_chunk
 	for x in range(chunk_rect.x):

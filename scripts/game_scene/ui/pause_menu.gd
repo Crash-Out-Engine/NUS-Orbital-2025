@@ -4,12 +4,13 @@ extends Control
 
 @onready var _master_bus = AudioServer.get_bus_index("Master")
 @onready var _master_vol_slider = (
-		$PanelContainer/VBoxContainer/VolumesContainer/VBoxContainer/MasterVolumeContainer/MasterVolumeSlider)
+		$PanelContainer/VBoxContainer/VolumeSliders/VBoxContainer/MasterVolume/MasterVolumeSlider)
 @onready var _music_bus = AudioServer.get_bus_index("Music")
 @onready var _music_vol_slider = (
-		$PanelContainer/VBoxContainer/VolumesContainer/VBoxContainer/MusicVolumeContainer/MusicVolumeSlider)
+		$PanelContainer/VBoxContainer/VolumeSliders/VBoxContainer/MusicVolume/MusicVolumeSlider)
 @onready var _sfx_bus = AudioServer.get_bus_index("SFX")
-@onready var _sfx_vol_slider = $PanelContainer/VBoxContainer/VolumesContainer/VBoxContainer/SFXVolumeContainer/SFXVolumeSlider
+@onready var _sfx_vol_slider = (
+	$PanelContainer/VBoxContainer/VolumeSliders/VBoxContainer/SFXVolume/SFXVolumeSlider)
 
 
 func _ready() -> void:

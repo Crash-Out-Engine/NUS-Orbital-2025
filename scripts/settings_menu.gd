@@ -1,5 +1,7 @@
 extends Control
 
+var mouse_over = false
+
 @onready var _master_bus = AudioServer.get_bus_index("Master")
 @onready var _master_vol_slider = (
 		$PanelContainer/VBoxContainer/MasterVolumeContainer/MasterVolumeSlider)
@@ -8,8 +10,6 @@ extends Control
 		$PanelContainer/VBoxContainer/MusicVolumeContainer/MusicVolumeSlider)
 @onready var _sfx_bus = AudioServer.get_bus_index("SFX")
 @onready var _sfx_vol_slider = $PanelContainer/VBoxContainer/SFXVolumeContainer/SFXVolumeSlider
-
-var mouse_over = false
 
 func _ready() -> void:
 	_master_vol_slider.value = AudioServer.get_bus_volume_linear(_master_bus)

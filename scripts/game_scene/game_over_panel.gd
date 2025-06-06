@@ -8,7 +8,6 @@ func _ready() -> void:
 	$PanelContainer/VBoxContainer/Restart.pressed.connect(restart)
 	$PanelContainer/VBoxContainer/Quit.pressed.connect(quit)
 	$PanelContainer/VBoxContainer/Close.pressed.connect(close_game)
-	
 
 func display(message: String) -> void:
 	$PanelContainer/VBoxContainer/MessageLabel.text = message

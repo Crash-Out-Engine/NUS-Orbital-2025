@@ -12,8 +12,8 @@ func _process(_delta: float) -> void:
 					1.0 / Performance.get_monitor(Performance.TIME_PHYSICS_PROCESS)])
 	tree.entities.set_text(0,
 			"Entities: %s / Misc: %s"
-			% [get_tree().current_scene.find_child("EntityContainer").get_child_count(), get_tree().current_scene.find_child("MiscContainer").get_child_count()])
-
+			% [get_tree().current_scene.find_child("EntityContainer").get_child_count(),
+			get_tree().current_scene.find_child("MiscContainer").get_child_count()])
 
 func try_debug():
 	if Input.is_action_just_pressed("debug"):

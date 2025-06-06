@@ -18,7 +18,8 @@ func _process(_delta: float) -> void:
 		anim_player.play_backwards("init")
 		var new_scene: PackedScene = ResourceLoader.load_threaded_get(next_scene_path)
 		var new_node = new_scene.instantiate()
-		if "parameters" in new_node: new_node.parameters = parameters #TODO: implement parameters in scenes that can be passed by the loading screen
+		#TODO: implement parameters in scenes that can be passed by the loading screen
+		if "parameters" in new_node: new_node.parameters = parameters
 		var current_scene = get_tree().current_scene
 		get_tree().get_root().add_child(new_node)
 		get_tree().current_scene = new_node

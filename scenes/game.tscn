@@ -502,59 +502,59 @@ theme = ExtResource("12_ssvqc")
 layout_mode = 2
 alignment = 1
 
-[node name="VolumesContainer" type="MarginContainer" parent="UI/PauseMenu/PanelContainer/VBoxContainer"]
+[node name="VolumeSliders" type="MarginContainer" parent="UI/PauseMenu/PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(700, 200)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/PauseMenu/PanelContainer/VBoxContainer/VolumesContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PauseMenu/PanelContainer/VBoxContainer/VolumeSliders"]
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="MasterVolumeContainer" type="VBoxContainer" parent="UI/PauseMenu/PanelContainer/VBoxContainer/VolumesContainer/VBoxContainer"]
+[node name="MasterVolume" type="VBoxContainer" parent="UI/PauseMenu/PanelContainer/VBoxContainer/VolumeSliders/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="UI/PauseMenu/PanelContainer/VBoxContainer/VolumesContainer/VBoxContainer/MasterVolumeContainer"]
+[node name="Label" type="Label" parent="UI/PauseMenu/PanelContainer/VBoxContainer/VolumeSliders/VBoxContainer/MasterVolume"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("9_kvuet")
 text = "Master volume:"
 
-[node name="MasterVolumeSlider" type="HSlider" parent="UI/PauseMenu/PanelContainer/VBoxContainer/VolumesContainer/VBoxContainer/MasterVolumeContainer"]
+[node name="MasterVolumeSlider" type="HSlider" parent="UI/PauseMenu/PanelContainer/VBoxContainer/VolumeSliders/VBoxContainer/MasterVolume"]
 layout_mode = 2
 max_value = 1.0
 step = 0.01
 value = 1.0
 
-[node name="MusicVolumeContainer" type="VBoxContainer" parent="UI/PauseMenu/PanelContainer/VBoxContainer/VolumesContainer/VBoxContainer"]
+[node name="MusicVolume" type="VBoxContainer" parent="UI/PauseMenu/PanelContainer/VBoxContainer/VolumeSliders/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="UI/PauseMenu/PanelContainer/VBoxContainer/VolumesContainer/VBoxContainer/MusicVolumeContainer"]
+[node name="Label" type="Label" parent="UI/PauseMenu/PanelContainer/VBoxContainer/VolumeSliders/VBoxContainer/MusicVolume"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("9_kvuet")
 text = "Music volume:"
 
-[node name="MusicVolumeSlider" type="HSlider" parent="UI/PauseMenu/PanelContainer/VBoxContainer/VolumesContainer/VBoxContainer/MusicVolumeContainer"]
+[node name="MusicVolumeSlider" type="HSlider" parent="UI/PauseMenu/PanelContainer/VBoxContainer/VolumeSliders/VBoxContainer/MusicVolume"]
 layout_mode = 2
 max_value = 1.0
 step = 0.01
 value = 1.0
 
-[node name="SFXVolumeContainer" type="VBoxContainer" parent="UI/PauseMenu/PanelContainer/VBoxContainer/VolumesContainer/VBoxContainer"]
+[node name="SFXVolume" type="VBoxContainer" parent="UI/PauseMenu/PanelContainer/VBoxContainer/VolumeSliders/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="UI/PauseMenu/PanelContainer/VBoxContainer/VolumesContainer/VBoxContainer/SFXVolumeContainer"]
+[node name="Label" type="Label" parent="UI/PauseMenu/PanelContainer/VBoxContainer/VolumeSliders/VBoxContainer/SFXVolume"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("9_kvuet")
 text = "SFX volume:"
 
-[node name="SFXVolumeSlider" type="HSlider" parent="UI/PauseMenu/PanelContainer/VBoxContainer/VolumesContainer/VBoxContainer/SFXVolumeContainer"]
+[node name="SFXVolumeSlider" type="HSlider" parent="UI/PauseMenu/PanelContainer/VBoxContainer/VolumeSliders/VBoxContainer/SFXVolume"]
 layout_mode = 2
 max_value = 1.0
 step = 0.01
@@ -723,12 +723,8 @@ autoplay = true
 bus = &"Music"
 
 [connection signal="timeout" from="EnemySpawner/SpawnTimer" to="EnemySpawner" method="_on_spawn_timer_timeout"]
-[connection signal="value_changed" from="UI/PauseMenu/PanelContainer/VBoxContainer/VolumesContainer/VBoxContainer/MasterVolumeContainer/MasterVolumeSlider" to="UI/PauseMenu" method="_on_master_volume_slider_value_changed"]
-[connection signal="value_changed" from="UI/PauseMenu/PanelContainer/VBoxContainer/VolumesContainer/VBoxContainer/MusicVolumeContainer/MusicVolumeSlider" to="UI/PauseMenu" method="_on_music_volume_slider_value_changed"]
-[connection signal="value_changed" from="UI/PauseMenu/PanelContainer/VBoxContainer/VolumesContainer/VBoxContainer/SFXVolumeContainer/SFXVolumeSlider" to="UI/PauseMenu" method="_on_sfx_volume_slider_value_changed"]
-[connection signal="pressed" from="UI/PauseMenu/PanelContainer/VBoxContainer/Resume" to="UI/PauseMenu" method="_on_resume_pressed"]
-[connection signal="pressed" from="UI/PauseMenu/PanelContainer/VBoxContainer/Restart" to="UI/PauseMenu" method="_on_restart_pressed"]
-[connection signal="pressed" from="UI/PauseMenu/PanelContainer/VBoxContainer/Quit" to="UI/PauseMenu" method="_on_quit_pressed"]
-[connection signal="pressed" from="UI/PauseMenu/PanelContainer/VBoxContainer/Close" to="UI/PauseMenu" method="_on_quit_pressed"]
+[connection signal="value_changed" from="UI/PauseMenu/PanelContainer/VBoxContainer/VolumeSliders/VBoxContainer/MasterVolume/MasterVolumeSlider" to="UI/PauseMenu" method="_on_master_volume_slider_value_changed"]
+[connection signal="value_changed" from="UI/PauseMenu/PanelContainer/VBoxContainer/VolumeSliders/VBoxContainer/MusicVolume/MusicVolumeSlider" to="UI/PauseMenu" method="_on_music_volume_slider_value_changed"]
+[connection signal="value_changed" from="UI/PauseMenu/PanelContainer/VBoxContainer/VolumeSliders/VBoxContainer/SFXVolume/SFXVolumeSlider" to="UI/PauseMenu" method="_on_sfx_volume_slider_value_changed"]
 [connection signal="toggled" from="UI/DebugPanel/VBoxContainer/Button" to="UI/DebugPanel/VBoxContainer/Tree" method="_on_button_toggled"]
 [connection signal="item_edited" from="UI/DebugPanel/VBoxContainer/Tree" to="UI/DebugPanel" method="_on_tree_item_edited"]
