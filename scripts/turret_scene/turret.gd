@@ -17,12 +17,13 @@ enum State {
 
 @export_group("Properties")
 @export var health_capacity: HealthCapacityProp
-@export var health: HealthProp
+@export var damage_taken: DamageTakenProp
 @export var build_prop: BuildProp
 
 @export_group("Components")
 @export var ranged: RangedBaseComp
 @export var hitbox: HitboxComp
+@export var mod_slots: ModSlotComp
 
 var state: State:
 	set(value):
@@ -32,13 +33,14 @@ var state: State:
 			handle_state_changed(prev_state, state)
 			state_changed.emit(prev_state, state)
 var player: Player # TODO: Decouple player in multiplayer implementation.
+var highlighted = false
 
 @onready var _team: Enums.Team = hitbox.team
 
 
 func _ready() -> void:
 	state = State.PLACING
-	health.emptied.connect(func(): state = State.DESTROYED)
+	damage_taken.emptied.connect(func(): state = State.DESTROYED)
 	build_prop.changed.connect(build_or_repair)
 
 
@@ -97,7 +99,6 @@ func is_overlapping() -> bool:
 			.get_overlapping_bodies()
 			.any(func(body): return body.get_node_or_null(^"Components/HitboxComp") != null))
 
-
 func build_or_repair(from: float, to: float) -> void:
 	if state == State.PLANNED:
 		if to >= build_target:
@@ -105,6 +106,9 @@ func build_or_repair(from: float, to: float) -> void:
 		build_progressed.emit(to / build_target)
 	if state == State.OPERATIONAL:
 		var cost = min(max(0, player.get_scraps()), min((to - from) * 10,
-				health_capacity.value - health.value) / 20)
+				damage_taken.value) / 20)
 		player.use_scraps(cost)
-		health.value += cost * 20
+		damage_taken.value -= cost * 20
+
+func get_mod_slots() -> ModSlotComp:
+	return mod_slots

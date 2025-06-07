@@ -5,14 +5,14 @@ signal vfx_emitted(Node2D)
 
 const _LOOT_SCENE = preload("res://scenes/loot.tscn")
 
-@export var health_prop: HealthProp
+@export var damage_taken: DamageTakenProp
 @export var movement_prop: MovementProp
 
 @onready var visuals := $Visuals as EnemyVisuals
 
 
 func _ready() -> void:
-	health_prop.emptied.connect(die)
+	damage_taken.emptied.connect(die)
 
 
 func die():

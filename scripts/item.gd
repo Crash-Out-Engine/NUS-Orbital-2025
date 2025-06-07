@@ -26,4 +26,3 @@ class ModItem:
 
 	func _init(_mod: ModBase) -> void:
 		mod = _mod
-

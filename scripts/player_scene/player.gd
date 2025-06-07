@@ -8,6 +8,8 @@ signal health_changed()
 signal scraps_changed()
 signal no_lives()
 
+signal open_inventory(inventory_comp: InventoryComp, mod_slot_comp: ModSlotComp)
+
 enum Hand {
 	HOLDING_GUN,
 	FIRING_GUN,
@@ -23,16 +25,20 @@ const KNOCKBACK_AMOUNT = 300.0
 @export_group("Components")
 @export var ranged: RangedBaseComp
 @export var inventory: InventoryComp
+@export var mod_target: ModTargetingComp
+@export var mod_slots: ModSlotComp
 
 @export_group("Properties")
-@export var health: HealthProp
+@export var damage_taken: DamageTakenProp
 @export var health_capacity: HealthCapacityProp
 @export var melee_cooldown: MeleeCooldownProp
 
-var can_control = false
+var can_control = true
+var opening_inventory = false
 var hand_action = Hand.HOLDING_GUN
 var hand_locked: bool = false
 var direction: Callable = func(_delta: float) -> Vector2:
+	if !can_control: return Vector2(0, 0)
 	return Vector2(
 		Input.get_axis("left", "right"),
 		Input.get_axis("up", "down")
@@ -41,6 +47,7 @@ var knockback = 0.0
 var knockback_direction = Vector2(0, 0)
 var current_turret = null
 var turret_cost = 25
+var inventory_target: Turret
 
 @onready var visuals := $Visuals as PlayerVisuals
 @onready var audio := $Audio as PlayerAudio
@@ -51,7 +58,6 @@ func _ready() -> void:
 	inventory.scraps_changed.connect(func(_from: int, _to: int): scraps_changed.emit())
 	health_changed.emit()
 	ranged.active = false
-	can_control = true
 
 
 func _process(delta: float) -> void:
@@ -62,7 +68,12 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if not can_control: return
+	if not can_control: 
+		if opening_inventory:
+			if Input.is_action_just_pressed("inventory") or Input.is_action_just_pressed("esc"):
+				opening_inventory = false
+				can_control = true
+		return
 
 	if Input.is_action_pressed("shoot"):
 		if hand_action == Hand.HOLDING_GUN:
@@ -115,7 +126,14 @@ func _physics_process(_delta: float) -> void:
 				turret_placement_failed.emit()
 			current_turret = null
 		hand_action = Hand.HOLDING_GUN
-
+	
+	if Input.is_action_just_pressed("inventory"):
+		if mod_target.current_target == null:
+			open_inventory.emit(inventory, mod_slots)
+		else:
+			open_inventory.emit(inventory, mod_target.current_target.get_mod_slots())
+		opening_inventory = true
+		can_control = false
 
 # HACK: Temporary for testing, @deltaMinor please remove
 func add_random_mod(turret: Turret) -> void:
@@ -135,7 +153,7 @@ func add_random_mod(turret: Turret) -> void:
 
 
 func get_health() -> float:
-	return health.value
+	return health_capacity.value - damage_taken.value
 
 
 func get_health_capacity() -> float:
@@ -155,6 +173,7 @@ func use_scraps(amount: int) -> void:
 
 func _on_health_emptied() -> void:
 	can_control = false
+	opening_inventory = false
 	$CollisionShape2D.disabled = true
 	$Components/HitboxComp.team = 0
 	no_lives.emit()
@@ -180,7 +199,10 @@ func _on_visuals_melee_finished() -> void:
 
 func deactivate():
 	can_control = false
+	opening_inventory = false
+	$CollisionShape2D.disabled = true
+	$Components/HitboxComp.team = 0
 	visuals.deactivate()
 
-func _on_health_changed(_from: float, _to: float) -> void:
+func _on_damage_taken_prop_changed(_from: float, _to: float) -> void:
 	health_changed.emit()

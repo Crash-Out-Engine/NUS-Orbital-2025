@@ -24,7 +24,16 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if not player.can_control: return
+	if (player_sprite.modulate.v > 1):
+		player_sprite.modulate.v -= V_MODULATE * delta / BLEED_TIME
+		if (player_sprite.modulate.v <= 1):
+			player_sprite.modulate.v = 1
+
+	if not player.can_control: 
+		if !player.hand_locked:
+			gun_sprite.look_at(get_global_mouse_position())
+			gun_sprite.scale.y = -1 if get_global_mouse_position().x < player_ranged.global_position.x else 1
+		return
 	# player_sprite processes
 	var horizontal_dir = Input.get_axis("left", "right")
 	if horizontal_dir != 0:
@@ -33,10 +42,7 @@ func _process(delta: float) -> void:
 		player_sprite.play("running")
 	else:
 		player_sprite.play("idle")
-	if (player_sprite.modulate.v > 1):
-		player_sprite.modulate.v -= V_MODULATE * delta / BLEED_TIME
-		if (player_sprite.modulate.v <= 1):
-			player_sprite.modulate.v = 1
+	
 
 	# gun_sprite processes
 	if !player.hand_locked:
@@ -57,6 +63,18 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_released("add turret"):
 		gun_sprite.play("gun_idle")
 
+	if Input.is_action_just_pressed("inventory"):
+		if player_sprite.animation == "running":
+			player_sprite.play("idle")
+		if player.opening_inventory:
+			gun_sprite.play("melee_idle")
+		else:
+			gun_sprite.play("gun_idle")
+
+	if Input.is_action_just_pressed("esc"):
+		if !get_tree().paused:
+			gun_sprite.play("gun_idle")
+
 
 func play_gun_fire(_bullet):
 	gun_sprite.sprite_frames.set_animation_speed("gun_fire", 4.0 / player_ranged.ranged_cooldown.value)
@@ -70,8 +88,7 @@ func play_melee_fire():
 	gun_sprite.play("melee_fire")
 
 func play_bleed():
-	if player.can_control:
-		player_sprite.modulate.v = V_MODULATE
+	player_sprite.modulate.v = V_MODULATE
 
 func _on_gun_sprite_animation_finished() -> void:
 	if gun_sprite.animation == "melee_fire":

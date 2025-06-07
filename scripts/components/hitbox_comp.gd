@@ -9,7 +9,7 @@ func trigger(effect: EffectBase, source: Node2D = null) -> void:
 		effect.apply_effect(prop_node)
 
 	# HACK: knockback should not be applied manually
-	if effect is HealthEffect and source != null and $"../../" is Player:
+	if effect is DamageEffect and source != null and $"../../" is Player:
 		$"../../".apply_knockback(source)
 
 

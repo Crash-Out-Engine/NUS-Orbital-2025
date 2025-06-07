@@ -8,7 +8,7 @@ const V_MODULATE = 100000000
 const FLIP_THRESHOLD: float = 0.001
 
 @export var enemy: Enemy
-@export var health: HealthProp
+@export var health: DamageTakenProp
 
 @onready var body_sprite := $BodySprite as AnimatedSprite2D
 @onready var flames_sprite := $FlamesSprite as AnimatedSprite2D

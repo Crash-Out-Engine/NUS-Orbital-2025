@@ -8,21 +8,22 @@ const GREEN = Color("#36e312")
 
 @export var turret: Turret
 @export var turret_ranged: RangedBaseComp
-@export var turret_health: HealthProp
+@export var turret_damage_taken: DamageTakenProp
 @export var turret_health_capacity: HealthCapacityProp
 
 @onready var base_sprite := $BaseSprite as Sprite2D
 @onready var body_sprite := $BodySprite as AnimatedSprite2D
+@onready var highlight := $Highlight as Sprite2D
 @onready var build_progress := $BuildProgressBar as TextureProgressBar
 
 
 func _ready() -> void:
 	turret_ranged.bullet_spawned.connect(func(_bullet): play_fire_anim())
-	turret_health.changed.connect(func(from, to):
+	turret_damage_taken.changed.connect(func(from, to):
 			if from > to:
 				bleed()
 	)
-	turret_health.changed.connect(func(_from, to): update_health_bar(to))
+	turret_damage_taken.changed.connect(func(_from, to): update_health_bar(to))
 	turret.state_changed.connect(handle_state_changed)
 	turret.build_progressed.connect(handle_build_progress)
 	base_sprite.rotation = randf_range(0.0, 360.0)
@@ -34,6 +35,8 @@ func _process(delta: float) -> void:
 		play_idle_anim()
 	body_sprite.transform = body_sprite.transform.rotated(
 			turret_ranged.transform.get_rotation() - body_sprite.transform.get_rotation())
+	highlight.rotation = body_sprite.rotation
+	highlight.visible = turret.highlighted
 
 	# Modulate effect
 	if (body_sprite.modulate.v > 1.0):
@@ -84,7 +87,7 @@ func bleed() -> void:
 	body_sprite.modulate.v = V_MODULATE
 
 func update_health_bar(value: float) -> void:
-	var v = value / turret_health_capacity.value * 100
+	var v = (1 - value / turret_health_capacity.value) * 100
 	build_progress.value = v
 	build_progress.visible = v < 100
 	build_progress.modulate = GREEN if v >= 50 else YELLOW if v >= 25 else RED
