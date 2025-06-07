@@ -15,17 +15,18 @@ func _draw() -> void:
 	var end = cam_center + cam_size / 2
 
 	var chunk_coords_size := parent.chunk_size * parent.tile_set.tile_size
+	var offset = Vector2i(parent.tile_set.tile_size)
 	var start_chunk := floor(start / Vector2(chunk_coords_size)) as Vector2i
 	var end_chunk := ceil(end / Vector2(chunk_coords_size)) as Vector2i
 	var chunk_rect := end_chunk - start_chunk
 	for x in range(chunk_rect.x):
-		var chunk_position = (start_chunk + Vector2i(x, 0)) * chunk_coords_size
+		var chunk_position = (start_chunk + Vector2i(x, 0)) * chunk_coords_size + offset
 		draw_line(
 			chunk_position,
 			chunk_position + Vector2i(0, chunk_coords_size.y) * chunk_rect,
 			Color.GREEN)
 	for y in range(chunk_rect.y):
-		var chunk_position = (start_chunk + Vector2i(0, y)) * chunk_coords_size
+		var chunk_position = (start_chunk + Vector2i(0, y)) * chunk_coords_size + offset
 		draw_line(
 			chunk_position,
 			chunk_position + Vector2i(chunk_coords_size.x, 0) * chunk_rect,

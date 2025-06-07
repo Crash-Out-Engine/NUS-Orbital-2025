@@ -3,8 +3,10 @@ extends CharacterBody2D
 
 signal turret_spawned(turret: Node2D)
 signal turret_placement_failed()
+
 signal health_changed()
 signal scraps_changed()
+signal no_lives()
 
 enum Hand {
 	HOLDING_GUN,
@@ -27,6 +29,7 @@ const KNOCKBACK_AMOUNT = 300.0
 @export var health_capacity: HealthCapacityProp
 @export var melee_cooldown: MeleeCooldownProp
 
+var can_control = false
 var hand_action = Hand.HOLDING_GUN
 var hand_locked: bool = false
 var direction: Callable = func(_delta: float) -> Vector2:
@@ -48,6 +51,7 @@ func _ready() -> void:
 	inventory.scraps_changed.connect(func(_from: int, _to: int): scraps_changed.emit())
 	health_changed.emit()
 	ranged.active = false
+	can_control = true
 
 
 func _process(delta: float) -> void:
@@ -58,6 +62,8 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(_delta: float) -> void:
+	if not can_control: return
+
 	if Input.is_action_pressed("shoot"):
 		if hand_action == Hand.HOLDING_GUN:
 			hand_action = Hand.FIRING_GUN
@@ -148,7 +154,10 @@ func use_scraps(amount: int) -> void:
 
 
 func _on_health_emptied() -> void:
-	get_tree().reload_current_scene()
+	can_control = false
+	$CollisionShape2D.disabled = true
+	$Components/HitboxComp.team = 0
+	no_lives.emit()
 
 
 func apply_knockback(source: Node2D) -> void:
@@ -169,6 +178,9 @@ func _on_visuals_melee_finished() -> void:
 		hand_action = Hand.HOLDING_GUN
 	hand_locked = false
 
+func deactivate():
+	can_control = false
+	visuals.deactivate()
 
 func _on_health_changed(_from: float, _to: float) -> void:
 	health_changed.emit()

@@ -5,15 +5,13 @@ extends TileMapLayer
 @export var curve: Curve
 @export var tileset_dimensions: Vector2i
 @export var zeroth_tile: Vector2i
+# TODO: Remove dependency in multiplayer implementation.
+@export var player: Player
 
 var chunk_radius := 6
 var chunk_size := Vector2i(8, 8)
 var _loaded_chunks: Array[Vector2i] = []
 var _prev_player_chunk_position: Vector2i = Vector2i.MIN
-
-# TODO: Remove dependency in multiplayer implementation.
-@onready var player: Player = $"/root/Game/EntityContainer/Player"
-
 
 func _process(_delta: float) -> void:
 	var player_chunk_position := floor(

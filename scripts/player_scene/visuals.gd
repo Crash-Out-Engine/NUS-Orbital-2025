@@ -19,10 +19,12 @@ const BLEED_TIME := 2.0 / 30.0
 func _ready() -> void:
 	player_ranged.bullet_spawned.connect(play_gun_fire)
 	player.health_changed.connect(play_bleed)
+	player.no_lives.connect(play_death)
 	gun_sprite.play("gun_idle")
 
 
 func _process(delta: float) -> void:
+	if not player.can_control: return
 	# player_sprite processes
 	var horizontal_dir = Input.get_axis("left", "right")
 	if horizontal_dir != 0:
@@ -67,10 +69,9 @@ func play_melee_fire():
 	player_repair.rotation = gun_sprite.rotation
 	gun_sprite.play("melee_fire")
 
-
 func play_bleed():
-	player_sprite.modulate.v = V_MODULATE
-
+	if player.can_control:
+		player_sprite.modulate.v = V_MODULATE
 
 func _on_gun_sprite_animation_finished() -> void:
 	if gun_sprite.animation == "melee_fire":
@@ -79,3 +80,13 @@ func _on_gun_sprite_animation_finished() -> void:
 		else:
 			gun_sprite.play("gun_idle")
 		melee_finished.emit()
+
+func play_death():
+	player_sprite.modulate.v = 1
+	player_sprite.play("death")
+	gun_sprite.visible = false
+
+func deactivate():
+	gun_sprite.visible = false
+	if player_sprite.animation != "death":
+		player_sprite.play("lost")

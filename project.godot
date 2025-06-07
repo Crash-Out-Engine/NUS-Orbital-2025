@@ -11,13 +11,17 @@ config_version=5
 [application]
 
 config/name="Gun Mechanics"
-config/version="0.2.11"
-run/main_scene="uid://bbtrde7tvkisy"
+config/version="0.2.12"
+run/main_scene="uid://d5rp7wwu7wn8"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 
 [audio]
 
 buses/default_bus_layout="res://resources/default_bus_layout.tres"
+
+[autoload]
+
+Functions="*res://scripts/functions.gd"
 
 [debug]
 

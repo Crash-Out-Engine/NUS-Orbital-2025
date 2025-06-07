@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/properties/target_priority_prop.gd" id="4_kmo7v"]
 [ext_resource type="FontFile" uid="uid://cj53anigafm5t" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="5_rtx38"]
 [ext_resource type="AudioStream" uid="uid://dxkyv1bjpvfkn" path="res://assets/audio/sound_effects/success_sound.wav" id="10_li0y2"]
-[ext_resource type="Script" path="res://scripts/fault_scene/audio.gd" id="10_of21w"]
+[ext_resource type="Script" uid="uid://dkn3n2f8l3bxs" path="res://scripts/fault_scene/audio.gd" id="10_of21w"]
 [ext_resource type="AudioStream" uid="uid://dk7lmxukxhhcr" path="res://assets/audio/sound_effects/error.wav" id="10_sp3rc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8twt2"]

@@ -1,0 +1,166 @@
+[gd_scene load_steps=9 format=3 uid="uid://d5rp7wwu7wn8"]
+
+[ext_resource type="Script" uid="uid://dts5tpro2tnhm" path="res://scripts/game_menu.gd" id="1_ldg7d"]
+[ext_resource type="Theme" uid="uid://c8t8fqq1p8n4l" path="res://resources/custom_ui.tres" id="1_vrsc2"]
+[ext_resource type="Texture2D" uid="uid://c1swa7xc2rmsy" path="res://assets/sprites/menu_background.png" id="1_ysvk1"]
+[ext_resource type="FontFile" uid="uid://cj53anigafm5t" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="2_ysvk1"]
+[ext_resource type="AudioStream" uid="uid://b7d1a7ob2vcpf" path="res://assets/audio/songs/8_bit_frontier_justice.wav" id="4_mw6r2"]
+[ext_resource type="Script" uid="uid://l7dn1i5hcyn7" path="res://scripts/settings_menu.gd" id="5_0b27c"]
+[ext_resource type="AudioStream" uid="uid://d0bs4frau5lf8" path="res://assets/audio/sound_effects/pause_sound.wav" id="6_yr8n5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_mw6r2"]
+font = ExtResource("2_ysvk1")
+font_size = 144
+outline_size = 36
+outline_color = Color(0, 0, 0, 1)
+
+[node name="GameMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ldg7d")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1600.0
+offset_bottom = 900.0
+texture = ExtResource("1_ysvk1")
+
+[node name="Buttons" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_top = 503.0
+offset_right = 1600.0
+offset_bottom = 702.0
+theme = ExtResource("1_vrsc2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Buttons"]
+layout_mode = 2
+
+[node name="StartGame" type="Button" parent="Buttons/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_ysvk1")
+theme_override_font_sizes/font_size = 36
+text = "Start Game"
+
+[node name="Options" type="Button" parent="Buttons/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_ysvk1")
+theme_override_font_sizes/font_size = 36
+text = "Options"
+
+[node name="QuitGame" type="Button" parent="Buttons/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_ysvk1")
+theme_override_font_sizes/font_size = 36
+text = "Quit Game
+"
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 0
+offset_right = 1600.0
+offset_bottom = 706.0
+text = "Gun Mechanics"
+label_settings = SubResource("LabelSettings_mw6r2")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SettingsMenu" type="Control" parent="."]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1600.0
+offset_bottom = 900.0
+script = ExtResource("5_0b27c")
+
+[node name="PanelContainer" type="PanelContainer" parent="SettingsMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 384.0
+offset_top = 348.5
+offset_right = -384.0
+offset_bottom = -348.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.5, 1.5)
+pivot_offset = Vector2(416, 101.5)
+theme = ExtResource("1_vrsc2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsMenu/PanelContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="MasterVolumeContainer" type="VBoxContainer" parent="SettingsMenu/PanelContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="SettingsMenu/PanelContainer/VBoxContainer/MasterVolumeContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_ysvk1")
+text = "Master volume:"
+
+[node name="MasterVolumeSlider" type="HSlider" parent="SettingsMenu/PanelContainer/VBoxContainer/MasterVolumeContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="MusicVolumeContainer" type="VBoxContainer" parent="SettingsMenu/PanelContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="SettingsMenu/PanelContainer/VBoxContainer/MusicVolumeContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_ysvk1")
+text = "Music volume:"
+
+[node name="MusicVolumeSlider" type="HSlider" parent="SettingsMenu/PanelContainer/VBoxContainer/MusicVolumeContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="SFXVolumeContainer" type="VBoxContainer" parent="SettingsMenu/PanelContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="SettingsMenu/PanelContainer/VBoxContainer/SFXVolumeContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_ysvk1")
+text = "SFX volume:"
+
+[node name="SFXVolumeSlider" type="HSlider" parent="SettingsMenu/PanelContainer/VBoxContainer/SFXVolumeContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="PauseSound" type="AudioStreamPlayer" parent="SettingsMenu"]
+stream = ExtResource("6_yr8n5")
+bus = &"SFX"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_mw6r2")
+volume_db = -5.0
+autoplay = true
+bus = &"Music"
+
+[connection signal="pressed" from="Buttons/VBoxContainer/StartGame" to="." method="_on_start_game_pressed"]
+[connection signal="pressed" from="Buttons/VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="Buttons/VBoxContainer/QuitGame" to="." method="_on_quit_game_pressed"]
+[connection signal="mouse_entered" from="SettingsMenu" to="SettingsMenu" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="SettingsMenu" to="SettingsMenu" method="_on_mouse_exited"]
+[connection signal="value_changed" from="SettingsMenu/PanelContainer/VBoxContainer/MasterVolumeContainer/MasterVolumeSlider" to="SettingsMenu" method="_on_master_volume_slider_value_changed"]
+[connection signal="value_changed" from="SettingsMenu/PanelContainer/VBoxContainer/MusicVolumeContainer/MusicVolumeSlider" to="SettingsMenu" method="_on_music_volume_slider_value_changed"]
+[connection signal="value_changed" from="SettingsMenu/PanelContainer/VBoxContainer/SFXVolumeContainer/SFXVolumeSlider" to="SettingsMenu" method="_on_sfx_volume_slider_value_changed"]

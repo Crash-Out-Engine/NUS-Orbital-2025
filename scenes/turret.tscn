@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://bg2iinlcp53aa" path="res://scripts/properties/health_prop.gd" id="4_eo4u0"]
 [ext_resource type="Script" uid="uid://bhi7w6ril3da2" path="res://scripts/components/ranged_AI_comp.gd" id="5_mqfwu"]
 [ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/properties/target_priority_prop.gd" id="6_dirdf"]
-[ext_resource type="Script" uid="uid://bc5nkvlgktyor" path="res://scripts/target_filter.gd" id="7_726tt"]
+[ext_resource type="Script" path="res://scripts/target_filter.gd" id="7_726tt"]
 [ext_resource type="Texture2D" uid="uid://06sdtfwasbao" path="res://assets/sprites/turret_spritesheet.png" id="8_0dv4j"]
 [ext_resource type="Script" uid="uid://bnt7cwx8k0nm0" path="res://scripts/components/mod_slot_comp.gd" id="8_137wx"]
 [ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/mods/effects/effect_base.gd" id="8_726tt"]
