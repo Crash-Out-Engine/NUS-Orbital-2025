@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=20 format=4 uid="uid://c8t8fqq1p8n4l"]
 
-[ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet_v2.png" id="1_c4vai"]
+[ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet.png" id="1_c4vai"]
 [ext_resource type="FontFile" uid="uid://cj53anigafm5t" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="2_tf487"]
 
 [sub_resource type="Image" id="Image_c4vai"]

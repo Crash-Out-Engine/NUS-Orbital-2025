@@ -14,7 +14,6 @@ const _LOOT_SCENE = preload("res://scenes/loot.tscn")
 func _ready() -> void:
 	damage_taken.emptied.connect(die)
 
-
 func die():
 	await visuals.bleed_finished
 	queue_free()

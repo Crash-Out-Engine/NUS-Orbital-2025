@@ -3,6 +3,7 @@ extends StaticBody2D
 
 signal state_changed(from: State, to: State)
 signal build_progressed(progress: float)
+signal vfx_emitted(Node2D)
 
 enum State {
 	DEFAULT,
@@ -12,6 +13,8 @@ enum State {
 	DESTROYED,
 	CANCELLED,
 }
+
+const _LOOT_SCENE = preload("res://scenes/loot.tscn")
 
 @export var build_target: float
 
@@ -76,6 +79,7 @@ func handle_state_changed(from: State, to: State):
 			set_collision_layer_value(1, true)
 			set_collision_layer_value(2, false)
 			set_collision_mask_value(1, true)
+			vfx_emitted.connect(get_parent().get_parent().add_misc)
 			hitbox.team = _team
 			ranged.active = true
 
@@ -109,6 +113,13 @@ func build_or_repair(from: float, to: float) -> void:
 				damage_taken.value) / 20)
 		player.use_scraps(cost)
 		damage_taken.value -= cost * 20
+
+func disassemble():
+	state = State.DESTROYED
+	var loot = _LOOT_SCENE.instantiate() #HACK: implement proper disassemble drops
+	loot.setup_scrap_loot(20)
+	loot.global_position = global_position
+	vfx_emitted.emit(loot)
 
 func get_mod_slots() -> ModSlotComp:
 	return mod_slots

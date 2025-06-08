@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://ccldnij14thxu" path="res://scripts/game_scene/object_spawner.gd" id="5_264po"]
 [ext_resource type="Script" uid="uid://dixn701xl56vv" path="res://scripts/game_scene/enemy_spawner.gd" id="5_iywne"]
 [ext_resource type="Script" uid="uid://brohp3alww54k" path="res://scripts/game_scene/ui/ui.gd" id="5_u5sy4"]
-[ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet_v2.png" id="6_1kice"]
+[ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet.png" id="6_1kice"]
 [ext_resource type="Script" uid="uid://ysb1rej05rno" path="res://scripts/game_scene/ui/hud_bars.gd" id="6_rysoc"]
 [ext_resource type="FontFile" uid="uid://cj53anigafm5t" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="9_kvuet"]
 [ext_resource type="Script" uid="uid://6avt386x6skk" path="res://scripts/game_scene/chunk_tile_map.gd" id="9_vtaks"]
@@ -446,9 +446,9 @@ offset_right = -4.0
 offset_bottom = 244.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_1kice")
 
-[node name="InventoryUI" parent="UI" instance=ExtResource("12_bt5mj")]
-visible = false
+[node name="InventoryUI" parent="UI" node_paths=PackedStringArray("player") instance=ExtResource("12_bt5mj")]
 z_index = 20
+player = NodePath("../../EntityContainer/Player")
 
 [node name="PauseMenu" type="Control" parent="UI" node_paths=PackedStringArray("game")]
 process_mode = 2

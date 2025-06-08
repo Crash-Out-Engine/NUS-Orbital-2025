@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2lu3murg2aic"
-path="res://.godot/imported/ui_spritesheet_v2.png-feec57d432ca940b953da6ebe7b1b3dc.ctex"
+uid="uid://cd6dttechhj5b"
+path="res://.godot/imported/inventorytargetanimations_spritesheet.png-7b5312204d4855b10be00deecfb2dd85.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/ui_spritesheet_v2.png"
-dest_files=["res://.godot/imported/ui_spritesheet_v2.png-feec57d432ca940b953da6ebe7b1b3dc.ctex"]
+source_file="res://assets/sprites/inventorytargetanimations_spritesheet.png"
+dest_files=["res://.godot/imported/inventorytargetanimations_spritesheet.png-7b5312204d4855b10be00deecfb2dd85.ctex"]
 
 [params]
 

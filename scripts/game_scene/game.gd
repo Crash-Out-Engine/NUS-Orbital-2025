@@ -8,7 +8,7 @@ var power: float = 100.0
 var power_delta: float = 1.0
 
 var game_ongoing: bool
-var transitioning
+var transitioning: bool
 
 @onready var target_provider := load("res://resources/target_provider.tres") as TargetProvider
 @onready var player := $EntityContainer/Player as Player

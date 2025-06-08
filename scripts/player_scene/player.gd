@@ -68,12 +68,7 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if not can_control: 
-		if opening_inventory:
-			if Input.is_action_just_pressed("inventory") or Input.is_action_just_pressed("esc"):
-				opening_inventory = false
-				can_control = true
-		return
+	if not can_control: return
 
 	if Input.is_action_pressed("shoot"):
 		if hand_action == Hand.HOLDING_GUN:
@@ -134,6 +129,14 @@ func _physics_process(_delta: float) -> void:
 			open_inventory.emit(inventory, mod_target.current_target.get_mod_slots())
 		opening_inventory = true
 		can_control = false
+		hand_action = Hand.HOLDING_WRENCH
+		ranged.active = false
+
+func close_inventory():
+	opening_inventory = false
+	can_control = true
+	hand_action = Hand.HOLDING_GUN
+	visuals.reset()
 
 # HACK: Temporary for testing, @deltaMinor please remove
 func add_random_mod(turret: Turret) -> void:

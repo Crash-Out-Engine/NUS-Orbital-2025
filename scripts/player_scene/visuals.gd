@@ -68,13 +68,10 @@ func _physics_process(_delta: float) -> void:
 			player_sprite.play("idle")
 		if player.opening_inventory:
 			gun_sprite.play("melee_idle")
-		else:
-			gun_sprite.play("gun_idle")
 
-	if Input.is_action_just_pressed("esc"):
-		if !get_tree().paused:
-			gun_sprite.play("gun_idle")
-
+func reset():
+	player_sprite.play("idle")
+	gun_sprite.play("gun_idle")
 
 func play_gun_fire(_bullet):
 	gun_sprite.sprite_frames.set_animation_speed("gun_fire", 4.0 / player_ranged.ranged_cooldown.value)
