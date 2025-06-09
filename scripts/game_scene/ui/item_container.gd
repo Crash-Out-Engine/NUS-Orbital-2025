@@ -22,6 +22,7 @@ enum State {
 @onready var description_panel = $Description/Panel as PanelContainer
 @onready var description_label = $Description/Panel/Label as Label
 
+var grabbable: bool = true
 var mouse_hovering = false
 
 func update():
@@ -45,7 +46,7 @@ func _process(_delta: float) -> void:
 	if mouse_hovering:
 		if Rect2(global_position, size).has_point(get_global_mouse_position()):
 			description_panel.global_position = get_global_mouse_position()
-			if Input.is_action_just_pressed("shoot"):
+			if Input.is_action_just_pressed("shoot") and grabbable:
 				var item = _DRAGGED_ITEM.instantiate()
 				item.mod = mod
 				item.destination = state
@@ -61,3 +62,6 @@ func _process(_delta: float) -> void:
 func _on_mouse_entered() -> void:
 	description.visible = true
 	mouse_hovering = true
+
+func set_grabbable(value: bool):
+	grabbable = value

@@ -1,11 +1,44 @@
-[gd_scene load_steps=16 format=3 uid="uid://bsk2hjudnw4rw"]
+[gd_scene load_steps=23 format=3 uid="uid://bsk2hjudnw4rw"]
 
 [ext_resource type="Script" uid="uid://dq5no236vfiso" path="res://scripts/game_scene/ui/inventory_ui.gd" id="1_tahbm"]
 [ext_resource type="Theme" uid="uid://cq6cs0mx200sg" path="res://resources/inventory_ui.tres" id="1_ylkvr"]
 [ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet.png" id="3_mdwe3"]
+[ext_resource type="Script" uid="uid://ioa48ir12klx" path="res://scripts/crafting_recipe.gd" id="3_uwj4j"]
+[ext_resource type="Resource" uid="uid://dl56w1h7wf83j" path="res://resources/effect_mods/base_damage.tres" id="4_1dxi5"]
 [ext_resource type="Texture2D" uid="uid://cd6dttechhj5b" path="res://assets/sprites/inventorytargetanimations_spritesheet.png" id="4_iradw"]
 [ext_resource type="Script" uid="uid://ddx5f4odv710k" path="res://scripts/sprite_2d_rect.gd" id="5_eifbp"]
 [ext_resource type="Script" uid="uid://ckg514fwkuf4" path="res://scripts/game_scene/ui/item_drop_area.gd" id="6_2lmnb"]
+[ext_resource type="Texture2D" uid="uid://djm2sr0ifrw7b" path="res://assets/sprites/crafting_area_sprites.png" id="8_1dxi5"]
+
+[sub_resource type="Resource" id="Resource_dqfnd"]
+script = ExtResource("3_uwj4j")
+input = ExtResource("4_1dxi5")
+scrap_change = 20
+unlocked = true
+metadata/_custom_type_script = "uid://ioa48ir12klx"
+
+[sub_resource type="Resource" id="Resource_ngbl7"]
+script = ExtResource("3_uwj4j")
+input = ExtResource("4_1dxi5")
+output = ExtResource("4_1dxi5")
+scrap_change = 0
+unlocked = true
+metadata/_custom_type_script = "uid://ioa48ir12klx"
+
+[sub_resource type="Resource" id="Resource_uwj4j"]
+script = ExtResource("3_uwj4j")
+input = ExtResource("4_1dxi5")
+scrap_change = 100
+unlocked = false
+metadata/_custom_type_script = "uid://ioa48ir12klx"
+
+[sub_resource type="Resource" id="Resource_1dxi5"]
+script = ExtResource("3_uwj4j")
+input = ExtResource("4_1dxi5")
+output = ExtResource("4_1dxi5")
+scrap_change = -1000
+unlocked = true
+metadata/_custom_type_script = "uid://ioa48ir12klx"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iradw"]
 atlas = ExtResource("3_mdwe3")
@@ -28,8 +61,8 @@ atlas = ExtResource("3_mdwe3")
 region = Rect2(1614, 90, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uwj4j"]
-atlas = ExtResource("3_mdwe3")
-region = Rect2(1434, 56, 94, 40)
+atlas = ExtResource("8_1dxi5")
+region = Rect2(1, 1, 94, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2lmnb"]
 size = Vector2(488.25, 256)
@@ -51,6 +84,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("1_ylkvr")
 script = ExtResource("1_tahbm")
+crafting_recipes = Array[ExtResource("3_uwj4j")]([SubResource("Resource_dqfnd"), SubResource("Resource_ngbl7"), SubResource("Resource_uwj4j"), SubResource("Resource_1dxi5")])
 
 [node name="Margin" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -272,34 +306,53 @@ layout_mode = 2
 layout_mode = 2
 texture = SubResource("AtlasTexture_uwj4j")
 expand_mode = 5
+script = ExtResource("5_eifbp")
+FrameMargin = Vector2(1, 1)
+FrameSize = Vector2(94, 40)
+metadata/_custom_type_script = "uid://ddx5f4odv710k"
 
-[node name="Control" type="Control" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox/CraftingSlotGraphic"]
+[node name="Margin" type="MarginContainer" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox/CraftingSlotGraphic"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 36
+theme_override_constants/margin_top = 36
+theme_override_constants/margin_right = 36
+theme_override_constants/margin_bottom = 36
 
-[node name="CraftOutput" type="MarginContainer" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox/CraftingSlotGraphic/Control"]
+[node name="CraftInput" type="MarginContainer" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox/CraftingSlotGraphic/Margin"]
+custom_minimum_size = Vector2(108, 108)
 layout_mode = 2
-offset_left = 280.0
-offset_top = 36.0
-offset_right = 388.0
-offset_bottom = 144.0
+size_flags_horizontal = 0
 
-[node name="CraftInput" type="MarginContainer" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox/CraftingSlotGraphic/Control"]
-layout_mode = 0
-offset_left = 36.0
-offset_top = 36.0
-offset_right = 144.0
-offset_bottom = 144.0
+[node name="CraftOutput" type="MarginContainer" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox/CraftingSlotGraphic/Margin"]
+visible = false
+custom_minimum_size = Vector2(108, 108)
+layout_mode = 2
+size_flags_horizontal = 8
 
-[node name="Button" type="Button" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox"]
+[node name="Label" type="Label" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox/CraftingSlotGraphic"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.27451, 0.803922, 0.427451, 1)
+text = "Drag a M.O.D. here to craft a new M.O.D. or recycle it for scraps"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="CraftButton" type="Button" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox"]
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
+disabled = true
 
-[node name="Margin" type="MarginContainer" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox/Button"]
+[node name="Margin" type="MarginContainer" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox/CraftButton"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -317,23 +370,24 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="HBox" type="HBoxContainer" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox/Button/Margin"]
+[node name="HBox" type="HBoxContainer" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox/CraftButton/Margin"]
+visible = false
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox/Button/Margin/HBox"]
+[node name="Label" type="Label" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox/CraftButton/Margin/HBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.105882, 0.105882, 0.0509804, 1)
 theme_override_font_sizes/font_size = 32
 text = "Craft!(Cost:100"
 
-[node name="TextureRect" type="TextureRect" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox/Button/Margin/HBox"]
+[node name="TextureRect" type="TextureRect" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox/CraftButton/Margin/HBox"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_1dxi5")
 expand_mode = 3
 stretch_mode = 6
 
-[node name="ClosingBracket" type="Label" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox/Button/Margin/HBox"]
+[node name="ClosingBracket" type="Label" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox/CraftButton/Margin/HBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.105882, 0.105882, 0.0509804, 1)
 theme_override_font_sizes/font_size = 32
@@ -343,18 +397,13 @@ text = ")"
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Margin/PanelContainer/HBox/RightVBox/CraftOptions"]
+[node name="RecipeList" type="ScrollContainer" parent="Margin/PanelContainer/HBox/RightVBox/CraftOptions"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Margin/PanelContainer/HBox/RightVBox/CraftOptions/ScrollContainer"]
+[node name="VBox" type="VBoxContainer" parent="Margin/PanelContainer/HBox/RightVBox/CraftOptions/RecipeList"]
 layout_mode = 2
-
-[node name="Label" type="Label" parent="Margin/PanelContainer/HBox/RightVBox/CraftOptions"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.27451, 0.803922, 0.427451, 1)
-text = "Drag a M.O.D. into the frame above to craft something new!"
-autowrap_mode = 3
+size_flags_horizontal = 3
 
 [node name="Analysis" type="MarginContainer" parent="."]
 visible = false
@@ -405,3 +454,4 @@ shape = SubResource("RectangleShape2D_eicjl")
 
 [connection signal="pressed" from="Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox/HBox/MoreInfoButton" to="." method="_on_more_info_button_pressed"]
 [connection signal="pressed" from="Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox/DisassembleButton" to="." method="_on_disassemble_button_pressed"]
+[connection signal="pressed" from="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox/CraftButton" to="." method="_on_craft_button_pressed"]

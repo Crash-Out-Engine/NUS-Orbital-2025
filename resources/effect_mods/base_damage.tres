@@ -8,5 +8,6 @@
 script = ExtResource("3_mkdlj")
 effects = Array[ExtResource("1_t21nv")]([ExtResource("2_r61ob")])
 name = "Damage+"
+icon_id = 0
 description = "Increases damage taken by target"
 metadata/_custom_type_script = "uid://qxcwl20lyaga"
