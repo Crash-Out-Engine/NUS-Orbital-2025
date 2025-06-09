@@ -7,6 +7,10 @@ enum Type {
 	UPGRADE,
 }
 
+@export var name: String
+@export var icon_id: int
+@export var description: String
+
 var type: Type
 
 func _init() -> void:

@@ -8,7 +8,7 @@ signal health_changed()
 signal scraps_changed()
 signal no_lives()
 
-signal open_inventory(inventory_comp: InventoryComp, mod_slot_comp: ModSlotComp)
+signal inform_inventory(inventory_comp: InventoryComp, mod_slot_comp: ModSlotComp)
 
 enum Hand {
 	HOLDING_GUN,
@@ -34,7 +34,6 @@ const KNOCKBACK_AMOUNT = 300.0
 @export var melee_cooldown: MeleeCooldownProp
 
 var can_control = true
-var opening_inventory = false
 var hand_action = Hand.HOLDING_GUN
 var hand_locked: bool = false
 var direction: Callable = func(_delta: float) -> Vector2:
@@ -124,16 +123,17 @@ func _physics_process(_delta: float) -> void:
 	
 	if Input.is_action_just_pressed("inventory"):
 		if mod_target.current_target == null:
-			open_inventory.emit(inventory, mod_slots)
+			inform_inventory.emit(inventory, mod_slots)
 		else:
-			open_inventory.emit(inventory, mod_target.current_target.get_mod_slots())
-		opening_inventory = true
-		can_control = false
-		hand_action = Hand.HOLDING_WRENCH
-		ranged.active = false
+			inform_inventory.emit(inventory, mod_target.current_target.get_mod_slots())
+
+func open_inventory():
+	can_control = false
+	hand_action = Hand.HOLDING_WRENCH
+	ranged.active = false
+	visuals.play_inventory()
 
 func close_inventory():
-	opening_inventory = false
 	can_control = true
 	hand_action = Hand.HOLDING_GUN
 	visuals.reset()
@@ -176,7 +176,6 @@ func use_scraps(amount: int) -> void:
 
 func _on_health_emptied() -> void:
 	can_control = false
-	opening_inventory = false
 	$CollisionShape2D.disabled = true
 	$Components/HitboxComp.team = 0
 	no_lives.emit()
@@ -202,7 +201,6 @@ func _on_visuals_melee_finished() -> void:
 
 func deactivate():
 	can_control = false
-	opening_inventory = false
 	$CollisionShape2D.disabled = true
 	$Components/HitboxComp.team = 0
 	visuals.deactivate()

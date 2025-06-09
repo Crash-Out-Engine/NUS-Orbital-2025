@@ -63,3 +63,11 @@ func _handle_mods_changed() -> void:
 func change_capcity(value: int):
 	capacity += value
 	modslots_updated.emit(_mods.size(), capacity)
+
+func _add_mod(mod: ModBase):
+	_mods.append(mod)
+	_handle_mods_changed()
+
+func _remove_mod(mod: ModBase):
+	_mods.erase(mod)
+	_handle_mods_changed()

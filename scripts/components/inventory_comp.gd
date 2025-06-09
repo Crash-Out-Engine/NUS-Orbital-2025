@@ -90,3 +90,8 @@ func _handle_mod_unequipped(slot_index: int):
 
 func _add_mod(mod: ModBase) -> void:
 	_mods[mod] =_mods.get_or_add(mod, 0) + 1
+
+func _remove_mod(mod: ModBase) -> void:
+	assert(mod in _mods and _mods[mod] > 0,
+		"Mod not found in inventory.")
+	_mods[mod] -= 1

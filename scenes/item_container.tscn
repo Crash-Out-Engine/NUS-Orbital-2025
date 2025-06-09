@@ -1,0 +1,107 @@
+[gd_scene load_steps=11 format=3 uid="uid://d174m3iyasqt4"]
+
+[ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet.png" id="1_n11ee"]
+[ext_resource type="FontFile" uid="uid://cj53anigafm5t" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="2_2umob"]
+[ext_resource type="Script" uid="uid://cbmjumxd6gbwt" path="res://scripts/game_scene/ui/item_container.gd" id="2_p36xk"]
+[ext_resource type="Script" uid="uid://ddx5f4odv710k" path="res://scripts/sprite_2d_rect.gd" id="3_ixpej"]
+[ext_resource type="Texture2D" uid="uid://ce6k0ruptqrxu" path="res://assets/sprites/mod_item_icons_spritesheet.png" id="3_waend"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2umob"]
+texture = ExtResource("1_n11ee")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+region_rect = Rect2(1591, 254, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oh5sq"]
+atlas = ExtResource("3_waend")
+region = Rect2(1, 1, 32, 32)
+
+[sub_resource type="LabelSettings" id="LabelSettings_p36xk"]
+font = ExtResource("2_2umob")
+font_size = 36
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_p36xk"]
+texture = ExtResource("1_n11ee")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+region_rect = Rect2(1641, 254, 48, 48)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ixpej"]
+font = ExtResource("2_2umob")
+
+[node name="ItemContainer" type="PanelContainer"]
+custom_minimum_size = Vector2(0, 48)
+offset_right = 150.0
+offset_bottom = 55.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_2umob")
+script = ExtResource("2_p36xk")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Sprite2DRect" type="TextureRect" parent="HBoxContainer"]
+custom_minimum_size = Vector2(0.085, 0)
+layout_mode = 2
+texture = SubResource("AtlasTexture_oh5sq")
+expand_mode = 3
+script = ExtResource("3_ixpej")
+FrameMargin = Vector2(1, 1)
+FrameSize = Vector2(32, 32)
+metadata/_custom_type_script = "uid://ddx5f4odv710k"
+
+[node name="NameLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.105882, 0.105882, 0.0509804, 1)
+text = "MOD NAME"
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="CountLabel" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_2umob")
+theme_override_font_sizes/font_size = 32
+text = "36"
+label_settings = SubResource("LabelSettings_p36xk")
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="Description" type="Control" parent="."]
+visible = false
+top_level = true
+layout_mode = 2
+
+[node name="Panel" type="PanelContainer" parent="Description"]
+top_level = true
+z_index = 100
+layout_mode = 0
+offset_left = -89.0
+offset_top = -45.0
+offset_right = 183.0
+offset_bottom = 2.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_p36xk")
+
+[node name="Label" type="Label" parent="Description/Panel"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+label_settings = SubResource("LabelSettings_ixpej")
+autowrap_mode = 3
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3irto6bnhwwx"
-path="res://.godot/imported/playergun_spritesheet.png-e92cb3b82302a021b87303912fb1d491.ctex"
+uid="uid://ce6k0ruptqrxu"
+path="res://.godot/imported/mod_item_icons_spritesheet.png-f881a4f94ac09cf7f1e834cd7c61eeb7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/playergun_spritesheet.png"
-dest_files=["res://.godot/imported/playergun_spritesheet.png-e92cb3b82302a021b87303912fb1d491.ctex"]
+source_file="res://assets/sprites/mod_item_icons_spritesheet.png"
+dest_files=["res://.godot/imported/mod_item_icons_spritesheet.png-f881a4f94ac09cf7f1e834cd7c61eeb7.ctex"]
 
 [params]
 

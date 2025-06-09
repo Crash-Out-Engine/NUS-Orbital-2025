@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://bsk2hjudnw4rw"]
+[gd_scene load_steps=16 format=3 uid="uid://bsk2hjudnw4rw"]
 
 [ext_resource type="Script" uid="uid://dq5no236vfiso" path="res://scripts/game_scene/ui/inventory_ui.gd" id="1_tahbm"]
 [ext_resource type="Theme" uid="uid://cq6cs0mx200sg" path="res://resources/inventory_ui.tres" id="1_ylkvr"]
 [ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet.png" id="3_mdwe3"]
 [ext_resource type="Texture2D" uid="uid://cd6dttechhj5b" path="res://assets/sprites/inventorytargetanimations_spritesheet.png" id="4_iradw"]
 [ext_resource type="Script" uid="uid://ddx5f4odv710k" path="res://scripts/sprite_2d_rect.gd" id="5_eifbp"]
+[ext_resource type="Script" uid="uid://ckg514fwkuf4" path="res://scripts/game_scene/ui/item_drop_area.gd" id="6_2lmnb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iradw"]
 atlas = ExtResource("3_mdwe3")
@@ -29,6 +30,15 @@ region = Rect2(1614, 90, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_uwj4j"]
 atlas = ExtResource("3_mdwe3")
 region = Rect2(1434, 56, 94, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2lmnb"]
+size = Vector2(488.25, 256)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eifbp"]
+size = Vector2(488.25, 655)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eicjl"]
+size = Vector2(424, 180)
 
 [node name="InventoryUI" type="Control"]
 layout_mode = 3
@@ -159,6 +169,61 @@ text = ")"
 layout_mode = 2
 size_flags_vertical = 3
 
+[node name="VBox" type="VBoxContainer" parent="Margin/PanelContainer/HBox/LeftVBox/ModSlotList"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBox" type="VBoxContainer" parent="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox/Button"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -197.0
+offset_top = -18.5
+offset_right = 197.0
+offset_bottom = 18.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBox" type="HBoxContainer" parent="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox/Button/Margin"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox/Button/Margin/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.105882, 0.105882, 0.0509804, 1)
+theme_override_font_sizes/font_size = 32
+text = "Add slot(100"
+
+[node name="TextureRect" type="TextureRect" parent="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox/Button/Margin/HBox"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_1dxi5")
+expand_mode = 3
+stretch_mode = 6
+
+[node name="ClosingBracket" type="Label" parent="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox/Button/Margin/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.105882, 0.105882, 0.0509804, 1)
+theme_override_font_sizes/font_size = 32
+text = ")"
+
 [node name="MidVBox" type="VBoxContainer" parent="Margin/PanelContainer/HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -175,12 +240,23 @@ custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox"]
+[node name="InventoryList" type="ScrollContainer" parent="Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox/ScrollContainer"]
+[node name="Margin" type="MarginContainer" parent="Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox/InventoryList"]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+
+[node name="VBox" type="VBoxContainer" parent="Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox/InventoryList/Margin"]
+layout_mode = 2
+
+[node name="InventoryModCounter" type="Label" parent="Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.27451, 0.803922, 0.427451, 1)
+text = "? M.O.D.s"
 
 [node name="RightVBox" type="VBoxContainer" parent="Margin/PanelContainer/HBox"]
 layout_mode = 2
@@ -192,10 +268,32 @@ layout_mode = 2
 [node name="VBox" type="VBoxContainer" parent="Margin/PanelContainer/HBox/RightVBox/Crafting"]
 layout_mode = 2
 
-[node name="TemporaryRect" type="TextureRect" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox"]
+[node name="CraftingSlotGraphic" type="TextureRect" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_uwj4j")
 expand_mode = 5
+
+[node name="Control" type="Control" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox/CraftingSlotGraphic"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CraftOutput" type="MarginContainer" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox/CraftingSlotGraphic/Control"]
+layout_mode = 2
+offset_left = 280.0
+offset_top = 36.0
+offset_right = 388.0
+offset_bottom = 144.0
+
+[node name="CraftInput" type="MarginContainer" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox/CraftingSlotGraphic/Control"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = 36.0
+offset_right = 144.0
+offset_bottom = 144.0
 
 [node name="Button" type="Button" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox"]
 custom_minimum_size = Vector2(0, 48)
@@ -245,6 +343,19 @@ text = ")"
 layout_mode = 2
 size_flags_vertical = 3
 
+[node name="ScrollContainer" type="ScrollContainer" parent="Margin/PanelContainer/HBox/RightVBox/CraftOptions"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin/PanelContainer/HBox/RightVBox/CraftOptions/ScrollContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Margin/PanelContainer/HBox/RightVBox/CraftOptions"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.27451, 0.803922, 0.427451, 1)
+text = "Drag a M.O.D. into the frame above to craft something new!"
+autowrap_mode = 3
+
 [node name="Analysis" type="MarginContainer" parent="."]
 visible = false
 layout_mode = 1
@@ -265,6 +376,32 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 1
 text = "Additional Analysis"
+
+[node name="ModCompItemDropArea" type="Area2D" parent="."]
+position = Vector2(32, -370)
+script = ExtResource("6_2lmnb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ModCompItemDropArea"]
+position = Vector2(276, 998)
+shape = SubResource("RectangleShape2D_2lmnb")
+
+[node name="InventoryItemDropArea" type="Area2D" parent="."]
+position = Vector2(0, -436)
+script = ExtResource("6_2lmnb")
+item_state = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InventoryItemDropArea"]
+position = Vector2(800, 889.5)
+shape = SubResource("RectangleShape2D_eifbp")
+
+[node name="CraftingItemDropArea" type="Area2D" parent="."]
+position = Vector2(0, -436)
+script = ExtResource("6_2lmnb")
+item_state = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CraftingItemDropArea"]
+position = Vector2(1292, 622.5)
+shape = SubResource("RectangleShape2D_eicjl")
 
 [connection signal="pressed" from="Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox/HBox/MoreInfoButton" to="." method="_on_more_info_button_pressed"]
 [connection signal="pressed" from="Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox/DisassembleButton" to="." method="_on_disassemble_button_pressed"]

@@ -63,11 +63,7 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_released("add turret"):
 		gun_sprite.play("gun_idle")
 
-	if Input.is_action_just_pressed("inventory"):
-		if player_sprite.animation == "running":
-			player_sprite.play("idle")
-		if player.opening_inventory:
-			gun_sprite.play("melee_idle")
+
 
 func reset():
 	player_sprite.play("idle")
@@ -77,7 +73,6 @@ func play_gun_fire(_bullet):
 	gun_sprite.sprite_frames.set_animation_speed("gun_fire", 4.0 / player_ranged.ranged_cooldown.value)
 	gun_sprite.play("gun_fire")
 	gun_blast_sprite.play()
-
 
 func play_melee_fire():
 	player_melee.rotation = gun_sprite.rotation
@@ -104,3 +99,7 @@ func deactivate():
 	gun_sprite.visible = false
 	if player_sprite.animation != "death":
 		player_sprite.play("lost")
+
+func play_inventory():
+	player_sprite.play("idle")
+	gun_sprite.play("melee_idle")
