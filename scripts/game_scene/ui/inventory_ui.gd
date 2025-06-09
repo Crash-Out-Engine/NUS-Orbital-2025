@@ -6,6 +6,12 @@ const _RECIPE_CONTAINER = preload("res://scenes/recipe_container.tscn")
 @export var player : Player
 @export var crafting_recipes: Array[CraftingRecipe]
 
+var inventory_comp : InventoryComp
+var modslot_comp : ModSlotComp
+var crafting_input : ModBase = null
+var current_recipe : CraftingRecipe = null
+var turret : Turret = null
+
 @onready var scrap_counter_label = (
 	$Margin/PanelContainer/HBox/LeftVBox/ScrapCounter/HBox/Label as Label)
 @onready var mod_slot_size_label = (
@@ -46,12 +52,6 @@ const _RECIPE_CONTAINER = preload("res://scenes/recipe_container.tscn")
 	$Margin/PanelContainer/HBox/RightVBox/CraftOptions/RecipeList/VBox as VBoxContainer)
 @onready var analysis = $Analysis as Container
 @onready var analysis_label = $Analysis/PanelContainer/Label as Label
-
-var inventory_comp : InventoryComp
-var modslot_comp : ModSlotComp
-var crafting_input : ModBase = null
-var current_recipe : CraftingRecipe = null
-var turret : Turret = null
 
 func _ready() -> void:
 	visible = false

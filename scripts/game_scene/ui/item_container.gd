@@ -15,15 +15,15 @@ const _DRAGGED_ITEM = preload("res://scenes/dragged_item.tscn")
 @export var count: int
 @export var state: State
 
+var grabbable: bool = true
+var mouse_hovering = false
+
 @onready var icon = $HBoxContainer/Sprite2DRect as Sprite2DRect
 @onready var name_label = $HBoxContainer/NameLabel as Label
 @onready var count_label = $Control/CountLabel as Label
 @onready var description = $Description as Control
 @onready var description_panel = $Description/Panel as PanelContainer
 @onready var description_label = $Description/Panel/Label as Label
-
-var grabbable: bool = true
-var mouse_hovering = false
 
 func update():
 	icon.Frame = mod.icon_id

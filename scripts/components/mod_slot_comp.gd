@@ -9,9 +9,9 @@ signal modslots_updated(mods: int, capacity: int)
 @export var entity: Node
 @export var attack_comp: Node
 
+var upgrade_cost: int = 50 #TODO: implement upgrade cost scaling
 var _mods: Array[ModBase]
 var _readonly_mods: Array[ModBase]
-var upgrade_cost: int = 50 #TODO: implement upgrade cost scaling
 
 func _ready() -> void:
 	assert(is_instance_valid(entity) and entity.get_node_or_null(^"Properties") != null,
@@ -73,8 +73,7 @@ func _add_mod(mod: ModBase) -> bool:
 		_mods.append(mod)
 		_handle_mods_changed()
 		return true
-	else:
-		return false
+	return false
 
 func _remove_mod(mod: ModBase):
 	_mods.erase(mod)
