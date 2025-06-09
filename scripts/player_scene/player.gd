@@ -120,7 +120,7 @@ func _physics_process(_delta: float) -> void:
 				turret_placement_failed.emit()
 			current_turret = null
 		hand_action = Hand.HOLDING_GUN
-	
+
 	if Input.is_action_just_pressed("inventory"):
 		if mod_target.current_target == null:
 			inform_inventory.emit(inventory, mod_slots)

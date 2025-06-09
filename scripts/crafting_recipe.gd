@@ -1,4 +1,4 @@
-class_name Crafting_Recipe
+class_name CraftingRecipe
 extends Resource
 
 @export var input: ModBase

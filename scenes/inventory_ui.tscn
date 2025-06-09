@@ -214,11 +214,11 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox"]
+[node name="UpgradeButton" type="Button" parent="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox"]
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 
-[node name="Margin" type="MarginContainer" parent="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox/Button"]
+[node name="Margin" type="MarginContainer" parent="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox/UpgradeButton"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -236,23 +236,23 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="HBox" type="HBoxContainer" parent="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox/Button/Margin"]
+[node name="HBox" type="HBoxContainer" parent="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox/UpgradeButton/Margin"]
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox/Button/Margin/HBox"]
+[node name="Label" type="Label" parent="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox/UpgradeButton/Margin/HBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.105882, 0.105882, 0.0509804, 1)
 theme_override_font_sizes/font_size = 32
 text = "Add slot(100"
 
-[node name="TextureRect" type="TextureRect" parent="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox/Button/Margin/HBox"]
+[node name="TextureRect" type="TextureRect" parent="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox/UpgradeButton/Margin/HBox"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_1dxi5")
 expand_mode = 3
 stretch_mode = 6
 
-[node name="ClosingBracket" type="Label" parent="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox/Button/Margin/HBox"]
+[node name="ClosingBracket" type="Label" parent="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox/UpgradeButton/Margin/HBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.105882, 0.105882, 0.0509804, 1)
 theme_override_font_sizes/font_size = 32
@@ -454,4 +454,5 @@ shape = SubResource("RectangleShape2D_eicjl")
 
 [connection signal="pressed" from="Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox/HBox/MoreInfoButton" to="." method="_on_more_info_button_pressed"]
 [connection signal="pressed" from="Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox/DisassembleButton" to="." method="_on_disassemble_button_pressed"]
+[connection signal="pressed" from="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
 [connection signal="pressed" from="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox/CraftButton" to="." method="_on_craft_button_pressed"]

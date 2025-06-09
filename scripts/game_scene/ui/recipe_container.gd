@@ -1,8 +1,8 @@
 extends MarginContainer
 
-signal recipe_selected(recipe: Crafting_Recipe)
+signal recipe_selected(recipe: CraftingRecipe)
 
-@export var recipe: Crafting_Recipe
+@export var recipe: CraftingRecipe
 
 @onready var input_icon = $PanelContainer/MarginContainer/HBoxContainer/InputIcon as Sprite2DRect
 @onready var input_plus = $PanelContainer/MarginContainer/HBoxContainer/InputPlus as TextureRect

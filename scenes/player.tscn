@@ -652,7 +652,7 @@ shape = SubResource("CircleShape2D_wqfne")
 
 [node name="InventoryComp" type="Node" parent="Components"]
 script = ExtResource("20_wnwbv")
-initial_mods = Array[ExtResource("17_ujl30")]([ExtResource("18_31cv2"), ExtResource("18_31cv2"), ExtResource("18_31cv2"), ExtResource("18_31cv2")])
+initial_mods = Array[ExtResource("17_ujl30")]([ExtResource("18_31cv2"), ExtResource("18_31cv2"), ExtResource("18_31cv2"), ExtResource("18_31cv2"), ExtResource("18_31cv2")])
 initial_scraps = 60
 metadata/_custom_type_script = "uid://j8sk0rxpd865"
 

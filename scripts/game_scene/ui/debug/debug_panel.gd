@@ -42,7 +42,7 @@ func _on_tree_item_edited() -> void: # HACK: Greatly relies on the node paths be
 					$/root/Game/EnemySpawner/SpawnTimer.start()
 				"Set health":
 					$/root/Game/EntityContainer/Player/Properties/DamageTakenProp.value = (
-						$/root/Game/EntityContainer/Player/Properties/HealthCapacityProp.value 
+						$/root/Game/EntityContainer/Player/Properties/HealthCapacityProp.value
 						- item.get_range(0))
 				"Set scraps":
 					$/root/Game/EntityContainer/Player/Components/InventoryComp._scraps = item.get_range(0)

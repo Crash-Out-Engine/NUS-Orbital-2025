@@ -109,8 +109,6 @@ layout_mode = 2
 texture = SubResource("AtlasTexture_dqfnd")
 expand_mode = 3
 script = ExtResource("3_5tahq")
-FrameMargin = Vector2(1, 1)
-FrameSize = Vector2(32, 32)
 metadata/_custom_type_script = "uid://ddx5f4odv710k"
 
 [node name="InputPlus" type="TextureRect" parent="PanelContainer/MarginContainer/HBoxContainer"]
@@ -146,8 +144,6 @@ layout_mode = 2
 texture = SubResource("AtlasTexture_dqfnd")
 expand_mode = 3
 script = ExtResource("3_5tahq")
-FrameMargin = Vector2(1, 1)
-FrameSize = Vector2(32, 32)
 metadata/_custom_type_script = "uid://ddx5f4odv710k"
 
 [node name="OutputPlus" type="TextureRect" parent="PanelContainer/MarginContainer/HBoxContainer"]

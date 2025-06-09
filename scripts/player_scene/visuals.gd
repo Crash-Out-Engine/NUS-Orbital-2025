@@ -29,7 +29,7 @@ func _process(delta: float) -> void:
 		if (player_sprite.modulate.v <= 1):
 			player_sprite.modulate.v = 1
 
-	if not player.can_control: 
+	if not player.can_control:
 		if !player.hand_locked:
 			gun_sprite.look_at(get_global_mouse_position())
 			gun_sprite.scale.y = -1 if get_global_mouse_position().x < player_ranged.global_position.x else 1
@@ -42,7 +42,6 @@ func _process(delta: float) -> void:
 		player_sprite.play("running")
 	else:
 		player_sprite.play("idle")
-	
 
 	# gun_sprite processes
 	if !player.hand_locked:

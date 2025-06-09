@@ -5,7 +5,6 @@ var current_target: Turret
 
 func _ready() -> void:
 	current_target = null
-	
 
 func _physics_process(_delta: float) -> void:
 	look_at(get_global_mouse_position())

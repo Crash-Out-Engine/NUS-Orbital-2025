@@ -3,13 +3,13 @@ extends PanelContainer
 
 signal create_dragged_item(item: DraggedItem, state: State)
 
-const _DRAGGED_ITEM = preload("res://scenes/dragged_item.tscn")
-
 enum State {
 	MODCOMP,
 	INVENTORY,
 	CRAFTING
 }
+
+const _DRAGGED_ITEM = preload("res://scenes/dragged_item.tscn")
 
 @export var mod: ModBase
 @export var count: int

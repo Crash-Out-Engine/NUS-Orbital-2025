@@ -4,7 +4,7 @@ const _ITEM_CONTAINER = preload("res://scenes/item_container.tscn")
 const _RECIPE_CONTAINER = preload("res://scenes/recipe_container.tscn")
 
 @export var player : Player
-@export var crafting_recipes: Array[Crafting_Recipe]
+@export var crafting_recipes: Array[CraftingRecipe]
 
 @onready var scrap_counter_label = (
 	$Margin/PanelContainer/HBox/LeftVBox/ScrapCounter/HBox/Label as Label)
@@ -14,6 +14,10 @@ const _RECIPE_CONTAINER = preload("res://scenes/recipe_container.tscn")
 	$Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox/Sprite2DRect as Sprite2DRect)
 @onready var disassemble_button = (
 	$Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox/DisassembleButton as Button)
+@onready var upgrade_button = (
+	$Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox/UpgradeButton as Button)
+@onready var upgrade_button_label = (
+	$Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox/UpgradeButton/Margin/HBox/Label as Label)
 @onready var inventory_mod_counter = (
 	$Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox/InventoryModCounter as Label)
 @onready var modcomp_list = (
@@ -46,7 +50,7 @@ const _RECIPE_CONTAINER = preload("res://scenes/recipe_container.tscn")
 var inventory_comp : InventoryComp
 var modslot_comp : ModSlotComp
 var crafting_input : ModBase = null
-var current_recipe : Crafting_Recipe = null
+var current_recipe : CraftingRecipe = null
 var turret : Turret = null
 
 func _ready() -> void:
@@ -143,6 +147,15 @@ func update_modslotcomp_list():
 		item.update()
 		item.create_dragged_item.connect(add_dragged_item)
 
+	update_modslotcomp_upgrade()
+
+func update_modslotcomp_upgrade():
+	upgrade_button_label.text = "Add slot(%d" % modslot_comp.get_upgrade_cost()
+	if modslot_comp.get_upgrade_cost() > player.get_scraps():
+		upgrade_button.disabled = true
+	else:
+		upgrade_button.disabled = false
+
 func update_crafting_slot():
 	for item in crafting_input_container.get_children():
 		item.queue_free()
@@ -215,7 +228,7 @@ func set_margins(container: MarginContainer, left: int, top: int, right: int, bo
 	container.add_theme_constant_override("margin_right", right)
 	container.add_theme_constant_override("margin_bottom", bottom)
 
-func set_current_recipe(recipe: Crafting_Recipe):
+func set_current_recipe(recipe: CraftingRecipe):
 	current_recipe = recipe
 	update_crafting_recipe_slot()
 
@@ -246,8 +259,11 @@ func add_dragged_item(item: DraggedItem, state: ItemContainer.State):
 func insert_item(mod: ModBase, destination: ItemContainer.State):
 	match(destination):
 		ItemContainer.State.MODCOMP:
-			modslot_comp._add_mod(mod)
-			update_modslotcomp_list()
+			if modslot_comp._add_mod(mod):
+				update_modslotcomp_list()
+			else:
+				inventory_comp._add_mod(mod)
+				update_inventory_list()
 
 		ItemContainer.State.INVENTORY:
 			inventory_comp._add_mod(mod)
@@ -265,3 +281,8 @@ func _on_craft_button_pressed() -> void:
 	elif current_recipe.scrap_change > 0:
 		player.inventory.register_item(Item.ScrapItem.new(current_recipe.scrap_change))
 	update_crafting_slot()
+
+
+func _on_upgrade_button_pressed() -> void:
+	player.use_scraps(modslot_comp.get_upgrade_cost())
+	modslot_comp.change_capcity(1)
