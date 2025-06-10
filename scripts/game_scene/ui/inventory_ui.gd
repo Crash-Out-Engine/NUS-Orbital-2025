@@ -199,7 +199,7 @@ func update_modslotcomp_list():
 
 func update_modslotcomp_upgrade():
 	upgrade_button_label.text = "[color=#1c1c0d]Add slot(%d[img=32]%s[/img])[/color]" % [
-		modslot_comp.get_upgrade_cost(), 
+		modslot_comp.get_upgrade_cost(),
 		SCRAP_EMOJI]
 
 	if modslot_comp.get_upgrade_cost() > player.get_scraps():
