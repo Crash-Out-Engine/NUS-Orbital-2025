@@ -7,16 +7,16 @@ const SCRAP_EMOJI = "res://resources/text_icons/scrap_icon.tres"
 @export var player : Player
 @export var unlocked_mods : Array[ModBase]
 
-var inventory_comp : InventoryComp
-var modslot_comp : ModSlotComp
-var crafting_inputs : Array[ModBase] = []
-var _crafting_components : Dictionary[PropertyPoint, int]
 var crafting_scraps : int = 0
 var crafting_output : ModBase = null
 var checking_blueprints : bool = false
 var selected_blueprint : int = 0
 var scrap_diff : int
 var turret : Turret = null
+var inventory_comp : InventoryComp
+var modslot_comp : ModSlotComp
+var crafting_inputs : Array[ModBase] = []
+var _crafting_components : Dictionary[PropertyPoint, int]
 
 @onready var scrap_counter_label = (
 	$Margin/PanelContainer/HBox/LeftVBox/ScrapCounter/HBox/Label as Label)
@@ -44,7 +44,8 @@ var turret : Turret = null
 	$Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox/BlueprintList/Margin/VBox
 	as VBoxContainer)
 @onready var blueprint_label = (
-	$Margin/PanelContainer/HBox/RightVBox/HBox/CraftingOutput/VBox/BlueprintPanel/RichTextLabel as RichTextLabel)
+	$Margin/PanelContainer/HBox/RightVBox/HBox/CraftingOutput/VBox/BlueprintPanel/RichTextLabel
+	as RichTextLabel)
 @onready var crafting_inputs_list = (
 	$Margin/PanelContainer/HBox/RightVBox/HBox/CraftingInput/ScrollContainer/VBox as Container)
 @onready var crafting_instructions_label = (
@@ -197,7 +198,9 @@ func update_modslotcomp_list():
 	update_modslotcomp_upgrade()
 
 func update_modslotcomp_upgrade():
-	upgrade_button_label.text = "[color=#1c1c0d]Add slot(%d[img=32]%s[/img])[/color]" % [modslot_comp.get_upgrade_cost(), SCRAP_EMOJI]
+	upgrade_button_label.text = "[color=#1c1c0d]Add slot(%d[img=32]%s[/img])[/color]" % [
+		modslot_comp.get_upgrade_cost(), 
+		SCRAP_EMOJI]
 
 	if modslot_comp.get_upgrade_cost() > player.get_scraps():
 		upgrade_button.disabled = true
@@ -235,7 +238,7 @@ func update_crafting_components():
 		scrap_diff -= crafting_output.value
 	if scrap_diff != 0:
 		crafting_components_list.text += "%d[img=36]%s[/img]\n" % [scrap_diff, SCRAP_EMOJI]
-	crafting_components_list.text += "[color=#46cd6d]Components:[/color]\n" 
+	crafting_components_list.text += "[color=#46cd6d]Components:[/color]\n"
 	if crafting_output == null:
 		for pp in _crafting_components:
 			crafting_components_list.text += "%s×%d\n" % [pp.get_icon(36), _crafting_components[pp]]
@@ -249,10 +252,10 @@ func update_crafting_components():
 		for pp in _crafting_components:
 			if crafting_output.property_points.get(pp, 0) > 0:
 				crafting_components_list.text += "%s[color=%s]×%d/%d[/color]\n" % [
-					pp.get_icon(36), 
-					"#ed1C24" if crafting_output.property_points[pp] > _crafting_components[pp] 
+					pp.get_icon(36),
+					"#ed1C24" if crafting_output.property_points[pp] > _crafting_components[pp]
 					else "#46cd6d",
-					_crafting_components[pp], 
+					_crafting_components[pp],
 					crafting_output.property_points[pp]]
 			else:
 				crafting_components_list.text += "%s×%d\n" % [pp.get_icon(36), _crafting_components[pp]]
@@ -261,7 +264,7 @@ func update_crafting_components():
 			if _crafting_components.get(pp) == null:
 				sufficient_components = false
 				crafting_components_list.text += "%s[color=#ed1c24]×0/%d[/color]\n" % [
-					pp.get_icon(36), 
+					pp.get_icon(36),
 					crafting_output.property_points[pp]]
 		if !sufficient_components:
 			crafting_output_label.text = "Insufficient components!"

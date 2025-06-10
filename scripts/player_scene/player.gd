@@ -125,8 +125,7 @@ func get_inventory() -> InventoryComp:
 func get_mod_slots() -> ModSlotComp:
 	if mod_target.current_target == null:
 		return mod_slots
-	else:
-		return mod_target.current_target.get_mod_slots()
+	return mod_target.current_target.get_mod_slots()
 
 func open_inventory():
 	can_control = false
