@@ -28,11 +28,11 @@ func _on_tree_item_edited() -> void: # HACK: Greatly relies on the node paths be
 				"God mode":
 					if item.is_checked(0):
 						$/root/Game.power = abs(INF / 2)
-						$/root/Game/EntityContainer/Player/Properties/DamageTakenProp.value = 0
+						$/root/Game/EntityContainer/Player/Properties/HealthProp.value = absi(int(INF)) / 2
 						$/root/Game/EntityContainer/Player/Components/InventoryComp._scraps = absi(int(INF)) / 2
 					else:
 						$/root/Game.power = 100
-						$/root/Game/EntityContainer/Player/Properties/DamageTakenProp.value = 0
+						$/root/Game/EntityContainer/Player/Properties/HealthProp.value = 50
 						$/root/Game/EntityContainer/Player/Components/InventoryComp._scraps = 50
 
 		TreeItem.CELL_MODE_RANGE:
@@ -41,7 +41,7 @@ func _on_tree_item_edited() -> void: # HACK: Greatly relies on the node paths be
 					$/root/Game/EnemySpawner/SpawnTimer.wait_time = 1.0 / item.get_range(0)
 					$/root/Game/EnemySpawner/SpawnTimer.start()
 				"Set health":
-					$/root/Game/EntityContainer/Player/Properties/DamageTakenProp.value = (
+					$/root/Game/EntityContainer/Player/Properties/HealthProp.value = (
 						$/root/Game/EntityContainer/Player/Properties/HealthCapacityProp.value
 						- item.get_range(0))
 				"Set scraps":

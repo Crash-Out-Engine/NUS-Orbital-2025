@@ -8,8 +8,6 @@ signal health_changed()
 signal scraps_changed()
 signal no_lives()
 
-signal inform_inventory(inventory_comp: InventoryComp, mod_slot_comp: ModSlotComp)
-
 enum Hand {
 	HOLDING_GUN,
 	FIRING_GUN,
@@ -25,11 +23,12 @@ const KNOCKBACK_AMOUNT = 300.0
 @export_group("Components")
 @export var ranged: RangedBaseComp
 @export var inventory: InventoryComp
+@export var blueprints: BlueprintComp
 @export var mod_target: ModTargetingComp
 @export var mod_slots: ModSlotComp
 
 @export_group("Properties")
-@export var damage_taken: DamageTakenProp
+@export var health_prop: HealthProp
 @export var health_capacity: HealthCapacityProp
 @export var melee_cooldown: MeleeCooldownProp
 
@@ -47,6 +46,7 @@ var knockback_direction = Vector2(0, 0)
 var current_turret = null
 var turret_cost = 25
 var inventory_target: Turret
+var opening_inventory = false
 
 @onready var visuals := $Visuals as PlayerVisuals
 @onready var audio := $Audio as PlayerAudio
@@ -113,19 +113,20 @@ func _physics_process(_delta: float) -> void:
 			if _can_place_turret():
 				current_turret.advance_state()
 				inventory.use_scraps(turret_cost)
-				add_random_mod(current_turret)
-				add_random_mod(current_turret)
 			else:
 				current_turret.state = Turret.State.CANCELLED
 				turret_placement_failed.emit()
 			current_turret = null
 		hand_action = Hand.HOLDING_GUN
 
-	if Input.is_action_just_pressed("inventory"):
-		if mod_target.current_target == null:
-			inform_inventory.emit(inventory, mod_slots)
-		else:
-			inform_inventory.emit(inventory, mod_target.current_target.get_mod_slots())
+func get_inventory() -> InventoryComp:
+	return inventory
+
+func get_mod_slots() -> ModSlotComp:
+	if mod_target.current_target == null:
+		return mod_slots
+	else:
+		return mod_target.current_target.get_mod_slots()
 
 func open_inventory():
 	can_control = false
@@ -156,7 +157,7 @@ func add_random_mod(turret: Turret) -> void:
 
 
 func get_health() -> float:
-	return health_capacity.value - damage_taken.value
+	return health_prop.value
 
 
 func get_health_capacity() -> float:
@@ -207,3 +208,6 @@ func deactivate():
 
 func _on_damage_taken_prop_changed(_from: float, _to: float) -> void:
 	health_changed.emit()
+
+func get_blueprints() -> Array[ModBase]:
+	return blueprints.get_blueprints()

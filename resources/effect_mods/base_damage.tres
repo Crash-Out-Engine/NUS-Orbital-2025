@@ -1,13 +1,20 @@
-[gd_resource type="Resource" script_class="EffectMod" load_steps=4 format=3 uid="uid://dl56w1h7wf83j"]
+[gd_resource type="Resource" script_class="EffectMod" load_steps=7 format=3 uid="uid://dl56w1h7wf83j"]
 
 [ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/mods/effects/effect_base.gd" id="1_t21nv"]
 [ext_resource type="Resource" uid="uid://dtogyr1espqpy" path="res://resources/effects/damage.tres" id="2_r61ob"]
+[ext_resource type="Texture2D" uid="uid://bx6kp8j87xcrc" path="res://resources/text_icons/health_minus_impact_icon.tres" id="3_07w8q"]
 [ext_resource type="Script" uid="uid://qxcwl20lyaga" path="res://scripts/mods/effect_mod.gd" id="3_mkdlj"]
+[ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="3_tcrbk"]
+[ext_resource type="Resource" uid="uid://dvmlfcbqqrwyt" path="res://resources/property_points/health_pp.tres" id="4_16gqk"]
 
 [resource]
 script = ExtResource("3_mkdlj")
 effects = Array[ExtResource("1_t21nv")]([ExtResource("2_r61ob")])
 name = "Damage+"
-icon_id = 0
+icon = ExtResource("3_07w8q")
 description = "Increases damage taken by target"
+property_points = Dictionary[ExtResource("3_tcrbk"), int]({
+ExtResource("4_16gqk"): 1
+})
+value = 20
 metadata/_custom_type_script = "uid://qxcwl20lyaga"

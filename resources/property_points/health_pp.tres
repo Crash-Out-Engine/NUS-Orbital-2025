@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PropertyPoint" load_steps=3 format=3 uid="uid://dvmlfcbqqrwyt"]
+
+[ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="1_t4kds"]
+[ext_resource type="Texture2D" uid="uid://gambl07kuk10" path="res://resources/text_icons/health_icon.tres" id="1_wknrh"]
+
+[resource]
+script = ExtResource("1_t4kds")
+icon = ExtResource("1_wknrh")
+metadata/_custom_type_script = "uid://bik6dfo0vrxil"

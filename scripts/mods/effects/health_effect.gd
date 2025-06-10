@@ -1,6 +1,6 @@
-class_name DamageEffect
+class_name HealthEffect
 extends EffectBase
 
 
 func _can_effect(property: PropertyBase) -> bool:
-	return property is DamageTakenProp
+	return property is HealthProp

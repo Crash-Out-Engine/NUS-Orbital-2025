@@ -15,3 +15,4 @@ func _process(_delta: float) -> void:
 func close_all_menus() -> void:
 	if $InventoryUI.is_open():
 		$InventoryUI.force_close()
+	set_process(false)

@@ -20,7 +20,7 @@ const _LOOT_SCENE = preload("res://scenes/loot.tscn")
 
 @export_group("Properties")
 @export var health_capacity: HealthCapacityProp
-@export var damage_taken: DamageTakenProp
+@export var health: HealthProp
 @export var build_prop: BuildProp
 
 @export_group("Components")
@@ -43,7 +43,7 @@ var highlighted = false
 
 func _ready() -> void:
 	state = State.PLACING
-	damage_taken.emptied.connect(func(): state = State.DESTROYED)
+	health.emptied.connect(func(): state = State.DESTROYED)
 	build_prop.changed.connect(build_or_repair)
 
 
@@ -110,9 +110,9 @@ func build_or_repair(from: float, to: float) -> void:
 		build_progressed.emit(to / build_target)
 	if state == State.OPERATIONAL:
 		var cost = min(max(0, player.get_scraps()), min((to - from) * 10,
-				damage_taken.value) / 20)
+				health_capacity.value - health.value) / 20)
 		player.use_scraps(cost)
-		damage_taken.value -= cost * 20
+		health.value += cost * 20
 
 func disassemble():
 	state = State.DESTROYED

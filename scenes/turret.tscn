@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://cceowy0wh5ufb" path="res://scripts/properties/health_capacity_prop.gd" id="2_ue5km"]
 [ext_resource type="Script" uid="uid://cwdm3dvyba0l3" path="res://scripts/properties/ranged_cooldown_prop.gd" id="3_pp6j5"]
 [ext_resource type="Script" uid="uid://cf6drkuqld4ft" path="res://scripts/properties/build_prop.gd" id="4_8c4bs"]
-[ext_resource type="Script" uid="uid://bg2iinlcp53aa" path="res://scripts/properties/damagetaken_prop.gd" id="4_eo4u0"]
+[ext_resource type="Script" uid="uid://bg2iinlcp53aa" path="res://scripts/properties/health_prop.gd" id="4_eo4u0"]
 [ext_resource type="Script" uid="uid://bhi7w6ril3da2" path="res://scripts/components/ranged_AI_comp.gd" id="5_mqfwu"]
 [ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/properties/target_priority_prop.gd" id="6_dirdf"]
 [ext_resource type="Script" path="res://scripts/target_filter.gd" id="7_726tt"]
@@ -88,11 +88,11 @@ region = Rect2(1597, 89, 16, 16)
 atlas = ExtResource("13_0mdkh")
 region = Rect2(1581, 89, 16, 16)
 
-[node name="Turret" type="StaticBody2D" node_paths=PackedStringArray("health_capacity", "damage_taken", "build_prop", "ranged", "hitbox", "mod_slots") groups=["allies"]]
+[node name="Turret" type="StaticBody2D" node_paths=PackedStringArray("health_capacity", "health", "build_prop", "ranged", "hitbox", "mod_slots") groups=["allies"]]
 script = ExtResource("1_x3mc5")
 build_target = 100.0
 health_capacity = NodePath("Properties/HealthCapacityProp")
-damage_taken = NodePath("Properties/DamageTakenProp")
+health = NodePath("Properties/HealthProp")
 build_prop = NodePath("Properties/BuildProp")
 ranged = NodePath("Components/RangedComp")
 hitbox = NodePath("Components/HitboxComp")
@@ -119,8 +119,9 @@ script = ExtResource("2_ue5km")
 _health_capacity = 200.0
 metadata/_custom_type_script = "uid://cceowy0wh5ufb"
 
-[node name="DamageTakenProp" type="Node" parent="Properties" node_paths=PackedStringArray("_health_capacity_prop")]
+[node name="HealthProp" type="Node" parent="Properties" node_paths=PackedStringArray("_health_capacity_prop")]
 script = ExtResource("4_eo4u0")
+health = 200.0
 _health_capacity_prop = NodePath("../HealthCapacityProp")
 metadata/_custom_type_script = "uid://bg2iinlcp53aa"
 
@@ -145,7 +146,7 @@ metadata/_custom_type_script = "uid://wwqkkrfhwiyn"
 [node name="ModSlotComp" type="Node" parent="Components" node_paths=PackedStringArray("entity", "attack_comp")]
 script = ExtResource("8_137wx")
 capacity = 3
-initial_mods = Array[ExtResource("9_d25s7")]([ExtResource("10_d25s7"), null, null])
+initial_mods = Array[ExtResource("9_d25s7")]([ExtResource("10_d25s7")])
 entity = NodePath("../..")
 attack_comp = NodePath("../RangedComp")
 metadata/_custom_type_script = "uid://bnt7cwx8k0nm0"
@@ -162,11 +163,11 @@ metadata/_custom_type_script = "uid://bhi7w6ril3da2"
 [node name="Barrel" type="Node2D" parent="Components/RangedComp"]
 position = Vector2(12, 0)
 
-[node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("turret", "turret_ranged", "turret_damage_taken", "turret_health_capacity")]
+[node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("turret", "turret_ranged", "turret_health", "turret_health_capacity")]
 script = ExtResource("12_fp1kq")
 turret = NodePath("..")
 turret_ranged = NodePath("../Components/RangedComp")
-turret_damage_taken = NodePath("../Properties/DamageTakenProp")
+turret_health = NodePath("../Properties/HealthProp")
 turret_health_capacity = NodePath("../Properties/HealthCapacityProp")
 
 [node name="BodySprite" type="AnimatedSprite2D" parent="Visuals"]

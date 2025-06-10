@@ -1,0 +1,72 @@
+[gd_scene load_steps=7 format=3 uid="uid://drf50mouvvlop"]
+
+[ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet.png" id="1_xyaj7"]
+[ext_resource type="Script" uid="uid://cl2lbtv6r8xtw" path="res://scripts/game_scene/ui/blueprint_container.gd" id="2_msb6t"]
+[ext_resource type="FontFile" uid="uid://bvdfbft27q66n" path="res://assets/fonts/zeldadxt.ttf" id="3_4w413"]
+[ext_resource type="FontFile" uid="uid://cj53anigafm5t" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="3_as627"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ujldt"]
+texture = ExtResource("1_xyaj7")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+region_rect = Rect2(1491, 254, 48, 48)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_as627"]
+texture = ExtResource("1_xyaj7")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+region_rect = Rect2(1441, 254, 48, 48)
+
+[node name="BlueprintContainer" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1468.0
+offset_bottom = -808.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_ujldt")
+script = ExtResource("2_msb6t")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_fonts/italics_font = ExtResource("3_4w413")
+theme_override_font_sizes/bold_italics_font_size = 24
+bbcode_enabled = true
+text = "[img=36]res://resources/text_icons/health_minus_impact_icon.tres[/img] fdsdsfa"
+fit_content = true
+
+[node name="Description" type="Control" parent="."]
+visible = false
+top_level = true
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Panel" type="PanelContainer" parent="Description"]
+top_level = true
+z_index = 100
+layout_mode = 0
+offset_left = -89.0
+offset_top = -45.0
+offset_right = 183.0
+offset_bottom = 2.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_as627")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Description/Panel"]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("3_as627")
+theme_override_fonts/italics_font = ExtResource("3_4w413")
+theme_override_font_sizes/italics_font_size = 24
+bbcode_enabled = true
+text = "ffdgs"
+fit_content = true
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

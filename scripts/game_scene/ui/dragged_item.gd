@@ -6,10 +6,10 @@ signal dropped(mod: ModBase, destination: ItemContainer.State)
 @export var mod: ModBase
 @export var destination: ItemContainer.State
 
-@onready var icon = $Sprite2D as Sprite2D
+@onready var icon = $Panel/TextureRect as TextureRect
 
 func update():
-	icon.frame = mod.icon_id
+	icon.texture = mod.icon
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_released("shoot"):

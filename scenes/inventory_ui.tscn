@@ -1,44 +1,15 @@
-[gd_scene load_steps=23 format=3 uid="uid://bsk2hjudnw4rw"]
+[gd_scene load_steps=22 format=3 uid="uid://bsk2hjudnw4rw"]
 
 [ext_resource type="Script" uid="uid://dq5no236vfiso" path="res://scripts/game_scene/ui/inventory_ui.gd" id="1_tahbm"]
 [ext_resource type="Theme" uid="uid://cq6cs0mx200sg" path="res://resources/inventory_ui.tres" id="1_ylkvr"]
+[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod_base.gd" id="3_1dxi5"]
 [ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet.png" id="3_mdwe3"]
-[ext_resource type="Script" uid="uid://ioa48ir12klx" path="res://scripts/crafting_recipe.gd" id="3_uwj4j"]
 [ext_resource type="Resource" uid="uid://dl56w1h7wf83j" path="res://resources/effect_mods/base_damage.tres" id="4_1dxi5"]
 [ext_resource type="Texture2D" uid="uid://cd6dttechhj5b" path="res://assets/sprites/inventorytargetanimations_spritesheet.png" id="4_iradw"]
+[ext_resource type="Resource" uid="uid://cjgi5gpx4duko" path="res://resources/effect_mods/base_slowdown.tres" id="4_uwj4j"]
 [ext_resource type="Script" uid="uid://ddx5f4odv710k" path="res://scripts/sprite_2d_rect.gd" id="5_eifbp"]
 [ext_resource type="Script" uid="uid://ckg514fwkuf4" path="res://scripts/game_scene/ui/item_drop_area.gd" id="6_2lmnb"]
-[ext_resource type="Texture2D" uid="uid://djm2sr0ifrw7b" path="res://assets/sprites/crafting_area_sprites.png" id="8_1dxi5"]
-
-[sub_resource type="Resource" id="Resource_dqfnd"]
-script = ExtResource("3_uwj4j")
-input = ExtResource("4_1dxi5")
-scrap_change = 20
-unlocked = true
-metadata/_custom_type_script = "uid://ioa48ir12klx"
-
-[sub_resource type="Resource" id="Resource_ngbl7"]
-script = ExtResource("3_uwj4j")
-input = ExtResource("4_1dxi5")
-output = ExtResource("4_1dxi5")
-scrap_change = 0
-unlocked = true
-metadata/_custom_type_script = "uid://ioa48ir12klx"
-
-[sub_resource type="Resource" id="Resource_uwj4j"]
-script = ExtResource("3_uwj4j")
-input = ExtResource("4_1dxi5")
-scrap_change = 100
-unlocked = false
-metadata/_custom_type_script = "uid://ioa48ir12klx"
-
-[sub_resource type="Resource" id="Resource_1dxi5"]
-script = ExtResource("3_uwj4j")
-input = ExtResource("4_1dxi5")
-output = ExtResource("4_1dxi5")
-scrap_change = -1000
-unlocked = true
-metadata/_custom_type_script = "uid://ioa48ir12klx"
+[ext_resource type="FontFile" uid="uid://bvdfbft27q66n" path="res://assets/fonts/zeldadxt.ttf" id="9_dqfnd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iradw"]
 atlas = ExtResource("3_mdwe3")
@@ -60,9 +31,21 @@ region = Rect2(1587, 114, 32, 32)
 atlas = ExtResource("3_mdwe3")
 region = Rect2(1614, 90, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_uwj4j"]
-atlas = ExtResource("8_1dxi5")
-region = Rect2(1, 1, 94, 40)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ujldt"]
+texture = ExtResource("3_mdwe3")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+region_rect = Rect2(1491, 254, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dqfnd"]
+atlas = ExtResource("3_mdwe3")
+region = Rect2(1553, 114, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ngbl7"]
+atlas = ExtResource("3_mdwe3")
+region = Rect2(1519, 114, 32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2lmnb"]
 size = Vector2(488.25, 256)
@@ -71,7 +54,7 @@ size = Vector2(488.25, 256)
 size = Vector2(488.25, 655)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eicjl"]
-size = Vector2(424, 180)
+size = Vector2(488, 400)
 
 [node name="InventoryUI" type="Control"]
 layout_mode = 3
@@ -84,7 +67,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("1_ylkvr")
 script = ExtResource("1_tahbm")
-crafting_recipes = Array[ExtResource("3_uwj4j")]([SubResource("Resource_dqfnd"), SubResource("Resource_ngbl7"), SubResource("Resource_uwj4j"), SubResource("Resource_1dxi5")])
+unlocked_mods = Array[ExtResource("3_1dxi5")]([ExtResource("4_1dxi5"), ExtResource("4_uwj4j")])
 
 [node name="Margin" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -136,9 +119,9 @@ texture = SubResource("AtlasTexture_eifbp")
 expand_mode = 5
 stretch_mode = 4
 script = ExtResource("5_eifbp")
-FrameMargin = Vector2(1, 1)
-FrameSize = Vector2(94, 40)
-HFrames = 2
+frame_margin = Vector2(1, 1)
+frame_size = Vector2(94, 40)
+h_frames = 2
 
 [node name="HBox" type="HBoxContainer" parent="Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox"]
 layout_mode = 2
@@ -183,7 +166,7 @@ alignment = 1
 
 [node name="Label" type="Label" parent="Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox/DisassembleButton/Margin/HBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.105882, 0.105882, 0.0509804, 1)
+theme_override_colors/font_color = Color(0.11, 0.11, 0.0528, 1)
 theme_override_font_sizes/font_size = 32
 text = "Disassemble(+100"
 
@@ -217,46 +200,20 @@ size_flags_horizontal = 3
 [node name="UpgradeButton" type="Button" parent="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox"]
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
+focus_mode = 0
 
-[node name="Margin" type="MarginContainer" parent="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox/UpgradeButton"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox/UpgradeButton"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -197.0
-offset_top = -18.5
-offset_right = 197.0
-offset_bottom = 18.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
-
-[node name="HBox" type="HBoxContainer" parent="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox/UpgradeButton/Margin"]
-layout_mode = 2
-alignment = 1
-
-[node name="Label" type="Label" parent="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox/UpgradeButton/Margin/HBox"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.105882, 0.105882, 0.0509804, 1)
-theme_override_font_sizes/font_size = 32
-text = "Add slot(100"
-
-[node name="TextureRect" type="TextureRect" parent="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox/UpgradeButton/Margin/HBox"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_1dxi5")
-expand_mode = 3
-stretch_mode = 6
-
-[node name="ClosingBracket" type="Label" parent="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox/UpgradeButton/Margin/HBox"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.105882, 0.105882, 0.0509804, 1)
-theme_override_font_sizes/font_size = 32
-text = ")"
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="MidVBox" type="VBoxContainer" parent="Margin/PanelContainer/HBox"]
 layout_mode = 2
@@ -287,6 +244,19 @@ theme_override_constants/margin_right = 8
 [node name="VBox" type="VBoxContainer" parent="Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox/InventoryList/Margin"]
 layout_mode = 2
 
+[node name="BlueprintList" type="ScrollContainer" parent="Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Margin" type="MarginContainer" parent="Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox/BlueprintList"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+
+[node name="VBox" type="VBoxContainer" parent="Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox/BlueprintList/Margin"]
+layout_mode = 2
+
 [node name="InventoryModCounter" type="Label" parent="Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.27451, 0.803922, 0.427451, 1)
@@ -296,114 +266,108 @@ text = "? M.O.D.s"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Crafting" type="PanelContainer" parent="Margin/PanelContainer/HBox/RightVBox"]
+[node name="HBox" type="HBoxContainer" parent="Margin/PanelContainer/HBox/RightVBox"]
 layout_mode = 2
 
-[node name="VBox" type="VBoxContainer" parent="Margin/PanelContainer/HBox/RightVBox/Crafting"]
+[node name="CraftingInput" type="PanelContainer" parent="Margin/PanelContainer/HBox/RightVBox/HBox"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Margin/PanelContainer/HBox/RightVBox/HBox/CraftingInput"]
 layout_mode = 2
 
-[node name="CraftingSlotGraphic" type="TextureRect" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox"]
+[node name="VBox" type="VBoxContainer" parent="Margin/PanelContainer/HBox/RightVBox/HBox/CraftingInput/ScrollContainer"]
 layout_mode = 2
-texture = SubResource("AtlasTexture_uwj4j")
-expand_mode = 5
-script = ExtResource("5_eifbp")
-FrameMargin = Vector2(1, 1)
-FrameSize = Vector2(94, 40)
-metadata/_custom_type_script = "uid://ddx5f4odv710k"
+size_flags_horizontal = 3
 
-[node name="Margin" type="MarginContainer" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox/CraftingSlotGraphic"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 36
-theme_override_constants/margin_top = 36
-theme_override_constants/margin_right = 36
-theme_override_constants/margin_bottom = 36
-
-[node name="CraftInput" type="MarginContainer" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox/CraftingSlotGraphic/Margin"]
-custom_minimum_size = Vector2(108, 108)
+[node name="CraftingInstructionsLabel" type="Label" parent="Margin/PanelContainer/HBox/RightVBox/HBox/CraftingInput"]
 layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="CraftOutput" type="MarginContainer" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox/CraftingSlotGraphic/Margin"]
-visible = false
-custom_minimum_size = Vector2(108, 108)
-layout_mode = 2
-size_flags_horizontal = 8
-
-[node name="Label" type="Label" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox/CraftingSlotGraphic"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 theme_override_colors/font_color = Color(0.27451, 0.803922, 0.427451, 1)
-text = "Drag a M.O.D. here to craft a new M.O.D. or recycle it for scraps"
+text = "Drag a M.O.D. here to craft a new M.O.D. or take it apart for scraps!"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="CraftButton" type="Button" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox"]
-custom_minimum_size = Vector2(0, 48)
+[node name="CraftingOutput" type="PanelContainer" parent="Margin/PanelContainer/HBox/RightVBox/HBox"]
 layout_mode = 2
-disabled = true
+size_flags_horizontal = 3
 
-[node name="Margin" type="MarginContainer" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox/CraftButton"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -197.0
-offset_top = -18.5
-offset_right = 197.0
-offset_bottom = 18.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
-
-[node name="HBox" type="HBoxContainer" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox/CraftButton/Margin"]
-visible = false
+[node name="VBox" type="VBoxContainer" parent="Margin/PanelContainer/HBox/RightVBox/HBox/CraftingOutput"]
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox/CraftButton/Margin/HBox"]
+[node name="BlueprintPanel" type="PanelContainer" parent="Margin/PanelContainer/HBox/RightVBox/HBox/CraftingOutput/VBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.105882, 0.105882, 0.0509804, 1)
-theme_override_font_sizes/font_size = 32
-text = "Craft!(Cost:100"
+theme_override_styles/panel = SubResource("StyleBoxTexture_ujldt")
 
-[node name="TextureRect" type="TextureRect" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox/CraftButton/Margin/HBox"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Margin/PanelContainer/HBox/RightVBox/HBox/CraftingOutput/VBox/BlueprintPanel"]
 layout_mode = 2
-texture = SubResource("AtlasTexture_1dxi5")
-expand_mode = 3
-stretch_mode = 6
+theme_override_fonts/italics_font = ExtResource("9_dqfnd")
+theme_override_font_sizes/italics_font_size = 24
+bbcode_enabled = true
+text = "[img=36]res://resources/text_icons/health_minus_impact_icon.tres[/img][i]Health-[/i]"
+fit_content = true
 
-[node name="ClosingBracket" type="Label" parent="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox/CraftButton/Margin/HBox"]
+[node name="BlueprintsButton" type="TextureButton" parent="Margin/PanelContainer/HBox/RightVBox/HBox/CraftingOutput/VBox"]
+custom_minimum_size = Vector2(108, 108)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.105882, 0.105882, 0.0509804, 1)
-theme_override_font_sizes/font_size = 32
-text = ")"
+size_flags_horizontal = 4
+size_flags_vertical = 10
+texture_normal = SubResource("AtlasTexture_dqfnd")
+texture_pressed = SubResource("AtlasTexture_ngbl7")
+stretch_mode = 4
 
 [node name="CraftOptions" type="PanelContainer" parent="Margin/PanelContainer/HBox/RightVBox"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="RecipeList" type="ScrollContainer" parent="Margin/PanelContainer/HBox/RightVBox/CraftOptions"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Margin/PanelContainer/HBox/RightVBox/CraftOptions"]
 layout_mode = 2
-size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 36
+bbcode_enabled = true
+text = "jfdsakkkkkkkkkkk
+dsfaaa
+fdsa
+dsfa
+dsfa
+dfs
+dsaf
+sfda
+dsfa
+dsfasda
+sfda
+"
+horizontal_alignment = 1
 
-[node name="VBox" type="VBoxContainer" parent="Margin/PanelContainer/HBox/RightVBox/CraftOptions/RecipeList"]
+[node name="CraftingOptions" type="PanelContainer" parent="Margin/PanelContainer/HBox/RightVBox"]
+visible = false
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Margin/PanelContainer/HBox/RightVBox/CraftingOptions"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin/PanelContainer/HBox/RightVBox/CraftingOptions/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="CraftButton" type="Button" parent="Margin/PanelContainer/HBox/RightVBox"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Margin/PanelContainer/HBox/RightVBox/CraftButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+bbcode_enabled = true
+text = "Craft ? 
+For ?? eAFDSs"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Analysis" type="MarginContainer" parent="."]
 visible = false
@@ -449,10 +413,11 @@ script = ExtResource("6_2lmnb")
 item_state = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CraftingItemDropArea"]
-position = Vector2(1292, 622.5)
+position = Vector2(1292, 700)
 shape = SubResource("RectangleShape2D_eicjl")
 
 [connection signal="pressed" from="Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox/HBox/MoreInfoButton" to="." method="_on_more_info_button_pressed"]
 [connection signal="pressed" from="Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox/DisassembleButton" to="." method="_on_disassemble_button_pressed"]
 [connection signal="pressed" from="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
-[connection signal="pressed" from="Margin/PanelContainer/HBox/RightVBox/Crafting/VBox/CraftButton" to="." method="_on_craft_button_pressed"]
+[connection signal="pressed" from="Margin/PanelContainer/HBox/RightVBox/HBox/CraftingOutput/VBox/BlueprintsButton" to="." method="_on_blueprints_button_pressed"]
+[connection signal="pressed" from="Margin/PanelContainer/HBox/RightVBox/CraftButton" to="." method="_on_craft_button_pressed"]
