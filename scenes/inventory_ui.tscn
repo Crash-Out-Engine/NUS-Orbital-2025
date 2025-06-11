@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bsk2hjudnw4rw"]
+[gd_scene load_steps=24 format=3 uid="uid://bsk2hjudnw4rw"]
 
 [ext_resource type="Script" uid="uid://dq5no236vfiso" path="res://scripts/game_scene/ui/inventory_ui.gd" id="1_tahbm"]
 [ext_resource type="Theme" uid="uid://cq6cs0mx200sg" path="res://resources/inventory_ui.tres" id="1_ylkvr"]
@@ -47,6 +47,14 @@ region = Rect2(1553, 114, 32, 32)
 atlas = ExtResource("3_mdwe3")
 region = Rect2(1519, 114, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_8wyaw"]
+atlas = ExtResource("3_mdwe3")
+region = Rect2(1485, 114, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cwdri"]
+atlas = ExtResource("3_mdwe3")
+region = Rect2(1451, 114, 32, 32)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2lmnb"]
 size = Vector2(488.25, 256)
 
@@ -93,6 +101,7 @@ size_flags_horizontal = 3
 
 [node name="ScrapCounter" type="PanelContainer" parent="Margin/PanelContainer/HBox/LeftVBox"]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="HBox" type="HBoxContainer" parent="Margin/PanelContainer/HBox/LeftVBox/ScrapCounter"]
 layout_mode = 2
@@ -109,6 +118,7 @@ text = "100"
 
 [node name="TargetDisplay" type="PanelContainer" parent="Margin/PanelContainer/HBox/LeftVBox"]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="VBox" type="VBoxContainer" parent="Margin/PanelContainer/HBox/LeftVBox/TargetDisplay"]
 layout_mode = 2
@@ -370,7 +380,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Analysis" type="MarginContainer" parent="."]
-visible = false
+z_index = 100
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -389,6 +399,13 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 1
 text = "Additional Analysis"
+
+[node name="ExitButton" type="TextureButton" parent="Analysis/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture_normal = SubResource("AtlasTexture_8wyaw")
+texture_pressed = SubResource("AtlasTexture_cwdri")
 
 [node name="ModCompItemDropArea" type="Area2D" parent="."]
 position = Vector2(32, -370)
@@ -421,3 +438,4 @@ shape = SubResource("RectangleShape2D_eicjl")
 [connection signal="pressed" from="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
 [connection signal="pressed" from="Margin/PanelContainer/HBox/RightVBox/HBox/CraftingOutput/VBox/BlueprintsButton" to="." method="_on_blueprints_button_pressed"]
 [connection signal="pressed" from="Margin/PanelContainer/HBox/RightVBox/CraftButton" to="." method="_on_craft_button_pressed"]
+[connection signal="pressed" from="Analysis/PanelContainer/ExitButton" to="." method="_on_exit_button_pressed"]

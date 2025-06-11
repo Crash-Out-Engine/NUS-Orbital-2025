@@ -49,7 +49,7 @@ size_flags_horizontal = 8
 size_flags_vertical = 8
 
 [node name="CountLabel" type="Label" parent="Control"]
-z_index = 10
+z_index = 2
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -68,6 +68,7 @@ vertical_alignment = 2
 [node name="Description" type="Control" parent="."]
 visible = false
 top_level = true
+z_index = 20
 layout_mode = 2
 
 [node name="Panel" type="PanelContainer" parent="Description"]

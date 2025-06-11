@@ -21,16 +21,16 @@ func _ready() -> void:
 
 	# Workaround to ensure turrets don't share the same array instance.
 	_mods = initial_mods.duplicate()
-	_handle_mods_changed()
+	_setup_mods()
 
 func set_slot(index: int, mod: ModBase) -> void:
 	_mods[index] = mod
-	_handle_mods_changed()
+	_setup_mods()
 
 func get_mods() -> Array[ModBase]:
 	return _readonly_mods
 
-func _handle_mods_changed() -> void:
+func _setup_mods() -> void:
 	_readonly_mods = _mods.duplicate()
 	_readonly_mods.make_read_only()
 	if !is_node_ready():
@@ -71,10 +71,47 @@ func get_upgrade_cost() -> int:
 func _add_mod(mod: ModBase) -> bool:
 	if _mods.size() < capacity:
 		_mods.append(mod)
-		_handle_mods_changed()
+		match (mod.type):
+			ModBase.Type.UPGRADE:
+				_readonly_mods = _mods.duplicate()
+				_readonly_mods.make_read_only()
+				var entity_properties := entity.get_node(^"Properties").get_children()
+				for upgrade in UpgradeMod.compile_upgrades([mod]):
+					for prop_node in entity_properties:
+						upgrade.apply_upgrade(prop_node)
+			ModBase.Type.EFFECT:
+				var effect_mods: Array[EffectMod]
+				_readonly_mods = _mods.duplicate()
+				_readonly_mods.make_read_only()
+				effect_mods.assign(
+					_mods.filter(
+						func(m): return m != null and m.type == ModBase.Type.EFFECT))
+				var effects := EffectMod.compile_effects(effect_mods)
+				attack_comp.effects.assign(effects)
+			ModBase.Type.APPLICATION:
+				pass
+		print("true")
 		return true
 	return false
 
 func _remove_mod(mod: ModBase):
 	_mods.erase(mod)
-	_handle_mods_changed()
+	match (mod.type):
+		ModBase.Type.UPGRADE:
+			_readonly_mods = _mods.duplicate()
+			_readonly_mods.make_read_only()
+			var entity_properties := entity.get_node(^"Properties").get_children()
+			for upgrade in UpgradeMod.compile_upgrades([mod]):
+					for prop_node in entity_properties:
+						upgrade.unapply_upgrade(prop_node)
+		ModBase.Type.EFFECT:
+			var effect_mods: Array[EffectMod]
+			_readonly_mods = _mods.duplicate()
+			_readonly_mods.make_read_only()
+			effect_mods.assign(
+				_mods.filter(
+					func(m): return m != null and m.type == ModBase.Type.EFFECT))
+			var effects := EffectMod.compile_effects(effect_mods)
+			attack_comp.effects.assign(effects)
+		ModBase.Type.APPLICATION:
+			pass

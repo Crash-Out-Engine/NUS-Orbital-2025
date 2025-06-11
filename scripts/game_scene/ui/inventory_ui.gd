@@ -64,7 +64,9 @@ func _ready() -> void:
 
 func try_open():
 	if Input.is_action_just_pressed("inventory"):
-		analysis.visible = false
+		if analysis.visible:
+			analysis.visible = false
+			return
 		if visible:
 			close_inventory()
 		else:
@@ -331,6 +333,7 @@ func insert_item(mod: ModBase, destination: ItemContainer.State):
 	match(destination):
 		ItemContainer.State.MODCOMP:
 			if modslot_comp._add_mod(mod):
+				print(modslot_comp.get_mods().size())
 				update_modslotcomp_list()
 			else:
 				inventory_comp._add_mod(mod)
@@ -368,3 +371,7 @@ func _on_craft_button_pressed() -> void:
 	checking_blueprints = false
 	update_crafting()
 	blueprint_selected(0)
+
+
+func _on_exit_button_pressed() -> void:
+	analysis.visible = false

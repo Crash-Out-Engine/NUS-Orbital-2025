@@ -55,6 +55,7 @@ var opening_inventory = false
 
 func _ready() -> void:
 	inventory.scraps_changed.connect(func(_from: int, _to: int): scraps_changed.emit())
+	health_prop.changed.connect(func(_from: int, _to: int): health_changed.emit())
 	health_changed.emit()
 	ranged.active = false
 
@@ -204,9 +205,6 @@ func deactivate():
 	$CollisionShape2D.disabled = true
 	$Components/HitboxComp.team = 0
 	visuals.deactivate()
-
-func _on_damage_taken_prop_changed(_from: float, _to: float) -> void:
-	health_changed.emit()
 
 func get_blueprints() -> Array[ModBase]:
 	return blueprints.get_blueprints()
