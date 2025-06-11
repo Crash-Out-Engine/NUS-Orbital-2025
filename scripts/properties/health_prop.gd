@@ -11,7 +11,7 @@ signal reduced(by: float)
 func _ready() -> void:
 	if _health_capacity_prop != null:
 		assert(0 <= health and health <= _health_capacity_prop.value,
-				"Initial health value should be between 0 and health capacity.")
+				"Initial health value should be between 0 and health capacity")
 	value = health
 	changed.connect(_check_empty)
 	changed.connect(_check_reduced)

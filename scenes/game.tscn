@@ -7,14 +7,14 @@
 [ext_resource type="Script" uid="uid://ccldnij14thxu" path="res://scripts/game_scene/object_spawner.gd" id="5_264po"]
 [ext_resource type="Script" uid="uid://dixn701xl56vv" path="res://scripts/game_scene/enemy_spawner.gd" id="5_iywne"]
 [ext_resource type="Script" uid="uid://brohp3alww54k" path="res://scripts/game_scene/ui/ui.gd" id="5_u5sy4"]
-[ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet_v2.png" id="6_1kice"]
+[ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet.png" id="6_1kice"]
 [ext_resource type="Script" uid="uid://ysb1rej05rno" path="res://scripts/game_scene/ui/hud_bars.gd" id="6_rysoc"]
-[ext_resource type="Script" uid="uid://cyt60aunvq71y" path="res://scripts/game_scene/ui/inventory.gd" id="8_kvpfn"]
 [ext_resource type="FontFile" uid="uid://cj53anigafm5t" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="9_kvuet"]
 [ext_resource type="Script" uid="uid://6avt386x6skk" path="res://scripts/game_scene/chunk_tile_map.gd" id="9_vtaks"]
 [ext_resource type="Script" uid="uid://kvm0revtye6k" path="res://scripts/game_scene/ui/hud_map.gd" id="10_5newe"]
 [ext_resource type="Script" uid="uid://dlfl58jvcogf5" path="res://scripts/game_scene/chunk_debug.gd" id="10_vtaks"]
 [ext_resource type="AudioStream" uid="uid://d0bs4frau5lf8" path="res://assets/audio/sound_effects/pause_sound.wav" id="11_ca42v"]
+[ext_resource type="PackedScene" uid="uid://bsk2hjudnw4rw" path="res://scenes/inventory_ui.tscn" id="12_bt5mj"]
 [ext_resource type="Theme" uid="uid://c8t8fqq1p8n4l" path="res://resources/custom_ui.tres" id="12_ssvqc"]
 [ext_resource type="Theme" uid="uid://d0hhc2538lbdn" path="res://resources/debug_ui.tres" id="14_264po"]
 [ext_resource type="Script" uid="uid://d0hynie2odmvm" path="res://scripts/game_scene/ui/pause_menu.gd" id="14_bt5mj"]
@@ -446,36 +446,13 @@ offset_right = -4.0
 offset_bottom = 244.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_1kice")
 
-[node name="Inventory" type="Control" parent="UI"]
-process_mode = 1
-custom_minimum_size = Vector2(1152, 648)
-layout_mode = 3
-anchors_preset = 0
-offset_right = 1600.0
-offset_bottom = 900.0
-script = ExtResource("8_kvpfn")
-
-[node name="PanelContainer" type="PanelContainer" parent="UI/Inventory"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 64.0
-offset_top = 48.0
-offset_right = -64.0
-offset_bottom = -48.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("12_ssvqc")
-
-[node name="Label" type="Label" parent="UI/Inventory/PanelContainer"]
-layout_mode = 2
-text = "THIS IS AN INVENTORY PLACEHOLDER"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="InventoryUI" parent="UI" node_paths=PackedStringArray("player") instance=ExtResource("12_bt5mj")]
+z_index = 20
+player = NodePath("../../EntityContainer/Player")
 
 [node name="PauseMenu" type="Control" parent="UI" node_paths=PackedStringArray("game")]
 process_mode = 2
+z_index = 20
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1600.0
@@ -627,6 +604,7 @@ size_flags_vertical = 3
 script = ExtResource("16_1kice")
 
 [node name="GameOverPanel" type="Control" parent="UI" node_paths=PackedStringArray("game_scene")]
+z_index = 20
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1600.0

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PropertyPoint" load_steps=3 format=3 uid="uid://d1a2felxieh8m"]
+
+[ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="1_3ftnm"]
+[ext_resource type="Texture2D" uid="uid://c7jusb36ehqfw" path="res://resources/text_icons/speed_icon.tres" id="1_p5qbr"]
+
+[resource]
+script = ExtResource("1_3ftnm")
+icon = ExtResource("1_p5qbr")
+metadata/_custom_type_script = "uid://bik6dfo0vrxil"

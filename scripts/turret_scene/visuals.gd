@@ -13,6 +13,7 @@ const GREEN = Color("#36e312")
 
 @onready var base_sprite := $BaseSprite as Sprite2D
 @onready var body_sprite := $BodySprite as AnimatedSprite2D
+@onready var highlight := $Highlight as Sprite2D
 @onready var build_progress := $BuildProgressBar as TextureProgressBar
 
 
@@ -34,6 +35,8 @@ func _process(delta: float) -> void:
 		play_idle_anim()
 	body_sprite.transform = body_sprite.transform.rotated(
 			turret_ranged.transform.get_rotation() - body_sprite.transform.get_rotation())
+	highlight.rotation = body_sprite.rotation
+	highlight.visible = turret.highlighted
 
 	# Modulate effect
 	if (body_sprite.modulate.v > 1.0):
@@ -84,7 +87,7 @@ func bleed() -> void:
 	body_sprite.modulate.v = V_MODULATE
 
 func update_health_bar(value: float) -> void:
-	var v = value / turret_health_capacity.value * 100
+	var v = (value / turret_health_capacity.value) * 100
 	build_progress.value = v
 	build_progress.visible = v < 100
 	build_progress.modulate = GREEN if v >= 50 else YELLOW if v >= 25 else RED

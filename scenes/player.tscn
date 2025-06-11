@@ -1,4 +1,4 @@
-[gd_scene load_steps=90 format=3 uid="uid://ytw0s5xnqwvt"]
+[gd_scene load_steps=96 format=3 uid="uid://ytw0s5xnqwvt"]
 
 [ext_resource type="Script" uid="uid://c8f8kowfp34yp" path="res://scripts/player_scene/player.gd" id="1_f1ej7"]
 [ext_resource type="Script" uid="uid://cndl5nak0qpxp" path="res://scripts/properties/movement_prop.gd" id="2_g2els"]
@@ -9,25 +9,30 @@
 [ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/properties/target_priority_prop.gd" id="7_fjrip"]
 [ext_resource type="Script" uid="uid://s08wfqwqu2jn" path="res://scripts/components/ranged_player_comp.gd" id="7_smehm"]
 [ext_resource type="Script" uid="uid://cceowy0wh5ufb" path="res://scripts/properties/health_capacity_prop.gd" id="8_4ni07"]
+[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod_base.gd" id="10_md1ol"]
 [ext_resource type="AudioStream" uid="uid://dc66si5kieoq4" path="res://assets/audio/sound_effects/laser_gunshot.wav" id="12_3v2ag"]
 [ext_resource type="Script" uid="uid://dng6x4ecq2npd" path="res://scripts/player_scene/audio.gd" id="13_a8ls1"]
 [ext_resource type="AudioStream" uid="uid://dk7lmxukxhhcr" path="res://assets/audio/sound_effects/error.wav" id="13_f1ej7"]
 [ext_resource type="AudioStream" uid="uid://ciu1er752oye4" path="res://assets/audio/sound_effects/sand_steps.wav" id="13_jej6c"]
-[ext_resource type="Resource" uid="uid://dtogyr1espqpy" path="res://resources/effects/health.tres" id="13_l71n6"]
+[ext_resource type="Resource" uid="uid://dtogyr1espqpy" path="res://resources/effects/damage.tres" id="13_l71n6"]
 [ext_resource type="Script" path="res://scripts/target_filter.gd" id="14_l71n6"]
 [ext_resource type="Script" uid="uid://ddhfg683ma0hh" path="res://scripts/player_scene/visuals.gd" id="14_oprun"]
 [ext_resource type="Script" uid="uid://bnt7cwx8k0nm0" path="res://scripts/components/mod_slot_comp.gd" id="16_ke2ow"]
 [ext_resource type="Script" uid="uid://bx0i0x84j70ct" path="res://scripts/components/melee_comp.gd" id="17_4r5pv"]
 [ext_resource type="AudioStream" uid="uid://dn6k75a1tyl8k" path="res://assets/audio/sound_effects/hit_sound.wav" id="17_60mlk"]
 [ext_resource type="Script" uid="uid://c038au8w13gc1" path="res://scripts/mods/effects/build_effect.gd" id="17_ke2ow"]
-[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod_base.gd" id="17_ujl30"]
+[ext_resource type="Script" uid="uid://2fh28xow6f1j" path="res://scripts/mods/effects/health_effect.gd" id="17_wnwbv"]
 [ext_resource type="Resource" uid="uid://dl56w1h7wf83j" path="res://resources/effect_mods/base_damage.tres" id="18_31cv2"]
 [ext_resource type="Script" uid="uid://cu55fh5hl5rxd" path="res://scripts/properties/melee_cooldown_prop.gd" id="18_60mlk"]
 [ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/mods/effects/effect_base.gd" id="19_a38lo"]
 [ext_resource type="Script" uid="uid://155skx5u4uks" path="res://scripts/components/loot_collector_comp.gd" id="19_wqfne"]
-[ext_resource type="Script" uid="uid://2fh28xow6f1j" path="res://scripts/mods/effects/health_effect.gd" id="20_4ni07"]
 [ext_resource type="Script" uid="uid://j8sk0rxpd865" path="res://scripts/components/inventory_comp.gd" id="20_wnwbv"]
+[ext_resource type="Resource" uid="uid://cjgi5gpx4duko" path="res://resources/effect_mods/base_slowdown.tres" id="21_487ah"]
+[ext_resource type="Script" uid="uid://ueqkmve06wfj" path="res://scripts/components/mod_targeting_comp.gd" id="21_gl8cc"]
+[ext_resource type="Resource" uid="uid://c3s1g4ybomxx6" path="res://resources/upgrade_mods/base_health_capacity_upgrade.tres" id="21_md1ol"]
 [ext_resource type="Texture2D" uid="uid://qffoquvsdmfp" path="res://assets/sprites/playerhand_spritesheet.png" id="22_pf23h"]
+[ext_resource type="Script" uid="uid://dg0wh1lngb3ha" path="res://scripts/components/blueprint_comp.gd" id="23_bj30b"]
+[ext_resource type="Resource" uid="uid://ido6g1b0tgpf" path="res://resources/upgrade_mods/base_speed_upgrade.tres" id="23_jc3p3"]
 [ext_resource type="Texture2D" uid="uid://cai86xvs48gye" path="res://assets/sprites/gunblast_spritesheet.png" id="23_pf23h"]
 [ext_resource type="AudioStream" uid="uid://cba76dqigqmco" path="res://assets/audio/sound_effects/metal_hit.wav" id="28_pf23h"]
 [ext_resource type="AudioStream" uid="uid://vfvy3e572ida" path="res://assets/audio/sound_effects/melee_swing.wav" id="29_dt7fs"]
@@ -135,8 +140,8 @@ script = ExtResource("14_l71n6")
 targets = Array[int]([2])
 metadata/_custom_type_script = "uid://bc5nkvlgktyor"
 
-[sub_resource type="Resource" id="Resource_l71n6"]
-script = ExtResource("20_4ni07")
+[sub_resource type="Resource" id="Resource_gl8cc"]
+script = ExtResource("17_wnwbv")
 _interval = -1.0
 _repeat = 0
 _factor = -20.0
@@ -159,6 +164,9 @@ metadata/_custom_type_script = "uid://c038au8w13gc1"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wqfne"]
 radius = 40.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_487ah"]
+size = Vector2(40, 10)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lxlsd"]
 atlas = ExtResource("2_y4r1p")
@@ -525,13 +533,16 @@ animations = [{
 "speed": 15.0
 }]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("ranged", "inventory", "health", "health_capacity", "melee_cooldown") groups=["allies"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("ranged", "inventory", "blueprints", "mod_target", "mod_slots", "health_prop", "health_capacity", "melee_cooldown") groups=["allies"]]
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_f1ej7")
 ranged = NodePath("Components/RangedComp")
 inventory = NodePath("Components/InventoryComp")
-health = NodePath("Properties/HealthProp")
+blueprints = NodePath("Components/BlueprintComp")
+mod_target = NodePath("Components/ModTargetingComp")
+mod_slots = NodePath("Components/ModSlotComp")
+health_prop = NodePath("Properties/HealthProp")
 health_capacity = NodePath("Properties/HealthCapacityProp")
 melee_cooldown = NodePath("Properties/MeleeCooldownProp")
 
@@ -553,9 +564,14 @@ initial_speed = 80.0
 is_player = true
 target_priority = NodePath("../TargetPriorityProp")
 
-[node name="HealthProp" type="Node" parent="Properties"]
+[node name="HealthCapacityProp" type="Node" parent="Properties"]
+script = ExtResource("8_4ni07")
+_health_capacity = 50.0
+
+[node name="HealthProp" type="Node" parent="Properties" node_paths=PackedStringArray("_health_capacity_prop")]
 script = ExtResource("3_qhqgy")
 health = 50.0
+_health_capacity_prop = NodePath("../HealthCapacityProp")
 
 [node name="RangedCooldownProp" type="Node" parent="Properties"]
 script = ExtResource("6_tuyoq")
@@ -571,10 +587,6 @@ script = ExtResource("18_60mlk")
 [node name="MeleeCooldownProp2" type="Node" parent="Properties"]
 script = ExtResource("18_60mlk")
 
-[node name="HealthCapacityProp" type="Node" parent="Properties"]
-script = ExtResource("8_4ni07")
-_health_capacity = 50.0
-
 [node name="Components" type="Node2D" parent="."]
 
 [node name="HitboxComp" type="Node" parent="Components"]
@@ -583,7 +595,8 @@ team = 1
 
 [node name="ModSlotComp" type="Node" parent="Components" node_paths=PackedStringArray("entity", "attack_comp")]
 script = ExtResource("16_ke2ow")
-initial_mods = Array[ExtResource("17_ujl30")]([ExtResource("18_31cv2")])
+capacity = 5
+initial_mods = Array[ExtResource("10_md1ol")]([ExtResource("18_31cv2")])
 entity = NodePath("../..")
 attack_comp = NodePath("../RangedComp")
 metadata/_custom_type_script = "uid://bnt7cwx8k0nm0"
@@ -608,7 +621,7 @@ script = ExtResource("17_4r5pv")
 melee_cooldown = NodePath("../../Properties/MeleeCooldownProp")
 target_priority = NodePath("../../Properties/TargetPriorityProp")
 target_filter = SubResource("Resource_pf23h")
-effects = Array[ExtResource("19_a38lo")]([SubResource("Resource_l71n6")])
+effects = Array[ExtResource("19_a38lo")]([SubResource("Resource_gl8cc")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Components/MeleeComp"]
 z_index = 100
@@ -645,9 +658,20 @@ shape = SubResource("CircleShape2D_wqfne")
 
 [node name="InventoryComp" type="Node" parent="Components"]
 script = ExtResource("20_wnwbv")
-initial_mods = Array[ExtResource("17_ujl30")]([ExtResource("18_31cv2"), ExtResource("18_31cv2"), ExtResource("18_31cv2"), ExtResource("18_31cv2")])
+initial_mods = Array[ExtResource("10_md1ol")]([ExtResource("18_31cv2"), ExtResource("18_31cv2"), ExtResource("21_487ah"), ExtResource("21_487ah"), ExtResource("21_md1ol"), ExtResource("23_jc3p3"), ExtResource("23_jc3p3"), ExtResource("23_jc3p3"), ExtResource("23_jc3p3")])
 initial_scraps = 60
 metadata/_custom_type_script = "uid://j8sk0rxpd865"
+
+[node name="BlueprintComp" type="Node" parent="Components"]
+script = ExtResource("23_bj30b")
+unlocked_mods = Array[ExtResource("10_md1ol")]([null, ExtResource("18_31cv2"), ExtResource("21_487ah"), ExtResource("21_md1ol")])
+
+[node name="ModTargetingComp" type="Area2D" parent="Components"]
+script = ExtResource("21_gl8cc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Components/ModTargetingComp"]
+position = Vector2(20, 0)
+shape = SubResource("RectangleShape2D_487ah")
 
 [node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("player_ranged", "player_melee", "player_repair", "player")]
 script = ExtResource("14_oprun")
@@ -712,8 +736,9 @@ stream = ExtResource("29_dt7fs")
 volume_db = -7.0
 bus = &"SFX"
 
-[connection signal="changed" from="Properties/HealthProp" to="." method="_on_health_prop_changed"]
-[connection signal="changed" from="Properties/HealthProp" to="." method="_on_health_changed"]
+[connection signal="changed" from="Properties/HealthProp" to="." method="_on_damage_taken_prop_changed"]
 [connection signal="emptied" from="Properties/HealthProp" to="." method="_on_health_emptied"]
+[connection signal="body_entered" from="Components/ModTargetingComp" to="Components/ModTargetingComp" method="_on_body_entered"]
+[connection signal="body_exited" from="Components/ModTargetingComp" to="Components/ModTargetingComp" method="_on_body_exited"]
 [connection signal="melee_finished" from="Visuals" to="." method="_on_visuals_melee_finished"]
 [connection signal="animation_finished" from="Visuals/GunSprite" to="Visuals" method="_on_gun_sprite_animation_finished"]

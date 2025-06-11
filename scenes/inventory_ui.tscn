@@ -1,0 +1,441 @@
+[gd_scene load_steps=24 format=3 uid="uid://bsk2hjudnw4rw"]
+
+[ext_resource type="Script" uid="uid://dq5no236vfiso" path="res://scripts/game_scene/ui/inventory_ui.gd" id="1_tahbm"]
+[ext_resource type="Theme" uid="uid://cq6cs0mx200sg" path="res://resources/inventory_ui.tres" id="1_ylkvr"]
+[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod_base.gd" id="3_1dxi5"]
+[ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet.png" id="3_mdwe3"]
+[ext_resource type="Resource" uid="uid://dl56w1h7wf83j" path="res://resources/effect_mods/base_damage.tres" id="4_1dxi5"]
+[ext_resource type="Texture2D" uid="uid://cd6dttechhj5b" path="res://assets/sprites/inventorytargetanimations_spritesheet.png" id="4_iradw"]
+[ext_resource type="Resource" uid="uid://cjgi5gpx4duko" path="res://resources/effect_mods/base_slowdown.tres" id="4_uwj4j"]
+[ext_resource type="Script" uid="uid://ddx5f4odv710k" path="res://scripts/sprite_2d_rect.gd" id="5_eifbp"]
+[ext_resource type="Script" uid="uid://ckg514fwkuf4" path="res://scripts/game_scene/ui/item_drop_area.gd" id="6_2lmnb"]
+[ext_resource type="FontFile" uid="uid://bvdfbft27q66n" path="res://assets/fonts/zeldadxt.ttf" id="9_dqfnd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iradw"]
+atlas = ExtResource("3_mdwe3")
+region = Rect2(1655, 114, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eifbp"]
+atlas = ExtResource("4_iradw")
+region = Rect2(1, 1, 94, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2lmnb"]
+atlas = ExtResource("3_mdwe3")
+region = Rect2(1621, 114, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eicjl"]
+atlas = ExtResource("3_mdwe3")
+region = Rect2(1587, 114, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1dxi5"]
+atlas = ExtResource("3_mdwe3")
+region = Rect2(1614, 90, 16, 16)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ujldt"]
+texture = ExtResource("3_mdwe3")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+region_rect = Rect2(1491, 254, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dqfnd"]
+atlas = ExtResource("3_mdwe3")
+region = Rect2(1553, 114, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ngbl7"]
+atlas = ExtResource("3_mdwe3")
+region = Rect2(1519, 114, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8wyaw"]
+atlas = ExtResource("3_mdwe3")
+region = Rect2(1485, 114, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cwdri"]
+atlas = ExtResource("3_mdwe3")
+region = Rect2(1451, 114, 32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2lmnb"]
+size = Vector2(488.25, 256)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eifbp"]
+size = Vector2(488.25, 655)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eicjl"]
+size = Vector2(488, 400)
+
+[node name="InventoryUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_ylkvr")
+script = ExtResource("1_tahbm")
+unlocked_mods = Array[ExtResource("3_1dxi5")]([ExtResource("4_1dxi5"), ExtResource("4_uwj4j")])
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="PanelContainer" type="PanelContainer" parent="Margin"]
+layout_mode = 2
+
+[node name="HBox" type="HBoxContainer" parent="Margin/PanelContainer"]
+layout_mode = 2
+
+[node name="LeftVBox" type="VBoxContainer" parent="Margin/PanelContainer/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScrapCounter" type="PanelContainer" parent="Margin/PanelContainer/HBox/LeftVBox"]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="HBox" type="HBoxContainer" parent="Margin/PanelContainer/HBox/LeftVBox/ScrapCounter"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Margin/PanelContainer/HBox/LeftVBox/ScrapCounter/HBox"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_iradw")
+
+[node name="Label" type="Label" parent="Margin/PanelContainer/HBox/LeftVBox/ScrapCounter/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.27451, 0.803922, 0.427451, 1)
+theme_override_font_sizes/font_size = 24
+text = "100"
+
+[node name="TargetDisplay" type="PanelContainer" parent="Margin/PanelContainer/HBox/LeftVBox"]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="VBox" type="VBoxContainer" parent="Margin/PanelContainer/HBox/LeftVBox/TargetDisplay"]
+layout_mode = 2
+
+[node name="Sprite2DRect" type="TextureRect" parent="Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_eifbp")
+expand_mode = 5
+stretch_mode = 4
+script = ExtResource("5_eifbp")
+frame_margin = Vector2(1, 1)
+frame_size = Vector2(94, 40)
+h_frames = 2
+
+[node name="HBox" type="HBoxContainer" parent="Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox"]
+layout_mode = 2
+
+[node name="ModSlotLabel" type="Label" parent="Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.27451, 0.803922, 0.427451, 1)
+theme_override_font_sizes/font_size = 24
+text = "0/10 M.O.D.s equipped"
+
+[node name="MoreInfoButton" type="TextureButton" parent="Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox/HBox"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_2lmnb")
+texture_pressed = SubResource("AtlasTexture_eicjl")
+
+[node name="DisassembleButton" type="Button" parent="Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox/DisassembleButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -197.0
+offset_top = -18.5
+offset_right = 197.0
+offset_bottom = 18.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBox" type="HBoxContainer" parent="Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox/DisassembleButton/Margin"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox/DisassembleButton/Margin/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.11, 0.11, 0.0528, 1)
+theme_override_font_sizes/font_size = 32
+text = "Disassemble(+100"
+
+[node name="TextureRect" type="TextureRect" parent="Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox/DisassembleButton/Margin/HBox"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_1dxi5")
+expand_mode = 3
+stretch_mode = 6
+
+[node name="ClosingBracket" type="Label" parent="Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox/DisassembleButton/Margin/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.105882, 0.105882, 0.0509804, 1)
+theme_override_font_sizes/font_size = 32
+text = ")"
+
+[node name="ModSlotList" type="PanelContainer" parent="Margin/PanelContainer/HBox/LeftVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBox" type="VBoxContainer" parent="Margin/PanelContainer/HBox/LeftVBox/ModSlotList"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBox" type="VBoxContainer" parent="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="UpgradeButton" type="Button" parent="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+focus_mode = 0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox/UpgradeButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MidVBox" type="VBoxContainer" parent="Margin/PanelContainer/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="Margin/PanelContainer/HBox/MidVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBox" type="VBoxContainer" parent="Margin/PanelContainer/HBox/MidVBox/PanelContainer"]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox"]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="InventoryList" type="ScrollContainer" parent="Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Margin" type="MarginContainer" parent="Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox/InventoryList"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+
+[node name="VBox" type="VBoxContainer" parent="Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox/InventoryList/Margin"]
+layout_mode = 2
+
+[node name="BlueprintList" type="ScrollContainer" parent="Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Margin" type="MarginContainer" parent="Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox/BlueprintList"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+
+[node name="VBox" type="VBoxContainer" parent="Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox/BlueprintList/Margin"]
+layout_mode = 2
+
+[node name="InventoryModCounter" type="Label" parent="Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.27451, 0.803922, 0.427451, 1)
+text = "? M.O.D.s"
+
+[node name="RightVBox" type="VBoxContainer" parent="Margin/PanelContainer/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBox" type="HBoxContainer" parent="Margin/PanelContainer/HBox/RightVBox"]
+layout_mode = 2
+
+[node name="CraftingInput" type="PanelContainer" parent="Margin/PanelContainer/HBox/RightVBox/HBox"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Margin/PanelContainer/HBox/RightVBox/HBox/CraftingInput"]
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="Margin/PanelContainer/HBox/RightVBox/HBox/CraftingInput/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CraftingInstructionsLabel" type="Label" parent="Margin/PanelContainer/HBox/RightVBox/HBox/CraftingInput"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.27451, 0.803922, 0.427451, 1)
+text = "Drag a M.O.D. here to craft a new M.O.D. or take it apart for scraps!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="CraftingOutput" type="PanelContainer" parent="Margin/PanelContainer/HBox/RightVBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBox" type="VBoxContainer" parent="Margin/PanelContainer/HBox/RightVBox/HBox/CraftingOutput"]
+layout_mode = 2
+alignment = 1
+
+[node name="BlueprintPanel" type="PanelContainer" parent="Margin/PanelContainer/HBox/RightVBox/HBox/CraftingOutput/VBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_ujldt")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Margin/PanelContainer/HBox/RightVBox/HBox/CraftingOutput/VBox/BlueprintPanel"]
+layout_mode = 2
+theme_override_fonts/italics_font = ExtResource("9_dqfnd")
+theme_override_font_sizes/italics_font_size = 24
+bbcode_enabled = true
+text = "[img=36]res://resources/text_icons/health_minus_impact_icon.tres[/img][i]Health-[/i]"
+fit_content = true
+
+[node name="BlueprintsButton" type="TextureButton" parent="Margin/PanelContainer/HBox/RightVBox/HBox/CraftingOutput/VBox"]
+custom_minimum_size = Vector2(108, 108)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+texture_normal = SubResource("AtlasTexture_dqfnd")
+texture_pressed = SubResource("AtlasTexture_ngbl7")
+stretch_mode = 4
+
+[node name="CraftOptions" type="PanelContainer" parent="Margin/PanelContainer/HBox/RightVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Margin/PanelContainer/HBox/RightVBox/CraftOptions"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 36
+bbcode_enabled = true
+text = "jfdsakkkkkkkkkkk
+dsfaaa
+fdsa
+dsfa
+dsfa
+dfs
+dsaf
+sfda
+dsfa
+dsfasda
+sfda
+"
+horizontal_alignment = 1
+
+[node name="CraftingOptions" type="PanelContainer" parent="Margin/PanelContainer/HBox/RightVBox"]
+visible = false
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Margin/PanelContainer/HBox/RightVBox/CraftingOptions"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin/PanelContainer/HBox/RightVBox/CraftingOptions/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CraftButton" type="Button" parent="Margin/PanelContainer/HBox/RightVBox"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Margin/PanelContainer/HBox/RightVBox/CraftButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+bbcode_enabled = true
+text = "Craft ? 
+For ?? eAFDSs"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Analysis" type="MarginContainer" parent="."]
+z_index = 100
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 128
+theme_override_constants/margin_top = 128
+theme_override_constants/margin_right = 128
+theme_override_constants/margin_bottom = 128
+
+[node name="PanelContainer" type="PanelContainer" parent="Analysis"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Analysis/PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Additional Analysis"
+
+[node name="ExitButton" type="TextureButton" parent="Analysis/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture_normal = SubResource("AtlasTexture_8wyaw")
+texture_pressed = SubResource("AtlasTexture_cwdri")
+
+[node name="ModCompItemDropArea" type="Area2D" parent="."]
+position = Vector2(32, -370)
+script = ExtResource("6_2lmnb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ModCompItemDropArea"]
+position = Vector2(276, 998)
+shape = SubResource("RectangleShape2D_2lmnb")
+
+[node name="InventoryItemDropArea" type="Area2D" parent="."]
+position = Vector2(0, -436)
+script = ExtResource("6_2lmnb")
+item_state = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InventoryItemDropArea"]
+position = Vector2(800, 889.5)
+shape = SubResource("RectangleShape2D_eifbp")
+
+[node name="CraftingItemDropArea" type="Area2D" parent="."]
+position = Vector2(0, -436)
+script = ExtResource("6_2lmnb")
+item_state = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CraftingItemDropArea"]
+position = Vector2(1292, 700)
+shape = SubResource("RectangleShape2D_eicjl")
+
+[connection signal="pressed" from="Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox/HBox/MoreInfoButton" to="." method="_on_more_info_button_pressed"]
+[connection signal="pressed" from="Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox/DisassembleButton" to="." method="_on_disassemble_button_pressed"]
+[connection signal="pressed" from="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
+[connection signal="pressed" from="Margin/PanelContainer/HBox/RightVBox/HBox/CraftingOutput/VBox/BlueprintsButton" to="." method="_on_blueprints_button_pressed"]
+[connection signal="pressed" from="Margin/PanelContainer/HBox/RightVBox/CraftButton" to="." method="_on_craft_button_pressed"]
+[connection signal="pressed" from="Analysis/PanelContainer/ExitButton" to="." method="_on_exit_button_pressed"]

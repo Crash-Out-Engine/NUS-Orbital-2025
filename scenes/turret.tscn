@@ -12,13 +12,13 @@
 [ext_resource type="Texture2D" uid="uid://06sdtfwasbao" path="res://assets/sprites/turret_spritesheet.png" id="8_0dv4j"]
 [ext_resource type="Script" uid="uid://bnt7cwx8k0nm0" path="res://scripts/components/mod_slot_comp.gd" id="8_137wx"]
 [ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/mods/effects/effect_base.gd" id="8_726tt"]
-[ext_resource type="Resource" uid="uid://dtogyr1espqpy" path="res://resources/effects/health.tres" id="9_8c4bs"]
+[ext_resource type="Resource" uid="uid://dtogyr1espqpy" path="res://resources/effects/damage.tres" id="9_8c4bs"]
 [ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod_base.gd" id="9_d25s7"]
 [ext_resource type="AudioStream" uid="uid://dc66si5kieoq4" path="res://assets/audio/sound_effects/laser_gunshot.wav" id="9_tg0ex"]
 [ext_resource type="Script" uid="uid://crg4hg2cfow05" path="res://scripts/turret_scene/audio.gd" id="10_6k4ik"]
 [ext_resource type="Resource" uid="uid://dl56w1h7wf83j" path="res://resources/effect_mods/base_damage.tres" id="10_d25s7"]
 [ext_resource type="Script" uid="uid://cywswu1o8bqjs" path="res://scripts/turret_scene/visuals.gd" id="12_fp1kq"]
-[ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet_v2.png" id="13_0mdkh"]
+[ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet.png" id="13_0mdkh"]
 [ext_resource type="AudioStream" uid="uid://cba76dqigqmco" path="res://assets/audio/sound_effects/metal_hit.wav" id="17_mpvso"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0dv4j"]
@@ -88,7 +88,7 @@ region = Rect2(1597, 89, 16, 16)
 atlas = ExtResource("13_0mdkh")
 region = Rect2(1581, 89, 16, 16)
 
-[node name="Turret" type="StaticBody2D" node_paths=PackedStringArray("health_capacity", "health", "build_prop", "ranged", "hitbox") groups=["allies"]]
+[node name="Turret" type="StaticBody2D" node_paths=PackedStringArray("health_capacity", "health", "build_prop", "ranged", "hitbox", "mod_slots") groups=["allies"]]
 script = ExtResource("1_x3mc5")
 build_target = 100.0
 health_capacity = NodePath("Properties/HealthCapacityProp")
@@ -96,6 +96,7 @@ health = NodePath("Properties/HealthProp")
 build_prop = NodePath("Properties/BuildProp")
 ranged = NodePath("Components/RangedComp")
 hitbox = NodePath("Components/HitboxComp")
+mod_slots = NodePath("Components/ModSlotComp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 100
@@ -118,9 +119,10 @@ script = ExtResource("2_ue5km")
 _health_capacity = 200.0
 metadata/_custom_type_script = "uid://cceowy0wh5ufb"
 
-[node name="HealthProp" type="Node" parent="Properties"]
+[node name="HealthProp" type="Node" parent="Properties" node_paths=PackedStringArray("_health_capacity_prop")]
 script = ExtResource("4_eo4u0")
 health = 200.0
+_health_capacity_prop = NodePath("../HealthCapacityProp")
 metadata/_custom_type_script = "uid://bg2iinlcp53aa"
 
 [node name="RangedCooldownProp" type="Node" parent="Properties"]
@@ -143,7 +145,8 @@ metadata/_custom_type_script = "uid://wwqkkrfhwiyn"
 
 [node name="ModSlotComp" type="Node" parent="Components" node_paths=PackedStringArray("entity", "attack_comp")]
 script = ExtResource("8_137wx")
-initial_mods = Array[ExtResource("9_d25s7")]([ExtResource("10_d25s7"), null, null])
+capacity = 3
+initial_mods = Array[ExtResource("9_d25s7")]([ExtResource("10_d25s7")])
 entity = NodePath("../..")
 attack_comp = NodePath("../RangedComp")
 metadata/_custom_type_script = "uid://bnt7cwx8k0nm0"
@@ -170,13 +173,19 @@ turret_health_capacity = NodePath("../Properties/HealthCapacityProp")
 [node name="BodySprite" type="AnimatedSprite2D" parent="Visuals"]
 z_index = 1
 sprite_frames = SubResource("SpriteFrames_eo4u0")
-animation = &"idle"
+animation = &"fire"
 
 [node name="BaseSprite" type="Sprite2D" parent="Visuals"]
 texture = ExtResource("8_0dv4j")
 offset = Vector2(-2, 0)
 hframes = 4
 vframes = 2
+
+[node name="Highlight" type="Sprite2D" parent="Visuals"]
+texture = ExtResource("8_0dv4j")
+hframes = 4
+vframes = 2
+frame = 2
 
 [node name="BuildProgressBar" type="TextureProgressBar" parent="Visuals"]
 visible = false

@@ -3,6 +3,7 @@ extends StaticBody2D
 
 signal state_changed(from: State, to: State)
 signal build_progressed(progress: float)
+signal vfx_emitted(Node2D)
 
 enum State {
 	DEFAULT,
@@ -12,6 +13,8 @@ enum State {
 	DESTROYED,
 	CANCELLED,
 }
+
+const _LOOT_SCENE = preload("res://scenes/loot.tscn")
 
 @export var build_target: float
 
@@ -23,6 +26,7 @@ enum State {
 @export_group("Components")
 @export var ranged: RangedBaseComp
 @export var hitbox: HitboxComp
+@export var mod_slots: ModSlotComp
 
 var state: State:
 	set(value):
@@ -32,6 +36,7 @@ var state: State:
 			handle_state_changed(prev_state, state)
 			state_changed.emit(prev_state, state)
 var player: Player # TODO: Decouple player in multiplayer implementation.
+var highlighted = false
 
 @onready var _team: Enums.Team = hitbox.team
 
@@ -74,6 +79,7 @@ func handle_state_changed(from: State, to: State):
 			set_collision_layer_value(1, true)
 			set_collision_layer_value(2, false)
 			set_collision_mask_value(1, true)
+			vfx_emitted.connect(get_parent().get_parent().add_misc)
 			hitbox.team = _team
 			ranged.active = true
 
@@ -97,7 +103,6 @@ func is_overlapping() -> bool:
 			.get_overlapping_bodies()
 			.any(func(body): return body.get_node_or_null(^"Components/HitboxComp") != null))
 
-
 func build_or_repair(from: float, to: float) -> void:
 	if state == State.PLANNED:
 		if to >= build_target:
@@ -108,3 +113,13 @@ func build_or_repair(from: float, to: float) -> void:
 				health_capacity.value - health.value) / 20)
 		player.use_scraps(cost)
 		health.value += cost * 20
+
+func disassemble():
+	state = State.DESTROYED
+	var loot = _LOOT_SCENE.instantiate() #HACK: implement proper disassemble drops
+	loot.setup_scrap_loot(20)
+	loot.global_position = global_position
+	vfx_emitted.emit(loot)
+
+func get_mod_slots() -> ModSlotComp:
+	return mod_slots
