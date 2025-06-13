@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://cmw8g7msqq25n"]
+
+[ext_resource type="Script" uid="uid://kvm0revtye6k" path="res://scripts/game_scene/ui/hud_map.gd" id="1_dksgq"]
+[ext_resource type="Texture2D" uid="uid://bvq0vloy6oyq0" path="res://assets/sprites/ui_spritesheet_v2.png" id="2_e1luf"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wljb1"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1kice"]
+texture = ExtResource("2_e1luf")
+texture_margin_left = 32.0
+texture_margin_top = 32.0
+texture_margin_right = 32.0
+texture_margin_bottom = 32.0
+region_rect = Rect2(1798, 4, 106, 106)
+
+[node name="HUDMap" type="Control" node_paths=PackedStringArray("map")]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
+mouse_filter = 2
+script = ExtResource("1_dksgq")
+map = NodePath("Map")
+
+[node name="Map" type="Panel" parent="."]
+layout_mode = 0
+offset_left = -234.0
+offset_top = 14.0
+offset_right = -14.0
+offset_bottom = 234.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_wljb1")
+
+[node name="MapOverlay" type="Panel" parent="."]
+z_index = 10
+layout_mode = 0
+offset_left = -244.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = 244.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_1kice")

@@ -10,11 +10,17 @@ signal reduced(by: float)
 
 func _ready() -> void:
 	if _health_capacity_prop != null:
-		assert(0 <= health and health <= _health_capacity_prop.value,
+		assert(0 <= health and health <= _health_capacity_prop._health_capacity,
 				"Initial health value should be between 0 and health capacity.")
+		max_value = _health_capacity_prop._health_capacity
+		_health_capacity_prop.changed.connect(func(_from, to): _change_max_value(to))
 	value = health
 	changed.connect(_check_empty)
 	changed.connect(_check_reduced)
+
+
+func _change_max_value(capacity: float):
+	max_value = capacity
 
 
 func _check_empty(old_value: float, new_value: float) -> void:

@@ -1,3 +1,4 @@
+class_name Inventory
 extends Control
 
 
@@ -8,3 +9,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("inventory"):
 		visible = !visible
+
+
+func setup() -> void:
+	pass # TODO

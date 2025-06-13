@@ -10,4 +10,5 @@ func _ready() -> void:
 
 
 func play_hit_sound():
-	hit_sound.play()
+	if is_inside_tree():
+		hit_sound.play()

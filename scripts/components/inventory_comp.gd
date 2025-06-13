@@ -39,7 +39,7 @@ func register_item(item: Item):
 ## throws an error if not found.
 func access_entity(entity: Node2D) -> void:
 	assert(entity != null
-		and entity.get_node_or_null(^"Components/ModSlotComp") != null,
+		and entity.has_node(^"Components/ModSlotComp"),
 		"Entity accessed should have ModSlotComp.")
 
 	_entity_slot = entity.get_node(^"Components/ModSlotComp")

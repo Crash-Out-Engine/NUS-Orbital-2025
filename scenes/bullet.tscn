@@ -1,7 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://b52amtg2hmpm6"]
+[gd_scene load_steps=7 format=3 uid="uid://b52amtg2hmpm6"]
 
 [ext_resource type="Script" uid="uid://baxqvovb4qoty" path="res://scripts/bullet.gd" id="1_mkf8s"]
 [ext_resource type="Script" uid="uid://leayhs5xslyy" path="res://scripts/properties/lives_prop.gd" id="2_y25gk"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_y25gk"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
 
 [sub_resource type="Gradient" id="Gradient_mkf8s"]
 offsets = PackedFloat32Array(0.0985916, 0.471831, 1)
@@ -17,6 +25,9 @@ height = 6.0
 [node name="Bullet" type="Area2D" node_paths=PackedStringArray("lives")]
 script = ExtResource("1_mkf8s")
 lives = NodePath("Properties/LivesProp")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_y25gk")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 z_index = -1

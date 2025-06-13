@@ -12,10 +12,9 @@ signal disappear_finished
 
 
 func _ready() -> void:
-	anim.play("sabotaged")
-	repair_bar.visible = false
-	rebooting_bar.visible = false
-	fault.state_changed.connect(handle_state_changed)
+	play_sabotaged()
+	_handle_state_changed(fault.state, fault.state)
+	fault.state_changed.connect(_handle_state_changed)
 	fault.repair_progressed.connect(update_repair_progress)
 
 
@@ -24,15 +23,19 @@ func _process(_delta: float) -> void:
 		rebooting_bar.value = fault.get_time_progress_ratio() * 100
 
 
-func handle_state_changed(from: Fault.State, to: Fault.State) -> void:
+func _handle_state_changed(from: Fault.State, to: Fault.State) -> void:
 	match [from, to]:
-		[Fault.State.SABOTAGED, Fault.State.REBOOTING]:
+		[Fault.State.REBOOTING, Fault.State.SABOTAGED]:
+			anim_player.play("sabotaged")
+
+	match [from, to]:
+		[_, Fault.State.REBOOTING]:
 			play_rebooting()
 
-		[Fault.State.REBOOTING, Fault.State.SABOTAGED]:
+		[_, Fault.State.SABOTAGED]:
 			play_sabotaged()
 
-		[Fault.State.REBOOTING, Fault.State.FIXED]:
+		[_, Fault.State.FIXED]:
 			play_fixed()
 
 
@@ -53,7 +56,6 @@ func play_fixed():
 func play_sabotaged():
 	anim.play("sabotaged")
 	rebooting_bar.visible = false
-	anim_player.play("sabotaged")
 	repair_bar.visible = false
 
 

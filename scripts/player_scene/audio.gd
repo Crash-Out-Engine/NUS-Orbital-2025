@@ -14,6 +14,7 @@ extends Node
 @onready var melee_swing := $MeleeSwing as AudioStreamPlayer
 
 func _ready() -> void:
+	player.hand.action_changed.connect(_handle_hand_action_changed)
 	player_ranged.bullet_spawned.connect(play_laser_sound)
 	player.turret_placement_failed.connect(play_turret_placement_error_sound)
 	player_melee.executed.connect(func(_entity): play_hit_sound())
@@ -26,6 +27,12 @@ func _process(_delta: float) -> void:
 			footsteps_sound.play()
 	else:
 		footsteps_sound.stop()
+		
+func _handle_hand_action_changed(_from: Player.Hand.Action, to: Player.Hand.Action) -> void:
+	const HA := Player.Hand.Action
+	match to:
+		HA.FIRING_WRENCH:
+			play_melee_swing_sound()
 
 
 func play_turret_placement_error_sound() -> void:

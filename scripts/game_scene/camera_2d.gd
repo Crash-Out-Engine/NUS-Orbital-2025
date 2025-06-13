@@ -1,3 +1,4 @@
+class_name Camera
 extends Camera2D
 
 ## The proportion of peeking relative to mouse position.
@@ -17,8 +18,7 @@ const PEEK_FACTOR = 0.5
 ## viewport.
 const MAX_RECT_PROPORTION = 0.5
 
-@export var player: Player
-
+var _player: Player
 var _max_offset_rect: Vector2
 
 
@@ -30,7 +30,11 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	var desired_offset = (get_local_mouse_position()) * PEEK_FACTOR
 	desired_offset = desired_offset.clamp(-_max_offset_rect / 2, _max_offset_rect / 2)
-	global_position = player.global_position + desired_offset
+	global_position = _player.global_position + desired_offset
+
+
+func setup(game: Game) -> void:
+	_player = game.get_local_player()
 
 
 func _resize() -> void:

@@ -1,0 +1,34 @@
+class_name MovementBaseComp
+extends Node
+
+@export var entity: RigidBody2D
+@export var _knockback_speed_curve: Curve = Curve.new()
+@export_group("Properties")
+@export var _speed: SpeedProp
+
+var movement_direction: Vector2
+var _knockback_timer: float
+var _knockback_duration: float
+var _knockback_direction: Vector2
+
+
+func _ready() -> void:
+	_knockback_duration = _knockback_speed_curve.get_domain_range()
+
+
+func _physics_process(delta: float) -> void:
+	var movement_velocity := movement_direction * _speed.value
+	var knockback_velocity := Vector2.ZERO
+	if _knockback_timer > 0:
+		knockback_velocity = (_knockback_direction
+				* _knockback_speed_curve.sample(_knockback_duration - _knockback_timer))
+		_knockback_timer -= delta
+
+	var net_velocity = movement_velocity + knockback_velocity
+
+	entity.apply_central_impulse((net_velocity - entity.linear_velocity) * entity.mass)
+
+
+func apply_knockback(direction: Vector2) -> void:
+	_knockback_timer = _knockback_speed_curve.get_domain_range()
+	_knockback_direction = direction

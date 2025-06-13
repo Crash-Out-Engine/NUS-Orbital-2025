@@ -1,6 +1,7 @@
+class_name PauseMenu
 extends Control
 
-@export var game_state_manager: GameStateManager
+var _game_state_manager: GameStateManager
 
 @onready var _master_bus = AudioServer.get_bus_index("Master")
 @onready var _master_vol_slider = (
@@ -12,13 +13,17 @@ extends Control
 @onready var _sfx_vol_slider = $PanelContainer/VBoxContainer/SFXVolumeContainer/SFXVolumeSlider
 
 
-func _ready() -> void:
-	visible = game_state_manager.game_state == GameStateManager.GameState.PAUSED
+func setup(game_state_manager: GameStateManager) -> void:
+	_game_state_manager = game_state_manager
 
-	game_state_manager.game_state_changed.connect(
-			func(_from, to): 
-				if to == GameStateManager.GameState.PAUSED:
+	visible = _game_state_manager.game_state == GameStateManager.State.PAUSED
+
+	_game_state_manager.game_state_changed.connect(
+			func(_from, to):
+				if to == GameStateManager.State.PAUSED:
 					_on_pause()
+				if to == GameStateManager.State.PLAYING:
+					_on_resume()
 	)
 	$PanelContainer/VBoxContainer/Resume.pressed.connect(_handle_resume)
 	$PanelContainer/VBoxContainer/Restart.pressed.connect(_handle_restart)
@@ -31,20 +36,24 @@ func _ready() -> void:
 
 func _handle_resume():
 	visible = false
-	game_state_manager.game_state = GameStateManager.GameState.PLAYING
+	_game_state_manager.game_state = GameStateManager.State.PLAYING
 
 
 func _handle_restart():
-	game_state_manager.game_state = GameStateManager.GameState.INIT
+	_game_state_manager.game_state = GameStateManager.State.INIT
 
 
 func _handle_quit():
-	game_state_manager.game_state = GameStateManager.GameState.EXIT
+	_game_state_manager.game_state = GameStateManager.State.EXIT
 
 
 func _on_pause():
 	$PauseSound.play()
 	visible = true
+
+
+func _on_resume():
+	visible = false
 
 
 func _on_master_volume_slider_value_changed(value: float) -> void:

@@ -44,7 +44,12 @@ func _process(delta: float) -> void:
 
 func handle_state_changed(from: Turret.State, to: Turret.State) -> void:
 	match [from, to]:
-		[_, Turret.State.PLACING]:
+		[_, Turret.State.PLACING_INVALID]:
+			build_progress.visible = false
+			body_sprite.visible = true
+			set_visual_modulate(Color(1, 0, 0, 0.5))
+
+		[_, Turret.State.PLACING_VALID]:
 			build_progress.visible = false
 			body_sprite.visible = true
 			set_visual_modulate(Color(0, 1, 1, 0.5))

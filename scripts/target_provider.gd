@@ -1,13 +1,13 @@
 class_name TargetProvider
 extends Resource
 
-var _entity_container: Node = null
+var _entity_manager: EntityManager = null
 var _entities_cache: Dictionary[Enums.Team, Array] = {}
 
 
-func set_entity_container(entity_container: Node) -> void:
-	_entity_container = entity_container
-	_entity_container.child_order_changed.connect(refresh)
+func set_entity_manager(entity_manager: EntityManager) -> void:
+	_entity_manager = entity_manager
+	_entity_manager.child_order_changed.connect(refresh)
 	refresh()
 
 
@@ -18,7 +18,7 @@ func get_target(from: Vector2, target_filter: TargetFilter) -> Node2D:
 	for targeted_team in target_filter.targets:
 		for target in _entities_cache.get(targeted_team, []):
 			if target != null:
-				var target_priority = target.get_node_or_null(^"Properties/TargetPriorityProp")
+				var target_priority = target.get_node(^"Properties/TargetPriorityProp")
 				var weightage = 1.0 / target_priority.value * from.distance_squared_to(target.global_position)
 				if min_target == null or min_weightage > weightage:
 					min_target = target
@@ -29,11 +29,12 @@ func get_target(from: Vector2, target_filter: TargetFilter) -> Node2D:
 
 func refresh() -> void:
 	_entities_cache.clear()
-	var valid_entities = (_entity_container
+	var valid_entities = (_entity_manager
 		.get_children()
 		.filter(func(entity):
 				return (entity is Node2D
-						and entity.get_node_or_null(^"Components/HitboxComp") != null
+						and entity.has_node(^"Components/HitboxComp")
+						and entity.has_node(^"Properties/TargetPriorityProp")
 						and entity.get_node(^"Components/HitboxComp").team != null)))
 
 	for entity in valid_entities:

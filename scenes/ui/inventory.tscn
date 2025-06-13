@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpomxqhp37jum"]
+
+[ext_resource type="Script" uid="uid://cyt60aunvq71y" path="res://scripts/game_scene/ui/inventory.gd" id="1_avmd0"]
+[ext_resource type="Theme" uid="uid://c8t8fqq1p8n4l" path="res://resources/custom_ui.tres" id="2_xeaml"]
+
+[node name="Inventory" type="Control"]
+process_mode = 1
+custom_minimum_size = Vector2(1152, 648)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1600.0
+offset_bottom = 900.0
+script = ExtResource("1_avmd0")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+offset_top = 48.0
+offset_right = -64.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_xeaml")
+
+[node name="Label" type="Label" parent="PanelContainer"]
+layout_mode = 2
+text = "THIS IS AN INVENTORY PLACEHOLDER"
+horizontal_alignment = 1
+vertical_alignment = 1

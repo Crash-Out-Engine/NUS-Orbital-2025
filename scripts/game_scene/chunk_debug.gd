@@ -2,7 +2,7 @@ extends DebugVisualsBase
 
 @export var player_camera: Camera2D
 
-@onready var parent := get_parent() as ChunkTileMap
+@onready var parent := get_parent() as WorldGenSystem
 
 
 func _draw() -> void:
@@ -14,7 +14,7 @@ func _draw() -> void:
 	var start = cam_center - cam_size / 2
 	var end = cam_center + cam_size / 2
 
-	var chunk_coords_size := parent.chunk_size * parent.tile_set.tile_size
+	var chunk_coords_size := parent.CHUNK_SIZE
 	var start_chunk := floor(start / Vector2(chunk_coords_size)) as Vector2i
 	var end_chunk := ceil(end / Vector2(chunk_coords_size)) as Vector2i
 	var chunk_rect := end_chunk - start_chunk

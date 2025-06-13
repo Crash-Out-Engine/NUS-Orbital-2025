@@ -1,0 +1,266 @@
+[gd_scene load_steps=18 format=3 uid="uid://db756ib6m63rr"]
+
+[ext_resource type="Script" uid="uid://ysb1rej05rno" path="res://scripts/game_scene/ui/hud_bars.gd" id="1_kudn5"]
+[ext_resource type="Texture2D" uid="uid://bvq0vloy6oyq0" path="res://assets/sprites/ui_spritesheet_v2.png" id="2_w175o"]
+[ext_resource type="FontFile" uid="uid://cj53anigafm5t" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="3_t2r62"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1kice"]
+atlas = ExtResource("2_w175o")
+region = Rect2(4, 4, 54, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_37s47"]
+atlas = ExtResource("2_w175o")
+region = Rect2(520, 8, 454, 42)
+margin = Rect2(4, 4, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bt5mj"]
+atlas = ExtResource("2_w175o")
+region = Rect2(978, 4, 464, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e1j6l"]
+atlas = ExtResource("2_w175o")
+region = Rect2(62, 8, 454, 42)
+margin = Rect2(4, 4, 8, 8)
+
+[sub_resource type="LabelSettings" id="LabelSettings_5newe"]
+font = ExtResource("3_t2r62")
+font_size = 30
+font_color = Color(0, 0, 0, 1)
+outline_size = 8
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5newe"]
+atlas = ExtResource("2_w175o")
+region = Rect2(1446, 4, 118, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pl11u"]
+atlas = ExtResource("2_w175o")
+region = Rect2(1567, 4, 118, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bhx41"]
+atlas = ExtResource("2_w175o")
+region = Rect2(4, 58, 44, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qnb83"]
+atlas = ExtResource("2_w175o")
+region = Rect2(410, 62, 354, 32)
+margin = Rect2(4, 4, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sww3w"]
+atlas = ExtResource("2_w175o")
+region = Rect2(768, 58, 364, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_suyxu"]
+atlas = ExtResource("2_w175o")
+region = Rect2(52, 62, 354, 32)
+margin = Rect2(4, 4, 8, 8)
+
+[sub_resource type="LabelSettings" id="LabelSettings_37s47"]
+font = ExtResource("3_t2r62")
+font_size = 24
+font_color = Color(0, 0, 0, 1)
+outline_size = 8
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rysoc"]
+atlas = ExtResource("2_w175o")
+region = Rect2(1614, 90, 16, 16)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ca42v"]
+font = ExtResource("3_t2r62")
+font_size = 24
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 0.74902)
+shadow_offset = Vector2(2, 2)
+
+[node name="HUDBars" type="Control"]
+process_mode = 1
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1600.0
+offset_bottom = 900.0
+mouse_filter = 2
+script = ExtResource("1_kudn5")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 44.0
+offset_bottom = 44.0
+
+[node name="PowerBar" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Icon" type="TextureRect" parent="VBoxContainer/PowerBar"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_1kice")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="VBoxContainer/PowerBar"]
+layout_mode = 2
+value = 100.0
+texture_under = SubResource("AtlasTexture_37s47")
+texture_over = SubResource("AtlasTexture_bt5mj")
+texture_progress = SubResource("AtlasTexture_e1j6l")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PowerBar/TextureProgressBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_right = 56
+
+[node name="Label" type="Label" parent="VBoxContainer/PowerBar/TextureProgressBar/MarginContainer"]
+layout_mode = 2
+text = "100"
+label_settings = SubResource("LabelSettings_5newe")
+vertical_alignment = 1
+
+[node name="1Bar" type="Control" parent="VBoxContainer/PowerBar"]
+custom_minimum_size = Vector2(81, 0)
+layout_mode = 2
+
+[node name="On" type="TextureRect" parent="VBoxContainer/PowerBar/1Bar"]
+layout_mode = 0
+offset_left = -36.0
+offset_right = 81.0
+offset_bottom = 50.0
+texture = SubResource("AtlasTexture_5newe")
+
+[node name="Off" type="TextureRect" parent="VBoxContainer/PowerBar/1Bar"]
+layout_mode = 0
+offset_left = -36.0
+offset_right = 82.0
+offset_bottom = 50.0
+texture = SubResource("AtlasTexture_pl11u")
+
+[node name="2Bar" type="Control" parent="VBoxContainer/PowerBar"]
+custom_minimum_size = Vector2(81, 0)
+layout_mode = 2
+
+[node name="On" type="TextureRect" parent="VBoxContainer/PowerBar/2Bar"]
+layout_mode = 0
+offset_left = -36.0
+offset_right = 81.0
+offset_bottom = 50.0
+texture = SubResource("AtlasTexture_5newe")
+
+[node name="Off" type="TextureRect" parent="VBoxContainer/PowerBar/2Bar"]
+layout_mode = 0
+offset_left = -36.0
+offset_right = 82.0
+offset_bottom = 50.0
+texture = SubResource("AtlasTexture_pl11u")
+
+[node name="4Bar" type="Control" parent="VBoxContainer/PowerBar"]
+custom_minimum_size = Vector2(81, 0)
+layout_mode = 2
+
+[node name="On" type="TextureRect" parent="VBoxContainer/PowerBar/4Bar"]
+layout_mode = 0
+offset_left = -36.0
+offset_right = 81.0
+offset_bottom = 50.0
+texture = SubResource("AtlasTexture_5newe")
+
+[node name="Off" type="TextureRect" parent="VBoxContainer/PowerBar/4Bar"]
+layout_mode = 0
+offset_left = -36.0
+offset_right = 82.0
+offset_bottom = 50.0
+texture = SubResource("AtlasTexture_pl11u")
+
+[node name="8Bar" type="Control" parent="VBoxContainer/PowerBar"]
+custom_minimum_size = Vector2(81, 0)
+layout_mode = 2
+
+[node name="On" type="TextureRect" parent="VBoxContainer/PowerBar/8Bar"]
+layout_mode = 0
+offset_left = -36.0
+offset_right = 81.0
+offset_bottom = 50.0
+texture = SubResource("AtlasTexture_5newe")
+
+[node name="Off" type="TextureRect" parent="VBoxContainer/PowerBar/8Bar"]
+layout_mode = 0
+offset_left = -36.0
+offset_right = 82.0
+offset_bottom = 50.0
+texture = SubResource("AtlasTexture_pl11u")
+
+[node name="16Bar" type="Control" parent="VBoxContainer/PowerBar"]
+custom_minimum_size = Vector2(81, 0)
+layout_mode = 2
+
+[node name="On" type="TextureRect" parent="VBoxContainer/PowerBar/16Bar"]
+layout_mode = 0
+offset_left = -36.0
+offset_right = 81.0
+offset_bottom = 50.0
+texture = SubResource("AtlasTexture_5newe")
+
+[node name="Off" type="TextureRect" parent="VBoxContainer/PowerBar/16Bar"]
+layout_mode = 0
+offset_left = -36.0
+offset_right = 82.0
+offset_bottom = 50.0
+texture = SubResource("AtlasTexture_pl11u")
+
+[node name="HealthBar" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Icon" type="TextureRect" parent="VBoxContainer/HealthBar"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_bhx41")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="VBoxContainer/HealthBar"]
+layout_mode = 2
+value = 100.0
+texture_under = SubResource("AtlasTexture_qnb83")
+texture_over = SubResource("AtlasTexture_sww3w")
+texture_progress = SubResource("AtlasTexture_suyxu")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HealthBar/TextureProgressBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_right = 56
+
+[node name="Label" type="Label" parent="VBoxContainer/HealthBar/TextureProgressBar/MarginContainer"]
+layout_mode = 2
+text = "50/50"
+label_settings = SubResource("LabelSettings_37s47")
+vertical_alignment = 1
+
+[node name="ScrapCounter" type="MarginContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Icon" type="TextureRect" parent="VBoxContainer/ScrapCounter"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_rysoc")
+
+[node name="Label" type="Label" parent="VBoxContainer/ScrapCounter/Icon"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -44.0
+offset_top = -48.0
+offset_right = 4.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "50"
+label_settings = SubResource("LabelSettings_ca42v")
+horizontal_alignment = 2
+vertical_alignment = 2

@@ -1,36 +1,39 @@
-[gd_scene load_steps=71 format=3 uid="uid://ytw0s5xnqwvt"]
+[gd_scene load_steps=74 format=3 uid="uid://ytw0s5xnqwvt"]
 
 [ext_resource type="Script" uid="uid://c8f8kowfp34yp" path="res://scripts/player_scene/player.gd" id="1_f1ej7"]
-[ext_resource type="Script" uid="uid://cndl5nak0qpxp" path="res://scripts/properties/movement_prop.gd" id="2_g2els"]
 [ext_resource type="Texture2D" uid="uid://dvanyjoqcolwr" path="res://assets/sprites/player_spritesheet.png" id="2_y4r1p"]
 [ext_resource type="Script" uid="uid://bg2iinlcp53aa" path="res://scripts/properties/health_prop.gd" id="3_qhqgy"]
 [ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox_comp.gd" id="4_dqkch"]
 [ext_resource type="Script" uid="uid://cwdm3dvyba0l3" path="res://scripts/properties/ranged_cooldown_prop.gd" id="6_tuyoq"]
 [ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/properties/target_priority_prop.gd" id="7_fjrip"]
+[ext_resource type="Script" uid="uid://24lu732ywsce" path="res://scripts/properties/speed_prop.gd" id="7_gl8cc"]
 [ext_resource type="Script" uid="uid://s08wfqwqu2jn" path="res://scripts/components/ranged_player_comp.gd" id="7_smehm"]
 [ext_resource type="Script" uid="uid://cceowy0wh5ufb" path="res://scripts/properties/health_capacity_prop.gd" id="8_4ni07"]
+[ext_resource type="Script" uid="uid://da7ggjo6g8p5b" path="res://scripts/mods/effect.gd" id="11_wqfne"]
 [ext_resource type="AudioStream" uid="uid://dc66si5kieoq4" path="res://assets/audio/sound_effects/laser_gunshot.wav" id="12_3v2ag"]
+[ext_resource type="Script" uid="uid://qxcwl20lyaga" path="res://scripts/mods/effect_mod.gd" id="12_wnwbv"]
 [ext_resource type="Script" uid="uid://dng6x4ecq2npd" path="res://scripts/player_scene/audio.gd" id="13_a8ls1"]
 [ext_resource type="AudioStream" uid="uid://dk7lmxukxhhcr" path="res://assets/audio/sound_effects/error.wav" id="13_f1ej7"]
 [ext_resource type="AudioStream" uid="uid://ciu1er752oye4" path="res://assets/audio/sound_effects/sand_steps.wav" id="13_jej6c"]
-[ext_resource type="Resource" uid="uid://dtogyr1espqpy" path="res://resources/effects/health.tres" id="13_l71n6"]
 [ext_resource type="Script" uid="uid://bc5nkvlgktyor" path="res://scripts/target_filter.gd" id="14_l71n6"]
 [ext_resource type="Script" uid="uid://ddhfg683ma0hh" path="res://scripts/player_scene/visuals.gd" id="14_oprun"]
 [ext_resource type="Script" uid="uid://bnt7cwx8k0nm0" path="res://scripts/components/mod_slot_comp.gd" id="16_ke2ow"]
 [ext_resource type="Script" uid="uid://bx0i0x84j70ct" path="res://scripts/components/melee_comp.gd" id="17_4r5pv"]
 [ext_resource type="AudioStream" uid="uid://dn6k75a1tyl8k" path="res://assets/audio/sound_effects/hit_sound.wav" id="17_60mlk"]
-[ext_resource type="Script" uid="uid://c038au8w13gc1" path="res://scripts/mods/effects/build_effect.gd" id="17_ke2ow"]
 [ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod_base.gd" id="17_ujl30"]
-[ext_resource type="Resource" uid="uid://dl56w1h7wf83j" path="res://resources/effect_mods/base_damage.tres" id="18_31cv2"]
 [ext_resource type="Script" uid="uid://cu55fh5hl5rxd" path="res://scripts/properties/melee_cooldown_prop.gd" id="18_60mlk"]
-[ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/mods/effects/effect_base.gd" id="19_a38lo"]
 [ext_resource type="Script" uid="uid://155skx5u4uks" path="res://scripts/components/loot_collector_comp.gd" id="19_wqfne"]
-[ext_resource type="Script" uid="uid://2fh28xow6f1j" path="res://scripts/mods/effects/health_effect.gd" id="20_4ni07"]
 [ext_resource type="Script" uid="uid://j8sk0rxpd865" path="res://scripts/components/inventory_comp.gd" id="20_wnwbv"]
+[ext_resource type="Script" uid="uid://d02waiopb1m0c" path="res://scripts/components/movement_player_comp.gd" id="21_487ah"]
 [ext_resource type="Texture2D" uid="uid://qffoquvsdmfp" path="res://assets/sprites/playerhand_spritesheet.png" id="22_pf23h"]
 [ext_resource type="Texture2D" uid="uid://cai86xvs48gye" path="res://assets/sprites/gunblast_spritesheet.png" id="23_pf23h"]
 [ext_resource type="AudioStream" uid="uid://cba76dqigqmco" path="res://assets/audio/sound_effects/metal_hit.wav" id="28_pf23h"]
 [ext_resource type="AudioStream" uid="uid://vfvy3e572ida" path="res://assets/audio/sound_effects/melee_swing.wav" id="29_dt7fs"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wnwbv"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
 radius = 5.0
@@ -38,10 +41,34 @@ height = 26.0
 
 [sub_resource type="Animation" id="Animation_l71n6"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Components/MeleeComp:process_mode")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Components/RepairComp:process_mode")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
 
 [sub_resource type="Animation" id="Animation_4ni07"]
 resource_name = "melee_attack"
-length = 0.4
+length = 0.6
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -90,34 +117,6 @@ tracks/3/keys = {
 "update": 1,
 "values": [false, true, false]
 }
-tracks/4/type = "method"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("../Properties/MeleeCooldownProp")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0.3),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"do_melee"
-}]
-}
-tracks/5/type = "method"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("../Properties/MeleeCooldownProp2")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0.3),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"do_melee"
-}]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_l71n6"]
 _data = {
@@ -125,22 +124,44 @@ _data = {
 &"melee_attack": SubResource("Animation_4ni07")
 }
 
+[sub_resource type="Resource" id="Resource_wqfne"]
+script = ExtResource("11_wqfne")
+type = 0
+_interval = -1.0
+_repeat = 0
+_factor = -9.0
+metadata/_custom_type_script = "uid://da7ggjo6g8p5b"
+
+[sub_resource type="Resource" id="Resource_md1ol"]
+script = ExtResource("12_wnwbv")
+effects = Array[ExtResource("11_wqfne")]([SubResource("Resource_wqfne")])
+metadata/_custom_type_script = "uid://qxcwl20lyaga"
+
 [sub_resource type="Resource" id="Resource_ujl30"]
 script = ExtResource("14_l71n6")
 targets = Array[int]([2])
 metadata/_custom_type_script = "uid://bc5nkvlgktyor"
+
+[sub_resource type="Resource" id="Resource_wnwbv"]
+script = ExtResource("11_wqfne")
+type = 0
+_interval = -1.0
+_repeat = 0
+_factor = -9.0
+metadata/_custom_type_script = "uid://da7ggjo6g8p5b"
 
 [sub_resource type="Resource" id="Resource_pf23h"]
 script = ExtResource("14_l71n6")
 targets = Array[int]([2])
 metadata/_custom_type_script = "uid://bc5nkvlgktyor"
 
-[sub_resource type="Resource" id="Resource_l71n6"]
-script = ExtResource("20_4ni07")
+[sub_resource type="Resource" id="Resource_gl8cc"]
+script = ExtResource("11_wqfne")
+type = 0
 _interval = -1.0
 _repeat = 0
 _factor = -20.0
-metadata/_custom_type_script = "uid://2fh28xow6f1j"
+metadata/_custom_type_script = "uid://da7ggjo6g8p5b"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a38lo"]
 size = Vector2(60, 40)
@@ -150,15 +171,21 @@ script = ExtResource("14_l71n6")
 targets = Array[int]([4, 3])
 metadata/_custom_type_script = "uid://bc5nkvlgktyor"
 
-[sub_resource type="Resource" id="Resource_31cv2"]
-script = ExtResource("17_ke2ow")
+[sub_resource type="Resource" id="Resource_487ah"]
+script = ExtResource("11_wqfne")
+type = 1
 _interval = -1.0
 _repeat = 0
 _factor = 26.0
-metadata/_custom_type_script = "uid://c038au8w13gc1"
+metadata/_custom_type_script = "uid://da7ggjo6g8p5b"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wqfne"]
 radius = 40.0
+
+[sub_resource type="Curve" id="Curve_md1ol"]
+_limits = [0.0, 500.0, 0.0, 0.5]
+_data = [Vector2(0, 500), 0.0, 0.0, 0, 0, Vector2(0.5, 0), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a38lo"]
 atlas = ExtResource("2_y4r1p")
@@ -382,15 +409,20 @@ animations = [{
 "speed": 15.0
 }]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("ranged", "inventory", "health", "health_capacity", "melee_cooldown") groups=["allies"]]
+[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("health", "health_capacity", "ranged", "melee", "repair", "inventory") groups=["allies"]]
 collision_layer = 3
 collision_mask = 3
+lock_rotation = true
 script = ExtResource("1_f1ej7")
-ranged = NodePath("Components/RangedComp")
-inventory = NodePath("Components/InventoryComp")
 health = NodePath("Properties/HealthProp")
 health_capacity = NodePath("Properties/HealthCapacityProp")
-melee_cooldown = NodePath("Properties/MeleeCooldownProp")
+ranged = NodePath("Components/RangedComp")
+melee = NodePath("Components/MeleeComp")
+repair = NodePath("Components/RepairComp")
+inventory = NodePath("Components/InventoryComp")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_wnwbv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 100
@@ -404,15 +436,10 @@ libraries = {
 
 [node name="Properties" type="Node" parent="."]
 
-[node name="MovementProp" type="Node" parent="Properties" node_paths=PackedStringArray("target_priority")]
-script = ExtResource("2_g2els")
-initial_speed = 80.0
-is_player = true
-target_priority = NodePath("../TargetPriorityProp")
-
-[node name="HealthProp" type="Node" parent="Properties"]
+[node name="HealthProp" type="Node" parent="Properties" node_paths=PackedStringArray("_health_capacity_prop")]
 script = ExtResource("3_qhqgy")
 health = 50.0
+_health_capacity_prop = NodePath("../HealthCapacityProp")
 
 [node name="RangedCooldownProp" type="Node" parent="Properties"]
 script = ExtResource("6_tuyoq")
@@ -425,22 +452,28 @@ priority = 2.0
 [node name="MeleeCooldownProp" type="Node" parent="Properties"]
 script = ExtResource("18_60mlk")
 
-[node name="MeleeCooldownProp2" type="Node" parent="Properties"]
+[node name="RepairCooldownProp" type="Node" parent="Properties"]
 script = ExtResource("18_60mlk")
 
 [node name="HealthCapacityProp" type="Node" parent="Properties"]
 script = ExtResource("8_4ni07")
 _health_capacity = 50.0
 
+[node name="SpeedProp" type="Node" parent="Properties"]
+script = ExtResource("7_gl8cc")
+initial_speed = 80.0
+
 [node name="Components" type="Node2D" parent="."]
 
-[node name="HitboxComp" type="Node" parent="Components"]
+[node name="HitboxComp" type="Node" parent="Components" node_paths=PackedStringArray("_entity", "movement")]
 script = ExtResource("4_dqkch")
+_entity = NodePath("../..")
 team = 1
+movement = NodePath("../MovementPlayerComp")
 
 [node name="ModSlotComp" type="Node" parent="Components" node_paths=PackedStringArray("entity", "attack_comp")]
 script = ExtResource("16_ke2ow")
-initial_mods = Array[ExtResource("17_ujl30")]([ExtResource("18_31cv2")])
+initial_mods = Array[ExtResource("17_ujl30")]([SubResource("Resource_md1ol"), null, null])
 entity = NodePath("../..")
 attack_comp = NodePath("../RangedComp")
 metadata/_custom_type_script = "uid://bnt7cwx8k0nm0"
@@ -448,24 +481,24 @@ metadata/_custom_type_script = "uid://bnt7cwx8k0nm0"
 [node name="RangedComp" type="Node2D" parent="Components" node_paths=PackedStringArray("player", "barrel", "ranged_cooldown")]
 script = ExtResource("7_smehm")
 player = NodePath("../..")
-active = true
 barrel = NodePath("Barrel")
 ranged_cooldown = NodePath("../../Properties/RangedCooldownProp")
 target_filter = SubResource("Resource_ujl30")
-effects = Array[ExtResource("19_a38lo")]([ExtResource("13_l71n6")])
+effects = Array[ExtResource("11_wqfne")]([SubResource("Resource_wnwbv")])
 metadata/_custom_type_script = "uid://s08wfqwqu2jn"
 
 [node name="Barrel" type="Node2D" parent="Components/RangedComp"]
 position = Vector2(21, 0)
 
-[node name="MeleeComp" type="Area2D" parent="Components" node_paths=PackedStringArray("melee_cooldown", "target_priority")]
+[node name="MeleeComp" type="Area2D" parent="Components" node_paths=PackedStringArray("entity", "melee_cooldown", "target_priority")]
 process_mode = 4
 visible = false
 script = ExtResource("17_4r5pv")
+target_filter = SubResource("Resource_pf23h")
+effects = Array[ExtResource("11_wqfne")]([SubResource("Resource_gl8cc")])
+entity = NodePath("../..")
 melee_cooldown = NodePath("../../Properties/MeleeCooldownProp")
 target_priority = NodePath("../../Properties/TargetPriorityProp")
-target_filter = SubResource("Resource_pf23h")
-effects = Array[ExtResource("19_a38lo")]([SubResource("Resource_l71n6")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Components/MeleeComp"]
 z_index = 100
@@ -473,16 +506,17 @@ position = Vector2(28, 0)
 shape = SubResource("RectangleShape2D_a38lo")
 debug_color = Color(0.7, 0, 0, 0.419608)
 
-[node name="RepairComp" type="Area2D" parent="Components" node_paths=PackedStringArray("melee_cooldown", "target_priority")]
+[node name="RepairComp" type="Area2D" parent="Components" node_paths=PackedStringArray("entity", "melee_cooldown", "target_priority")]
 process_mode = 4
 visible = false
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("17_4r5pv")
-melee_cooldown = NodePath("../../Properties/MeleeCooldownProp2")
-target_priority = NodePath("../../Properties/TargetPriorityProp")
 target_filter = SubResource("Resource_ke2ow")
-effects = Array[ExtResource("19_a38lo")]([SubResource("Resource_31cv2")])
+effects = Array[ExtResource("11_wqfne")]([SubResource("Resource_487ah")])
+entity = NodePath("../..")
+melee_cooldown = NodePath("../../Properties/RepairCooldownProp")
+target_priority = NodePath("../../Properties/TargetPriorityProp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Components/RepairComp"]
 z_index = 100
@@ -502,16 +536,23 @@ shape = SubResource("CircleShape2D_wqfne")
 
 [node name="InventoryComp" type="Node" parent="Components"]
 script = ExtResource("20_wnwbv")
-initial_mods = Array[ExtResource("17_ujl30")]([ExtResource("18_31cv2"), ExtResource("18_31cv2"), ExtResource("18_31cv2"), ExtResource("18_31cv2")])
+initial_mods = Array[ExtResource("17_ujl30")]([null, null, null, null])
 initial_scraps = 60
 metadata/_custom_type_script = "uid://j8sk0rxpd865"
 
-[node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("player_ranged", "player_melee", "player_repair", "player")]
+[node name="MovementPlayerComp" type="Node" parent="Components" node_paths=PackedStringArray("entity", "_speed")]
+script = ExtResource("21_487ah")
+entity = NodePath("../..")
+_knockback_speed_curve = SubResource("Curve_md1ol")
+_speed = NodePath("../../Properties/SpeedProp")
+
+[node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("player", "ranged_cooldown", "ranged", "movement")]
+process_mode = 1
 script = ExtResource("14_oprun")
-player_ranged = NodePath("../Components/RangedComp")
-player_melee = NodePath("../Components/MeleeComp")
-player_repair = NodePath("../Components/RepairComp")
 player = NodePath("..")
+ranged_cooldown = NodePath("../Properties/RangedCooldownProp")
+ranged = NodePath("../Components/RangedComp")
+movement = NodePath("../Components/MovementPlayerComp")
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="Visuals"]
 sprite_frames = SubResource("SpriteFrames_4ni07")
@@ -531,6 +572,7 @@ frame_progress = 1.0
 offset = Vector2(27.5, -0.5)
 
 [node name="Audio" type="Node" parent="." node_paths=PackedStringArray("player", "player_ranged", "player_melee", "player_repair")]
+process_mode = 1
 script = ExtResource("13_a8ls1")
 player = NodePath("..")
 player_ranged = NodePath("../Components/RangedComp")
@@ -571,5 +613,3 @@ bus = &"SFX"
 
 [connection signal="changed" from="Properties/HealthProp" to="." method="_on_health_changed"]
 [connection signal="emptied" from="Properties/HealthProp" to="." method="_on_health_emptied"]
-[connection signal="melee_finished" from="Visuals" to="." method="_on_visuals_melee_finished"]
-[connection signal="animation_finished" from="Visuals/GunSprite" to="Visuals" method="_on_gun_sprite_animation_finished"]
