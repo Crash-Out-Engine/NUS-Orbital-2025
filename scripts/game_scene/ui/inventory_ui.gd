@@ -333,7 +333,6 @@ func insert_item(mod: ModBase, destination: ItemContainer.State):
 	match(destination):
 		ItemContainer.State.MODCOMP:
 			if modslot_comp._add_mod(mod):
-				print(modslot_comp.get_mods().size())
 				update_modslotcomp_list()
 			else:
 				inventory_comp._add_mod(mod)

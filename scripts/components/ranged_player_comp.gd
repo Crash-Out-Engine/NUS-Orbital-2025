@@ -13,12 +13,17 @@ func _physics_process(_delta: float) -> void:
 	if !active or !ranged_cooldown.can_ranged():
 		return
 
-	var bullet: Bullet = _BULLET_SCENE.instantiate()
-	bullet.effects.assign(effects)
-	bullet.target_filter = target_filter
-	bullet.global_position = barrel.global_position
-	bullet.direction = global_rotation
+	var interval = spread.value / (bullet_count.value + 1)
+	var angle = interval
+	for i in bullet_count.value:
+		var bullet: Bullet = _BULLET_SCENE.instantiate()
+		bullet.effects.assign(effects)
+		bullet.assign_mods(mods)
+		bullet.target_filter = target_filter
+		bullet.global_position = barrel.global_position
+		bullet.direction = global_rotation
+		bullet.direction += PI * (angle - spread.value / 2) / 180
+		angle += interval
+		bullet_spawned.emit(bullet)
 
 	ranged_cooldown.do_ranged()
-
-	bullet_spawned.emit(bullet)

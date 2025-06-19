@@ -1,0 +1,9 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://80vsimjb1v42"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dtaot"]
+load_path = "res://.godot/imported/mod_item_icons_spritesheet.png-f881a4f94ac09cf7f1e834cd7c61eeb7.ctex"
+
+[resource]
+resource_local_to_scene = true
+atlas = SubResource("CompressedTexture2D_dtaot")
+region = Rect2(34, 68, 34, 34)

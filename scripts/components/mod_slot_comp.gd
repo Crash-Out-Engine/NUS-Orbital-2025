@@ -49,7 +49,7 @@ func _setup_mods() -> void:
 			_mods.filter(func(mod): return mod != null and mod.type == ModBase.Type.APPLICATION))
 
 	var entity_properties := entity.get_node(^"Properties").get_children()
-	for upgrade in UpgradeMod.compile_upgrades(upgrade_mods):
+	for upgrade in UpgradeMod.compile_upgrades(upgrade_mods, UpgradeBase.Target.ENTITY):
 		for prop_node in entity_properties:
 			upgrade.apply_upgrade(prop_node)
 
@@ -59,6 +59,7 @@ func _setup_mods() -> void:
 	if "application_mods" in attack_comp:
 		attack_comp.application_mods.assign(application_mods)
 
+	attack_comp.mods = _mods
 	modslots_updated.emit(_mods.size(), capacity)
 
 func change_capcity(value: int):
@@ -76,7 +77,7 @@ func _add_mod(mod: ModBase) -> bool:
 				_readonly_mods = _mods.duplicate()
 				_readonly_mods.make_read_only()
 				var entity_properties := entity.get_node(^"Properties").get_children()
-				for upgrade in UpgradeMod.compile_upgrades([mod]):
+				for upgrade in UpgradeMod.compile_upgrades([mod], UpgradeBase.Target.ENTITY):
 					for prop_node in entity_properties:
 						upgrade.apply_upgrade(prop_node)
 			ModBase.Type.EFFECT:
@@ -90,7 +91,7 @@ func _add_mod(mod: ModBase) -> bool:
 				attack_comp.effects.assign(effects)
 			ModBase.Type.APPLICATION:
 				pass
-		print("true")
+		attack_comp.mods = _mods
 		return true
 	return false
 
@@ -101,7 +102,7 @@ func _remove_mod(mod: ModBase):
 			_readonly_mods = _mods.duplicate()
 			_readonly_mods.make_read_only()
 			var entity_properties := entity.get_node(^"Properties").get_children()
-			for upgrade in UpgradeMod.compile_upgrades([mod]):
+			for upgrade in UpgradeMod.compile_upgrades([mod], UpgradeBase.Target.ENTITY):
 					for prop_node in entity_properties:
 						upgrade.unapply_upgrade(prop_node)
 		ModBase.Type.EFFECT:
@@ -115,3 +116,4 @@ func _remove_mod(mod: ModBase):
 			attack_comp.effects.assign(effects)
 		ModBase.Type.APPLICATION:
 			pass
+	attack_comp.mods = _mods

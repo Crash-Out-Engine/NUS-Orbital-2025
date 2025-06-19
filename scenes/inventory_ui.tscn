@@ -244,6 +244,7 @@ size_flags_horizontal = 4
 [node name="InventoryList" type="ScrollContainer" parent="Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
+follow_focus = true
 
 [node name="Margin" type="MarginContainer" parent="Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox/InventoryList"]
 layout_mode = 2
@@ -257,6 +258,7 @@ layout_mode = 2
 [node name="BlueprintList" type="ScrollContainer" parent="Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
+follow_focus = true
 
 [node name="Margin" type="MarginContainer" parent="Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox/BlueprintList"]
 layout_mode = 2

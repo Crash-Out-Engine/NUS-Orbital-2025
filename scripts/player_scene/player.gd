@@ -31,6 +31,8 @@ const KNOCKBACK_AMOUNT = 300.0
 @export var health_prop: HealthProp
 @export var health_capacity: HealthCapacityProp
 @export var melee_cooldown: MeleeCooldownProp
+@export var size_prop: SizeProp
+@export var lives: RepeatProp
 
 var can_control = true
 var hand_action = Hand.HOLDING_GUN
@@ -47,6 +49,7 @@ var current_turret = null
 var turret_cost = 25
 var inventory_target: Turret
 var opening_inventory = false
+var size = 1.0
 
 @onready var visuals := $Visuals as PlayerVisuals
 @onready var audio := $Audio as PlayerAudio
@@ -56,6 +59,7 @@ var opening_inventory = false
 func _ready() -> void:
 	inventory.scraps_changed.connect(func(_from: int, _to: int): scraps_changed.emit())
 	health_prop.changed.connect(func(_from: int, _to: int): health_changed.emit())
+	size_prop.size_changed.connect(change_size)
 	health_changed.emit()
 	ranged.active = false
 
@@ -65,6 +69,12 @@ func _process(delta: float) -> void:
 		knockback -= KNOCKBACK_AMOUNT * delta / KNOCKBACK_DURATION
 	elif knockback < 0:
 		knockback = 0
+	
+	if scale.x != size:
+		var i = 1 if size > scale.x else -1
+		scale += i * SizeProp.GROWTH_SPEED * Vector2(1.0, 1.0)
+		if size > scale.x != (i == 1):
+			scale = size * Vector2(1.0, 1.0)
 
 
 func _physics_process(_delta: float) -> void:
@@ -176,11 +186,17 @@ func use_scraps(amount: int) -> void:
 
 
 func _on_health_emptied() -> void:
-	can_control = false
-	$CollisionShape2D.disabled = true
-	$Components/HitboxComp.team = 0
-	no_lives.emit()
+	if lives.check_empty():
+		can_control = false
+		$CollisionShape2D.disabled = true
+		ranged.active = false
+		$Components/HitboxComp.team = 0
+		no_lives.emit()
+	else:
+		respawn()
 
+func respawn() -> void:
+	health_prop.value = 10 #HACK: create proper respawn sequence
 
 func apply_knockback(source: Node2D) -> void:
 	knockback_direction = (global_position - source.global_position).normalized()
@@ -203,8 +219,12 @@ func _on_visuals_melee_finished() -> void:
 func deactivate():
 	can_control = false
 	$CollisionShape2D.disabled = true
+	ranged.active = false
 	$Components/HitboxComp.team = 0
 	visuals.deactivate()
 
 func get_blueprints() -> Array[ModBase]:
 	return blueprints.get_blueprints()
+
+func change_size(value: float):
+	size = value

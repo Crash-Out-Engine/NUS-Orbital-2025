@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://kcqha4xx46r7"]
+[gd_scene load_steps=41 format=3 uid="uid://kcqha4xx46r7"]
 
 [ext_resource type="Script" uid="uid://b2oqcghmenmfd" path="res://scripts/enemy_scene/enemy.gd" id="1_7p1mj"]
 [ext_resource type="Script" uid="uid://cndl5nak0qpxp" path="res://scripts/properties/movement_prop.gd" id="2_md0e3"]
@@ -12,8 +12,10 @@
 [ext_resource type="AudioStream" uid="uid://dn6k75a1tyl8k" path="res://assets/audio/sound_effects/hit_sound.wav" id="5_wtq4b"]
 [ext_resource type="Script" uid="uid://cu55fh5hl5rxd" path="res://scripts/properties/melee_cooldown_prop.gd" id="6_nenq2"]
 [ext_resource type="Script" uid="uid://bhi7w6ril3da2" path="res://scripts/components/ranged_AI_comp.gd" id="8_8qclf"]
+[ext_resource type="Script" uid="uid://2x8lbjmqr7m7" path="res://scripts/properties/copy_prop.gd" id="9_2pwtc"]
 [ext_resource type="Script" uid="uid://cwdm3dvyba0l3" path="res://scripts/properties/ranged_cooldown_prop.gd" id="9_ipns3"]
 [ext_resource type="Script" path="res://scripts/target_filter.gd" id="9_shcg2"]
+[ext_resource type="Script" uid="uid://3wplgpaykhjn" path="res://scripts/properties/spread_prop.gd" id="10_rogs8"]
 [ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/properties/target_priority_prop.gd" id="11_w8i8w"]
 [ext_resource type="Script" uid="uid://bkccmmojcqpl5" path="res://scripts/mods/effects/sabotage_effect.gd" id="12_ile5s"]
 [ext_resource type="Script" uid="uid://b003j8v8bhc26" path="res://scripts/enemy_scene/visuals.gd" id="13_j0cyh"]
@@ -176,6 +178,13 @@ ranged_cooldown = 1.5
 [node name="TargetPriorityProp" type="Node" parent="Properties"]
 script = ExtResource("11_w8i8w")
 
+[node name="CopyProp" type="Node" parent="Properties"]
+script = ExtResource("9_2pwtc")
+
+[node name="SpreadProp" type="Node" parent="Properties"]
+script = ExtResource("10_rogs8")
+_spread = 90.0
+
 [node name="Components" type="Node2D" parent="."]
 
 [node name="HitboxComp" type="Node" parent="Components"]
@@ -202,11 +211,13 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_s1ycm")
 debug_color = Color(0.7, 0, 0, 0.419608)
 
-[node name="RangedComp" type="Node2D" parent="Components" node_paths=PackedStringArray("barrel", "ranged_cooldown")]
+[node name="RangedComp" type="Node2D" parent="Components" node_paths=PackedStringArray("barrel", "ranged_cooldown", "bullet_count", "spread")]
 script = ExtResource("8_8qclf")
 barrel = NodePath("../..")
 ranged_cooldown = NodePath("../../Properties/RangedCooldownProp")
 target_filter = SubResource("Resource_2pwtc")
+bullet_count = NodePath("../../Properties/CopyProp")
+spread = NodePath("../../Properties/SpreadProp")
 metadata/_custom_type_script = "uid://bhi7w6ril3da2"
 
 [node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("enemy", "health")]

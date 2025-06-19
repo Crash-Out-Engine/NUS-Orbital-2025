@@ -1,7 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://b52amtg2hmpm6"]
+[gd_scene load_steps=10 format=3 uid="uid://b52amtg2hmpm6"]
 
 [ext_resource type="Script" uid="uid://baxqvovb4qoty" path="res://scripts/bullet.gd" id="1_mkf8s"]
-[ext_resource type="Script" uid="uid://leayhs5xslyy" path="res://scripts/properties/lives_prop.gd" id="2_y25gk"]
+[ext_resource type="Script" uid="uid://leayhs5xslyy" path="res://scripts/properties/repeat_prop.gd" id="2_y25gk"]
+[ext_resource type="Script" uid="uid://b5m4xwnftefoj" path="res://scripts/properties/size_prop.gd" id="3_l5glv"]
+[ext_resource type="Script" uid="uid://c7ygu18bbsb30" path="res://scenes/bullet_mods_comp.gd" id="4_eoqba"]
+[ext_resource type="Script" uid="uid://2x8lbjmqr7m7" path="res://scripts/properties/copy_prop.gd" id="4_tamys"]
+[ext_resource type="Script" uid="uid://3wplgpaykhjn" path="res://scripts/properties/spread_prop.gd" id="5_26lx3"]
 
 [sub_resource type="Gradient" id="Gradient_mkf8s"]
 offsets = PackedFloat32Array(0.0985916, 0.471831, 1)
@@ -14,9 +18,13 @@ gradient = SubResource("Gradient_mkf8s")
 radius = 1.0
 height = 6.0
 
-[node name="Bullet" type="Area2D" node_paths=PackedStringArray("lives")]
+[node name="Bullet" type="Area2D" node_paths=PackedStringArray("bullet_mods_comp", "repeat_prop", "size_prop", "copy_prop", "spread_prop")]
 script = ExtResource("1_mkf8s")
-lives = NodePath("Properties/LivesProp")
+bullet_mods_comp = NodePath("Components/BulletModsComp")
+repeat_prop = NodePath("Properties/RepeatProp")
+size_prop = NodePath("Properties/SizeProp")
+copy_prop = NodePath("Properties/CopyProp")
+spread_prop = NodePath("Properties/SpreadProp")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 z_index = -1
@@ -36,9 +44,28 @@ autostart = true
 
 [node name="Properties" type="Node" parent="."]
 
-[node name="LivesProp" type="Node" parent="Properties"]
+[node name="RepeatProp" type="Node" parent="Properties"]
 script = ExtResource("2_y25gk")
-lives = 1
+
+[node name="SizeProp" type="Node" parent="Properties"]
+script = ExtResource("3_l5glv")
+metadata/_custom_type_script = "uid://b5m4xwnftefoj"
+
+[node name="CopyProp" type="Node" parent="Properties"]
+script = ExtResource("4_tamys")
+metadata/_custom_type_script = "uid://2x8lbjmqr7m7"
+
+[node name="SpreadProp" type="Node" parent="Properties"]
+script = ExtResource("5_26lx3")
+_spread = 3.0
+metadata/_custom_type_script = "uid://3wplgpaykhjn"
+
+[node name="Components" type="Node2D" parent="."]
+
+[node name="BulletModsComp" type="Node" parent="Components" node_paths=PackedStringArray("bullet")]
+script = ExtResource("4_eoqba")
+bullet = NodePath("../..")
+metadata/_custom_type_script = "uid://bnt7cwx8k0nm0"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

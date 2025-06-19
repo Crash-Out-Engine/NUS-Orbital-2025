@@ -1,0 +1,49 @@
+[gd_resource type="Resource" script_class="UpgradeMod" load_steps=15 format=3 uid="uid://cg1gbxue54288"]
+
+[ext_resource type="Texture2D" uid="uid://bihalavmi1ujn" path="res://resources/text_icons/player_size_minus.tres" id="1_uiu3a"]
+[ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="2_p34p1"]
+[ext_resource type="Resource" uid="uid://btlyda8bvnqes" path="res://resources/property_points/size_pp.tres" id="3_wps8v"]
+[ext_resource type="Resource" uid="uid://d1a2felxieh8m" path="res://resources/property_points/speed_pp.tres" id="4_jrg8a"]
+[ext_resource type="Script" uid="uid://d2qeqei6awjb1" path="res://scripts/mods/upgrade_mod.gd" id="6_rtfgs"]
+[ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrades/upgrade_base.gd" id="7_vwiod"]
+[ext_resource type="Script" uid="uid://dtbv8tja5mys5" path="res://scripts/mods/upgrades/size_upgrade.gd" id="8_55agt"]
+[ext_resource type="Script" uid="uid://c01p77hb3xtxy" path="res://scripts/mods/upgrades/health_capacity_upgrade.gd" id="9_2dlun"]
+[ext_resource type="Script" uid="uid://bgdmv8hbubguj" path="res://scripts/mods/upgrades/health_upgrade.gd" id="10_21rfm"]
+[ext_resource type="Script" uid="uid://dd3i2bybtux50" path="res://scripts/mods/upgrades/movement_upgrade.gd" id="11_6bdju"]
+
+[sub_resource type="Resource" id="Resource_t3xmf"]
+script = ExtResource("8_55agt")
+_factor = -0.5
+_target = 0
+metadata/_custom_type_script = "uid://dtbv8tja5mys5"
+
+[sub_resource type="Resource" id="Resource_008eb"]
+script = ExtResource("9_2dlun")
+_factor = -25.0
+_target = 0
+metadata/_custom_type_script = "uid://c01p77hb3xtxy"
+
+[sub_resource type="Resource" id="Resource_lhfpx"]
+script = ExtResource("10_21rfm")
+_factor = -25.0
+_target = 0
+metadata/_custom_type_script = "uid://bgdmv8hbubguj"
+
+[sub_resource type="Resource" id="Resource_c7vff"]
+script = ExtResource("11_6bdju")
+_factor = 40.0
+_target = 0
+metadata/_custom_type_script = "uid://dd3i2bybtux50"
+
+[resource]
+script = ExtResource("6_rtfgs")
+upgrades = Array[ExtResource("7_vwiod")]([SubResource("Resource_t3xmf"), SubResource("Resource_008eb"), SubResource("Resource_lhfpx"), SubResource("Resource_c7vff")])
+name = "Size-"
+icon = ExtResource("1_uiu3a")
+description = "Decrease your body size to become more nimble"
+property_points = Dictionary[ExtResource("2_p34p1"), int]({
+ExtResource("3_wps8v"): 1,
+ExtResource("4_jrg8a"): 2
+})
+value = 150
+metadata/_custom_type_script = "uid://d2qeqei6awjb1"

@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="UpgradeMod" load_steps=8 format=3 uid="uid://cci24ym6eag5g"]
+
+[ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="1_erm5a"]
+[ext_resource type="Texture2D" uid="uid://bmpr4q0o4nyxt" path="res://resources/text_icons/piercing.tres" id="1_trar0"]
+[ext_resource type="Script" uid="uid://d2qeqei6awjb1" path="res://scripts/mods/upgrade_mod.gd" id="2_hoyo4"]
+[ext_resource type="Resource" uid="uid://bosbtjbfskpsr" path="res://resources/property_points/repeat_pp.tres" id="3_41mmj"]
+[ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrades/upgrade_base.gd" id="3_370jw"]
+[ext_resource type="Script" uid="uid://dsoxa5t4qnr3w" path="res://scripts/mods/upgrades/repeat_upgrade.gd" id="6_fwa20"]
+
+[sub_resource type="Resource" id="Resource_cs4os"]
+script = ExtResource("6_fwa20")
+_factor = 1.0
+_target = 1
+metadata/_custom_type_script = "uid://dsoxa5t4qnr3w"
+
+[resource]
+script = ExtResource("2_hoyo4")
+upgrades = Array[ExtResource("3_370jw")]([SubResource("Resource_cs4os")])
+name = "Piercing+"
+icon = ExtResource("1_trar0")
+description = "Bullets can pierce an additional enemy"
+property_points = Dictionary[ExtResource("1_erm5a"), int]({
+ExtResource("3_41mmj"): 1
+})
+value = 50
+metadata/_custom_type_script = "uid://d2qeqei6awjb1"
