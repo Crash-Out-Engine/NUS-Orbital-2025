@@ -561,7 +561,6 @@ _knockback_speed_curve = SubResource("Curve_md1ol")
 _speed = NodePath("../../Properties/SpeedProp")
 
 [node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("player", "ranged_cooldown", "ranged", "movement")]
-process_mode = 1
 script = ExtResource("14_oprun")
 player = NodePath("..")
 ranged_cooldown = NodePath("../Properties/RangedCooldownProp")
@@ -589,7 +588,6 @@ frame_progress = 1.0
 offset = Vector2(27.5, -0.5)
 
 [node name="Audio" type="Node" parent="." node_paths=PackedStringArray("player", "ranged", "melee", "repair", "movement")]
-process_mode = 1
 script = ExtResource("13_a8ls1")
 player = NodePath("..")
 ranged = NodePath("../Components/RangedComp")

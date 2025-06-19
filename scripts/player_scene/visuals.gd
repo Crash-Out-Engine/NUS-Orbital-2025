@@ -1,5 +1,8 @@
 class_name PlayerVisuals
 extends Node2D
+## Controls all player visuals.
+##
+## Asides from the rpc methods ([code]_play_*[/code]), all code should be run only at the authority.
 
 const V_MODULATE := 100000000.0
 const BLEED_TIME := 2.0 / 30.0
@@ -24,6 +27,9 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if not is_multiplayer_authority():
+		return
+
 	# player_sprite processes
 	var horizontal_dir = movement.movement_direction.x
 	if horizontal_dir != 0:

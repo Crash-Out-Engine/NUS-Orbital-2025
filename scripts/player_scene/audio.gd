@@ -1,5 +1,8 @@
 class_name PlayerAudio
 extends Node
+## Controls all player audio.
+##
+## Asides from the rpc methods ([code]_play_*[/code]), all code should be run only at the authority.
 
 @export var player: Player
 
@@ -21,7 +24,7 @@ func _ready() -> void:
 	# called, all signal connections have to check for is_multiplayer_authority().
 	player.hand.action_changed.connect(
 			func(from, to): if is_multiplayer_authority(): _handle_hand_action_changed(from, to))
-	ranged.bullet_spawned.connect(func(): if is_multiplayer_authority(): _play_laser_sound.rpc())
+	ranged.bullet_spawned.connect(func(_bullet): if is_multiplayer_authority(): _play_laser_sound.rpc())
 	player.turret_placement_failed.connect(
 			func(): if is_multiplayer_authority(): _play_turret_placement_error_sound.rpc())
 	melee.executed.connect(func(_entity): if is_multiplayer_authority(): _play_hit_sound.rpc())
@@ -29,6 +32,9 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+	if not is_multiplayer_authority():
+		return
+
 	if movement.movement_direction != Vector2.ZERO:
 		if !footsteps_sound.playing:
 			_play_footsteps_sound.rpc()
@@ -55,7 +61,7 @@ func _play_turret_placement_error_sound() -> void:
 	turret_placement_error_sound.play()
 
 @rpc("any_peer", "call_local", "reliable")
-func _play_laser_sound(_bullet) -> void:
+func _play_laser_sound() -> void:
 	laser_sound.play()
 
 @rpc("any_peer", "call_local", "reliable")
