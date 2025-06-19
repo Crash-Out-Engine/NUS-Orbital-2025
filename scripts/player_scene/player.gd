@@ -26,6 +26,8 @@ var turret_cost = 25
 
 
 func _ready() -> void:
+	# As the multiplayer authority has not been set at the point of _ready being
+	# called, all signal connections have to check for is_multiplayer_authority().
 	inventory.scraps_changed.connect(func(_from, _to): scraps_changed.emit())
 	ranged.bullet_spawned.connect(entity_spawned.emit)
 	melee_player.animation_finished.connect(func(_name):

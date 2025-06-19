@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=3 uid="uid://ytw0s5xnqwvt"]
+[gd_scene load_steps=75 format=3 uid="uid://ytw0s5xnqwvt"]
 
 [ext_resource type="Script" uid="uid://c8f8kowfp34yp" path="res://scripts/player_scene/player.gd" id="1_f1ej7"]
 [ext_resource type="Texture2D" uid="uid://dvanyjoqcolwr" path="res://assets/sprites/player_spritesheet.png" id="2_y4r1p"]
@@ -186,6 +186,20 @@ radius = 40.0
 _limits = [0.0, 500.0, 0.0, 0.5]
 _data = [Vector2(0, 500), 0.0, 0.0, 0, 0, Vector2(0.5, 0), 0.0, 0.0, 0, 0]
 point_count = 2
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_dt7fs"]
+properties/0/path = NodePath("PlayerSprite:flip_h")
+properties/0/spawn = false
+properties/0/replication_mode = 1
+properties/1/path = NodePath("PlayerSprite:modulate")
+properties/1/spawn = false
+properties/1/replication_mode = 1
+properties/2/path = NodePath("GunSprite:rotation")
+properties/2/spawn = false
+properties/2/replication_mode = 1
+properties/3/path = NodePath("GunSprite:scale")
+properties/3/spawn = false
+properties/3/replication_mode = 1
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a38lo"]
 atlas = ExtResource("2_y4r1p")
@@ -554,6 +568,9 @@ ranged_cooldown = NodePath("../Properties/RangedCooldownProp")
 ranged = NodePath("../Components/RangedComp")
 movement = NodePath("../Components/MovementPlayerComp")
 
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Visuals"]
+replication_config = SubResource("SceneReplicationConfig_dt7fs")
+
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="Visuals"]
 sprite_frames = SubResource("SpriteFrames_4ni07")
 animation = &"idle"
@@ -561,7 +578,7 @@ animation = &"idle"
 [node name="GunSprite" type="AnimatedSprite2D" parent="Visuals"]
 z_index = 5
 sprite_frames = SubResource("SpriteFrames_pf23h")
-animation = &"gun_fire"
+animation = &"gun_idle"
 offset = Vector2(28.5, 1.5)
 
 [node name="GunBlastSprite" type="AnimatedSprite2D" parent="Visuals/GunSprite"]
@@ -571,13 +588,14 @@ frame = 3
 frame_progress = 1.0
 offset = Vector2(27.5, -0.5)
 
-[node name="Audio" type="Node" parent="." node_paths=PackedStringArray("player", "player_ranged", "player_melee", "player_repair")]
+[node name="Audio" type="Node" parent="." node_paths=PackedStringArray("player", "ranged", "melee", "repair", "movement")]
 process_mode = 1
 script = ExtResource("13_a8ls1")
 player = NodePath("..")
-player_ranged = NodePath("../Components/RangedComp")
-player_melee = NodePath("../Components/MeleeComp")
-player_repair = NodePath("../Components/RepairComp")
+ranged = NodePath("../Components/RangedComp")
+melee = NodePath("../Components/MeleeComp")
+repair = NodePath("../Components/RepairComp")
+movement = NodePath("../Components/MovementPlayerComp")
 
 [node name="LaserSound" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("12_3v2ag")

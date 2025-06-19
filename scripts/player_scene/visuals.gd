@@ -15,10 +15,12 @@ const BLEED_TIME := 2.0 / 30.0
 
 
 func _ready() -> void:
-	player.health_changed.connect(play_bleed)
-	player.hand.action_changed.connect(_handle_hand_action_changed)
-	ranged.bullet_spawned.connect(func(_bullet): play_gun_fire())
-	gun_sprite.play("gun_idle")
+	# As the multiplayer authority has not been set at the point of _ready being
+	# called, all signal connections have to check for is_multiplayer_authority().
+	player.health_changed.connect(func(): if is_multiplayer_authority(): _play_bleed.rpc())
+	player.hand.action_changed.connect(
+			func(from, to): if is_multiplayer_authority(): _handle_hand_action_changed(from, to))
+	ranged.bullet_spawned.connect(func(_bullet): if is_multiplayer_authority(): _play_gun_fire.rpc())
 
 
 func _process(delta: float) -> void:
@@ -27,9 +29,9 @@ func _process(delta: float) -> void:
 	if horizontal_dir != 0:
 		player_sprite.flip_h = horizontal_dir < 0
 	if movement.movement_direction != Vector2.ZERO:
-		player_sprite.play("running")
+		_play_running.rpc()
 	else:
-		player_sprite.play("idle")
+		_play_idle.rpc()
 	if (player_sprite.modulate.v > 1):
 		player_sprite.modulate.v -= V_MODULATE * delta / BLEED_TIME
 		if (player_sprite.modulate.v <= 1):
@@ -42,34 +44,49 @@ func _process(delta: float) -> void:
 
 
 func _handle_hand_action_changed(_from: Player.Hand.Action, to: Player.Hand.Action) -> void:
-	const HA := Player.Hand.Action
-	match to:
-		HA.FIRING_WRENCH:
-			play_wrench_fire()
-		HA.HOLDING_GUN:
-			play_gun_idle()
-		HA.PLANNING_WRENCH:
-			play_wrench_idle()
+		const HA := Player.Hand.Action
+		match to:
+			HA.FIRING_WRENCH:
+				_play_wrench_fire.rpc()
+			HA.HOLDING_GUN:
+				_play_gun_idle.rpc()
+			HA.PLANNING_WRENCH:
+				_play_wrench_idle.rpc()
 
 
-func play_wrench_idle() -> void:
+@rpc("any_peer", "call_local", "reliable")
+func _play_wrench_idle() -> void:
 	gun_sprite.play("melee_idle")
 
 
-func play_gun_idle() -> void:
+@rpc("any_peer", "call_local", "reliable")
+func _play_gun_idle() -> void:
 	gun_sprite.play("gun_idle")
 
 
-func play_gun_fire() -> void:
+@rpc("any_peer", "call_local", "reliable")
+func _play_gun_fire() -> void:
 	gun_sprite.sprite_frames.set_animation_speed("gun_fire", 4.0 / ranged_cooldown.value)
 	gun_sprite.play("gun_fire")
 	gun_blast_sprite.sprite_frames.set_animation_speed("default", 4.0 / ranged_cooldown.value)
 	gun_blast_sprite.play()
 
 
-func play_wrench_fire() -> void:
+@rpc("any_peer", "call_local", "reliable")
+func _play_wrench_fire() -> void:
 	gun_sprite.play("melee_fire")
 
 
-func play_bleed() -> void:
+@rpc("any_peer", "call_local", "reliable")
+func _play_bleed() -> void:
 	player_sprite.modulate.v = V_MODULATE
+
+
+@rpc("any_peer", "call_local", "reliable")
+func _play_running() -> void:
+	player_sprite.play("running")
+
+
+@rpc("any_peer", "call_local", "reliable")
+func _play_idle() -> void:
+	player_sprite.play("idle")

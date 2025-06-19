@@ -47,7 +47,7 @@ func _register_players(peer_player: Dictionary[int, NodePath]) -> void:
 		if player.is_multiplayer_authority():
 			_local_player = player
 		else:
-			player.get_node(^"Components").process_mode = Node.PROCESS_MODE_DISABLED
+			player.process_mode = Node.PROCESS_MODE_DISABLED
 
 
 func get_local_player() -> Player:
