@@ -14,6 +14,9 @@ var effects: Array[Effect] = []
 
 
 func _physics_process(delta: float) -> void:
+	if not is_multiplayer_authority():
+		return
+
 	global_position += Vector2.from_angle(direction) * SPEED * delta
 	global_rotation = direction
 
@@ -23,18 +26,20 @@ func _on_timer_timeout() -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	if is_multiplayer_authority():
-		if (body.has_node(^"Components/HitboxComp")
-				and body.get_node(^"Components/HitboxComp").is_targeted_by(target_filter)):
-			var explosion = _EXPLOSION_SCENE.instantiate()
-			explosion.global_position = global_position
-			explosion.target_filter = target_filter
-			explosion.effects = effects
+	if not is_multiplayer_authority():
+		return
 
-			_entity_manager.add_entity(explosion, self)
+	if (body.has_node(^"Components/HitboxComp")
+			and body.get_node(^"Components/HitboxComp").is_targeted_by(target_filter)):
+		var explosion = _EXPLOSION_SCENE.instantiate()
+		explosion.global_position = global_position
+		explosion.target_filter = target_filter
+		explosion.effects = effects
 
-			if lives.try_die():
-				get_parent().remove_entity(self)
+		_entity_manager.add_entity(explosion, self)
+
+		if lives.try_die():
+			get_parent().remove_entity(self)
 
 #region Save/load
 

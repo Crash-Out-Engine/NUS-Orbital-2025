@@ -16,9 +16,22 @@ func setup_mod_loots(mod: ModBase) -> void:
 	item = Item.ModItem.new(mod)
 
 
+func move(displacement: Vector2) -> void:
+	position += displacement
+	_sync_position.rpc(position)
+
+
 func _on_tree_entered() -> void:
 	if is_multiplayer_authority():
 		assert(item != null, "Loot should be set up before it enters a tree.")
+
+#region Sync
+
+@rpc("any_peer", "call_remote", "unreliable")
+func _sync_position(_position: Vector2) -> void:
+	position = _position
+
+#endregion
 
 #region Save/load
 

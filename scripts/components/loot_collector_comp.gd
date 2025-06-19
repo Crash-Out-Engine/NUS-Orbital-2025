@@ -28,7 +28,7 @@ func _physics_process(delta: float) -> void:
 			continue
 
 		var direction = displacement.normalized()
-		loot.global_position += direction * LOOT_SPEED * delta
+		loot.move(direction * LOOT_SPEED * delta) 
 
 
 func _handle_area_entered(area: Area2D) -> void:

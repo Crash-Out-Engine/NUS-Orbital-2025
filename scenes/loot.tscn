@@ -1,7 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://cqq2h867dq6v3"]
+[gd_scene load_steps=5 format=3 uid="uid://cqq2h867dq6v3"]
 
 [ext_resource type="Script" uid="uid://byjtyhf2tnuyx" path="res://scripts/loot.gd" id="1_xofgn"]
 [ext_resource type="Texture2D" uid="uid://b2tks1tuu2rsb" path="res://assets/sprites/loot_spritesheet.png" id="2_o0pg5"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_o0pg5"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5os5r"]
 radius = 5.0
@@ -11,6 +19,9 @@ z_index = -2
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_xofgn")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_o0pg5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 1

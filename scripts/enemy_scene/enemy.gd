@@ -14,15 +14,17 @@ func _ready() -> void:
 	health_prop.emptied.connect(die)
 
 
-func die():
-	if is_multiplayer_authority():
-		await visuals.bleed_finished
-		get_parent().remove_entity(self)
+func die() -> void:
+	if not is_multiplayer_authority():
+		return 
 
-		var loot = _LOOT_SCENE.instantiate()
-		loot.setup_scrap_loot(1)
-		loot.global_position = global_position
-		entity_spawned.emit(loot)
+	await visuals.bleed_finished
+	get_parent().remove_entity(self)
+
+	var loot = _LOOT_SCENE.instantiate()
+	loot.setup_scrap_loot(1)
+	loot.global_position = global_position
+	entity_spawned.emit(loot)
 
 #region Save/load
 
