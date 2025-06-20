@@ -9,6 +9,7 @@ const FLIP_THRESHOLD: float = 0.001
 
 @export var enemy: Enemy
 @export var health: HealthProp
+@export var movement_prop: MovementProp
 
 @onready var body_sprite := $BodySprite as AnimatedSprite2D
 @onready var flames_sprite := $FlamesSprite as AnimatedSprite2D
@@ -31,7 +32,7 @@ func _process(delta: float) -> void:
 			bleed_finished.emit()
 
 	# sprite direction
-	var x_velocity = enemy.linear_velocity.x
+	var x_velocity = movement_prop.direction.x
 	if absf(x_velocity) > FLIP_THRESHOLD:
 		var flip_h = x_velocity < 0
 		body_sprite.flip_h = flip_h

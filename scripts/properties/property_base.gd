@@ -12,6 +12,7 @@ var value: float:
 			value = _value
 			changed.emit(prev_value, value)
 
+var _last_source: Node2D = null
 
 func _init() -> void:
 	assert(get_class() != "PropertyBase",

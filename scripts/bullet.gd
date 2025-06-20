@@ -12,6 +12,9 @@ const SPEED = 800
 @export var size_prop: SizeProp
 @export var copy_prop: CopyProp
 @export var spread_prop: SpreadProp
+@export var timeout_prop: TimeoutProp
+
+@onready var timer = $Timer as Timer
 
 var direction: float
 var target_filter: TargetFilter
@@ -19,7 +22,9 @@ var effects: Array[EffectBase] = []
 
 func _ready() -> void:
 	size_prop.size_changed.connect(set_size)
+	timeout_prop.changed.connect(func(_from, to): timer.wait_time = to)
 	bullet_mods_comp._setup_mods()
+	timer.start()
 
 func _physics_process(delta: float) -> void:
 	global_position += Vector2.from_angle(direction) * SPEED * delta

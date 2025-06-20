@@ -64,11 +64,11 @@ func _ready() -> void:
 
 func try_open():
 	if Input.is_action_just_pressed("inventory"):
-		if analysis.visible:
-			analysis.visible = false
-			return
 		if visible:
-			close_inventory()
+			if analysis.visible:
+				analysis.visible = false
+			else:
+				close_inventory()
 		else:
 			visible = true
 			opening_setup(player.get_inventory(), player.get_mod_slots())

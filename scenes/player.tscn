@@ -1,4 +1,4 @@
-[gd_scene load_steps=111 format=3 uid="uid://ytw0s5xnqwvt"]
+[gd_scene load_steps=114 format=3 uid="uid://ytw0s5xnqwvt"]
 
 [ext_resource type="Script" uid="uid://c8f8kowfp34yp" path="res://scripts/player_scene/player.gd" id="1_f1ej7"]
 [ext_resource type="Script" uid="uid://cndl5nak0qpxp" path="res://scripts/properties/movement_prop.gd" id="2_g2els"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod_base.gd" id="10_md1ol"]
 [ext_resource type="Script" uid="uid://leayhs5xslyy" path="res://scripts/properties/repeat_prop.gd" id="11_6e8lb"]
 [ext_resource type="AudioStream" uid="uid://dc66si5kieoq4" path="res://assets/audio/sound_effects/laser_gunshot.wav" id="12_3v2ag"]
+[ext_resource type="Script" uid="uid://bvhh7lwu4sovf" path="res://scripts/properties/knockback_prop.gd" id="12_sc3ue"]
 [ext_resource type="Script" uid="uid://dng6x4ecq2npd" path="res://scripts/player_scene/audio.gd" id="13_a8ls1"]
 [ext_resource type="AudioStream" uid="uid://dk7lmxukxhhcr" path="res://assets/audio/sound_effects/error.wav" id="13_f1ej7"]
 [ext_resource type="AudioStream" uid="uid://ciu1er752oye4" path="res://assets/audio/sound_effects/sand_steps.wav" id="13_jej6c"]
@@ -37,6 +38,7 @@
 [ext_resource type="Texture2D" uid="uid://qffoquvsdmfp" path="res://assets/sprites/playerhand_spritesheet.png" id="22_pf23h"]
 [ext_resource type="Script" uid="uid://dg0wh1lngb3ha" path="res://scripts/components/blueprint_comp.gd" id="23_bj30b"]
 [ext_resource type="Resource" uid="uid://ido6g1b0tgpf" path="res://resources/upgrade_mods/base_speed_upgrade.tres" id="23_jc3p3"]
+[ext_resource type="Script" uid="uid://6ofkt38dyeyp" path="res://scripts/mods/effects/knockback_effect.gd" id="23_lxlsd"]
 [ext_resource type="Texture2D" uid="uid://cai86xvs48gye" path="res://assets/sprites/gunblast_spritesheet.png" id="23_pf23h"]
 [ext_resource type="Resource" uid="uid://dwfvxifo18je3" path="res://resources/upgrade_mods/enlargement_upgrade.tres" id="25_j2b1d"]
 [ext_resource type="Resource" uid="uid://cg1gbxue54288" path="res://resources/upgrade_mods/shrink_upgrade.tres" id="26_cs1tg"]
@@ -161,6 +163,13 @@ _interval = -1.0
 _repeat = 0
 _factor = -20.0
 metadata/_custom_type_script = "uid://2fh28xow6f1j"
+
+[sub_resource type="Resource" id="Resource_ha2mi"]
+script = ExtResource("23_lxlsd")
+_interval = -1.0
+_repeat = 0
+_factor = 500.0
+metadata/_custom_type_script = "uid://6ofkt38dyeyp"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a38lo"]
 size = Vector2(60, 40)
@@ -575,11 +584,12 @@ libraries = {
 
 [node name="Properties" type="Node" parent="."]
 
-[node name="MovementProp" type="Node" parent="Properties" node_paths=PackedStringArray("target_priority")]
+[node name="MovementProp" type="Node" parent="Properties" node_paths=PackedStringArray("target_priority", "knockback_prop")]
 script = ExtResource("2_g2els")
 initial_speed = 80.0
 is_player = true
 target_priority = NodePath("../TargetPriorityProp")
+knockback_prop = NodePath("../KnockbackProp")
 
 [node name="HealthCapacityProp" type="Node" parent="Properties"]
 script = ExtResource("8_4ni07")
@@ -618,6 +628,9 @@ _spread = 90.0
 script = ExtResource("11_6e8lb")
 metadata/_custom_type_script = "uid://leayhs5xslyy"
 
+[node name="KnockbackProp" type="Node" parent="Properties"]
+script = ExtResource("12_sc3ue")
+
 [node name="Components" type="Node2D" parent="."]
 
 [node name="HitboxComp" type="Node" parent="Components"]
@@ -654,7 +667,7 @@ script = ExtResource("17_4r5pv")
 melee_cooldown = NodePath("../../Properties/MeleeCooldownProp")
 target_priority = NodePath("../../Properties/TargetPriorityProp")
 target_filter = SubResource("Resource_pf23h")
-effects = Array[ExtResource("19_a38lo")]([SubResource("Resource_gl8cc")])
+effects = Array[ExtResource("19_a38lo")]([SubResource("Resource_gl8cc"), SubResource("Resource_ha2mi")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Components/MeleeComp"]
 z_index = 100

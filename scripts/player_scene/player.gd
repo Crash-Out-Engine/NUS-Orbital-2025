@@ -17,8 +17,6 @@ enum Hand {
 }
 
 const _TURRET_SCENE := preload("res://scenes/turret.tscn")
-const KNOCKBACK_DURATION = 0.5
-const KNOCKBACK_AMOUNT = 300.0
 
 @export_group("Components")
 @export var ranged: RangedBaseComp
@@ -43,8 +41,6 @@ var direction: Callable = func(_delta: float) -> Vector2:
 		Input.get_axis("left", "right"),
 		Input.get_axis("up", "down")
 		)
-var knockback = 0.0
-var knockback_direction = Vector2(0, 0)
 var current_turret = null
 var turret_cost = 25
 var inventory_target: Turret
@@ -64,12 +60,7 @@ func _ready() -> void:
 	ranged.active = false
 
 
-func _process(delta: float) -> void:
-	if knockback > 0:
-		knockback -= KNOCKBACK_AMOUNT * delta / KNOCKBACK_DURATION
-	elif knockback < 0:
-		knockback = 0
-	
+func _process(_delta: float) -> void:
 	if scale.x != size:
 		var i = 1 if size > scale.x else -1
 		scale += i * SizeProp.GROWTH_SPEED * Vector2(1.0, 1.0)
@@ -197,10 +188,6 @@ func _on_health_emptied() -> void:
 
 func respawn() -> void:
 	health_prop.value = 10 #HACK: create proper respawn sequence
-
-func apply_knockback(source: Node2D) -> void:
-	knockback_direction = (global_position - source.global_position).normalized()
-	knockback = KNOCKBACK_AMOUNT
 
 
 func _can_place_turret() -> bool:

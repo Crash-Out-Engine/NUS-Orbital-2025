@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b52amtg2hmpm6"]
+[gd_scene load_steps=11 format=3 uid="uid://b52amtg2hmpm6"]
 
 [ext_resource type="Script" uid="uid://baxqvovb4qoty" path="res://scripts/bullet.gd" id="1_mkf8s"]
 [ext_resource type="Script" uid="uid://leayhs5xslyy" path="res://scripts/properties/repeat_prop.gd" id="2_y25gk"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://c7ygu18bbsb30" path="res://scenes/bullet_mods_comp.gd" id="4_eoqba"]
 [ext_resource type="Script" uid="uid://2x8lbjmqr7m7" path="res://scripts/properties/copy_prop.gd" id="4_tamys"]
 [ext_resource type="Script" uid="uid://3wplgpaykhjn" path="res://scripts/properties/spread_prop.gd" id="5_26lx3"]
+[ext_resource type="Script" uid="uid://u5g8y25fayqm" path="res://scripts/properties/timeout_prop.gd" id="6_26lx3"]
 
 [sub_resource type="Gradient" id="Gradient_mkf8s"]
 offsets = PackedFloat32Array(0.0985916, 0.471831, 1)
@@ -18,13 +19,14 @@ gradient = SubResource("Gradient_mkf8s")
 radius = 1.0
 height = 6.0
 
-[node name="Bullet" type="Area2D" node_paths=PackedStringArray("bullet_mods_comp", "repeat_prop", "size_prop", "copy_prop", "spread_prop")]
+[node name="Bullet" type="Area2D" node_paths=PackedStringArray("bullet_mods_comp", "repeat_prop", "size_prop", "copy_prop", "spread_prop", "timeout_prop")]
 script = ExtResource("1_mkf8s")
 bullet_mods_comp = NodePath("Components/BulletModsComp")
 repeat_prop = NodePath("Properties/RepeatProp")
 size_prop = NodePath("Properties/SizeProp")
 copy_prop = NodePath("Properties/CopyProp")
 spread_prop = NodePath("Properties/SpreadProp")
+timeout_prop = NodePath("Properties/TimeoutProp")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 z_index = -1
@@ -40,7 +42,6 @@ shape = SubResource("CapsuleShape2D_mkf8s")
 [node name="Timer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
-autostart = true
 
 [node name="Properties" type="Node" parent="."]
 
@@ -59,6 +60,10 @@ metadata/_custom_type_script = "uid://2x8lbjmqr7m7"
 script = ExtResource("5_26lx3")
 _spread = 3.0
 metadata/_custom_type_script = "uid://3wplgpaykhjn"
+
+[node name="TimeoutProp" type="Node" parent="Properties"]
+script = ExtResource("6_26lx3")
+time = 3.0
 
 [node name="Components" type="Node2D" parent="."]
 
