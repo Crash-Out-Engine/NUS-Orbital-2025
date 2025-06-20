@@ -46,5 +46,5 @@ func _physics_process(delta: float) -> void:
 			var target = target_provider.get_target(parent.global_position, target_filter)
 			if target != null:
 				direction = parent.global_position.direction_to(target.global_position).normalized()
-				var impulse = (direction * value + knockback) * parent.mass 
+				var impulse = (direction * value + knockback) * parent.mass
 				parent.apply_central_impulse(impulse - parent.linear_velocity * parent.mass)

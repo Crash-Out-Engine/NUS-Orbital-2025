@@ -77,7 +77,7 @@ func play_gun_fire(_bullet):
 func play_melee_fire():
 	player_melee.rotation = gun_sprite.rotation
 	player_repair.rotation = gun_sprite.rotation
-	gun_sprite.speed_scale = 0.5 / melee_cooldown.value 
+	gun_sprite.speed_scale = 0.5 / melee_cooldown.value
 	gun_sprite.play("melee_fire")
 
 func play_bleed():

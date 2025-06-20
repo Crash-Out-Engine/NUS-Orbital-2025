@@ -64,7 +64,7 @@ func _process(_delta: float) -> void:
 	if scale.x != size:
 		var i = 1 if size > scale.x else -1
 		scale += i * SizeProp.GROWTH_SPEED * Vector2(1.0, 1.0)
-		if size > scale.x != (i == 1):
+		if (size > scale.x) != (i == 1):
 			scale = size * Vector2(1.0, 1.0)
 
 

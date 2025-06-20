@@ -14,11 +14,11 @@ const SPEED = 800
 @export var spread_prop: SpreadProp
 @export var timeout_prop: TimeoutProp
 
-@onready var timer = $Timer as Timer
-
 var direction: float
 var target_filter: TargetFilter
 var effects: Array[EffectBase] = []
+
+@onready var timer = $Timer as Timer
 
 func _ready() -> void:
 	size_prop.size_changed.connect(set_size)

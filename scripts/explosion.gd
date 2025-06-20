@@ -6,10 +6,10 @@ extends Area2D
 @export var size_prop: SizeProp
 @export var timeout_prop: TimeoutProp
 
-@onready var anim_player = $AnimationPlayer as AnimationPlayer
-
 var target_filter: TargetFilter
 var effects: Array[EffectBase] = []
+
+@onready var anim_player = $AnimationPlayer as AnimationPlayer
 
 func _ready() -> void:
 	size_prop.size_changed.connect(func(value): scale = value * Vector2(1.0, 1.0))
