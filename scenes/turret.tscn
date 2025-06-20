@@ -129,7 +129,7 @@ metadata/_custom_type_script = "uid://bg2iinlcp53aa"
 
 [node name="RangedCooldownProp" type="Node" parent="Properties"]
 script = ExtResource("3_pp6j5")
-ranged_cooldown = 0.2
+ranged_cooldown = 0.25
 
 [node name="BuildProp" type="Node" parent="Properties"]
 script = ExtResource("4_8c4bs")

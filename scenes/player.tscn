@@ -1,4 +1,4 @@
-[gd_scene load_steps=114 format=3 uid="uid://ytw0s5xnqwvt"]
+[gd_scene load_steps=118 format=3 uid="uid://ytw0s5xnqwvt"]
 
 [ext_resource type="Script" uid="uid://c8f8kowfp34yp" path="res://scripts/player_scene/player.gd" id="1_f1ej7"]
 [ext_resource type="Script" uid="uid://cndl5nak0qpxp" path="res://scripts/properties/movement_prop.gd" id="2_g2els"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://leayhs5xslyy" path="res://scripts/properties/repeat_prop.gd" id="11_6e8lb"]
 [ext_resource type="AudioStream" uid="uid://dc66si5kieoq4" path="res://assets/audio/sound_effects/laser_gunshot.wav" id="12_3v2ag"]
 [ext_resource type="Script" uid="uid://bvhh7lwu4sovf" path="res://scripts/properties/knockback_prop.gd" id="12_sc3ue"]
+[ext_resource type="Script" uid="uid://cg7x3m1w75avm" path="res://scripts/properties/knockback_resistance_property.gd" id="13_8svfe"]
 [ext_resource type="Script" uid="uid://dng6x4ecq2npd" path="res://scripts/player_scene/audio.gd" id="13_a8ls1"]
 [ext_resource type="AudioStream" uid="uid://dk7lmxukxhhcr" path="res://assets/audio/sound_effects/error.wav" id="13_f1ej7"]
 [ext_resource type="AudioStream" uid="uid://ciu1er752oye4" path="res://assets/audio/sound_effects/sand_steps.wav" id="13_jej6c"]
@@ -53,6 +54,9 @@
 [ext_resource type="Resource" uid="uid://cci24ym6eag5g" path="res://resources/upgrade_mods/piercing_upgrade.tres" id="35_4gjji"]
 [ext_resource type="Resource" uid="uid://7xydugwdpqsp" path="res://resources/upgrade_mods/repeat_explosion_upgrade.tres" id="36_u2ulf"]
 [ext_resource type="Resource" uid="uid://ssedgu0f2q68" path="res://resources/upgrade_mods/extra_life_upgrade.tres" id="38_2gdjj"]
+[ext_resource type="Resource" uid="uid://gtpo8u16foe8" path="res://resources/upgrade_mods/base_ranged_cooldown_upgrade.tres" id="41_ha2mi"]
+[ext_resource type="Resource" uid="uid://bckq5o6xawc1n" path="res://resources/upgrade_mods/base_melee_cooldown_upgrade.tres" id="42_apa73"]
+[ext_resource type="Resource" uid="uid://cwv1pbjmnp8gh" path="res://resources/effect_mods/base_knockback.tres" id="43_74r1k"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
 radius = 5.0
@@ -168,7 +172,7 @@ metadata/_custom_type_script = "uid://2fh28xow6f1j"
 script = ExtResource("23_lxlsd")
 _interval = -1.0
 _repeat = 0
-_factor = 500.0
+_factor = 100.0
 metadata/_custom_type_script = "uid://6ofkt38dyeyp"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a38lo"]
@@ -558,6 +562,7 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("ranged", "inventory", "blueprints", "mod_target", "mod_slots", "health_prop", "health_capacity", "melee_cooldown", "size_prop", "lives") groups=["allies"]]
+z_index = 1
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_f1ej7")
@@ -602,7 +607,7 @@ _health_capacity_prop = NodePath("../HealthCapacityProp")
 
 [node name="RangedCooldownProp" type="Node" parent="Properties"]
 script = ExtResource("6_tuyoq")
-ranged_cooldown = 0.2
+ranged_cooldown = 0.25
 
 [node name="TargetPriorityProp" type="Node" parent="Properties"]
 script = ExtResource("7_fjrip")
@@ -628,8 +633,13 @@ _spread = 90.0
 script = ExtResource("11_6e8lb")
 metadata/_custom_type_script = "uid://leayhs5xslyy"
 
-[node name="KnockbackProp" type="Node" parent="Properties"]
+[node name="KnockbackProp" type="Node" parent="Properties" node_paths=PackedStringArray("knockback_resistance_prop")]
 script = ExtResource("12_sc3ue")
+knockback_resistance_prop = NodePath("../KnockbackResistanceProperty")
+
+[node name="KnockbackResistanceProperty" type="Node" parent="Properties"]
+script = ExtResource("13_8svfe")
+metadata/_custom_type_script = "uid://br6ig8qlkh0ua"
 
 [node name="Components" type="Node2D" parent="."]
 
@@ -639,7 +649,7 @@ team = 1
 
 [node name="ModSlotComp" type="Node" parent="Components" node_paths=PackedStringArray("entity", "attack_comp")]
 script = ExtResource("16_ke2ow")
-capacity = 5
+capacity = 7
 initial_mods = Array[ExtResource("10_md1ol")]([ExtResource("18_31cv2")])
 entity = NodePath("../..")
 attack_comp = NodePath("../RangedComp")
@@ -704,7 +714,7 @@ shape = SubResource("CircleShape2D_wqfne")
 
 [node name="InventoryComp" type="Node" parent="Components"]
 script = ExtResource("20_wnwbv")
-initial_mods = Array[ExtResource("10_md1ol")]([ExtResource("18_31cv2"), ExtResource("18_31cv2"), ExtResource("21_487ah"), ExtResource("21_487ah"), ExtResource("21_md1ol"), ExtResource("23_jc3p3"), ExtResource("23_jc3p3"), ExtResource("23_jc3p3"), ExtResource("23_jc3p3"), ExtResource("25_j2b1d"), ExtResource("26_cs1tg"), ExtResource("27_cs1tg"), ExtResource("27_cs1tg"), ExtResource("30_fdfoy"), ExtResource("31_hhpqf"), ExtResource("31_hhpqf"), ExtResource("31_hhpqf"), ExtResource("32_g5jhy"), ExtResource("32_g5jhy"), ExtResource("32_g5jhy"), ExtResource("33_holxr"), ExtResource("34_mx1m4"), ExtResource("34_mx1m4"), ExtResource("34_mx1m4"), ExtResource("34_mx1m4"), ExtResource("35_4gjji"), ExtResource("36_u2ulf"), ExtResource("38_2gdjj")])
+initial_mods = Array[ExtResource("10_md1ol")]([ExtResource("18_31cv2"), ExtResource("18_31cv2"), ExtResource("21_487ah"), ExtResource("21_487ah"), ExtResource("21_md1ol"), ExtResource("23_jc3p3"), ExtResource("23_jc3p3"), ExtResource("23_jc3p3"), ExtResource("23_jc3p3"), ExtResource("25_j2b1d"), ExtResource("26_cs1tg"), ExtResource("27_cs1tg"), ExtResource("27_cs1tg"), ExtResource("30_fdfoy"), ExtResource("31_hhpqf"), ExtResource("31_hhpqf"), ExtResource("31_hhpqf"), ExtResource("32_g5jhy"), ExtResource("32_g5jhy"), ExtResource("32_g5jhy"), ExtResource("33_holxr"), ExtResource("34_mx1m4"), ExtResource("34_mx1m4"), ExtResource("34_mx1m4"), ExtResource("34_mx1m4"), ExtResource("35_4gjji"), ExtResource("36_u2ulf"), ExtResource("38_2gdjj"), ExtResource("41_ha2mi"), ExtResource("41_ha2mi"), ExtResource("41_ha2mi"), ExtResource("41_ha2mi"), ExtResource("41_ha2mi"), ExtResource("41_ha2mi"), ExtResource("42_apa73"), ExtResource("42_apa73"), ExtResource("42_apa73"), ExtResource("42_apa73"), ExtResource("42_apa73"), ExtResource("43_74r1k"), ExtResource("43_74r1k"), ExtResource("43_74r1k")])
 initial_scraps = 60
 metadata/_custom_type_script = "uid://j8sk0rxpd865"
 
@@ -719,11 +729,12 @@ script = ExtResource("21_gl8cc")
 position = Vector2(20, 0)
 shape = SubResource("RectangleShape2D_487ah")
 
-[node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("player_ranged", "player_melee", "player_repair", "player")]
+[node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("player_ranged", "player_melee", "player_repair", "melee_cooldown", "player")]
 script = ExtResource("14_oprun")
 player_ranged = NodePath("../Components/RangedComp")
 player_melee = NodePath("../Components/MeleeComp")
 player_repair = NodePath("../Components/RepairComp")
+melee_cooldown = NodePath("../Properties/MeleeCooldownProp")
 player = NodePath("..")
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="Visuals"]

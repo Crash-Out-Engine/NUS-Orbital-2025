@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://kcqha4xx46r7"]
+[gd_scene load_steps=45 format=3 uid="uid://kcqha4xx46r7"]
 
 [ext_resource type="Script" uid="uid://b2oqcghmenmfd" path="res://scripts/enemy_scene/enemy.gd" id="1_7p1mj"]
 [ext_resource type="Script" uid="uid://cndl5nak0qpxp" path="res://scripts/properties/movement_prop.gd" id="2_md0e3"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" uid="uid://3wplgpaykhjn" path="res://scripts/properties/spread_prop.gd" id="10_rogs8"]
 [ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/properties/target_priority_prop.gd" id="11_w8i8w"]
 [ext_resource type="Script" uid="uid://bvhh7lwu4sovf" path="res://scripts/properties/knockback_prop.gd" id="11_wrm80"]
+[ext_resource type="Script" uid="uid://cg7x3m1w75avm" path="res://scripts/properties/knockback_resistance_property.gd" id="12_6awcb"]
 [ext_resource type="Script" uid="uid://bkccmmojcqpl5" path="res://scripts/mods/effects/sabotage_effect.gd" id="12_ile5s"]
 [ext_resource type="Script" uid="uid://b003j8v8bhc26" path="res://scripts/enemy_scene/visuals.gd" id="13_j0cyh"]
 [ext_resource type="Script" uid="uid://ceeipidvq5rqy" path="res://scripts/enemy_scene/audio.gd" id="14_g0wcc"]
@@ -195,9 +196,14 @@ script = ExtResource("9_2pwtc")
 script = ExtResource("10_rogs8")
 _spread = 90.0
 
-[node name="KnockbackProp" type="Node" parent="Properties"]
+[node name="KnockbackProp" type="Node" parent="Properties" node_paths=PackedStringArray("knockback_resistance_prop")]
 script = ExtResource("11_wrm80")
+knockback_resistance_prop = NodePath("../KnockbackResistanceProp")
 metadata/_custom_type_script = "uid://bvhh7lwu4sovf"
+
+[node name="KnockbackResistanceProp" type="Node" parent="Properties"]
+script = ExtResource("12_6awcb")
+metadata/_custom_type_script = "uid://cg7x3m1w75avm"
 
 [node name="Components" type="Node2D" parent="."]
 

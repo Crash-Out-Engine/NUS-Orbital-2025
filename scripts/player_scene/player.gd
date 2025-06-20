@@ -84,6 +84,7 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_pressed("melee"):
 		if hand_action in [Hand.HOLDING_GUN, Hand.HOLDING_WRENCH] and melee_cooldown.can_melee():
 			hand_action = Hand.FIRING_WRENCH
+			melee_player.speed_scale = 0.5 / melee_cooldown.value
 			melee_player.play("melee_attack")
 			visuals.play_melee_fire()
 			audio.play_melee_swing_sound()
@@ -181,6 +182,7 @@ func _on_health_emptied() -> void:
 		can_control = false
 		$CollisionShape2D.disabled = true
 		ranged.active = false
+		$Properties/MovementProp.active = false
 		$Components/HitboxComp.team = 0
 		no_lives.emit()
 	else:
@@ -206,6 +208,7 @@ func _on_visuals_melee_finished() -> void:
 func deactivate():
 	can_control = false
 	$CollisionShape2D.disabled = true
+	$Properties/MovementProp.active = false
 	ranged.active = false
 	$Components/HitboxComp.team = 0
 	visuals.deactivate()

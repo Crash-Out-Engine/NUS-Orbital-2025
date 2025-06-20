@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PropertyPoint" load_steps=3 format=3 uid="uid://l1jf64rne3tu"]
+
+[ext_resource type="Texture2D" uid="uid://cdd0c3kbyx0xc" path="res://resources/text_icons/knockback_icon.tres" id="1_6xd3p"]
+[ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="1_agu45"]
+
+[resource]
+script = ExtResource("1_agu45")
+icon = ExtResource("1_6xd3p")
+metadata/_custom_type_script = "uid://bik6dfo0vrxil"

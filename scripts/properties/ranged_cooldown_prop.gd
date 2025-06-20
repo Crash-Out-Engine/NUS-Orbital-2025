@@ -25,4 +25,4 @@ func can_ranged() -> bool:
 
 
 func do_ranged() -> void:
-	_timer.start(value)
+	_timer.start(max(value, 0.01))
