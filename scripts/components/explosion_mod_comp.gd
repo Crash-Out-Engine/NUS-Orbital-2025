@@ -13,11 +13,11 @@ func _setup_mods() -> void:
 		await ready
 
 	var upgrade_mods: Array[UpgradeMod]
-	var application_mods: Array # TODO: Implement application mod
+	var behavioural_mods: Array # TODO: Implement application mod
 	upgrade_mods.assign(
 			mods.filter(func(mod): return mod != null and mod.type == ModBase.Type.UPGRADE))
-	application_mods.assign(
-			mods.filter(func(mod): return mod != null and mod.type == ModBase.Type.APPLICATION))
+	behavioural_mods.assign(
+			mods.filter(func(mod): return mod != null and mod.type == ModBase.Type.BEHAVIOURAL))
 
 	var explosion_properties := explosion.get_node(^"Properties").get_children()
 	for upgrade in UpgradeMod.compile_upgrades(upgrade_mods, UpgradeBase.Target.EXPLOSION):

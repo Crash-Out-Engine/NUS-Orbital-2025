@@ -56,11 +56,13 @@ offset_left = -89.0
 offset_top = -45.0
 offset_right = 183.0
 offset_bottom = 2.0
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_as627")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Description/Panel"]
 custom_minimum_size = Vector2(360, 0)
 layout_mode = 2
+mouse_filter = 2
 theme_override_fonts/normal_font = ExtResource("3_as627")
 theme_override_fonts/italics_font = ExtResource("3_4w413")
 theme_override_font_sizes/italics_font_size = 24
