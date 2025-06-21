@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bsk2hjudnw4rw"]
+[gd_scene load_steps=58 format=3 uid="uid://bsk2hjudnw4rw"]
 
 [ext_resource type="Script" uid="uid://dq5no236vfiso" path="res://scripts/game_scene/ui/inventory_ui.gd" id="1_tahbm"]
 [ext_resource type="Theme" uid="uid://cq6cs0mx200sg" path="res://resources/inventory_ui.tres" id="1_ylkvr"]
@@ -9,9 +9,25 @@
 [ext_resource type="Resource" uid="uid://cjgi5gpx4duko" path="res://resources/effect_mods/base_slowdown.tres" id="4_uwj4j"]
 [ext_resource type="Script" uid="uid://ddx5f4odv710k" path="res://scripts/sprite_2d_rect.gd" id="5_eifbp"]
 [ext_resource type="Script" uid="uid://ckg514fwkuf4" path="res://scripts/game_scene/ui/item_drop_area.gd" id="6_2lmnb"]
+[ext_resource type="PackedScene" uid="uid://d4aipu4148p78" path="res://scenes/DropdownCheckboxesContainer.tscn" id="9_cwdri"]
 [ext_resource type="FontFile" uid="uid://bvdfbft27q66n" path="res://assets/fonts/zeldadxt.ttf" id="9_dqfnd"]
 [ext_resource type="Script" uid="uid://cik3248uw0sp4" path="res://scripts/game_scene/ui/blueprints_button.gd" id="10_8wyaw"]
+[ext_resource type="Script" uid="uid://b8v8vds425m6f" path="res://scripts/game_scene/ui/selectable.gd" id="10_rg5pf"]
 [ext_resource type="FontFile" uid="uid://cj53anigafm5t" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="11_cwdri"]
+[ext_resource type="Texture2D" uid="uid://dycvchx23s4he" path="res://resources/text_icons/build_icon.tres" id="11_gqjem"]
+[ext_resource type="Texture2D" uid="uid://cqi7tq8gukrgt" path="res://resources/text_icons/copy_icon.tres" id="12_wt5d1"]
+[ext_resource type="Texture2D" uid="uid://gambl07kuk10" path="res://resources/text_icons/health_icon.tres" id="13_6tlqh"]
+[ext_resource type="Texture2D" uid="uid://birmdunsd7jma" path="res://resources/text_icons/health_capacity_icon.tres" id="14_43rgy"]
+[ext_resource type="Texture2D" uid="uid://cdd0c3kbyx0xc" path="res://resources/text_icons/knockback_icon.tres" id="15_q5115"]
+[ext_resource type="Texture2D" uid="uid://jogdieax3mvs" path="res://resources/text_icons/repeat_icon.tres" id="16_x5sj0"]
+[ext_resource type="Texture2D" uid="uid://drt6y10dgheqm" path="res://resources/text_icons/size_icon.tres" id="17_0hq57"]
+[ext_resource type="Texture2D" uid="uid://c7jusb36ehqfw" path="res://resources/text_icons/speed_icon.tres" id="18_qqsxv"]
+[ext_resource type="Texture2D" uid="uid://ed4lntbnh7kk" path="res://resources/text_icons/spread_icon.tres" id="19_st7lq"]
+[ext_resource type="Texture2D" uid="uid://coxo4arribllk" path="res://resources/text_icons/cooldown_icon.tres" id="20_pspyc"]
+[ext_resource type="Script" uid="uid://b40fuu281mhv1" path="res://scripts/game_scene/ui/audio.gd" id="25_wt5d1"]
+[ext_resource type="AudioStream" uid="uid://dk7lmxukxhhcr" path="res://assets/audio/sound_effects/error.wav" id="26_43rgy"]
+[ext_resource type="AudioStream" uid="uid://b4e1671fhln3w" path="res://assets/audio/sound_effects/successive_anvil_hits.wav" id="27_43rgy"]
+[ext_resource type="AudioStream" uid="uid://dd8r8knjwh8x3" path="res://assets/audio/sound_effects/place_item.wav" id="28_q5115"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iradw"]
 atlas = ExtResource("3_mdwe3")
@@ -32,6 +48,104 @@ region = Rect2(1587, 114, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_1dxi5"]
 atlas = ExtResource("3_mdwe3")
 region = Rect2(1614, 90, 16, 16)
+
+[sub_resource type="Resource" id="Resource_rg5pf"]
+script = ExtResource("10_rg5pf")
+text = "Self"
+selected = false
+metadata/_custom_type_script = "uid://b8v8vds425m6f"
+
+[sub_resource type="Resource" id="Resource_rmxcj"]
+script = ExtResource("10_rg5pf")
+text = "Bullet"
+selected = false
+metadata/_custom_type_script = "uid://b8v8vds425m6f"
+
+[sub_resource type="Resource" id="Resource_3y5j4"]
+script = ExtResource("10_rg5pf")
+text = "Explosion"
+selected = false
+metadata/_custom_type_script = "uid://b8v8vds425m6f"
+
+[sub_resource type="Resource" id="Resource_rc4hi"]
+script = ExtResource("10_rg5pf")
+text = "Target"
+selected = false
+metadata/_custom_type_script = "uid://b8v8vds425m6f"
+
+[sub_resource type="Resource" id="Resource_7w6jp"]
+script = ExtResource("10_rg5pf")
+text = "Build"
+icon = ExtResource("11_gqjem")
+selected = false
+metadata/_custom_type_script = "uid://b8v8vds425m6f"
+
+[sub_resource type="Resource" id="Resource_46rye"]
+script = ExtResource("10_rg5pf")
+text = "Copy"
+icon = ExtResource("12_wt5d1")
+selected = false
+metadata/_custom_type_script = "uid://b8v8vds425m6f"
+
+[sub_resource type="Resource" id="Resource_ynr1n"]
+script = ExtResource("10_rg5pf")
+text = "Health"
+icon = ExtResource("13_6tlqh")
+selected = false
+metadata/_custom_type_script = "uid://b8v8vds425m6f"
+
+[sub_resource type="Resource" id="Resource_evjum"]
+script = ExtResource("10_rg5pf")
+text = "H.Capacity"
+icon = ExtResource("14_43rgy")
+selected = false
+metadata/_custom_type_script = "uid://b8v8vds425m6f"
+
+[sub_resource type="Resource" id="Resource_r80nu"]
+script = ExtResource("10_rg5pf")
+text = "Knockback"
+icon = ExtResource("15_q5115")
+selected = false
+metadata/_custom_type_script = "uid://b8v8vds425m6f"
+
+[sub_resource type="Resource" id="Resource_uxw4w"]
+script = ExtResource("10_rg5pf")
+text = "Repeat"
+icon = ExtResource("16_x5sj0")
+selected = false
+metadata/_custom_type_script = "uid://b8v8vds425m6f"
+
+[sub_resource type="Resource" id="Resource_r5ik5"]
+script = ExtResource("10_rg5pf")
+text = "Size"
+icon = ExtResource("17_0hq57")
+selected = false
+metadata/_custom_type_script = "uid://b8v8vds425m6f"
+
+[sub_resource type="Resource" id="Resource_crli6"]
+script = ExtResource("10_rg5pf")
+text = "Speed"
+icon = ExtResource("18_qqsxv")
+selected = false
+metadata/_custom_type_script = "uid://b8v8vds425m6f"
+
+[sub_resource type="Resource" id="Resource_fe5tn"]
+script = ExtResource("10_rg5pf")
+text = "Spread"
+icon = ExtResource("19_st7lq")
+selected = false
+metadata/_custom_type_script = "uid://b8v8vds425m6f"
+
+[sub_resource type="Resource" id="Resource_pkf25"]
+script = ExtResource("10_rg5pf")
+text = "Time"
+icon = ExtResource("20_pspyc")
+selected = false
+metadata/_custom_type_script = "uid://b8v8vds425m6f"
+
+[sub_resource type="Curve" id="Curve_6tlqh"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.47206, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ujldt"]
 texture = ExtResource("3_mdwe3")
@@ -69,7 +183,7 @@ region = Rect2(1451, 114, 32, 32)
 size = Vector2(488.25, 256)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eifbp"]
-size = Vector2(488.25, 655)
+size = Vector2(488.25, 550)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eicjl"]
 size = Vector2(488, 400)
@@ -101,6 +215,7 @@ theme_override_constants/margin_bottom = 32
 
 [node name="PanelContainer" type="PanelContainer" parent="Margin"]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="HBox" type="HBoxContainer" parent="Margin/PanelContainer"]
 layout_mode = 2
@@ -205,6 +320,7 @@ text = ")"
 [node name="ModSlotList" type="PanelContainer" parent="Margin/PanelContainer/HBox/LeftVBox"]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 1
 
 [node name="VBox" type="VBoxContainer" parent="Margin/PanelContainer/HBox/LeftVBox/ModSlotList"]
 layout_mode = 2
@@ -242,14 +358,32 @@ size_flags_horizontal = 3
 [node name="PanelContainer" type="PanelContainer" parent="Margin/PanelContainer/HBox/MidVBox"]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 1
 
 [node name="VBox" type="VBoxContainer" parent="Margin/PanelContainer/HBox/MidVBox/PanelContainer"]
 layout_mode = 2
 
-[node name="LineEdit" type="LineEdit" parent="Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox"]
+[node name="SearchBar" type="LineEdit" parent="Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox"]
 custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_vertical = 0
+placeholder_text = "Search M.O.D."
+
+[node name="AdditionalFilters" type="HBoxContainer" parent="Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox"]
+layout_mode = 2
+mouse_filter = 0
+
+[node name="CanAffectFilter" parent="Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox/AdditionalFilters" instance=ExtResource("9_cwdri")]
+unique_name_in_owner = true
+layout_mode = 2
+title = "Can affect"
+items = Array[ExtResource("10_rg5pf")]([SubResource("Resource_rg5pf"), SubResource("Resource_rmxcj"), SubResource("Resource_3y5j4"), SubResource("Resource_rc4hi")])
+
+[node name="ComponentFilter" parent="Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox/AdditionalFilters" instance=ExtResource("9_cwdri")]
+unique_name_in_owner = true
+layout_mode = 2
+title = "Components"
+items = Array[ExtResource("10_rg5pf")]([SubResource("Resource_7w6jp"), SubResource("Resource_46rye"), SubResource("Resource_ynr1n"), SubResource("Resource_evjum"), SubResource("Resource_r80nu"), SubResource("Resource_uxw4w"), SubResource("Resource_r5ik5"), SubResource("Resource_crli6"), SubResource("Resource_fe5tn"), SubResource("Resource_pkf25")])
 
 [node name="InventoryList" type="ScrollContainer" parent="Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox"]
 layout_mode = 2
@@ -310,6 +444,21 @@ text = "Drag a M.O.D. here to craft a new M.O.D. or take it apart for scraps!"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Margin/PanelContainer/HBox/RightVBox/HBox/CraftingInput"]
+position = Vector2(121, 80)
+emitting = false
+amount = 48
+lifetime = 0.75
+one_shot = true
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(0, 400)
+initial_velocity_min = 200.0
+initial_velocity_max = 400.0
+scale_amount_min = 6.0
+scale_amount_max = 10.0
+scale_amount_curve = SubResource("Curve_6tlqh")
 
 [node name="CraftingOutput" type="PanelContainer" parent="Margin/PanelContainer/HBox/RightVBox/HBox"]
 layout_mode = 2
@@ -410,7 +559,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="CraftButton" type="Button" parent="Margin/PanelContainer/HBox/RightVBox"]
-custom_minimum_size = Vector2(0, 64)
+custom_minimum_size = Vector2(0, 88)
 layout_mode = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Margin/PanelContainer/HBox/RightVBox/CraftButton"]
@@ -470,7 +619,7 @@ script = ExtResource("6_2lmnb")
 item_state = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InventoryItemDropArea"]
-position = Vector2(800, 889.5)
+position = Vector2(800, 942)
 shape = SubResource("RectangleShape2D_eifbp")
 
 [node name="CraftingItemDropArea" type="Area2D" parent="."]
@@ -482,9 +631,28 @@ item_state = 2
 position = Vector2(1292, 700)
 shape = SubResource("RectangleShape2D_eicjl")
 
+[node name="Audio" type="Node" parent="."]
+script = ExtResource("25_wt5d1")
+
+[node name="FailSound" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("26_43rgy")
+bus = &"SFX"
+
+[node name="SuccessSound" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("27_43rgy")
+volume_db = -5.0
+bus = &"SFX"
+
+[node name="PlaceItemSound" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("28_q5115")
+bus = &"SFX"
+
 [connection signal="pressed" from="Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox/HBox/MoreInfoButton" to="." method="_on_more_info_button_pressed"]
 [connection signal="pressed" from="Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox/DisassembleButton" to="." method="_on_disassemble_button_pressed"]
 [connection signal="pressed" from="Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
+[connection signal="text_changed" from="Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox/SearchBar" to="." method="_on_search_bar_text_changed"]
+[connection signal="updated" from="Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox/AdditionalFilters/CanAffectFilter" to="." method="_on_can_affect_filter_updated"]
+[connection signal="updated" from="Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox/AdditionalFilters/ComponentFilter" to="." method="_on_component_filter_updated"]
 [connection signal="mouse_entered" from="Margin/PanelContainer/HBox/RightVBox/HBox/CraftingOutput/VBox/BlueprintsButton" to="Margin/PanelContainer/HBox/RightVBox/HBox/CraftingOutput/VBox/BlueprintsButton" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="Margin/PanelContainer/HBox/RightVBox/HBox/CraftingOutput/VBox/BlueprintsButton" to="Margin/PanelContainer/HBox/RightVBox/HBox/CraftingOutput/VBox/BlueprintsButton" method="_on_mouse_exited"]
 [connection signal="pressed" from="Margin/PanelContainer/HBox/RightVBox/HBox/CraftingOutput/VBox/BlueprintsButton" to="." method="_on_blueprints_button_pressed"]

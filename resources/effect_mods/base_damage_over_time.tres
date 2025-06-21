@@ -10,7 +10,7 @@
 [resource]
 script = ExtResource("6_q3ot3")
 effects = Array[ExtResource("1_y0bkt")]([ExtResource("2_vdxq8")])
-name = "Damage+"
+name = "Bleed"
 icon = ExtResource("3_y0bkt")
 description = "Causes target to bleed for some time"
 property_points = Dictionary[ExtResource("4_g3wxu"), int]({

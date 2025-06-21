@@ -1,0 +1,95 @@
+[gd_scene load_steps=10 format=3 uid="uid://d4aipu4148p78"]
+
+[ext_resource type="Theme" uid="uid://cq6cs0mx200sg" path="res://resources/inventory_ui.tres" id="1_72q06"]
+[ext_resource type="Script" uid="uid://ft03jhsuqtmr" path="res://scripts/game_scene/ui/dropdown_checkboxes_container.gd" id="2_6uqlt"]
+[ext_resource type="FontFile" uid="uid://cj53anigafm5t" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="4_j384f"]
+[ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet.png" id="4_xysx6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yjmhm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_72q06"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_epgub"]
+font = ExtResource("4_j384f")
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_ix6st"]
+font = ExtResource("4_j384f")
+font_size = 24
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lx1r1"]
+texture = ExtResource("4_xysx6")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+region_rect = Rect2(1691, 112, 212, 212)
+
+[node name="DropdownCheckboxesContainer" type="PanelContainer"]
+offset_right = 471.0
+offset_bottom = 64.0
+size_flags_horizontal = 3
+theme = ExtResource("1_72q06")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_yjmhm")
+script = ExtResource("2_6uqlt")
+
+[node name="SelectionButton" type="PanelContainer" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_72q06")
+
+[node name="Button" type="Button" parent="SelectionButton"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="SelectionButton"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SelectionButton/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="SelectionButton/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Can a"
+label_settings = SubResource("LabelSettings_epgub")
+
+[node name="Arrow" type="Label" parent="SelectionButton/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "▼"
+label_settings = SubResource("LabelSettings_ix6st")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="DropdownPanel" type="PanelContainer" parent="CanvasLayer"]
+visible = false
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 64.0
+offset_right = -1129.0
+offset_bottom = 368.0
+grow_horizontal = 2
+theme = ExtResource("1_72q06")
+theme_override_styles/panel = SubResource("StyleBoxTexture_lx1r1")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/DropdownPanel"]
+custom_minimum_size = Vector2(0, 240)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/DropdownPanel/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="pressed" from="SelectionButton/Button" to="." method="_on_button_pressed"]

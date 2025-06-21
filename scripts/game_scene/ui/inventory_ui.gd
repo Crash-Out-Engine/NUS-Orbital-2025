@@ -10,7 +10,7 @@ const SCRAP_EMOJI = "res://resources/text_icons/scrap_icon.tres"
 var crafting_scraps : int = 0
 var crafting_output : ModBase = null
 var checking_blueprints : bool = false
-var selected_blueprint : int = 0
+var selected_blueprint : ModBase = null
 var scrap_diff : int
 var turret : Turret = null
 var inventory_comp : InventoryComp
@@ -57,20 +57,32 @@ var _crafting_components : Dictionary[PropertyPoint, int]
 @onready var crafting_output_label = (
 	$Margin/PanelContainer/HBox/RightVBox/CraftButton/RichTextLabel as RichTextLabel)
 @onready var craft_button = $Margin/PanelContainer/HBox/RightVBox/CraftButton as Button
-
+@onready var search_bar = (
+	$Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox/SearchBar as LineEdit)
 @onready var analysis = $Analysis as Container
 @onready var analysis_label = $Analysis/PanelContainer/Label as Label
+@onready var can_affect_filter = %CanAffectFilter as DropdownCheckboxesContainer
+@onready var component_filter = %ComponentFilter as DropdownCheckboxesContainer
+@onready var particles = (
+	$Margin/PanelContainer/HBox/RightVBox/HBox/CraftingInput/CPUParticles2D as CPUParticles2D)
+@onready var audio = $Audio as InventoryAudio
 
 func _ready() -> void:
 	visible = false
 
 func try_open():
+	if Input.is_action_just_pressed("shoot"):
+		if search_bar.has_focus():
+			if !search_bar.get_global_rect().has_point(get_global_mouse_position()):
+				search_bar.release_focus()
+	
 	if Input.is_action_just_pressed("inventory"):
 		if visible:
 			if analysis.visible:
 				analysis.visible = false
 			else:
-				close_inventory()
+				if !search_bar.has_focus():
+					close_inventory()
 		else:
 			visible = true
 			opening_setup(player.get_inventory(), player.get_mod_slots())
@@ -80,7 +92,14 @@ func try_open():
 			if analysis.visible:
 				analysis.visible = false
 			else:
-				close_inventory()
+				if search_bar.has_focus():
+					search_bar.release_focus()
+				elif can_affect_filter.dropdown_open():
+					can_affect_filter.close_dropdown()
+				elif component_filter.dropdown_open():
+					component_filter.close_dropdown()
+				else:
+					close_inventory()
 
 func is_open() -> bool:
 	return visible
@@ -107,8 +126,8 @@ func opening_setup(inventory_input: InventoryComp, modslot_input: ModSlotComp):
 		disassemble_button.visible = !(turret == null)
 
 	checking_blueprints = false
-	selected_blueprint = 0
-	setup_blueprint_list()
+	selected_blueprint = null
+	update_blueprint_list()
 	crafting_inputs = []
 	crafting_output = null
 	update_crafting()
@@ -125,6 +144,8 @@ func close_inventory():
 			inventory_comp._add_mod(i)
 		crafting_inputs = []
 	player.close_inventory()
+	can_affect_filter.close_dropdown()
+	component_filter.close_dropdown()
 
 func update_scrap_counter(scrap: int) -> void:
 	scrap_counter_label.text = str(scrap)
@@ -132,30 +153,36 @@ func update_scrap_counter(scrap: int) -> void:
 func update_modslots_counter(mods: int, capacity: int) -> void:
 	mod_slot_size_label.text = "%d/%d M.O.D.s equipped" % [mods, capacity]
 
-func setup_blueprint_list():
+func update_blueprint_list():
 	for item in blueprint_list.get_children():
+		blueprint_list.remove_child(item)
 		item.queue_free()
-	var i = 0
 	for mod in player.get_blueprints():
+		if !mod_filter(mod): continue
 		var blueprint = BLUEPRINT_CONTAINER.instantiate() as BlueprintContainer
 		blueprint.mod = mod
-		blueprint.id = i
-		i += 1
 		blueprint_list.add_child(blueprint)
 		blueprint.update()
 		blueprint.pressed.connect(blueprint_selected)
-	blueprint_list.get_children()[selected_blueprint].set_selected(true)
 	blueprint_selected(selected_blueprint)
 
-func blueprint_selected(selection: int):
+func blueprint_selected(selection: ModBase):
+	var prev_selected_blueprint_index = blueprint_list.get_children().find_custom(
+		func(blueprint): return blueprint.mod == selected_blueprint)
+	var curr_selected_blueprint_index = blueprint_list.get_children().find_custom(
+		func(blueprint): return blueprint.mod == selection)
+	if curr_selected_blueprint_index == -1: return
 	if selection == selected_blueprint:
-		checking_blueprints = false
+		if blueprint_list.get_children()[curr_selected_blueprint_index].selected:
+			checking_blueprints = false
+		else:
+			blueprint_list.get_children()[curr_selected_blueprint_index].set_selected(true)
 	else:
-		blueprint_list.get_children()[selected_blueprint].set_selected(false)
-		blueprint_list.get_children()[selection].set_selected(true)
+		blueprint_list.get_children()[prev_selected_blueprint_index].set_selected(false)
+		blueprint_list.get_children()[curr_selected_blueprint_index].set_selected(true)
 		selected_blueprint = selection
-	blueprint_label.text = blueprint_list.get_children()[selected_blueprint].get_mod_name()
-	crafting_output = player.get_blueprints()[selected_blueprint]
+	blueprint_label.text = blueprint_list.get_children()[curr_selected_blueprint_index].get_mod_name()
+	crafting_output = player.get_blueprints()[curr_selected_blueprint_index]
 	update_inventory_list()
 	update_crafting_components()
 
@@ -182,7 +209,7 @@ func update_inventory_list():
 			item.queue_free()
 		var total = 0
 		for mod in mod_array:
-			if mod_array[mod] <= 0: continue #TODO: implement proper filter functions
+			if mod_array[mod] <= 0 or !mod_filter(mod): continue
 			var item = ITEM_CONTAINER.instantiate()
 			item.mod = mod
 			item.state = ItemContainer.State.INVENTORY
@@ -192,6 +219,28 @@ func update_inventory_list():
 			item.update()
 			item.create_dragged_item.connect(add_dragged_item)
 		inventory_mod_counter.text = "%d unique M.O.D.s, %d in total" % [mod_array.size(), total]
+
+func mod_filter(mod: ModBase) -> bool:
+	if search_bar.text != "":
+		if mod == null: return false
+		if !mod.name.containsn(search_bar.text): return false
+	if can_affect_filter.get_state() != DropdownCheckboxesContainer.State.ALL_SELECTED:
+		if mod == null: return false
+		match(mod.type):
+			ModBase.Type.UPGRADE:
+				for upgrade in mod.upgrades:
+					if !can_affect_filter.get_selected()[upgrade._target]: return false
+			ModBase.Type.EFFECT:
+				if !can_affect_filter.get_selected()[3]: return false
+			ModBase.Type.BEHAVIOURAL:
+				pass
+	if component_filter.get_state() != DropdownCheckboxesContainer.State.ALL_SELECTED:
+		if mod == null: return false
+		for pp in mod.property_points:
+			if mod.property_points[pp] <= 0: continue
+			var index = component_filter.items.find_custom(func(item): return item.icon == pp.icon)
+			if !component_filter.get_selected()[index]: return false
+	return true
 
 func update_modslotcomp_list():
 	var mod_array = modslot_comp.get_mods()
@@ -344,15 +393,19 @@ func insert_item(mod: ModBase, destination: ItemContainer.State):
 		ItemContainer.State.MODCOMP:
 			if modslot_comp._add_mod(mod):
 				update_modslotcomp_list()
+				audio.play_place_item()
 			else:
+				audio.play_fail()
 				inventory_comp._add_mod(mod)
 				update_inventory_list()
 
 		ItemContainer.State.INVENTORY:
+			audio.play_place_item()
 			inventory_comp._add_mod(mod)
 			update_inventory_list()
 
 		ItemContainer.State.CRAFTING:
+			audio.play_place_item()
 			crafting_inputs.append(mod)
 			update_crafting()
 
@@ -379,8 +432,25 @@ func _on_craft_button_pressed() -> void:
 		crafting_inputs = []
 	checking_blueprints = false
 	update_crafting()
-	blueprint_selected(0)
+	blueprint_selected(null)
+	particles.emitting = true
+	audio.play_success()
 
 
 func _on_exit_button_pressed() -> void:
 	analysis.visible = false
+
+
+func _on_search_bar_text_changed(_new_text: String) -> void:
+	update_inventory_list()
+	update_blueprint_list()
+
+
+func _on_can_affect_filter_updated() -> void:
+	update_inventory_list()
+	update_blueprint_list()
+
+
+func _on_component_filter_updated() -> void:
+	update_inventory_list()
+	update_blueprint_list()

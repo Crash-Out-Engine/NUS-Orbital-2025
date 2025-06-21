@@ -1,0 +1,86 @@
+[gd_scene load_steps=9 format=3 uid="uid://d1fw33am6pq2a"]
+
+[ext_resource type="FontFile" uid="uid://cj53anigafm5t" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="1_djajp"]
+[ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet.png" id="1_gf48v"]
+[ext_resource type="Script" uid="uid://caccywbca7bfd" path="res://scripts/game_scene/ui/dropdown_selection.gd" id="3_yeiyi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yeiyi"]
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+
+[sub_resource type="Gradient" id="Gradient_j2ir3"]
+offsets = PackedFloat32Array(0.554517)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_s6esn"]
+gradient = SubResource("Gradient_j2ir3")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_p82sd"]
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+texture = SubResource("GradientTexture1D_s6esn")
+modulate_color = Color(1, 1, 1, 0.560784)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_djajp"]
+atlas = ExtResource("1_gf48v")
+region = Rect2(1511, 56, 16, 16)
+
+[node name="DropdownSelection" type="Button"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 24.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_djajp")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yeiyi")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_yeiyi")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_yeiyi")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxTexture_p82sd")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_p82sd")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxTexture_p82sd")
+theme_override_styles/hover = SubResource("StyleBoxTexture_p82sd")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_yeiyi")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_yeiyi")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_yeiyi")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_yeiyi")
+icon = SubResource("AtlasTexture_djajp")
+alignment = 0
+text_overrun_behavior = 3
+script = ExtResource("3_yeiyi")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 20
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("1_djajp")
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "agaffdsvga"
+fit_content = true
+scroll_active = false
+vertical_alignment = 1
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
