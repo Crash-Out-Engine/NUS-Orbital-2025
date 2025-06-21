@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://d4aipu4148p78"]
+[gd_scene load_steps=13 format=3 uid="uid://d4aipu4148p78"]
 
 [ext_resource type="Theme" uid="uid://cq6cs0mx200sg" path="res://resources/inventory_ui.tres" id="1_72q06"]
 [ext_resource type="Script" uid="uid://ft03jhsuqtmr" path="res://scripts/game_scene/ui/dropdown_checkboxes_container.gd" id="2_6uqlt"]
 [ext_resource type="FontFile" uid="uid://cj53anigafm5t" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="4_j384f"]
 [ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet.png" id="4_xysx6"]
+[ext_resource type="PackedScene" uid="uid://d1fw33am6pq2a" path="res://scenes/DropdownSelection.tscn" id="5_dtr5h"]
+[ext_resource type="Script" uid="uid://b8v8vds425m6f" path="res://scripts/game_scene/ui/selectable.gd" id="6_ukmmh"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yjmhm"]
 
@@ -25,6 +27,12 @@ texture_margin_top = 24.0
 texture_margin_right = 24.0
 texture_margin_bottom = 24.0
 region_rect = Rect2(1691, 112, 212, 212)
+
+[sub_resource type="Resource" id="Resource_6vocg"]
+script = ExtResource("6_ukmmh")
+text = "Deselect All"
+selected = true
+metadata/_custom_type_script = "uid://b8v8vds425m6f"
 
 [node name="DropdownCheckboxesContainer" type="PanelContainer"]
 offset_right = 471.0
@@ -78,18 +86,18 @@ visible = false
 anchors_preset = 10
 anchor_right = 1.0
 offset_top = 64.0
-offset_right = -1129.0
-offset_bottom = 368.0
+offset_right = -1536.0
+offset_bottom = 136.0
 grow_horizontal = 2
 theme = ExtResource("1_72q06")
 theme_override_styles/panel = SubResource("StyleBoxTexture_lx1r1")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/DropdownPanel"]
-custom_minimum_size = Vector2(0, 240)
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/DropdownPanel/ScrollContainer"]
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/DropdownPanel"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="DropdownSelection" parent="CanvasLayer/DropdownPanel/VBox" instance=ExtResource("5_dtr5h")]
+layout_mode = 2
+selectable = SubResource("Resource_6vocg")
 
 [connection signal="pressed" from="SelectionButton/Button" to="." method="_on_button_pressed"]

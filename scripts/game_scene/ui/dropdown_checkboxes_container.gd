@@ -19,15 +19,16 @@ var setup: bool = false
 @onready var label = $SelectionButton/MarginContainer/HBoxContainer/Label as Label
 @onready var selection_button = $SelectionButton as PanelContainer
 @onready var dropdown_panel = $CanvasLayer/DropdownPanel as PanelContainer
-@onready var dropdown_container = (
-	$CanvasLayer/DropdownPanel/ScrollContainer/VBoxContainer as VBoxContainer)
+@onready var dropdown_container = $CanvasLayer/DropdownPanel/VBox as VBoxContainer
+@onready var all_selector = $CanvasLayer/DropdownPanel/VBox/DropdownSelection as DropdownSelection
 
 func _ready() -> void:
 	select_all()
 	setup = false
 	label.text = title
+	all_selector.pressed.connect(unify_all)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if dropdown_open():
 		if Input.is_action_just_pressed("shoot"):
 			if (!selection_button.get_global_rect().has_point(get_global_mouse_position())
@@ -38,6 +39,16 @@ func get_selected() -> Array[bool]:
 	var result: Array[bool] = []
 	result.assign(items.map(func(selectable): return selectable.selected))
 	return result
+
+func unify_all():
+	if get_state() == State.ALL_SELECTED:
+		deselect_all()
+		all_selector.selectable.text = "Select All"
+	else:
+		select_all()
+		all_selector.selectable.text = "Deselect All"
+	all_selector.update()
+	updated.emit()
 
 func select_all():
 	for i in items:
@@ -53,7 +64,7 @@ func update_items():
 		selection.selectable = i
 		dropdown_container.add_child(selection)
 		selection.update()
-		selection.pressed.connect(func(): updated.emit())
+		selection.pressed.connect(update_list)
 
 func get_state() -> State:
 	var none_selected = true
@@ -86,3 +97,13 @@ func dropdown_open() -> bool:
 
 func close_dropdown():
 	dropdown_panel.visible = false
+
+func update_list():
+	if get_state() == State.ALL_SELECTED:
+		all_selector.selectable.selected = true
+		all_selector.selectable.text = "Deselect All"
+	else:
+		all_selector.selectable.selected = false
+		all_selector.selectable.text = "Select All"
+	all_selector.update()
+	updated.emit()

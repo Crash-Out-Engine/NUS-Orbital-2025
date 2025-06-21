@@ -6,6 +6,11 @@ const DESELECTED_ICON = preload("res://resources/text_icons/radiobutton_deselect
 
 @export var selectable: Selectable
 
+func _ready() -> void:
+	if selectable != null:
+		update()
+		selectable.updated.connect(update_radiobutton)
+
 func update():
 	var icon_string = ""
 	if selectable.icon != null:

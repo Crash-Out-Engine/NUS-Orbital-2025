@@ -75,7 +75,7 @@ func try_open():
 		if search_bar.has_focus():
 			if !search_bar.get_global_rect().has_point(get_global_mouse_position()):
 				search_bar.release_focus()
-	
+
 	if Input.is_action_just_pressed("inventory"):
 		if visible:
 			if analysis.visible:
@@ -221,26 +221,33 @@ func update_inventory_list():
 		inventory_mod_counter.text = "%d unique M.O.D.s, %d in total" % [mod_array.size(), total]
 
 func mod_filter(mod: ModBase) -> bool:
+	var success: bool = true
 	if search_bar.text != "":
-		if mod == null: return false
-		if !mod.name.containsn(search_bar.text): return false
+		if mod == null:
+			success = false
+		elif !mod.name.containsn(search_bar.text):
+			success = false
 	if can_affect_filter.get_state() != DropdownCheckboxesContainer.State.ALL_SELECTED:
-		if mod == null: return false
-		match(mod.type):
-			ModBase.Type.UPGRADE:
-				for upgrade in mod.upgrades:
-					if !can_affect_filter.get_selected()[upgrade._target]: return false
-			ModBase.Type.EFFECT:
-				if !can_affect_filter.get_selected()[3]: return false
-			ModBase.Type.BEHAVIOURAL:
-				pass
+		if mod == null:
+			success = false
+		else:
+			match(mod.type):
+				ModBase.Type.UPGRADE:
+					for upgrade in mod.upgrades:
+						if !can_affect_filter.get_selected()[upgrade._target]: success = false
+				ModBase.Type.EFFECT:
+					if !can_affect_filter.get_selected()[3]: success = false
+				ModBase.Type.BEHAVIOURAL:
+					pass
 	if component_filter.get_state() != DropdownCheckboxesContainer.State.ALL_SELECTED:
-		if mod == null: return false
-		for pp in mod.property_points:
-			if mod.property_points[pp] <= 0: continue
-			var index = component_filter.items.find_custom(func(item): return item.icon == pp.icon)
-			if !component_filter.get_selected()[index]: return false
-	return true
+		if mod == null:
+			success = false
+		else:
+			for pp in mod.property_points:
+				if mod.property_points[pp] <= 0: continue
+				var index = component_filter.items.find_custom(func(item): return item.icon == pp.icon)
+				if !component_filter.get_selected()[index]: return false
+	return success
 
 func update_modslotcomp_list():
 	var mod_array = modslot_comp.get_mods()
