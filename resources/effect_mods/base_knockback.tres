@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="EffectMod" load_steps=8 format=3 uid="uid://cwv1pbjmnp8gh"]
+
+[ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/mods/effects/effect_base.gd" id="1_wqe7k"]
+[ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="2_b48eo"]
+[ext_resource type="Script" uid="uid://6ofkt38dyeyp" path="res://scripts/mods/effects/knockback_effect.gd" id="2_vmh33"]
+[ext_resource type="Texture2D" uid="uid://ga0m8b04soro" path="res://resources/text_icons/bullet_knockback_plus.tres" id="3_b78lu"]
+[ext_resource type="Script" uid="uid://qxcwl20lyaga" path="res://scripts/mods/effect_mod.gd" id="3_vmh33"]
+[ext_resource type="Resource" uid="uid://l1jf64rne3tu" path="res://resources/property_points/knockback_pp.tres" id="5_b78lu"]
+
+[sub_resource type="Resource" id="Resource_vwt58"]
+script = ExtResource("2_vmh33")
+_interval = -1.0
+_repeat = 0
+_factor = 50.0
+metadata/_custom_type_script = "uid://6ofkt38dyeyp"
+
+[resource]
+script = ExtResource("3_vmh33")
+effects = Array[ExtResource("1_wqe7k")]([SubResource("Resource_vwt58")])
+name = "Knockback+"
+icon = ExtResource("3_b78lu")
+description = "Enemies receive knockback when hit by your bullets"
+property_points = Dictionary[ExtResource("2_b48eo"), int]({
+ExtResource("5_b78lu"): 1
+})
+value = 50
+metadata/_custom_type_script = "uid://qxcwl20lyaga"

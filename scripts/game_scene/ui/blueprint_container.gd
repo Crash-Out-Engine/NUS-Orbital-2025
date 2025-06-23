@@ -21,14 +21,9 @@ func update():
 
 func _process(_delta: float) -> void:
 	if mouse_hovering:
-		if Rect2(global_position, size).has_point(get_global_mouse_position()):
-			description_panel.global_position = get_global_mouse_position()
-			if Input.is_action_just_pressed("shoot"):
-				pressed.emit(id)
-		else:
-			description.visible = false
-			mouse_hovering = false
-		#Description panel blocks ItemContainer from detecting the mouse
+		description_panel.global_position = get_global_mouse_position()
+		if Input.is_action_just_pressed("shoot"):
+			pressed.emit(id)
 
 func get_mod_name() -> String:
 	if mod == null:
@@ -55,3 +50,8 @@ func get_description():
 	for pp in mod.property_points:
 		paragraph += ", %s×%d" % [pp.get_icon(), mod.property_points[pp]]
 	return paragraph
+
+
+func _on_mouse_exited() -> void:
+	description.visible = false
+	mouse_hovering = false

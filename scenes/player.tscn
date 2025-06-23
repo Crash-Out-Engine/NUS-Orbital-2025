@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=3 uid="uid://ytw0s5xnqwvt"]
+[gd_scene load_steps=119 format=3 uid="uid://ytw0s5xnqwvt"]
 
 [ext_resource type="Script" uid="uid://c8f8kowfp34yp" path="res://scripts/player_scene/player.gd" id="1_f1ej7"]
 [ext_resource type="Script" uid="uid://cndl5nak0qpxp" path="res://scripts/properties/movement_prop.gd" id="2_g2els"]
@@ -9,8 +9,14 @@
 [ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/properties/target_priority_prop.gd" id="7_fjrip"]
 [ext_resource type="Script" uid="uid://s08wfqwqu2jn" path="res://scripts/components/ranged_player_comp.gd" id="7_smehm"]
 [ext_resource type="Script" uid="uid://cceowy0wh5ufb" path="res://scripts/properties/health_capacity_prop.gd" id="8_4ni07"]
+[ext_resource type="Script" uid="uid://b5m4xwnftefoj" path="res://scripts/properties/size_prop.gd" id="8_hax0n"]
+[ext_resource type="Script" uid="uid://2x8lbjmqr7m7" path="res://scripts/properties/copy_prop.gd" id="9_giy8y"]
+[ext_resource type="Script" uid="uid://3wplgpaykhjn" path="res://scripts/properties/spread_prop.gd" id="10_fdfoy"]
 [ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod_base.gd" id="10_md1ol"]
+[ext_resource type="Script" uid="uid://leayhs5xslyy" path="res://scripts/properties/repeat_prop.gd" id="11_6e8lb"]
 [ext_resource type="AudioStream" uid="uid://dc66si5kieoq4" path="res://assets/audio/sound_effects/laser_gunshot.wav" id="12_3v2ag"]
+[ext_resource type="Script" uid="uid://bvhh7lwu4sovf" path="res://scripts/properties/knockback_prop.gd" id="12_sc3ue"]
+[ext_resource type="Script" uid="uid://cg7x3m1w75avm" path="res://scripts/properties/knockback_resistance_property.gd" id="13_8svfe"]
 [ext_resource type="Script" uid="uid://dng6x4ecq2npd" path="res://scripts/player_scene/audio.gd" id="13_a8ls1"]
 [ext_resource type="AudioStream" uid="uid://dk7lmxukxhhcr" path="res://assets/audio/sound_effects/error.wav" id="13_f1ej7"]
 [ext_resource type="AudioStream" uid="uid://ciu1er752oye4" path="res://assets/audio/sound_effects/sand_steps.wav" id="13_jej6c"]
@@ -33,9 +39,25 @@
 [ext_resource type="Texture2D" uid="uid://qffoquvsdmfp" path="res://assets/sprites/playerhand_spritesheet.png" id="22_pf23h"]
 [ext_resource type="Script" uid="uid://dg0wh1lngb3ha" path="res://scripts/components/blueprint_comp.gd" id="23_bj30b"]
 [ext_resource type="Resource" uid="uid://ido6g1b0tgpf" path="res://resources/upgrade_mods/base_speed_upgrade.tres" id="23_jc3p3"]
+[ext_resource type="Script" uid="uid://6ofkt38dyeyp" path="res://scripts/mods/effects/knockback_effect.gd" id="23_lxlsd"]
 [ext_resource type="Texture2D" uid="uid://cai86xvs48gye" path="res://assets/sprites/gunblast_spritesheet.png" id="23_pf23h"]
+[ext_resource type="Resource" uid="uid://dwfvxifo18je3" path="res://resources/upgrade_mods/enlargement_upgrade.tres" id="25_j2b1d"]
+[ext_resource type="Resource" uid="uid://cg1gbxue54288" path="res://resources/upgrade_mods/shrink_upgrade.tres" id="26_cs1tg"]
+[ext_resource type="Resource" uid="uid://dk6e5yyhtcbel" path="res://resources/upgrade_mods/larger_bullet_upgrade.tres" id="27_cs1tg"]
 [ext_resource type="AudioStream" uid="uid://cba76dqigqmco" path="res://assets/audio/sound_effects/metal_hit.wav" id="28_pf23h"]
 [ext_resource type="AudioStream" uid="uid://vfvy3e572ida" path="res://assets/audio/sound_effects/melee_swing.wav" id="29_dt7fs"]
+[ext_resource type="Resource" uid="uid://bk5uopkgkg01u" path="res://resources/upgrade_mods/base_bullet_count_upgrade.tres" id="30_fdfoy"]
+[ext_resource type="Resource" uid="uid://gg0igq1vql1l" path="res://resources/upgrade_mods/increase_bullet_spread_upgrade.tres" id="31_hhpqf"]
+[ext_resource type="Resource" uid="uid://gnm1t2fhtlvr" path="res://resources/upgrade_mods/decrease_bullet_spread_upgrade.tres" id="32_g5jhy"]
+[ext_resource type="Resource" uid="uid://dsx66xpf5hf3m" path="res://resources/upgrade_mods/base_explosion_count_upgrade.tres" id="33_holxr"]
+[ext_resource type="Resource" uid="uid://chylya72720me" path="res://resources/upgrade_mods/base_explosion_size_upgrade.tres" id="34_mx1m4"]
+[ext_resource type="Resource" uid="uid://cci24ym6eag5g" path="res://resources/upgrade_mods/piercing_upgrade.tres" id="35_4gjji"]
+[ext_resource type="Resource" uid="uid://7xydugwdpqsp" path="res://resources/upgrade_mods/repeat_explosion_upgrade.tres" id="36_u2ulf"]
+[ext_resource type="Resource" uid="uid://ssedgu0f2q68" path="res://resources/upgrade_mods/extra_life_upgrade.tres" id="38_2gdjj"]
+[ext_resource type="Resource" uid="uid://gtpo8u16foe8" path="res://resources/upgrade_mods/base_ranged_cooldown_upgrade.tres" id="41_ha2mi"]
+[ext_resource type="Resource" uid="uid://bckq5o6xawc1n" path="res://resources/upgrade_mods/base_melee_cooldown_upgrade.tres" id="42_apa73"]
+[ext_resource type="Resource" uid="uid://cwv1pbjmnp8gh" path="res://resources/effect_mods/base_knockback.tres" id="43_74r1k"]
+[ext_resource type="Resource" uid="uid://dy1qmsvcg7ae8" path="res://resources/effect_mods/base_damage_over_time.tres" id="45_2a3c5"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
 radius = 5.0
@@ -146,6 +168,13 @@ _interval = -1.0
 _repeat = 0
 _factor = -20.0
 metadata/_custom_type_script = "uid://2fh28xow6f1j"
+
+[sub_resource type="Resource" id="Resource_ha2mi"]
+script = ExtResource("23_lxlsd")
+_interval = -1.0
+_repeat = 0
+_factor = 100.0
+metadata/_custom_type_script = "uid://6ofkt38dyeyp"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a38lo"]
 size = Vector2(60, 40)
@@ -533,7 +562,8 @@ animations = [{
 "speed": 15.0
 }]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("ranged", "inventory", "blueprints", "mod_target", "mod_slots", "health_prop", "health_capacity", "melee_cooldown") groups=["allies"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("ranged", "inventory", "blueprints", "mod_target", "mod_slots", "health_prop", "health_capacity", "melee_cooldown", "size_prop", "lives") groups=["allies"]]
+z_index = 1
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_f1ej7")
@@ -545,6 +575,8 @@ mod_slots = NodePath("Components/ModSlotComp")
 health_prop = NodePath("Properties/HealthProp")
 health_capacity = NodePath("Properties/HealthCapacityProp")
 melee_cooldown = NodePath("Properties/MeleeCooldownProp")
+size_prop = NodePath("Properties/SizeProp")
+lives = NodePath("Properties/RepeatProp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 100
@@ -558,11 +590,12 @@ libraries = {
 
 [node name="Properties" type="Node" parent="."]
 
-[node name="MovementProp" type="Node" parent="Properties" node_paths=PackedStringArray("target_priority")]
+[node name="MovementProp" type="Node" parent="Properties" node_paths=PackedStringArray("target_priority", "knockback_prop")]
 script = ExtResource("2_g2els")
 initial_speed = 80.0
 is_player = true
 target_priority = NodePath("../TargetPriorityProp")
+knockback_prop = NodePath("../KnockbackProp")
 
 [node name="HealthCapacityProp" type="Node" parent="Properties"]
 script = ExtResource("8_4ni07")
@@ -575,7 +608,7 @@ _health_capacity_prop = NodePath("../HealthCapacityProp")
 
 [node name="RangedCooldownProp" type="Node" parent="Properties"]
 script = ExtResource("6_tuyoq")
-ranged_cooldown = 0.2
+ranged_cooldown = 0.25
 
 [node name="TargetPriorityProp" type="Node" parent="Properties"]
 script = ExtResource("7_fjrip")
@@ -587,6 +620,28 @@ script = ExtResource("18_60mlk")
 [node name="MeleeCooldownProp2" type="Node" parent="Properties"]
 script = ExtResource("18_60mlk")
 
+[node name="SizeProp" type="Node" parent="Properties"]
+script = ExtResource("8_hax0n")
+
+[node name="CopyProp" type="Node" parent="Properties"]
+script = ExtResource("9_giy8y")
+
+[node name="SpreadProp" type="Node" parent="Properties"]
+script = ExtResource("10_fdfoy")
+_spread = 90.0
+
+[node name="RepeatProp" type="Node" parent="Properties"]
+script = ExtResource("11_6e8lb")
+metadata/_custom_type_script = "uid://leayhs5xslyy"
+
+[node name="KnockbackProp" type="Node" parent="Properties" node_paths=PackedStringArray("knockback_resistance_prop")]
+script = ExtResource("12_sc3ue")
+knockback_resistance_prop = NodePath("../KnockbackResistanceProperty")
+
+[node name="KnockbackResistanceProperty" type="Node" parent="Properties"]
+script = ExtResource("13_8svfe")
+metadata/_custom_type_script = "uid://br6ig8qlkh0ua"
+
 [node name="Components" type="Node2D" parent="."]
 
 [node name="HitboxComp" type="Node" parent="Components"]
@@ -595,13 +650,13 @@ team = 1
 
 [node name="ModSlotComp" type="Node" parent="Components" node_paths=PackedStringArray("entity", "attack_comp")]
 script = ExtResource("16_ke2ow")
-capacity = 5
+capacity = 7
 initial_mods = Array[ExtResource("10_md1ol")]([ExtResource("18_31cv2")])
 entity = NodePath("../..")
 attack_comp = NodePath("../RangedComp")
 metadata/_custom_type_script = "uid://bnt7cwx8k0nm0"
 
-[node name="RangedComp" type="Node2D" parent="Components" node_paths=PackedStringArray("player", "barrel", "ranged_cooldown")]
+[node name="RangedComp" type="Node2D" parent="Components" node_paths=PackedStringArray("player", "barrel", "ranged_cooldown", "bullet_count", "spread")]
 script = ExtResource("7_smehm")
 player = NodePath("../..")
 active = true
@@ -609,6 +664,8 @@ barrel = NodePath("Barrel")
 ranged_cooldown = NodePath("../../Properties/RangedCooldownProp")
 target_filter = SubResource("Resource_ujl30")
 effects = Array[ExtResource("19_a38lo")]([ExtResource("13_l71n6")])
+bullet_count = NodePath("../../Properties/CopyProp")
+spread = NodePath("../../Properties/SpreadProp")
 metadata/_custom_type_script = "uid://s08wfqwqu2jn"
 
 [node name="Barrel" type="Node2D" parent="Components/RangedComp"]
@@ -621,7 +678,7 @@ script = ExtResource("17_4r5pv")
 melee_cooldown = NodePath("../../Properties/MeleeCooldownProp")
 target_priority = NodePath("../../Properties/TargetPriorityProp")
 target_filter = SubResource("Resource_pf23h")
-effects = Array[ExtResource("19_a38lo")]([SubResource("Resource_gl8cc")])
+effects = Array[ExtResource("19_a38lo")]([SubResource("Resource_gl8cc"), SubResource("Resource_ha2mi")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Components/MeleeComp"]
 z_index = 100
@@ -658,7 +715,7 @@ shape = SubResource("CircleShape2D_wqfne")
 
 [node name="InventoryComp" type="Node" parent="Components"]
 script = ExtResource("20_wnwbv")
-initial_mods = Array[ExtResource("10_md1ol")]([ExtResource("18_31cv2"), ExtResource("18_31cv2"), ExtResource("21_487ah"), ExtResource("21_487ah"), ExtResource("21_md1ol"), ExtResource("23_jc3p3"), ExtResource("23_jc3p3"), ExtResource("23_jc3p3"), ExtResource("23_jc3p3")])
+initial_mods = Array[ExtResource("10_md1ol")]([ExtResource("18_31cv2"), ExtResource("18_31cv2"), ExtResource("21_487ah"), ExtResource("21_487ah"), ExtResource("21_md1ol"), ExtResource("23_jc3p3"), ExtResource("23_jc3p3"), ExtResource("23_jc3p3"), ExtResource("23_jc3p3"), ExtResource("25_j2b1d"), ExtResource("26_cs1tg"), ExtResource("27_cs1tg"), ExtResource("27_cs1tg"), ExtResource("30_fdfoy"), ExtResource("31_hhpqf"), ExtResource("31_hhpqf"), ExtResource("31_hhpqf"), ExtResource("32_g5jhy"), ExtResource("32_g5jhy"), ExtResource("32_g5jhy"), ExtResource("33_holxr"), ExtResource("34_mx1m4"), ExtResource("34_mx1m4"), ExtResource("34_mx1m4"), ExtResource("34_mx1m4"), ExtResource("35_4gjji"), ExtResource("36_u2ulf"), ExtResource("38_2gdjj"), ExtResource("41_ha2mi"), ExtResource("41_ha2mi"), ExtResource("41_ha2mi"), ExtResource("41_ha2mi"), ExtResource("41_ha2mi"), ExtResource("41_ha2mi"), ExtResource("42_apa73"), ExtResource("42_apa73"), ExtResource("42_apa73"), ExtResource("42_apa73"), ExtResource("42_apa73"), ExtResource("43_74r1k"), ExtResource("43_74r1k"), ExtResource("43_74r1k"), ExtResource("45_2a3c5"), ExtResource("45_2a3c5")])
 initial_scraps = 60
 metadata/_custom_type_script = "uid://j8sk0rxpd865"
 
@@ -673,11 +730,12 @@ script = ExtResource("21_gl8cc")
 position = Vector2(20, 0)
 shape = SubResource("RectangleShape2D_487ah")
 
-[node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("player_ranged", "player_melee", "player_repair", "player")]
+[node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("player_ranged", "player_melee", "player_repair", "melee_cooldown", "player")]
 script = ExtResource("14_oprun")
 player_ranged = NodePath("../Components/RangedComp")
 player_melee = NodePath("../Components/MeleeComp")
 player_repair = NodePath("../Components/RepairComp")
+melee_cooldown = NodePath("../Properties/MeleeCooldownProp")
 player = NodePath("..")
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="Visuals"]
@@ -695,7 +753,7 @@ z_index = 6
 sprite_frames = SubResource("SpriteFrames_jc3p3")
 frame = 3
 frame_progress = 1.0
-offset = Vector2(27.5, -0.5)
+offset = Vector2(27, 0)
 
 [node name="Audio" type="Node" parent="." node_paths=PackedStringArray("player", "player_ranged", "player_melee", "player_repair")]
 script = ExtResource("13_a8ls1")
@@ -736,7 +794,6 @@ stream = ExtResource("29_dt7fs")
 volume_db = -7.0
 bus = &"SFX"
 
-[connection signal="changed" from="Properties/HealthProp" to="." method="_on_damage_taken_prop_changed"]
 [connection signal="emptied" from="Properties/HealthProp" to="." method="_on_health_emptied"]
 [connection signal="body_entered" from="Components/ModTargetingComp" to="Components/ModTargetingComp" method="_on_body_entered"]
 [connection signal="body_exited" from="Components/ModTargetingComp" to="Components/ModTargetingComp" method="_on_body_exited"]

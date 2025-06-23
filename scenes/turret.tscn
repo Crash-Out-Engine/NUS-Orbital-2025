@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://iqyedsof74fp"]
+[gd_scene load_steps=34 format=3 uid="uid://iqyedsof74fp"]
 
 [ext_resource type="Script" uid="uid://47onqbsq6sc8" path="res://scripts/turret_scene/turret.gd" id="1_x3mc5"]
 [ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox_comp.gd" id="2_el7wl"]
@@ -8,10 +8,12 @@
 [ext_resource type="Script" uid="uid://bg2iinlcp53aa" path="res://scripts/properties/health_prop.gd" id="4_eo4u0"]
 [ext_resource type="Script" uid="uid://bhi7w6ril3da2" path="res://scripts/components/ranged_AI_comp.gd" id="5_mqfwu"]
 [ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/properties/target_priority_prop.gd" id="6_dirdf"]
+[ext_resource type="Script" uid="uid://2x8lbjmqr7m7" path="res://scripts/properties/copy_prop.gd" id="7_8a46y"]
 [ext_resource type="Script" path="res://scripts/target_filter.gd" id="7_726tt"]
 [ext_resource type="Texture2D" uid="uid://06sdtfwasbao" path="res://assets/sprites/turret_spritesheet.png" id="8_0dv4j"]
 [ext_resource type="Script" uid="uid://bnt7cwx8k0nm0" path="res://scripts/components/mod_slot_comp.gd" id="8_137wx"]
 [ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/mods/effects/effect_base.gd" id="8_726tt"]
+[ext_resource type="Script" uid="uid://3wplgpaykhjn" path="res://scripts/properties/spread_prop.gd" id="8_v6fyb"]
 [ext_resource type="Resource" uid="uid://dtogyr1espqpy" path="res://resources/effects/damage.tres" id="9_8c4bs"]
 [ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod_base.gd" id="9_d25s7"]
 [ext_resource type="AudioStream" uid="uid://dc66si5kieoq4" path="res://assets/audio/sound_effects/laser_gunshot.wav" id="9_tg0ex"]
@@ -127,7 +129,7 @@ metadata/_custom_type_script = "uid://bg2iinlcp53aa"
 
 [node name="RangedCooldownProp" type="Node" parent="Properties"]
 script = ExtResource("3_pp6j5")
-ranged_cooldown = 0.2
+ranged_cooldown = 0.25
 
 [node name="BuildProp" type="Node" parent="Properties"]
 script = ExtResource("4_8c4bs")
@@ -135,6 +137,13 @@ metadata/_custom_type_script = "uid://cf6drkuqld4ft"
 
 [node name="TargetPriorityProp" type="Node" parent="Properties"]
 script = ExtResource("6_dirdf")
+
+[node name="CopyProp" type="Node" parent="Properties"]
+script = ExtResource("7_8a46y")
+
+[node name="SpreadProp" type="Node" parent="Properties"]
+script = ExtResource("8_v6fyb")
+_spread = 90.0
 
 [node name="Components" type="Node2D" parent="."]
 
@@ -151,13 +160,15 @@ entity = NodePath("../..")
 attack_comp = NodePath("../RangedComp")
 metadata/_custom_type_script = "uid://bnt7cwx8k0nm0"
 
-[node name="RangedComp" type="Node2D" parent="Components" node_paths=PackedStringArray("barrel", "ranged_cooldown")]
+[node name="RangedComp" type="Node2D" parent="Components" node_paths=PackedStringArray("barrel", "ranged_cooldown", "bullet_count", "spread")]
 script = ExtResource("5_mqfwu")
 active = true
 barrel = NodePath("Barrel")
 ranged_cooldown = NodePath("../../Properties/RangedCooldownProp")
 target_filter = SubResource("Resource_8c4bs")
 effects = Array[ExtResource("8_726tt")]([ExtResource("9_8c4bs")])
+bullet_count = NodePath("../../Properties/CopyProp")
+spread = NodePath("../../Properties/SpreadProp")
 metadata/_custom_type_script = "uid://bhi7w6ril3da2"
 
 [node name="Barrel" type="Node2D" parent="Components/RangedComp"]

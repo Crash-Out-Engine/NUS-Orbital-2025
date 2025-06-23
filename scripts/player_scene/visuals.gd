@@ -9,6 +9,7 @@ const BLEED_TIME := 2.0 / 30.0
 @export var player_ranged: RangedBaseComp
 @export var player_melee: MeleeComp
 @export var player_repair: MeleeComp
+@export var melee_cooldown: MeleeCooldownProp
 @export var player: Player
 
 @onready var player_sprite := $PlayerSprite as AnimatedSprite2D
@@ -76,6 +77,7 @@ func play_gun_fire(_bullet):
 func play_melee_fire():
 	player_melee.rotation = gun_sprite.rotation
 	player_repair.rotation = gun_sprite.rotation
+	gun_sprite.speed_scale = 0.5 / melee_cooldown.value
 	gun_sprite.play("melee_fire")
 
 func play_bleed():
@@ -83,6 +85,7 @@ func play_bleed():
 
 func _on_gun_sprite_animation_finished() -> void:
 	if gun_sprite.animation == "melee_fire":
+		gun_sprite.speed_scale = 1
 		if Input.is_action_pressed("melee"):
 			gun_sprite.play("melee_idle")
 		else:

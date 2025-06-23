@@ -2,7 +2,7 @@ class_name ModBase
 extends Resource
 
 enum Type {
-	APPLICATION,
+	BEHAVIOURAL,
 	EFFECT,
 	UPGRADE,
 }

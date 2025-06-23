@@ -24,6 +24,7 @@ func _physics_process(_delta: float) -> void:
 
 	var bullet: Bullet = _BULLET_SCENE.instantiate()
 	bullet.effects.assign(effects)
+	bullet.assign_mods(mods)
 	bullet.target_filter = target_filter
 	bullet.global_position = barrel.global_position
 	bullet.direction = barrel.global_position.angle_to_point(predicted_position)

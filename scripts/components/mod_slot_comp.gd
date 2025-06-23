@@ -40,16 +40,16 @@ func _setup_mods() -> void:
 
 	var upgrade_mods: Array[UpgradeMod]
 	var effect_mods: Array[EffectMod]
-	var application_mods: Array # TODO: Implement application mod
+	var behavioural_mods: Array # TODO: Implement application mod
 	upgrade_mods.assign(
 			_mods.filter(func(mod): return mod != null and mod.type == ModBase.Type.UPGRADE))
 	effect_mods.assign(
 			_mods.filter(func(mod): return mod != null and mod.type == ModBase.Type.EFFECT))
-	application_mods.assign(
-			_mods.filter(func(mod): return mod != null and mod.type == ModBase.Type.APPLICATION))
+	behavioural_mods.assign(
+			_mods.filter(func(mod): return mod != null and mod.type == ModBase.Type.BEHAVIOURAL))
 
 	var entity_properties := entity.get_node(^"Properties").get_children()
-	for upgrade in UpgradeMod.compile_upgrades(upgrade_mods):
+	for upgrade in UpgradeMod.compile_upgrades(upgrade_mods, UpgradeBase.Target.ENTITY):
 		for prop_node in entity_properties:
 			upgrade.apply_upgrade(prop_node)
 
@@ -57,8 +57,9 @@ func _setup_mods() -> void:
 	attack_comp.effects.assign(effects)
 
 	if "application_mods" in attack_comp:
-		attack_comp.application_mods.assign(application_mods)
+		attack_comp.behavioural_mods.assign(behavioural_mods)
 
+	attack_comp.mods = _mods
 	modslots_updated.emit(_mods.size(), capacity)
 
 func change_capcity(value: int):
@@ -76,7 +77,7 @@ func _add_mod(mod: ModBase) -> bool:
 				_readonly_mods = _mods.duplicate()
 				_readonly_mods.make_read_only()
 				var entity_properties := entity.get_node(^"Properties").get_children()
-				for upgrade in UpgradeMod.compile_upgrades([mod]):
+				for upgrade in UpgradeMod.compile_upgrades([mod], UpgradeBase.Target.ENTITY):
 					for prop_node in entity_properties:
 						upgrade.apply_upgrade(prop_node)
 			ModBase.Type.EFFECT:
@@ -88,9 +89,9 @@ func _add_mod(mod: ModBase) -> bool:
 						func(m): return m != null and m.type == ModBase.Type.EFFECT))
 				var effects := EffectMod.compile_effects(effect_mods)
 				attack_comp.effects.assign(effects)
-			ModBase.Type.APPLICATION:
+			ModBase.Type.BEHAVIOURAL:
 				pass
-		print("true")
+		attack_comp.mods = _mods
 		return true
 	return false
 
@@ -101,7 +102,7 @@ func _remove_mod(mod: ModBase):
 			_readonly_mods = _mods.duplicate()
 			_readonly_mods.make_read_only()
 			var entity_properties := entity.get_node(^"Properties").get_children()
-			for upgrade in UpgradeMod.compile_upgrades([mod]):
+			for upgrade in UpgradeMod.compile_upgrades([mod], UpgradeBase.Target.ENTITY):
 					for prop_node in entity_properties:
 						upgrade.unapply_upgrade(prop_node)
 		ModBase.Type.EFFECT:
@@ -113,5 +114,6 @@ func _remove_mod(mod: ModBase):
 					func(m): return m != null and m.type == ModBase.Type.EFFECT))
 			var effects := EffectMod.compile_effects(effect_mods)
 			attack_comp.effects.assign(effects)
-		ModBase.Type.APPLICATION:
+		ModBase.Type.BEHAVIOURAL:
 			pass
+	attack_comp.mods = _mods

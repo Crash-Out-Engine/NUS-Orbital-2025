@@ -3,74 +3,119 @@
 [ext_resource type="Script" uid="uid://kkoxnhs8fhnx" path="res://scripts/explosion.gd" id="1_17npe"]
 [ext_resource type="AudioStream" uid="uid://dn6k75a1tyl8k" path="res://assets/audio/sound_effects/hit_sound.wav" id="2_aw4cw"]
 [ext_resource type="Texture2D" uid="uid://iabxnxum3fjv" path="res://assets/sprites/explosion_spritesheet.png" id="3_3el85"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3cu60"]
-atlas = ExtResource("3_3el85")
-region = Rect2(0, 0, 18, 18)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_owvq2"]
-atlas = ExtResource("3_3el85")
-region = Rect2(18, 0, 18, 18)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_me0jq"]
-atlas = ExtResource("3_3el85")
-region = Rect2(36, 0, 18, 18)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wut74"]
-atlas = ExtResource("3_3el85")
-region = Rect2(54, 0, 18, 18)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_s61tw"]
-atlas = ExtResource("3_3el85")
-region = Rect2(72, 0, 18, 18)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_h0wgm"]
-atlas = ExtResource("3_3el85")
-region = Rect2(90, 0, 18, 18)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_ts3es"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3cu60")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_owvq2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_me0jq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wut74")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_s61tw")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_h0wgm")
-}],
-"loop": false,
-"name": &"default",
-"speed": 30.0
-}]
+[ext_resource type="Script" uid="uid://leayhs5xslyy" path="res://scripts/properties/repeat_prop.gd" id="4_hbmxj"]
+[ext_resource type="Script" uid="uid://b5m4xwnftefoj" path="res://scripts/properties/size_prop.gd" id="5_xfoey"]
+[ext_resource type="Script" uid="uid://u5g8y25fayqm" path="res://scripts/properties/timeout_prop.gd" id="6_v8gpv"]
+[ext_resource type="Script" uid="uid://d248fd1lh8u2a" path="res://scripts/components/explosion_mod_comp.gd" id="6_xfoey"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_er6rp"]
 radius = 9.0
 
-[node name="Explosion" type="Area2D"]
+[sub_resource type="Animation" id="Animation_vk406"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_cun36"]
+resource_name = "explode"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.1667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.166667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1), Vector2(1, 1), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4jttm"]
+_data = {
+&"RESET": SubResource("Animation_vk406"),
+&"explode": SubResource("Animation_cun36")
+}
+
+[node name="Explosion" type="Area2D" node_paths=PackedStringArray("explosion_mod_comp", "repeat_prop", "size_prop", "timeout_prop")]
 priority = 1
 script = ExtResource("1_17npe")
+explosion_mod_comp = NodePath("Components/ExplosionModComp")
+repeat_prop = NodePath("Properties/RepeatProp")
+size_prop = NodePath("Properties/SizeProp")
+timeout_prop = NodePath("Properties/TimeoutProp")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_aw4cw")
 bus = &"SFX"
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_ts3es")
-frame = 5
-frame_progress = 1.0
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_3el85")
+hframes = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 100
 shape = SubResource("CircleShape2D_er6rp")
 debug_color = Color(0.7, 0, 0, 0.419608)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_4jttm")
+}
+
+[node name="Properties" type="Node" parent="."]
+
+[node name="RepeatProp" type="Node" parent="Properties"]
+script = ExtResource("4_hbmxj")
+
+[node name="SizeProp" type="Node" parent="Properties"]
+script = ExtResource("5_xfoey")
+metadata/_custom_type_script = "uid://b5m4xwnftefoj"
+
+[node name="TimeoutProp" type="Node" parent="Properties"]
+script = ExtResource("6_v8gpv")
+time = 0.2
+metadata/_custom_type_script = "uid://u5g8y25fayqm"
+
+[node name="Components" type="Node2D" parent="."]
+
+[node name="ExplosionModComp" type="Node" parent="Components" node_paths=PackedStringArray("explosion")]
+script = ExtResource("6_xfoey")
+explosion = NodePath("../..")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -46,6 +46,8 @@ var _crafting_components : Dictionary[PropertyPoint, int]
 @onready var blueprint_label = (
 	$Margin/PanelContainer/HBox/RightVBox/HBox/CraftingOutput/VBox/BlueprintPanel/RichTextLabel
 	as RichTextLabel)
+@onready var blueprint_description_panel = %BlueprintDescriptionPanel as PanelContainer
+@onready var blueprint_button_description = %RichTextLabel as RichTextLabel
 @onready var crafting_inputs_list = (
 	$Margin/PanelContainer/HBox/RightVBox/HBox/CraftingInput/ScrollContainer/VBox as Container)
 @onready var crafting_instructions_label = (
@@ -64,11 +66,11 @@ func _ready() -> void:
 
 func try_open():
 	if Input.is_action_just_pressed("inventory"):
-		if analysis.visible:
-			analysis.visible = false
-			return
 		if visible:
-			close_inventory()
+			if analysis.visible:
+				analysis.visible = false
+			else:
+				close_inventory()
 		else:
 			visible = true
 			opening_setup(player.get_inventory(), player.get_mod_slots())
@@ -160,10 +162,18 @@ func blueprint_selected(selection: int):
 func update_inventory_list():
 	update_scrap_counter(inventory_comp.get_scraps())
 	if checking_blueprints:
+		blueprint_button_description.text = ""
+		blueprint_button_description.size = Vector2(0, 0)
+		blueprint_description_panel.size = Vector2(0, 0)
+		blueprint_button_description.text = "[i]View Inventory[/i]"
 		inventory_scroll.visible = false
 		blueprint_scroll.visible = true
 		inventory_mod_counter.text = "%d M.O.D. options" % (player.get_blueprints().size() - 1)
 	else:
+		blueprint_button_description.text = ""
+		blueprint_button_description.size = Vector2(0, 0)
+		blueprint_description_panel.size = Vector2(0, 0)
+		blueprint_button_description.text = "[i]View M.O.D.\nblueprints[/i]"
 		inventory_scroll.visible = true
 		blueprint_scroll.visible = false
 
@@ -333,7 +343,6 @@ func insert_item(mod: ModBase, destination: ItemContainer.State):
 	match(destination):
 		ItemContainer.State.MODCOMP:
 			if modslot_comp._add_mod(mod):
-				print(modslot_comp.get_mods().size())
 				update_modslotcomp_list()
 			else:
 				inventory_comp._add_mod(mod)

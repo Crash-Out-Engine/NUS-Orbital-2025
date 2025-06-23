@@ -30,6 +30,7 @@ region_rect = Rect2(1641, 254, 48, 48)
 custom_minimum_size = Vector2(0, 48)
 offset_right = 150.0
 offset_bottom = 55.0
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxTexture_2umob")
 script = ExtResource("2_p36xk")
 
@@ -47,6 +48,7 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
+mouse_filter = 2
 
 [node name="CountLabel" type="Label" parent="Control"]
 z_index = 2
@@ -70,6 +72,7 @@ visible = false
 top_level = true
 z_index = 20
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Panel" type="PanelContainer" parent="Description"]
 top_level = true
@@ -79,14 +82,17 @@ offset_left = -89.0
 offset_top = -45.0
 offset_right = 183.0
 offset_bottom = 2.0
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_p36xk")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Description/Panel"]
 custom_minimum_size = Vector2(360, 0)
 layout_mode = 2
+mouse_filter = 2
 theme_override_fonts/normal_font = ExtResource("2_2umob")
 bbcode_enabled = true
 text = "ffdgs"
 fit_content = true
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

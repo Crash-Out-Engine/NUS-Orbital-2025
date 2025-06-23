@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="UpgradeMod" load_steps=8 format=3 uid="uid://gtpo8u16foe8"]
+
+[ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="1_h8nc2"]
+[ext_resource type="Texture2D" uid="uid://cj6pr1h1t18eu" path="res://resources/text_icons/bullet_cooldown_minus.tres" id="1_yis2d"]
+[ext_resource type="Script" uid="uid://d2qeqei6awjb1" path="res://scripts/mods/upgrade_mod.gd" id="2_avehq"]
+[ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrades/upgrade_base.gd" id="3_3um1g"]
+[ext_resource type="Resource" uid="uid://biniuv5ug1m4x" path="res://resources/property_points/cooldown_pp.tres" id="3_mwyn3"]
+[ext_resource type="Script" uid="uid://b0w0sl6ncu4ul" path="res://scripts/mods/upgrades/ranged_cooldown_upgrade.gd" id="6_dom21"]
+
+[sub_resource type="Resource" id="Resource_mvbfk"]
+script = ExtResource("6_dom21")
+_factor = -0.05
+_target = 0
+metadata/_custom_type_script = "uid://b0w0sl6ncu4ul"
+
+[resource]
+script = ExtResource("2_avehq")
+upgrades = Array[ExtResource("3_3um1g")]([SubResource("Resource_mvbfk")])
+name = "Firing Speed+"
+icon = ExtResource("1_yis2d")
+description = "Increase firing speed"
+property_points = Dictionary[ExtResource("1_h8nc2"), int]({
+ExtResource("3_mwyn3"): 2
+})
+value = 120
+metadata/_custom_type_script = "uid://d2qeqei6awjb1"

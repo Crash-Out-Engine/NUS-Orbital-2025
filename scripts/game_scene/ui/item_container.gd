@@ -43,20 +43,15 @@ func update():
 
 func _process(_delta: float) -> void:
 	if mouse_hovering:
-		if Rect2(global_position, size).has_point(get_global_mouse_position()):
-			description_panel.global_position = get_global_mouse_position()
-			if Input.is_action_just_pressed("shoot") and grabbable:
-				var item = _DRAGGED_ITEM.instantiate()
-				item.mod = mod
-				item.destination = state
-				create_dragged_item.emit(item, state)
-				item.update()
-				description.visible = false
-				mouse_hovering = false
-		else:
+		description_panel.global_position = get_global_mouse_position()
+		if Input.is_action_just_pressed("shoot") and grabbable:
+			var item = _DRAGGED_ITEM.instantiate()
+			item.mod = mod
+			item.destination = state
+			create_dragged_item.emit(item, state)
+			item.update()
 			description.visible = false
 			mouse_hovering = false
-		#Description panel blocks ItemContainer from detecting the mouse
 
 func _on_mouse_entered() -> void:
 	description.visible = true
@@ -77,3 +72,8 @@ func get_description():
 	paragraph += (
 		"\nScrap value:%d[img={24}]res://resources/text_icons/scrap_icon.tres[/img]" % mod.value)
 	return paragraph
+
+
+func _on_mouse_exited() -> void:
+	description.visible = false
+	mouse_hovering = false

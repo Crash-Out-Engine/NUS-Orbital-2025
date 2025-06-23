@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PropertyPoint" load_steps=3 format=3 uid="uid://bv0roj2kgaw4n"]
+
+[ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="1_1dq7f"]
+[ext_resource type="Texture2D" uid="uid://ed4lntbnh7kk" path="res://resources/text_icons/spread_icon.tres" id="1_hi8xx"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_1dq7f")
+icon = ExtResource("1_hi8xx")
+metadata/_custom_type_script = "uid://bik6dfo0vrxil"
