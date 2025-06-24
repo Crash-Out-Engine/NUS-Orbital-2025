@@ -1,13 +1,13 @@
 class_name BlueprintContainer
 extends PanelContainer
 
-signal pressed(id: int)
+signal pressed(mod: ModBase)
 
 const _DRAGGED_ITEM = preload("res://scenes/dragged_item.tscn")
 
 @export var mod: ModBase = null
 
-var id: int
+var selected: bool = false
 var mouse_hovering = false
 
 @onready var name_label = $RichTextLabel as RichTextLabel
@@ -23,7 +23,7 @@ func _process(_delta: float) -> void:
 	if mouse_hovering:
 		description_panel.global_position = get_global_mouse_position()
 		if Input.is_action_just_pressed("shoot"):
-			pressed.emit(id)
+			pressed.emit(mod)
 
 func get_mod_name() -> String:
 	if mod == null:
@@ -37,8 +37,10 @@ func _on_mouse_entered() -> void:
 
 func set_selected(value: bool):
 	if value:
+		selected = true
 		self_modulate.v = 0.66
 	else:
+		selected = false
 		self_modulate.v = 1
 
 func get_description():
