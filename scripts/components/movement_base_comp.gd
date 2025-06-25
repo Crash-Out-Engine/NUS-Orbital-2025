@@ -42,7 +42,7 @@ func _physics_process(delta: float) -> void:
 	var net_velocity = movement_velocity + knockback_velocity
 
 	entity.apply_central_impulse((net_velocity - entity.linear_velocity) * entity.mass)
-	
+
 
 func apply_knockback(direction: Vector2) -> void:
 	_knockback_timer = _knockback_speed_curve.get_domain_range()
