@@ -1,14 +1,15 @@
-[gd_scene load_steps=46 format=3 uid="uid://dhntafslopc4h"]
+[gd_scene load_steps=47 format=3 uid="uid://dhntafslopc4h"]
 
 [ext_resource type="Script" uid="uid://d1ycqyouy38vt" path="res://scripts/fault_scene/fault.gd" id="1_poe5t"]
 [ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox_comp.gd" id="2_8twt2"]
 [ext_resource type="Script" uid="uid://cf6drkuqld4ft" path="res://scripts/properties/build_prop.gd" id="2_iirbo"]
 [ext_resource type="Script" uid="uid://fkksvdjg1cog" path="res://scripts/fault_scene/visuals.gd" id="2_j0lcy"]
 [ext_resource type="Texture2D" uid="uid://ci6bybddr7cy2" path="res://assets/sprites/power_fault_spritesheet.png" id="2_k0tyb"]
-[ext_resource type="Script" uid="uid://wl0p66q8tmcl" path="res://scripts/properties/sabotage_prop.gd" id="3_qcmb2"]
 [ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet.png" id="4_j0lcy"]
 [ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/properties/target_priority_prop.gd" id="4_kmo7v"]
+[ext_resource type="Script" uid="uid://bg2iinlcp53aa" path="res://scripts/properties/health_prop.gd" id="5_bergw"]
 [ext_resource type="FontFile" uid="uid://cj53anigafm5t" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="5_rtx38"]
+[ext_resource type="Script" uid="uid://cceowy0wh5ufb" path="res://scripts/properties/health_capacity_prop.gd" id="6_srlrk"]
 [ext_resource type="AudioStream" uid="uid://dxkyv1bjpvfkn" path="res://assets/audio/sound_effects/success_sound.wav" id="10_li0y2"]
 [ext_resource type="Script" uid="uid://dkn3n2f8l3bxs" path="res://scripts/fault_scene/audio.gd" id="10_of21w"]
 [ext_resource type="AudioStream" uid="uid://dk7lmxukxhhcr" path="res://assets/audio/sound_effects/error.wav" id="10_sp3rc"]
@@ -454,30 +455,42 @@ _data = {
 &"sabotaged": SubResource("Animation_8twt2")
 }
 
-[node name="Fault" type="StaticBody2D" node_paths=PackedStringArray("build_prop", "sabotage_prop", "hitbox")]
+[node name="Fault" type="StaticBody2D" node_paths=PackedStringArray("build", "health", "health_capacity", "hitbox")]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_poe5t")
 repair_target = 100.0
-build_prop = NodePath("Properties/BuildProp")
-sabotage_prop = NodePath("Properties/SabotageProp")
+build = NodePath("Properties/BuildProp")
+health = NodePath("Properties/HealthProp")
+health_capacity = NodePath("Properties/HealthCapacityProp")
 hitbox = NodePath("Components/HitboxComp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 100
 shape = SubResource("RectangleShape2D_8twt2")
 
+[node name="RebootTimer" type="Timer" parent="."]
+wait_time = 10.0
+
 [node name="Properties" type="Node" parent="."]
 
 [node name="BuildProp" type="Node" parent="Properties"]
 script = ExtResource("2_iirbo")
 
-[node name="SabotageProp" type="Node" parent="Properties"]
-script = ExtResource("3_qcmb2")
-
 [node name="TargetPriorityProp" type="Node" parent="Properties"]
 script = ExtResource("4_kmo7v")
 priority = 10.0
+
+[node name="HealthProp" type="Node" parent="Properties" node_paths=PackedStringArray("_health_capacity_prop")]
+script = ExtResource("5_bergw")
+health = 0.001
+_health_capacity_prop = NodePath("../HealthCapacityProp")
+metadata/_custom_type_script = "uid://bg2iinlcp53aa"
+
+[node name="HealthCapacityProp" type="Node" parent="Properties"]
+script = ExtResource("6_srlrk")
+_health_capacity = 0.001
+metadata/_custom_type_script = "uid://cceowy0wh5ufb"
 
 [node name="Components" type="Node2D" parent="."]
 
@@ -492,7 +505,7 @@ fault = NodePath("..")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visuals"]
 sprite_frames = SubResource("SpriteFrames_rtx38")
-animation = &"fixed"
+animation = &"sabotaged"
 
 [node name="RepairProgressBar" type="TextureProgressBar" parent="Visuals"]
 offset_left = -8.0
@@ -546,9 +559,6 @@ libraries = {
 &"": SubResource("AnimationLibrary_8y7r4")
 }
 
-[node name="RebootTimer" type="Timer" parent="."]
-wait_time = 10.0
-
 [node name="Audio" type="Node" parent="." node_paths=PackedStringArray("fault")]
 script = ExtResource("10_of21w")
 fault = NodePath("..")
@@ -562,5 +572,5 @@ bus = &"SFX"
 stream = ExtResource("10_li0y2")
 bus = &"SFX"
 
-[connection signal="disappear_finished" from="Visuals" to="." method="_on_visuals_disappear_finished"]
 [connection signal="timeout" from="RebootTimer" to="." method="_on_reboot_timer_timeout"]
+[connection signal="disappear_finished" from="Visuals" to="." method="_on_visuals_disappear_finished"]

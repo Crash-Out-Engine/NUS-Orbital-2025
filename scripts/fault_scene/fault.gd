@@ -16,7 +16,8 @@ enum State {
 
 @export_group("Properties")
 @export var build: BuildProp
-@export var sabotage: SabotageProp
+@export var health: HealthProp
+@export var health_capacity: HealthCapacityProp
 
 @export_group("Components")
 @export var hitbox: HitboxComp
@@ -36,7 +37,7 @@ func _ready() -> void:
 	if state == State.DEFAULT:
 		state = State.SABOTAGED
 	build.changed.connect(func(_from, to): _check_repair(to))
-	sabotage.changed.connect(func(_from, to): _check_sabotage(to))
+	health.emptied.connect(func(): state = State.SABOTAGED)
 
 
 func get_time_progress_ratio() -> float:
@@ -45,15 +46,15 @@ func get_time_progress_ratio() -> float:
 
 func _handle_state_changed(from: State, to: State):
 	match [from, to]:
-		[State.SABOTAGED, State.REBOOTING]:
+		[var x, State.REBOOTING] when x in [State.DEFAULT, State.SABOTAGED]:
 			set_collision_layer_value(1, true)
 			set_collision_layer_value(2, false)
 			set_collision_mask_value(1, true)
 			reboot_timer.start() # TODO(multiplayer): Verify that reboot_timer cannot be null here
 			hitbox.team = Enums.Team.PLAYER_BUILDING
-			sabotage.reset()
+			health.value = health_capacity.value
 
-		[State.REBOOTING, State.SABOTAGED]:
+		[var x, State.SABOTAGED] when x in [State.DEFAULT, State.REBOOTING]:
 			set_collision_layer_value(1, false)
 			set_collision_layer_value(2, true)
 			set_collision_mask_value(1, false)
@@ -64,6 +65,9 @@ func _handle_state_changed(from: State, to: State):
 		[State.REBOOTING, State.FIXED]:
 			hitbox.team = Enums.Team.NONE
 			fixed.emit()
+		
+		[State.DEFAULT, State.FIXED]:
+			hitbox.team = Enums.Team.NONE
 
 		[_, _]:
 			assert(false, "Invalid state change from %s to %s." % [State.find_key(from), State.find_key(to)])

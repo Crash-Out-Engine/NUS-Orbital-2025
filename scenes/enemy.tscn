@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://kcqha4xx46r7"]
+[gd_scene load_steps=42 format=3 uid="uid://kcqha4xx46r7"]
 
 [ext_resource type="Script" uid="uid://b2oqcghmenmfd" path="res://scripts/enemy_scene/enemy.gd" id="1_7p1mj"]
 [ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox_comp.gd" id="3_4ra3w"]
@@ -37,14 +37,6 @@ _interval = -1.0
 _repeat = 0
 _factor = -5.0
 metadata/_custom_type_script = "uid://2fh28xow6f1j"
-
-[sub_resource type="Resource" id="Resource_rogs8"]
-script = ExtResource("3_s1ycm")
-_property_type = "SabotageProp"
-_interval = -1.0
-_repeat = 0
-_factor = 1.0
-metadata/_custom_type_script = "uid://bkccmmojcqpl5"
 
 [sub_resource type="Resource" id="Resource_wrm80"]
 script = ExtResource("3_s1ycm")
@@ -213,7 +205,7 @@ script = ExtResource("5_nenq2")
 melee_cooldown = NodePath("../../Properties/MeleeCooldownProp")
 target_priority = NodePath("../../Properties/TargetPriorityProp")
 target_filter = SubResource("Resource_1x4g4")
-effects = Array[ExtResource("3_s1ycm")]([SubResource("Resource_ile5s"), SubResource("Resource_rogs8"), SubResource("Resource_wrm80")])
+effects = Array[ExtResource("3_s1ycm")]([SubResource("Resource_ile5s"), SubResource("Resource_wrm80")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Components/MeleeComp"]
 z_index = 100
