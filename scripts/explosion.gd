@@ -46,6 +46,8 @@ func save_scene() -> PackedByteArray:
 	dict["rotation"] = rotation
 	dict["target_filter"] = target_filter.save()
 	dict["effects"] = Effect.save_array(effects)
+	for property_node: PropertyBase in $Properties.get_children():
+		dict[property_node.name] = property_node.save()
 	return var_to_bytes(dict)
 
 func load_saved_scene(data: PackedByteArray) -> void:
@@ -54,5 +56,7 @@ func load_saved_scene(data: PackedByteArray) -> void:
 	rotation = dict["rotation"]
 	target_filter = TargetFilter.from_saved(dict["target_filter"])
 	effects = Effect.from_saved_array(dict["effects"])
+	for property_node: PropertyBase in $Properties.get_children():
+		property_node.load_saved(dict[property_node.name])
 
 #endregion
