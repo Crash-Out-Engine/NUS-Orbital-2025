@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="1_h8nc2"]
 [ext_resource type="Texture2D" uid="uid://cj6pr1h1t18eu" path="res://resources/text_icons/bullet_cooldown_minus.tres" id="1_yis2d"]
 [ext_resource type="Script" uid="uid://d2qeqei6awjb1" path="res://scripts/mods/upgrade_mod.gd" id="2_avehq"]
-[ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrades/upgrade_base.gd" id="3_3um1g"]
+[ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="3_3um1g"]
 [ext_resource type="Resource" uid="uid://biniuv5ug1m4x" path="res://resources/property_points/time_pp.tres" id="3_mwyn3"]
 
 [sub_resource type="Resource" id="Resource_mvbfk"]

@@ -1,4 +1,4 @@
-class_name UpgradeBase
+class_name Upgrade
 extends Resource
 
 enum Target {

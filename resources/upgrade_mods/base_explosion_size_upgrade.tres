@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="2_tirmo"]
 [ext_resource type="Resource" uid="uid://btlyda8bvnqes" path="res://resources/property_points/size_pp.tres" id="3_thvv2"]
 [ext_resource type="Script" uid="uid://d2qeqei6awjb1" path="res://scripts/mods/upgrade_mod.gd" id="4_3t3ou"]
-[ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrades/upgrade_base.gd" id="5_i5m2q"]
+[ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="5_i5m2q"]
 
 [sub_resource type="Resource" id="Resource_tirmo"]
 script = ExtResource("5_i5m2q")

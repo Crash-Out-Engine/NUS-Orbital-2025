@@ -49,7 +49,7 @@ func _setup_mods() -> void:
 			_mods.filter(func(mod): return mod != null and mod.type == ModBase.Type.BEHAVIOURAL))
 
 	var entity_properties := entity.get_node(^"Properties").get_children()
-	for upgrade in UpgradeMod.compile_upgrades(upgrade_mods, UpgradeBase.Target.ENTITY):
+	for upgrade in UpgradeMod.compile_upgrades(upgrade_mods, Upgrade.Target.ENTITY):
 		for prop_node in entity_properties:
 			upgrade.apply_upgrade(prop_node)
 
@@ -77,7 +77,7 @@ func _add_mod(mod: ModBase) -> bool:
 				_readonly_mods = _mods.duplicate()
 				_readonly_mods.make_read_only()
 				var entity_properties := entity.get_node(^"Properties").get_children()
-				for upgrade in UpgradeMod.compile_upgrades([mod], UpgradeBase.Target.ENTITY):
+				for upgrade in UpgradeMod.compile_upgrades([mod], Upgrade.Target.ENTITY):
 					for prop_node in entity_properties:
 						upgrade.apply_upgrade(prop_node)
 			ModBase.Type.EFFECT:
@@ -102,7 +102,7 @@ func _remove_mod(mod: ModBase):
 			_readonly_mods = _mods.duplicate()
 			_readonly_mods.make_read_only()
 			var entity_properties := entity.get_node(^"Properties").get_children()
-			for upgrade in UpgradeMod.compile_upgrades([mod], UpgradeBase.Target.ENTITY):
+			for upgrade in UpgradeMod.compile_upgrades([mod], Upgrade.Target.ENTITY):
 					for prop_node in entity_properties:
 						upgrade.unapply_upgrade(prop_node)
 		ModBase.Type.EFFECT:
