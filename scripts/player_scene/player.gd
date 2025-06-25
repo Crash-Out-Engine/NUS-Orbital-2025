@@ -55,17 +55,8 @@ var size = 1.0
 func _ready() -> void:
 	inventory.scraps_changed.connect(func(_from: int, _to: int): scraps_changed.emit())
 	health_prop.changed.connect(func(_from: int, _to: int): health_changed.emit())
-	size_prop.size_changed.connect(change_size)
 	health_changed.emit()
 	ranged.active = false
-
-
-func _process(_delta: float) -> void:
-	if scale.x != size:
-		var i = 1 if size > scale.x else -1
-		scale += i * SizeProp.GROWTH_SPEED * Vector2(1.0, 1.0)
-		if (size > scale.x) != (i == 1):
-			scale = size * Vector2(1.0, 1.0)
 
 
 func _physics_process(_delta: float) -> void:
@@ -215,6 +206,3 @@ func deactivate():
 
 func get_blueprints() -> Array[ModBase]:
 	return blueprints.get_blueprints()
-
-func change_size(value: float):
-	size = value

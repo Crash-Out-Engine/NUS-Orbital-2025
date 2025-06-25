@@ -12,7 +12,6 @@ var effects: Array[Effect] = []
 @onready var anim_player = $AnimationPlayer as AnimationPlayer
 
 func _ready() -> void:
-	size_prop.size_changed.connect(func(value): scale = value * Vector2(1.0, 1.0))
 	explosion_mod_comp._setup_mods()
 
 func _enter_tree() -> void:

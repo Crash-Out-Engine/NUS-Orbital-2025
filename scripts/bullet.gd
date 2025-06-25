@@ -21,7 +21,6 @@ var effects: Array[Effect] = []
 @onready var timer = $Timer as Timer
 
 func _ready() -> void:
-	size_prop.size_changed.connect(set_size)
 	timeout_prop.changed.connect(func(_from, to): timer.wait_time = to)
 	bullet_mods_comp._setup_mods()
 	timer.start()
@@ -53,6 +52,3 @@ func _on_body_entered(body: Node2D) -> void:
 
 func assign_mods(mods: Array[ModBase]) -> void:
 	bullet_mods_comp.mods.assign(mods)
-
-func set_size(size: float):
-	scale = size * Vector2(1.0, 1.0)
