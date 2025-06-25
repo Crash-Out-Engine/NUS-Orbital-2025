@@ -59,3 +59,34 @@ func _countdown(timer: Timer, property: PropertyBase, factor: float) -> Callable
 				property.value += factor
 				property.value = max(property.value, 0)
 				_counter -= 1
+
+#region Save/load
+
+func save() -> PackedByteArray:
+	var dict = {}
+	dict["_property_type"] = _property_type
+	dict["_interval"] = _interval
+	dict["_repeat"] = _repeat
+	dict["_factor"] = _factor
+	return var_to_bytes(dict)
+
+static func from_saved(data: PackedByteArray) -> Effect:
+	var dict = bytes_to_var(data)
+	var effect = new()
+	effect._property_type = dict._property_type
+	effect._interval = dict._interval
+	effect._repeat = dict._repeat
+	effect._factor = dict._factor
+
+	return effect
+
+
+static func save_array(array: Array[Effect]) -> PackedByteArray:
+	return var_to_bytes(array.map(func(effect): return effect.save()))
+
+static func from_saved_array(data: PackedByteArray) -> Array[Effect]:
+	var array: Array[Effect]
+	array.assign(bytes_to_var(data).map(func(effect_data): return Effect.from_saved(effect_data)))
+	return array
+
+#endregion
