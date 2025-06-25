@@ -6,8 +6,9 @@ extends Node
 
 
 func _ready() -> void:
-	melee_comp.executed.connect(func(_entity): play_hit_sound())
+	melee_comp.executed.connect(func(_entity): if is_multiplayer_authority(): _play_hit_sound.rpc())
 
 
-func play_hit_sound():
+@rpc("any_peer", "call_local", "reliable")
+func _play_hit_sound():
 	hit_sound.play()

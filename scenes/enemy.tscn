@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://kcqha4xx46r7"]
+[gd_scene load_steps=44 format=3 uid="uid://kcqha4xx46r7"]
 
 [ext_resource type="Script" uid="uid://b2oqcghmenmfd" path="res://scripts/enemy_scene/enemy.gd" id="1_7p1mj"]
 [ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox_comp.gd" id="3_4ra3w"]
@@ -21,6 +21,11 @@
 [ext_resource type="Script" uid="uid://ci2gb64dwfmjh" path="res://scripts/properties/speed_prop.gd" id="13_wjec0"]
 [ext_resource type="Script" uid="uid://ceeipidvq5rqy" path="res://scripts/enemy_scene/audio.gd" id="14_g0wcc"]
 [ext_resource type="Script" uid="uid://ytlqj8sxugss" path="res://scripts/components/movement_AI_comp.gd" id="21_i4rgx"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wrm80"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8qclf"]
 radius = 9.0
@@ -61,6 +66,14 @@ metadata/_custom_type_script = "uid://bc5nkvlgktyor"
 script = ExtResource("9_shcg2")
 targets = Array[int]([1, 4])
 metadata/_custom_type_script = "uid://bc5nkvlgktyor"
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_rogs8"]
+properties/0/path = NodePath("BodySprite:flip_h")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("BodySprite:self_modulate")
+properties/1/spawn = true
+properties/1/replication_mode = 1
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_shcg2"]
 atlas = ExtResource("3_otmr2")
@@ -148,6 +161,9 @@ max_contacts_reported = 620
 script = ExtResource("1_7p1mj")
 health_prop = NodePath("Properties/HealthProp")
 movement_comp = NodePath("Components/MovementAIComp")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_wrm80")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 100
@@ -241,20 +257,25 @@ enemy = NodePath("..")
 health = NodePath("../Properties/HealthProp")
 movement_comp = NodePath("../Components/MovementAIComp")
 
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Visuals"]
+replication_config = SubResource("SceneReplicationConfig_rogs8")
+
 [node name="BodySprite" type="AnimatedSprite2D" parent="Visuals"]
 sprite_frames = SubResource("SpriteFrames_j0cyh")
 offset = Vector2(0, 0.5)
 
-[node name="FlamesSprite" type="AnimatedSprite2D" parent="Visuals"]
+[node name="FlamesSprite" type="AnimatedSprite2D" parent="Visuals/BodySprite"]
 material = SubResource("ShaderMaterial_g0wcc")
 use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_shcg2")
+autoplay = "default"
 offset = Vector2(0, 13)
 
-[node name="LegsSprite" type="AnimatedSprite2D" parent="Visuals"]
+[node name="LegsSprite" type="AnimatedSprite2D" parent="Visuals/BodySprite"]
 material = SubResource("ShaderMaterial_s1ycm")
 use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_wrm80")
+autoplay = "default"
 offset = Vector2(0, 13)
 
 [node name="Audio" type="Node" parent="." node_paths=PackedStringArray("melee_comp")]

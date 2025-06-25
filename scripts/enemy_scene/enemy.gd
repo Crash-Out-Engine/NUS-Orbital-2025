@@ -15,6 +15,9 @@ func _ready() -> void:
 	health_prop.emptied.connect(die)
 
 func die():
+	if not is_multiplayer_authority():
+		return
+
 	await visuals.bleed_finished
 	queue_free()
 
@@ -25,4 +28,21 @@ func die():
 
 func deactivate():
 	movement_comp.active = false
-	linear_velocity = Vector2(0, 0)
+
+
+#region Save/load
+
+func save_scene() -> PackedByteArray:
+	var dict = {}
+	dict["position"] = position
+	for property_node: PropertyBase in $Properties.get_children():
+		dict[property_node.name] = property_node.save()
+	return var_to_bytes(dict)
+
+func load_saved_scene(data: PackedByteArray) -> void:
+	var dict = bytes_to_var(data)
+	position = dict["position"]
+	for property_node: PropertyBase in $Properties.get_children():
+		property_node.load_saved(dict[property_node.name])
+
+#endregion
