@@ -98,9 +98,9 @@ func _physics_process(_delta: float) -> void:
 		if current_turret != null:
 			current_turret.global_position = get_global_mouse_position()
 			if !_can_place_turret():
-				current_turret.get_node_or_null(^"Visuals").set_visual_modulate(Color(1, 0, 0, 0.5))
+				current_turret.get_node(^"Visuals").set_visual_modulate(Color(1, 0, 0, 0.5))
 			else:
-				current_turret.get_node_or_null(^"Visuals").set_visual_modulate(Color(0, 1, 1, 0.5))
+				current_turret.get_node(^"Visuals").set_visual_modulate(Color(0, 1, 1, 0.5))
 
 	if Input.is_action_just_released("add turret"):
 		if current_turret != null:
@@ -134,7 +134,7 @@ func close_inventory():
 
 # HACK: Temporary for testing, @deltaMinor please remove
 func add_random_mod(turret: Turret) -> void:
-	if (turret.get_node_or_null(^"Components/ModSlotComp") != null
+	if (turret.has_node(^"Components/ModSlotComp")
 			and turret.get_node(^"Components/ModSlotComp").get_mods().find(null) == -1):
 		assert(false, "WOT?")
 	var inventory_mods = inventory.get_mods()

@@ -101,7 +101,7 @@ func set_collidable(value: bool) -> void:
 func is_overlapping() -> bool:
 	return ($PlacementArea
 			.get_overlapping_bodies()
-			.any(func(body): return body.get_node_or_null(^"Components/HitboxComp") != null))
+			.any(func(body): return body.has_node(^"Components/HitboxComp")))
 
 func build_or_repair(from: float, to: float) -> void:
 	if state == State.PLANNED:

@@ -33,9 +33,9 @@ func assign_mods(mods: Array[ModBase]) -> void:
 	explosion_mod_comp.mods.assign(mods)
 
 func _on_body_entered(body: Node2D) -> void:
-	if (body.get_node_or_null(^"Components/HitboxComp") != null
+	if (body.has_node(^"Components/HitboxComp")
 			and body.get_node(^"Components/HitboxComp").is_targeted_by(target_filter)):
-		body.get_node_or_null(^"Components/HitboxComp").trigger(effects, self)
+		body.get_node(^"Components/HitboxComp").trigger(effects, self)
 
 
 #region Save/load
