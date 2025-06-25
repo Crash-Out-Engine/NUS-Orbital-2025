@@ -1,0 +1,147 @@
+[gd_scene load_steps=10 format=3 uid="uid://cllljmtjd3348"]
+
+[ext_resource type="Theme" uid="uid://c8t8fqq1p8n4l" path="res://resources/custom_ui.tres" id="1_jjmda"]
+[ext_resource type="Script" uid="uid://yue3ugrfulci" path="res://scripts/multiplayer_lobby_menu.gd" id="2_nknlf"]
+[ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet.png" id="2_wngio"]
+[ext_resource type="FontFile" uid="uid://cj53anigafm5t" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="3_nknlf"]
+[ext_resource type="Theme" uid="uid://cq6cs0mx200sg" path="res://resources/inventory_ui.tres" id="4_u7a7b"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_p30b5"]
+texture = ExtResource("2_wngio")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+region_rect = Rect2(1585, 148, 104, 104)
+
+[sub_resource type="LabelSettings" id="LabelSettings_u3xmg"]
+font = ExtResource("3_nknlf")
+font_size = 48
+outline_size = 18
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wngio"]
+atlas = ExtResource("2_wngio")
+region = Rect2(1485, 114, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nknlf"]
+atlas = ExtResource("2_wngio")
+region = Rect2(1451, 114, 32, 32)
+
+[node name="MultiplayerLobbyMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_jjmda")
+script = ExtResource("2_nknlf")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 160.0
+offset_top = 90.0
+offset_right = -800.0
+offset_bottom = -450.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+theme = ExtResource("1_jjmda")
+theme_override_styles/panel = SubResource("StyleBoxTexture_p30b5")
+metadata/_edit_use_anchors_ = true
+
+[node name="TitleLabel" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 160.0
+offset_top = 20.0
+offset_right = 160.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+theme_override_font_sizes/font_size = 24
+text = "Create/Join server:"
+label_settings = SubResource("LabelSettings_u3xmg")
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_right = 80
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_u7a7b")
+placeholder_text = "Input Address"
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Button" type="Button" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_nknlf")
+text = "Host"
+
+[node name="Button2" type="Button" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_nknlf")
+text = "Join"
+
+[node name="Button" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Start"
+
+[node name="StatusLabel" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 160.0
+offset_top = 160.0
+offset_right = 160.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+theme_override_font_sizes/font_size = 24
+text = "Status:"
+label_settings = SubResource("LabelSettings_u3xmg")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="TextureButton" type="TextureButton" parent="Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = 40.0
+grow_horizontal = 0
+texture_normal = SubResource("AtlasTexture_wngio")
+texture_pressed = SubResource("AtlasTexture_nknlf")
+texture_hover = SubResource("AtlasTexture_wngio")
+texture_disabled = SubResource("AtlasTexture_wngio")
+texture_focused = SubResource("AtlasTexture_wngio")
+
+[connection signal="pressed" from="Panel/TextureButton" to="." method="_on_texture_button_pressed"]

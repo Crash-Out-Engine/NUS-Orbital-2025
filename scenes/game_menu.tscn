@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d5rp7wwu7wn8"]
+[gd_scene load_steps=10 format=3 uid="uid://d5rp7wwu7wn8"]
 
 [ext_resource type="Script" uid="uid://dts5tpro2tnhm" path="res://scripts/game_menu.gd" id="1_ldg7d"]
 [ext_resource type="Theme" uid="uid://c8t8fqq1p8n4l" path="res://resources/custom_ui.tres" id="1_vrsc2"]
@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://b7d1a7ob2vcpf" path="res://assets/audio/songs/8_bit_frontier_justice.wav" id="4_mw6r2"]
 [ext_resource type="Script" uid="uid://l7dn1i5hcyn7" path="res://scripts/settings_menu.gd" id="5_0b27c"]
 [ext_resource type="AudioStream" uid="uid://d0bs4frau5lf8" path="res://assets/audio/sound_effects/pause_sound.wav" id="6_yr8n5"]
+[ext_resource type="PackedScene" uid="uid://cllljmtjd3348" path="res://scenes/multiplayer_lobby_menu.tscn" id="7_yr8n5"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_mw6r2"]
 font = ExtResource("2_ysvk1")
@@ -45,6 +46,13 @@ size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("2_ysvk1")
 theme_override_font_sizes/font_size = 36
 text = "Start Game"
+
+[node name="StartMultiplayer" type="Button" parent="Buttons/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_ysvk1")
+theme_override_font_sizes/font_size = 36
+text = "Create/Join Server"
 
 [node name="Options" type="Button" parent="Buttons/VBoxContainer"]
 layout_mode = 2
@@ -150,6 +158,10 @@ value = 1.0
 stream = ExtResource("6_yr8n5")
 bus = &"SFX"
 
+[node name="MultiplayerLobbyMenu" parent="." instance=ExtResource("7_yr8n5")]
+visible = false
+layout_mode = 1
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_mw6r2")
 volume_db = -5.0
@@ -157,6 +169,7 @@ autoplay = true
 bus = &"Music"
 
 [connection signal="pressed" from="Buttons/VBoxContainer/StartGame" to="." method="_on_start_game_pressed"]
+[connection signal="pressed" from="Buttons/VBoxContainer/StartMultiplayer" to="." method="_on_start_multiplayer_pressed"]
 [connection signal="pressed" from="Buttons/VBoxContainer/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="Buttons/VBoxContainer/QuitGame" to="." method="_on_quit_game_pressed"]
 [connection signal="mouse_entered" from="SettingsMenu" to="SettingsMenu" method="_on_mouse_entered"]

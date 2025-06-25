@@ -8,3 +8,7 @@ func _on_quit_game_pressed() -> void:
 
 func _on_options_pressed() -> void:
 	$SettingsMenu.visible = true
+
+
+func _on_start_multiplayer_pressed() -> void:
+	$MultiplayerLobbyMenu.visible = true

@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cqq2h867dq6v3"]
+[gd_scene load_steps=5 format=3 uid="uid://cqq2h867dq6v3"]
 
 [ext_resource type="Script" uid="uid://byjtyhf2tnuyx" path="res://scripts/loot.gd" id="1_xofgn"]
 [ext_resource type="Texture2D" uid="uid://b2tks1tuu2rsb" path="res://assets/sprites/loot_spritesheet.png" id="2_o0pg5"]
+[ext_resource type="Texture2D" uid="uid://bx6kp8j87xcrc" path="res://resources/text_icons/health_minus_impact_icon.tres" id="3_30m34"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5os5r"]
 radius = 5.0
@@ -16,7 +17,13 @@ script = ExtResource("1_xofgn")
 z_index = 1
 shape = SubResource("CircleShape2D_5os5r")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="BaseSprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_o0pg5")
+hframes = 2
+frame = 1
+
+[node name="OverlaySprite" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_30m34")
 
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]

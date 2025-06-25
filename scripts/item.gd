@@ -3,7 +3,7 @@ extends Resource
 
 enum Type {
 	SCRAP,
-	MOD,
+	MOD
 }
 
 var type: Type
