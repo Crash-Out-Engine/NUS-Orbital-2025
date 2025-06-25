@@ -49,7 +49,7 @@ func _handle_fault_rebooted() -> void:
 func _sync(data: PackedByteArray) -> void:
 	if is_multiplayer_authority(): # Synced to non-authorities only
 		return
-	
+
 	load_saved(data)
 
 #endregion
