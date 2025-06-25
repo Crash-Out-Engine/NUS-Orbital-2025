@@ -25,7 +25,7 @@ func _init() -> void:
 #region Sync
 
 func _setup_sync() -> void:
-	changed.connect(func(_from, _to): 
+	changed.connect(func(_from, _to):
 			if is_inside_tree() and !_syncing:
 				_sync.rpc(save())
 			)
