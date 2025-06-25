@@ -1,15 +1,15 @@
-[gd_resource type="Resource" script_class="UpgradeMod" load_steps=9 format=3 uid="uid://ssedgu0f2q68"]
+[gd_resource type="Resource" script_class="UpgradeMod" load_steps=8 format=3 uid="uid://ssedgu0f2q68"]
 
 [ext_resource type="Texture2D" uid="uid://vurv7d2di6r4" path="res://resources/text_icons/respawn.tres" id="1_pw4k4"]
 [ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="2_x78ca"]
 [ext_resource type="Resource" uid="uid://bosbtjbfskpsr" path="res://resources/property_points/repeat_pp.tres" id="3_1hssa"]
 [ext_resource type="Script" uid="uid://d2qeqei6awjb1" path="res://scripts/mods/upgrade_mod.gd" id="4_um8pp"]
 [ext_resource type="Resource" uid="uid://dvmlfcbqqrwyt" path="res://resources/property_points/health_pp.tres" id="4_x78ca"]
-[ext_resource type="Script" path="res://scripts/mods/upgrades/upgrade_base.gd" id="5_vml8j"]
-[ext_resource type="Script" path="res://scripts/mods/upgrades/repeat_upgrade.gd" id="6_wcnf2"]
+[ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrades/upgrade_base.gd" id="5_vml8j"]
 
 [sub_resource type="Resource" id="Resource_cs4os"]
-script = ExtResource("6_wcnf2")
+script = ExtResource("5_vml8j")
+_property_type = "RepeatProp"
 _factor = 1.0
 _target = 0
 metadata/_custom_type_script = "uid://dsoxa5t4qnr3w"

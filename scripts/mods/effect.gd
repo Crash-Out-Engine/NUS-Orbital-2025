@@ -46,8 +46,8 @@ func apply_effect(property: PropertyBase) -> void:
 			timer.start()
 
 
-func _can_effect(_property: PropertyBase) -> bool:
-	return _property.get_script().get_global_name() == _property_type
+func _can_effect(property: PropertyBase) -> bool:
+	return property.get_script().get_global_name() == _property_type
 
 
 func _countdown(timer: Timer, property: PropertyBase, factor: float) -> Callable:

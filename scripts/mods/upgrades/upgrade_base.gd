@@ -7,6 +7,7 @@ enum Target {
 	EXPLOSION
 }
 
+@export_custom(PROPERTY_HINT_TYPE_STRING, "PropertyBase") var _property_type: String
 @export var _factor: float
 @export var _target: Target
 
@@ -28,5 +29,5 @@ func unapply_upgrade(property: PropertyBase) -> void:
 
 ## To be overrided when implementing specific upgrades; decides if the specified upgrade
 ## affects a property.
-func _can_upgrade(_property: PropertyBase) -> bool:
-	return false
+func _can_upgrade(property: PropertyBase) -> bool:
+	return property.get_script().get_global_name() == _property_type

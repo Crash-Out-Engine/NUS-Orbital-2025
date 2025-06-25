@@ -1,14 +1,14 @@
-[gd_resource type="Resource" script_class="UpgradeMod" load_steps=8 format=3 uid="uid://7xydugwdpqsp"]
+[gd_resource type="Resource" script_class="UpgradeMod" load_steps=7 format=3 uid="uid://7xydugwdpqsp"]
 
 [ext_resource type="Texture2D" uid="uid://bswbk8ij6ibgr" path="res://resources/text_icons/explosion_redo.tres" id="1_f4o3x"]
 [ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="2_52dsu"]
 [ext_resource type="Resource" uid="uid://bosbtjbfskpsr" path="res://resources/property_points/repeat_pp.tres" id="3_fikw4"]
 [ext_resource type="Script" uid="uid://d2qeqei6awjb1" path="res://scripts/mods/upgrade_mod.gd" id="4_83ryo"]
-[ext_resource type="Script" path="res://scripts/mods/upgrades/upgrade_base.gd" id="5_voxmw"]
-[ext_resource type="Script" path="res://scripts/mods/upgrades/repeat_upgrade.gd" id="6_8auay"]
+[ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrades/upgrade_base.gd" id="5_voxmw"]
 
 [sub_resource type="Resource" id="Resource_cs4os"]
-script = ExtResource("6_8auay")
+script = ExtResource("5_voxmw")
+_property_type = "RepeatProp"
 _factor = 1.0
 _target = 2
 metadata/_custom_type_script = "uid://dsoxa5t4qnr3w"

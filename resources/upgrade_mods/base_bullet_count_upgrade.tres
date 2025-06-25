@@ -1,14 +1,14 @@
-[gd_resource type="Resource" script_class="UpgradeMod" load_steps=8 format=3 uid="uid://bk5uopkgkg01u"]
+[gd_resource type="Resource" script_class="UpgradeMod" load_steps=7 format=3 uid="uid://bk5uopkgkg01u"]
 
 [ext_resource type="Texture2D" uid="uid://c5vahafgua8dt" path="res://resources/text_icons/bullet_plus.tres" id="1_bomhx"]
 [ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="2_4spn7"]
 [ext_resource type="Script" uid="uid://d2qeqei6awjb1" path="res://scripts/mods/upgrade_mod.gd" id="3_5manq"]
 [ext_resource type="Resource" uid="uid://dumsg6lvj4ux4" path="res://resources/property_points/copy_pp.tres" id="3_06olu"]
-[ext_resource type="Script" path="res://scripts/mods/upgrades/upgrade_base.gd" id="4_06olu"]
-[ext_resource type="Script" path="res://scripts/mods/upgrades/copy_upgrade.gd" id="6_uxspp"]
+[ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrades/upgrade_base.gd" id="4_06olu"]
 
 [sub_resource type="Resource" id="Resource_owt2h"]
-script = ExtResource("6_uxspp")
+script = ExtResource("4_06olu")
+_property_type = "CopyProp"
 _factor = 1.0
 _target = 0
 metadata/_custom_type_script = "uid://b4u0orbo5ii7h"
