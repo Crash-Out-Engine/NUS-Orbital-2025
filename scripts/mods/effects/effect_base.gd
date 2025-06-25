@@ -1,6 +1,7 @@
 class_name EffectBase
 extends Resource
 
+@export_custom(PROPERTY_HINT_TYPE_STRING, "PropertyBase") var _property_type: String
 ## Interval between repetitions (if any) in seconds.
 ## Taken to be equivalent to null if a non-positive value is supplied.
 @export var _interval: float
@@ -8,11 +9,6 @@ extends Resource
 @export var _factor: float
 
 var _counter: int
-
-
-func _init() -> void:
-	assert(get_class() != "EffectBase",
-			"EffectBase is an abstract base class and cannot be instantiated.")
 
 
 func set_factor(value: float) -> void:
@@ -51,7 +47,7 @@ func apply_effect(property: PropertyBase) -> void:
 
 
 func _can_effect(_property: PropertyBase) -> bool:
-	return false
+	return _property.get_script().get_global_name() == _property_type
 
 
 func _countdown(timer: Timer, property: PropertyBase, factor: float) -> Callable:
