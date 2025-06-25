@@ -15,7 +15,7 @@
 [ext_resource type="Script" path="res://scripts/properties/repeat_prop.gd" id="11_6e8lb"]
 [ext_resource type="AudioStream" uid="uid://dc66si5kieoq4" path="res://assets/audio/sound_effects/laser_gunshot.wav" id="12_3v2ag"]
 [ext_resource type="Script" uid="uid://bvhh7lwu4sovf" path="res://scripts/properties/knockback_prop.gd" id="12_sc3ue"]
-[ext_resource type="Script" path="res://scripts/properties/knockback_resistance_property.gd" id="13_8svfe"]
+[ext_resource type="Script" uid="uid://cg7x3m1w75avm" path="res://scripts/properties/knockback_resistance_prop.gd" id="13_8svfe"]
 [ext_resource type="Script" uid="uid://dng6x4ecq2npd" path="res://scripts/player_scene/audio.gd" id="13_a8ls1"]
 [ext_resource type="AudioStream" uid="uid://dk7lmxukxhhcr" path="res://assets/audio/sound_effects/error.wav" id="13_f1ej7"]
 [ext_resource type="AudioStream" uid="uid://ciu1er752oye4" path="res://assets/audio/sound_effects/sand_steps.wav" id="13_jej6c"]
@@ -199,8 +199,7 @@ radius = 40.0
 size = Vector2(40, 10)
 
 [sub_resource type="Curve" id="Curve_h7ic4"]
-_limits = [0.0, 300.0, 0.0, 1.0]
-_data = [Vector2(0, 300), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lxlsd"]
@@ -636,8 +635,9 @@ script = ExtResource("11_6e8lb")
 [node name="KnockbackProp" type="Node" parent="Properties"]
 script = ExtResource("12_sc3ue")
 
-[node name="KnockbackResistanceProperty" type="Node" parent="Properties"]
+[node name="KnockbackResistanceProp" type="Node" parent="Properties"]
 script = ExtResource("13_8svfe")
+knockback_resistance = 1.0
 metadata/_custom_type_script = "uid://br6ig8qlkh0ua"
 
 [node name="SpeedProp" type="Node" parent="Properties"]
@@ -735,11 +735,13 @@ script = ExtResource("21_gl8cc")
 position = Vector2(20, 0)
 shape = SubResource("RectangleShape2D_487ah")
 
-[node name="MovementComp" type="Node" parent="Components" node_paths=PackedStringArray("entity", "_speed")]
+[node name="MovementComp" type="Node" parent="Components" node_paths=PackedStringArray("entity", "_speed", "_knockback", "_knockback_resistance")]
 script = ExtResource("49_h7ic4")
 entity = NodePath("../..")
 _knockback_speed_curve = SubResource("Curve_h7ic4")
 _speed = NodePath("../../Properties/SpeedProp")
+_knockback = NodePath("../../Properties/KnockbackProp")
+_knockback_resistance = NodePath("../../Properties/KnockbackResistanceProp")
 metadata/_custom_type_script = "uid://c2m7j6a1noda1"
 
 [node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("player_ranged", "player_melee", "player_repair", "melee_cooldown", "player")]

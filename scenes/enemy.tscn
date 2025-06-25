@@ -17,7 +17,7 @@
 [ext_resource type="Script" path="res://scripts/properties/spread_prop.gd" id="10_rogs8"]
 [ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/properties/target_priority_prop.gd" id="11_w8i8w"]
 [ext_resource type="Script" uid="uid://bvhh7lwu4sovf" path="res://scripts/properties/knockback_prop.gd" id="11_wrm80"]
-[ext_resource type="Script" path="res://scripts/properties/knockback_resistance_property.gd" id="12_6awcb"]
+[ext_resource type="Script" uid="uid://cg7x3m1w75avm" path="res://scripts/properties/knockback_resistance_prop.gd" id="12_6awcb"]
 [ext_resource type="Script" uid="uid://bkccmmojcqpl5" path="res://scripts/mods/effects/sabotage_effect.gd" id="12_ile5s"]
 [ext_resource type="Script" uid="uid://b003j8v8bhc26" path="res://scripts/enemy_scene/visuals.gd" id="13_j0cyh"]
 [ext_resource type="Script" uid="uid://ci2gb64dwfmjh" path="res://scripts/properties/speed_prop.gd" id="13_wjec0"]

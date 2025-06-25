@@ -5,3 +5,8 @@ extends PropertyBase
 
 func _ready() -> void:
 	value = knockback
+
+func get_knockback() -> float:
+	var prev_value = value
+	value = 0.0
+	return prev_value
