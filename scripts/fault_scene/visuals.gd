@@ -12,11 +12,10 @@ signal disappear_finished
 
 
 func _ready() -> void:
-	anim.play("sabotaged")
 	repair_bar.visible = false
 	rebooting_bar.visible = false
-	fault.state_changed.connect(handle_state_changed)
-	fault.repair_progressed.connect(update_repair_progress)
+	fault.state_changed.connect(_handle_state_changed)
+	fault.repair_progressed.connect(_update_repair_progress)
 
 
 func _process(_delta: float) -> void:
@@ -24,19 +23,24 @@ func _process(_delta: float) -> void:
 		rebooting_bar.value = fault.get_time_progress_ratio() * 100
 
 
-func handle_state_changed(from: Fault.State, to: Fault.State) -> void:
+func _handle_state_changed(from: Fault.State, to: Fault.State) -> void:
 	match [from, to]:
-		[Fault.State.SABOTAGED, Fault.State.REBOOTING]:
-			play_rebooting()
-
 		[Fault.State.REBOOTING, Fault.State.SABOTAGED]:
-			play_sabotaged()
+			_play_sabotaged_label.rpc()
 
-		[Fault.State.REBOOTING, Fault.State.FIXED]:
-			play_fixed()
+	match [to]:
+		[Fault.State.REBOOTING]:
+			_play_rebooting.rpc()
+
+		[Fault.State.SABOTAGED]:
+			_play_sabotaged.rpc()
+
+		[Fault.State.FIXED]:
+			_play_fixed.rpc()
 
 
-func play_rebooting():
+@rpc("any_peer", "call_local", "reliable")
+func _play_rebooting():
 	anim.play("rebooting")
 	status_label.text = "REBOOTING"
 	anim_player.play("display_reboot")
@@ -44,24 +48,30 @@ func play_rebooting():
 	rebooting_bar.visible = true
 
 
-func play_fixed():
+@rpc("any_peer", "call_local", "reliable")
+func _play_fixed():
 	status_label.text = "FIXED"
 	rebooting_bar.value = 100
 	anim_player.play("fixed")
 
 
-func play_sabotaged():
+@rpc("any_peer", "call_local", "reliable")
+func _play_sabotaged_label():
+	anim_player.play("sabotaged")
+
+
+@rpc("any_peer", "call_local", "reliable")
+func _play_sabotaged():
 	anim.play("sabotaged")
 	rebooting_bar.visible = false
-	anim_player.play("sabotaged")
 	repair_bar.visible = false
 
 
-func emit_disappear_finished():
+func _emit_disappear_finished():
 	disappear_finished.emit()
 
 
-func update_repair_progress(progress: float):
+func _update_repair_progress(progress: float):
 	repair_bar.value = progress * 100
 	if repair_bar.value > 0:
 		repair_bar.scale = Vector2i(1, 1)
