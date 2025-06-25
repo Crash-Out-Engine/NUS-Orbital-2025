@@ -36,7 +36,6 @@ func _process(_delta: float) -> void:
 func create_fault(pos: Vector2) -> void:
 	var fault = _FAULT_SCENE.instantiate()
 	fault.global_position = pos
-	fault.set_power_output(get_parent())
 	get_parent().add_entity(fault)
 
 

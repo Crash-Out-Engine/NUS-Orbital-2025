@@ -3,16 +3,13 @@ extends Node2D # TODO: Remember to turn on master volume when releasing
 
 signal game_over(message: String) #message contains the cause of the game over
 
-# HACK: power should be a separate system instead of existing within game.gd
-var power: float = 100.0
-var power_delta: float = 1.0
-
 var game_ongoing: bool
 var transitioning: bool
 
 @onready var target_provider := load("res://resources/target_provider.tres") as TargetProvider
 @onready var player := $EntityContainer/Player as Player
 @onready var entity_container := $EntityContainer as Node
+@onready var power_manager := $PowerManager as PowerManager
 
 func _ready() -> void:
 	game_ongoing = false
@@ -22,13 +19,14 @@ func _ready() -> void:
 	try_connect_ranged(player)
 	player.no_lives.connect(func(): end_game("You died"))
 	player.turret_spawned.connect(add_entity)
-
-func _physics_process(delta: float) -> void:
-	power -= delta * power_delta
-	if power <= 0:
+	power_manager.power_depleted.connect(func():
 		if game_ongoing:
 			end_game("Power has run out")
+	)
 
+
+func get_power() -> float:
+	return power_manager.get_power()
 
 
 func try_connect_ranged(entity: Node2D):
@@ -44,6 +42,8 @@ func try_connect_ranged(entity: Node2D):
 func add_entity(entity: Node2D) -> void:
 	MotionTracker.attach_to(entity) # TODO: move entity container to its own system
 	$EntityContainer.add_child(entity)
+	if entity is Fault:
+		power_manager.register_fault(entity)
 	try_connect_ranged(entity)
 
 
@@ -53,7 +53,7 @@ func add_misc(misc: Node2D) -> void:
 func end_game(message: String) -> void:
 	game_ongoing = false
 	game_over.emit(message)
-	power_delta = 0.0
+	power_manager.active = false
 	for entity in entity_container.get_children():
 		if entity.has_method("deactivate"):
 			entity.deactivate()

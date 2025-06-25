@@ -40,7 +40,7 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	update_power_bar(game.power as int)
+	update_power_bar(game.get_power() as int)
 
 
 func update_health_bar() -> void:

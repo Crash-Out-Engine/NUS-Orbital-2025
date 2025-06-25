@@ -3,6 +3,7 @@ extends StaticBody2D
 
 signal state_changed(from: State, to: State)
 signal repair_progressed(progress: float)
+signal fixed()
 
 enum State {
 	SABOTAGED,
@@ -24,8 +25,6 @@ var state: State:
 		if prev_state != state:
 			handle_state_changed(prev_state, state)
 			state_changed.emit(prev_state, state)
-
-var _power_output: Node
 
 @onready var reboot_timer := $RebootTimer as Timer
 
@@ -56,13 +55,10 @@ func handle_state_changed(from: State, to: State):
 
 		[State.REBOOTING, State.FIXED]:
 			hitbox.team = Enums.Team.NONE
+			fixed.emit()
 
 		[_, _]:
 			assert(false, "Invalid state change from %s to %s." % [State.find_key(from), State.find_key(to)])
-
-
-func set_power_output(node: Node) -> void:
-	_power_output = node
 
 
 func check_repair(value: float) -> void:
@@ -86,5 +82,4 @@ func _on_reboot_timer_timeout() -> void:
 
 
 func _on_visuals_disappear_finished() -> void:
-	_power_output.power += 20
 	queue_free()
