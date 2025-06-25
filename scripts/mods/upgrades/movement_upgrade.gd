@@ -3,4 +3,4 @@ extends UpgradeBase
 
 
 func _can_upgrade(property: PropertyBase) -> bool:
-	return property is MovementProp
+	return property is SpeedProp

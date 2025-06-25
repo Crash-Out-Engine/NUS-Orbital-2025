@@ -5,9 +5,9 @@
 [ext_resource type="Resource" uid="uid://cfjsdmeafbke8" path="res://resources/property_points/health_capacity_pp.tres" id="2_mhkam"]
 [ext_resource type="Script" uid="uid://d2qeqei6awjb1" path="res://scripts/mods/upgrade_mod.gd" id="2_mlikk"]
 [ext_resource type="Resource" uid="uid://dvmlfcbqqrwyt" path="res://resources/property_points/health_pp.tres" id="3_he1hk"]
-[ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrades/upgrade_base.gd" id="3_m3xpl"]
-[ext_resource type="Script" uid="uid://c01p77hb3xtxy" path="res://scripts/mods/upgrades/health_capacity_upgrade.gd" id="4_mlikk"]
-[ext_resource type="Script" uid="uid://bgdmv8hbubguj" path="res://scripts/mods/upgrades/health_upgrade.gd" id="7_84acl"]
+[ext_resource type="Script" path="res://scripts/mods/upgrades/upgrade_base.gd" id="3_m3xpl"]
+[ext_resource type="Script" path="res://scripts/mods/upgrades/health_capacity_upgrade.gd" id="4_mlikk"]
+[ext_resource type="Script" path="res://scripts/mods/upgrades/health_upgrade.gd" id="7_84acl"]
 
 [sub_resource type="Resource" id="Resource_m3xpl"]
 script = ExtResource("4_mlikk")

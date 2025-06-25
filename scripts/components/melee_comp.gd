@@ -18,4 +18,5 @@ func _physics_process(_delta: float) -> void:
 				melee_cooldown.do_melee()
 				for effect in effects:
 					body.get_node_or_null(^"Components/HitboxComp").trigger(effect, $"../../")
+				body.get_node(^"Components/HitboxComp").apply_knockback(global_position)
 				executed.emit(body)

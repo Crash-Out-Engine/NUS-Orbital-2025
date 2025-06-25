@@ -1,7 +1,6 @@
-[gd_scene load_steps=119 format=3 uid="uid://ytw0s5xnqwvt"]
+[gd_scene load_steps=121 format=3 uid="uid://ytw0s5xnqwvt"]
 
 [ext_resource type="Script" uid="uid://c8f8kowfp34yp" path="res://scripts/player_scene/player.gd" id="1_f1ej7"]
-[ext_resource type="Script" uid="uid://cndl5nak0qpxp" path="res://scripts/properties/movement_prop.gd" id="2_g2els"]
 [ext_resource type="Texture2D" uid="uid://dvanyjoqcolwr" path="res://assets/sprites/player_spritesheet.png" id="2_y4r1p"]
 [ext_resource type="Script" uid="uid://bg2iinlcp53aa" path="res://scripts/properties/health_prop.gd" id="3_qhqgy"]
 [ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox_comp.gd" id="4_dqkch"]
@@ -9,19 +8,20 @@
 [ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/properties/target_priority_prop.gd" id="7_fjrip"]
 [ext_resource type="Script" uid="uid://s08wfqwqu2jn" path="res://scripts/components/ranged_player_comp.gd" id="7_smehm"]
 [ext_resource type="Script" uid="uid://cceowy0wh5ufb" path="res://scripts/properties/health_capacity_prop.gd" id="8_4ni07"]
-[ext_resource type="Script" uid="uid://b5m4xwnftefoj" path="res://scripts/properties/size_prop.gd" id="8_hax0n"]
-[ext_resource type="Script" uid="uid://2x8lbjmqr7m7" path="res://scripts/properties/copy_prop.gd" id="9_giy8y"]
-[ext_resource type="Script" uid="uid://3wplgpaykhjn" path="res://scripts/properties/spread_prop.gd" id="10_fdfoy"]
+[ext_resource type="Script" path="res://scripts/properties/size_prop.gd" id="8_hax0n"]
+[ext_resource type="Script" path="res://scripts/properties/copy_prop.gd" id="9_giy8y"]
+[ext_resource type="Script" path="res://scripts/properties/spread_prop.gd" id="10_fdfoy"]
 [ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod_base.gd" id="10_md1ol"]
-[ext_resource type="Script" uid="uid://leayhs5xslyy" path="res://scripts/properties/repeat_prop.gd" id="11_6e8lb"]
+[ext_resource type="Script" path="res://scripts/properties/repeat_prop.gd" id="11_6e8lb"]
 [ext_resource type="AudioStream" uid="uid://dc66si5kieoq4" path="res://assets/audio/sound_effects/laser_gunshot.wav" id="12_3v2ag"]
 [ext_resource type="Script" uid="uid://bvhh7lwu4sovf" path="res://scripts/properties/knockback_prop.gd" id="12_sc3ue"]
-[ext_resource type="Script" uid="uid://cg7x3m1w75avm" path="res://scripts/properties/knockback_resistance_property.gd" id="13_8svfe"]
+[ext_resource type="Script" uid="uid://cg7x3m1w75avm" path="res://scripts/properties/knockback_resistance_prop.gd" id="13_8svfe"]
 [ext_resource type="Script" uid="uid://dng6x4ecq2npd" path="res://scripts/player_scene/audio.gd" id="13_a8ls1"]
 [ext_resource type="AudioStream" uid="uid://dk7lmxukxhhcr" path="res://assets/audio/sound_effects/error.wav" id="13_f1ej7"]
 [ext_resource type="AudioStream" uid="uid://ciu1er752oye4" path="res://assets/audio/sound_effects/sand_steps.wav" id="13_jej6c"]
 [ext_resource type="Resource" uid="uid://dtogyr1espqpy" path="res://resources/effects/damage.tres" id="13_l71n6"]
-[ext_resource type="Script" path="res://scripts/target_filter.gd" id="14_l71n6"]
+[ext_resource type="Script" uid="uid://ci2gb64dwfmjh" path="res://scripts/properties/speed_prop.gd" id="14_42b1b"]
+[ext_resource type="Script" uid="uid://bc5nkvlgktyor" path="res://scripts/target_filter.gd" id="14_l71n6"]
 [ext_resource type="Script" uid="uid://ddhfg683ma0hh" path="res://scripts/player_scene/visuals.gd" id="14_oprun"]
 [ext_resource type="Script" uid="uid://bnt7cwx8k0nm0" path="res://scripts/components/mod_slot_comp.gd" id="16_ke2ow"]
 [ext_resource type="Script" uid="uid://bx0i0x84j70ct" path="res://scripts/components/melee_comp.gd" id="17_4r5pv"]
@@ -58,6 +58,7 @@
 [ext_resource type="Resource" uid="uid://bckq5o6xawc1n" path="res://resources/upgrade_mods/base_melee_cooldown_upgrade.tres" id="42_apa73"]
 [ext_resource type="Resource" uid="uid://cwv1pbjmnp8gh" path="res://resources/effect_mods/base_knockback.tres" id="43_74r1k"]
 [ext_resource type="Resource" uid="uid://dy1qmsvcg7ae8" path="res://resources/effect_mods/base_damage_over_time.tres" id="45_2a3c5"]
+[ext_resource type="Script" uid="uid://c2m7j6a1noda1" path="res://scripts/components/movement_player_comp.gd" id="49_h7ic4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
 radius = 5.0
@@ -196,6 +197,10 @@ radius = 40.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_487ah"]
 size = Vector2(40, 10)
+
+[sub_resource type="Curve" id="Curve_h7ic4"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lxlsd"]
 atlas = ExtResource("2_y4r1p")
@@ -562,10 +567,11 @@ animations = [{
 "speed": 15.0
 }]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("ranged", "inventory", "blueprints", "mod_target", "mod_slots", "health_prop", "health_capacity", "melee_cooldown", "size_prop", "lives") groups=["allies"]]
+[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("ranged", "inventory", "blueprints", "mod_target", "mod_slots", "health_prop", "health_capacity", "melee_cooldown", "size_prop", "lives") groups=["allies"]]
 z_index = 1
 collision_layer = 3
 collision_mask = 3
+lock_rotation = true
 script = ExtResource("1_f1ej7")
 ranged = NodePath("Components/RangedComp")
 inventory = NodePath("Components/InventoryComp")
@@ -589,13 +595,6 @@ libraries = {
 }
 
 [node name="Properties" type="Node" parent="."]
-
-[node name="MovementProp" type="Node" parent="Properties" node_paths=PackedStringArray("target_priority", "knockback_prop")]
-script = ExtResource("2_g2els")
-initial_speed = 80.0
-is_player = true
-target_priority = NodePath("../TargetPriorityProp")
-knockback_prop = NodePath("../KnockbackProp")
 
 [node name="HealthCapacityProp" type="Node" parent="Properties"]
 script = ExtResource("8_4ni07")
@@ -632,21 +631,27 @@ _spread = 90.0
 
 [node name="RepeatProp" type="Node" parent="Properties"]
 script = ExtResource("11_6e8lb")
-metadata/_custom_type_script = "uid://leayhs5xslyy"
 
-[node name="KnockbackProp" type="Node" parent="Properties" node_paths=PackedStringArray("knockback_resistance_prop")]
+[node name="KnockbackProp" type="Node" parent="Properties"]
 script = ExtResource("12_sc3ue")
-knockback_resistance_prop = NodePath("../KnockbackResistanceProperty")
 
-[node name="KnockbackResistanceProperty" type="Node" parent="Properties"]
+[node name="KnockbackResistanceProp" type="Node" parent="Properties"]
 script = ExtResource("13_8svfe")
+knockback_resistance = 1.0
 metadata/_custom_type_script = "uid://br6ig8qlkh0ua"
+
+[node name="SpeedProp" type="Node" parent="Properties"]
+script = ExtResource("14_42b1b")
+initial_speed = 80.0
+metadata/_custom_type_script = "uid://ci2gb64dwfmjh"
 
 [node name="Components" type="Node2D" parent="."]
 
-[node name="HitboxComp" type="Node" parent="Components"]
+[node name="HitboxComp" type="Node" parent="Components" node_paths=PackedStringArray("_entity", "movement")]
 script = ExtResource("4_dqkch")
+_entity = NodePath("../..")
 team = 1
+movement = NodePath("../MovementComp")
 
 [node name="ModSlotComp" type="Node" parent="Components" node_paths=PackedStringArray("entity", "attack_comp")]
 script = ExtResource("16_ke2ow")
@@ -729,6 +734,15 @@ script = ExtResource("21_gl8cc")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Components/ModTargetingComp"]
 position = Vector2(20, 0)
 shape = SubResource("RectangleShape2D_487ah")
+
+[node name="MovementComp" type="Node" parent="Components" node_paths=PackedStringArray("entity", "_speed", "_knockback", "_knockback_resistance")]
+script = ExtResource("49_h7ic4")
+entity = NodePath("../..")
+_knockback_speed_curve = SubResource("Curve_h7ic4")
+_speed = NodePath("../../Properties/SpeedProp")
+_knockback = NodePath("../../Properties/KnockbackProp")
+_knockback_resistance = NodePath("../../Properties/KnockbackResistanceProp")
+metadata/_custom_type_script = "uid://c2m7j6a1noda1"
 
 [node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("player_ranged", "player_melee", "player_repair", "melee_cooldown", "player")]
 script = ExtResource("14_oprun")

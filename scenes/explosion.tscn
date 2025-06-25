@@ -3,10 +3,10 @@
 [ext_resource type="Script" uid="uid://kkoxnhs8fhnx" path="res://scripts/explosion.gd" id="1_17npe"]
 [ext_resource type="AudioStream" uid="uid://dn6k75a1tyl8k" path="res://assets/audio/sound_effects/hit_sound.wav" id="2_aw4cw"]
 [ext_resource type="Texture2D" uid="uid://iabxnxum3fjv" path="res://assets/sprites/explosion_spritesheet.png" id="3_3el85"]
-[ext_resource type="Script" uid="uid://leayhs5xslyy" path="res://scripts/properties/repeat_prop.gd" id="4_hbmxj"]
-[ext_resource type="Script" uid="uid://b5m4xwnftefoj" path="res://scripts/properties/size_prop.gd" id="5_xfoey"]
-[ext_resource type="Script" uid="uid://u5g8y25fayqm" path="res://scripts/properties/timeout_prop.gd" id="6_v8gpv"]
-[ext_resource type="Script" uid="uid://d248fd1lh8u2a" path="res://scripts/components/explosion_mod_comp.gd" id="6_xfoey"]
+[ext_resource type="Script" path="res://scripts/properties/repeat_prop.gd" id="4_hbmxj"]
+[ext_resource type="Script" path="res://scripts/properties/size_prop.gd" id="5_xfoey"]
+[ext_resource type="Script" path="res://scripts/properties/timeout_prop.gd" id="6_v8gpv"]
+[ext_resource type="Script" path="res://scripts/components/explosion_mod_comp.gd" id="6_xfoey"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_er6rp"]
 radius = 9.0
