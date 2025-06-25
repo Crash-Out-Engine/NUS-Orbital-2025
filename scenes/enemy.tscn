@@ -1,7 +1,6 @@
-[gd_scene load_steps=45 format=3 uid="uid://kcqha4xx46r7"]
+[gd_scene load_steps=46 format=3 uid="uid://kcqha4xx46r7"]
 
 [ext_resource type="Script" uid="uid://b2oqcghmenmfd" path="res://scripts/enemy_scene/enemy.gd" id="1_7p1mj"]
-[ext_resource type="Script" uid="uid://cndl5nak0qpxp" path="res://scripts/properties/movement_prop.gd" id="2_md0e3"]
 [ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox_comp.gd" id="3_4ra3w"]
 [ext_resource type="Texture2D" uid="uid://csa25hojkjg65" path="res://assets/sprites/enemy_spritesheet.png" id="3_otmr2"]
 [ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/mods/effects/effect_base.gd" id="3_s1ycm"]
@@ -12,25 +11,22 @@
 [ext_resource type="AudioStream" uid="uid://dn6k75a1tyl8k" path="res://assets/audio/sound_effects/hit_sound.wav" id="5_wtq4b"]
 [ext_resource type="Script" uid="uid://cu55fh5hl5rxd" path="res://scripts/properties/melee_cooldown_prop.gd" id="6_nenq2"]
 [ext_resource type="Script" uid="uid://bhi7w6ril3da2" path="res://scripts/components/ranged_AI_comp.gd" id="8_8qclf"]
-[ext_resource type="Script" uid="uid://2x8lbjmqr7m7" path="res://scripts/properties/copy_prop.gd" id="9_2pwtc"]
+[ext_resource type="Script" path="res://scripts/properties/copy_prop.gd" id="9_2pwtc"]
 [ext_resource type="Script" uid="uid://cwdm3dvyba0l3" path="res://scripts/properties/ranged_cooldown_prop.gd" id="9_ipns3"]
-[ext_resource type="Script" path="res://scripts/target_filter.gd" id="9_shcg2"]
-[ext_resource type="Script" uid="uid://3wplgpaykhjn" path="res://scripts/properties/spread_prop.gd" id="10_rogs8"]
+[ext_resource type="Script" uid="uid://bc5nkvlgktyor" path="res://scripts/target_filter.gd" id="9_shcg2"]
+[ext_resource type="Script" path="res://scripts/properties/spread_prop.gd" id="10_rogs8"]
 [ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/properties/target_priority_prop.gd" id="11_w8i8w"]
 [ext_resource type="Script" uid="uid://bvhh7lwu4sovf" path="res://scripts/properties/knockback_prop.gd" id="11_wrm80"]
-[ext_resource type="Script" uid="uid://cg7x3m1w75avm" path="res://scripts/properties/knockback_resistance_property.gd" id="12_6awcb"]
+[ext_resource type="Script" path="res://scripts/properties/knockback_resistance_property.gd" id="12_6awcb"]
 [ext_resource type="Script" uid="uid://bkccmmojcqpl5" path="res://scripts/mods/effects/sabotage_effect.gd" id="12_ile5s"]
 [ext_resource type="Script" uid="uid://b003j8v8bhc26" path="res://scripts/enemy_scene/visuals.gd" id="13_j0cyh"]
+[ext_resource type="Script" uid="uid://ci2gb64dwfmjh" path="res://scripts/properties/speed_prop.gd" id="13_wjec0"]
 [ext_resource type="Script" uid="uid://ceeipidvq5rqy" path="res://scripts/enemy_scene/audio.gd" id="14_g0wcc"]
 [ext_resource type="Script" uid="uid://6ofkt38dyeyp" path="res://scripts/mods/effects/knockback_effect.gd" id="16_rogs8"]
+[ext_resource type="Script" uid="uid://ytlqj8sxugss" path="res://scripts/components/movement_AI_comp.gd" id="21_i4rgx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8qclf"]
 radius = 9.0
-
-[sub_resource type="Resource" id="Resource_shcg2"]
-script = ExtResource("9_shcg2")
-targets = Array[int]([1, 4])
-metadata/_custom_type_script = "uid://bc5nkvlgktyor"
 
 [sub_resource type="Resource" id="Resource_1x4g4"]
 script = ExtResource("9_shcg2")
@@ -67,6 +63,11 @@ height = 24.0
 [sub_resource type="Resource" id="Resource_2pwtc"]
 script = ExtResource("9_shcg2")
 targets = Array[int]([1, 3])
+metadata/_custom_type_script = "uid://bc5nkvlgktyor"
+
+[sub_resource type="Resource" id="Resource_2mchx"]
+script = ExtResource("9_shcg2")
+targets = Array[int]([1, 4])
 metadata/_custom_type_script = "uid://bc5nkvlgktyor"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_shcg2"]
@@ -146,7 +147,7 @@ animations = [{
 "speed": 1.0
 }]
 
-[node name="Enemy" type="RigidBody2D" node_paths=PackedStringArray("health_prop", "movement_prop") groups=["enemies"]]
+[node name="Enemy" type="RigidBody2D" node_paths=PackedStringArray("health_prop", "movement_comp") groups=["enemies"]]
 gravity_scale = 0.0
 lock_rotation = true
 continuous_cd = 1
@@ -154,20 +155,13 @@ contact_monitor = true
 max_contacts_reported = 620
 script = ExtResource("1_7p1mj")
 health_prop = NodePath("Properties/HealthProp")
-movement_prop = NodePath("Properties/MovementProp")
+movement_comp = NodePath("Components/MovementAIComp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 100
 shape = SubResource("CircleShape2D_8qclf")
 
 [node name="Properties" type="Node" parent="."]
-
-[node name="MovementProp" type="Node" parent="Properties" node_paths=PackedStringArray("target_priority", "knockback_prop")]
-script = ExtResource("2_md0e3")
-initial_speed = 100.0
-target_filter = SubResource("Resource_shcg2")
-target_priority = NodePath("../TargetPriorityProp")
-knockback_prop = NodePath("../KnockbackProp")
 
 [node name="HealthCapacityProp" type="Node" parent="Properties"]
 script = ExtResource("4_ile5s")
@@ -196,14 +190,16 @@ script = ExtResource("9_2pwtc")
 script = ExtResource("10_rogs8")
 _spread = 90.0
 
-[node name="KnockbackProp" type="Node" parent="Properties" node_paths=PackedStringArray("knockback_resistance_prop")]
+[node name="KnockbackProp" type="Node" parent="Properties"]
 script = ExtResource("11_wrm80")
-knockback_resistance_prop = NodePath("../KnockbackResistanceProp")
-metadata/_custom_type_script = "uid://bvhh7lwu4sovf"
 
 [node name="KnockbackResistanceProp" type="Node" parent="Properties"]
 script = ExtResource("12_6awcb")
-metadata/_custom_type_script = "uid://cg7x3m1w75avm"
+
+[node name="SpeedProp" type="Node" parent="Properties"]
+script = ExtResource("13_wjec0")
+initial_speed = 100.0
+metadata/_custom_type_script = "uid://ci2gb64dwfmjh"
 
 [node name="Components" type="Node2D" parent="."]
 
@@ -240,11 +236,18 @@ bullet_count = NodePath("../../Properties/CopyProp")
 spread = NodePath("../../Properties/SpreadProp")
 metadata/_custom_type_script = "uid://bhi7w6ril3da2"
 
-[node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("enemy", "health", "movement_prop")]
+[node name="MovementAIComp" type="Node" parent="Components" node_paths=PackedStringArray("entity", "_speed")]
+script = ExtResource("21_i4rgx")
+target_filter = SubResource("Resource_2mchx")
+entity = NodePath("../..")
+_speed = NodePath("../../Properties/SpeedProp")
+metadata/_custom_type_script = "uid://ytlqj8sxugss"
+
+[node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("enemy", "health", "movement_comp")]
 script = ExtResource("13_j0cyh")
 enemy = NodePath("..")
 health = NodePath("../Properties/HealthProp")
-movement_prop = NodePath("../Properties/MovementProp")
+movement_comp = NodePath("../Components/MovementAIComp")
 
 [node name="BodySprite" type="AnimatedSprite2D" parent="Visuals"]
 sprite_frames = SubResource("SpriteFrames_j0cyh")

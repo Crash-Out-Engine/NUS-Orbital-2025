@@ -6,7 +6,7 @@ signal vfx_emitted(Node2D)
 const _LOOT_SCENE = preload("res://scenes/loot.tscn")
 
 @export var health_prop: HealthProp
-@export var movement_prop: MovementProp
+@export var movement_comp: MovementBaseComp
 
 @onready var visuals := $Visuals as EnemyVisuals
 
@@ -24,5 +24,5 @@ func die():
 	vfx_emitted.emit(loot)
 
 func deactivate():
-	movement_prop.active = false
+	movement_comp.active = false
 	linear_velocity = Vector2(0, 0)

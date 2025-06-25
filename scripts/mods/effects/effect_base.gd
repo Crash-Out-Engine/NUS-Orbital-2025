@@ -19,9 +19,8 @@ func set_factor(value: float) -> void:
 	_factor = value
 
 
-func apply_effect(property: PropertyBase, source: Node2D = null) -> void:
+func apply_effect(property: PropertyBase) -> void:
 	if _can_effect(property):
-		property._last_source = source
 		var timer: Timer
 		if _interval != null and _interval > 0:
 			timer = Timer.new()

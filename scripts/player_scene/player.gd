@@ -1,5 +1,5 @@
 class_name Player
-extends CharacterBody2D
+extends RigidBody2D
 
 signal turret_spawned(turret: Node2D)
 signal turret_placement_failed()
@@ -182,7 +182,7 @@ func _on_health_emptied() -> void:
 		can_control = false
 		$CollisionShape2D.disabled = true
 		ranged.active = false
-		$Properties/MovementProp.active = false
+		$Components/MovementComp.active = false
 		$Components/HitboxComp.team = 0
 		no_lives.emit()
 	else:
@@ -208,7 +208,7 @@ func _on_visuals_melee_finished() -> void:
 func deactivate():
 	can_control = false
 	$CollisionShape2D.disabled = true
-	$Properties/MovementProp.active = false
+	$Components/MovementComp.active = false
 	ranged.active = false
 	$Components/HitboxComp.team = 0
 	visuals.deactivate()
