@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="HealthEffect" load_steps=2 format=3 uid="uid://dtogyr1espqpy"]
+[gd_resource type="Resource" script_class="Effect" load_steps=2 format=3 uid="uid://dtogyr1espqpy"]
 
-[ext_resource type="Script" uid="uid://2fh28xow6f1j" path="res://scripts/mods/effects/health_effect.gd" id="1_3xyjn"]
+[ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/mods/effect.gd" id="1_3xyjn"]
 
 [resource]
 script = ExtResource("1_3xyjn")
+_property_type = "HealthProp"
 _interval = 0.8
 _repeat = 8
 _factor = -2.0

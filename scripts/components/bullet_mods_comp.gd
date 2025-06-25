@@ -20,6 +20,6 @@ func _setup_mods() -> void:
 			mods.filter(func(mod): return mod != null and mod.type == ModBase.Type.BEHAVIOURAL))
 
 	var bullet_properties := bullet.get_node(^"Properties").get_children()
-	for upgrade in UpgradeMod.compile_upgrades(upgrade_mods, UpgradeBase.Target.BULLET):
+	for upgrade in UpgradeMod.compile_upgrades(upgrade_mods, Upgrade.Target.BULLET):
 		for prop_node in bullet_properties:
 			upgrade.apply_upgrade(prop_node)

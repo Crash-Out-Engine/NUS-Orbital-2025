@@ -8,9 +8,10 @@ extends Node
 @export var movement: MovementBaseComp
 
 
-func trigger(effect: EffectBase, _source: Node2D = null) -> void:
-	for prop_node in $"../../Properties".get_children():
-		effect.apply_effect(prop_node)
+func trigger(effects: Array[Effect], _source: Node2D = null) -> void:
+	for effect in effects:
+		for prop_node in $"../../Properties".get_children():
+			effect.apply_effect(prop_node)
 
 
 func is_targeted_by(target_filter: TargetFilter):

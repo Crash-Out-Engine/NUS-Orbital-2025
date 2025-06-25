@@ -7,7 +7,7 @@ extends Area2D
 @export var timeout_prop: TimeoutProp
 
 var target_filter: TargetFilter
-var effects: Array[EffectBase] = []
+var effects: Array[Effect] = []
 
 @onready var anim_player = $AnimationPlayer as AnimationPlayer
 
@@ -36,6 +36,5 @@ func set_size(size: float):
 
 func _on_body_entered(body: Node2D) -> void:
 	if (body.get_node_or_null(^"Components/HitboxComp") != null
-		and body.get_node(^"Components/HitboxComp").is_targeted_by(target_filter)):
-		for effect in effects:
-			body.get_node_or_null(^"Components/HitboxComp").trigger(effect, self)
+			and body.get_node(^"Components/HitboxComp").is_targeted_by(target_filter)):
+		body.get_node_or_null(^"Components/HitboxComp").trigger(effects, self)

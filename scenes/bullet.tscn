@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://baxqvovb4qoty" path="res://scripts/bullet.gd" id="1_mkf8s"]
 [ext_resource type="Script" path="res://scripts/properties/repeat_prop.gd" id="2_y25gk"]
 [ext_resource type="Script" path="res://scripts/properties/size_prop.gd" id="3_l5glv"]
-[ext_resource type="Script" path="res://scripts/components/bullet_mods_comp.gd" id="4_eoqba"]
+[ext_resource type="Script" uid="uid://c7ygu18bbsb30" path="res://scripts/components/bullet_mods_comp.gd" id="4_eoqba"]
 [ext_resource type="Script" path="res://scripts/properties/copy_prop.gd" id="4_tamys"]
 [ext_resource type="Script" path="res://scripts/properties/spread_prop.gd" id="5_26lx3"]
 [ext_resource type="Script" path="res://scripts/properties/timeout_prop.gd" id="6_26lx3"]
