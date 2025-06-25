@@ -7,7 +7,7 @@ extends Area2D
 @export var timeout_prop: TimeoutProp
 
 var target_filter: TargetFilter
-var effects: Array[EffectBase] = []
+var effects: Array[Effect] = []
 
 @onready var anim_player = $AnimationPlayer as AnimationPlayer
 

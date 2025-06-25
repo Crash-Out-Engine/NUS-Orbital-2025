@@ -6,7 +6,7 @@ signal executed(entity: Node2D)
 @export var melee_cooldown: MeleeCooldownProp
 @export var target_priority: TargetPriorityProp
 @export var target_filter: TargetFilter
-@export var effects: Array[EffectBase]
+@export var effects: Array[Effect]
 
 
 func _physics_process(_delta: float) -> void:

@@ -28,7 +28,7 @@
 [ext_resource type="AudioStream" uid="uid://dn6k75a1tyl8k" path="res://assets/audio/sound_effects/hit_sound.wav" id="17_60mlk"]
 [ext_resource type="Resource" uid="uid://dl56w1h7wf83j" path="res://resources/effect_mods/base_damage.tres" id="18_31cv2"]
 [ext_resource type="Script" uid="uid://cu55fh5hl5rxd" path="res://scripts/properties/melee_cooldown_prop.gd" id="18_60mlk"]
-[ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/mods/effects/effect_base.gd" id="19_a38lo"]
+[ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/mods/effect.gd" id="19_a38lo"]
 [ext_resource type="Script" uid="uid://155skx5u4uks" path="res://scripts/components/loot_collector_comp.gd" id="19_wqfne"]
 [ext_resource type="Script" uid="uid://j8sk0rxpd865" path="res://scripts/components/inventory_comp.gd" id="20_wnwbv"]
 [ext_resource type="Resource" uid="uid://cjgi5gpx4duko" path="res://resources/effect_mods/base_slowdown.tres" id="21_487ah"]

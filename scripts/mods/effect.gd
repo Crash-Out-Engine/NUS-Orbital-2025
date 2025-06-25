@@ -1,4 +1,4 @@
-class_name EffectBase
+class_name Effect
 extends Resource
 
 @export_custom(PROPERTY_HINT_TYPE_STRING, "PropertyBase") var _property_type: String

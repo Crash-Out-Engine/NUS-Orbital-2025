@@ -8,7 +8,7 @@ extends Node
 @export var movement: MovementBaseComp
 
 
-func trigger(effect: EffectBase, _source: Node2D = null) -> void:
+func trigger(effect: Effect, _source: Node2D = null) -> void:
 	for prop_node in $"../../Properties".get_children():
 		effect.apply_effect(prop_node)
 

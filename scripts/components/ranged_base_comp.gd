@@ -8,7 +8,7 @@ signal bullet_spawned(bullet: Node2D)
 @export var ranged_cooldown: RangedCooldownProp
 @export var target_filter: TargetFilter
 @export var mods: Array[ModBase]
-@export var effects: Array[EffectBase]
+@export var effects: Array[Effect]
 @export var bullet_count: CopyProp
 @export var spread: SpreadProp
 
