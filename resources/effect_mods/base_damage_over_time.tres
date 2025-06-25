@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="EffectMod" load_steps=7 format=3 uid="uid://dy1qmsvcg7ae8"]
 
-[ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/mods/effects/effect_base.gd" id="1_y0bkt"]
+[ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/mods/effect.gd" id="1_y0bkt"]
 [ext_resource type="Resource" uid="uid://dtogyr1espqpy" path="res://resources/effects/damage.tres" id="2_vdxq8"]
 [ext_resource type="Texture2D" uid="uid://chv5luwpro7qm" path="res://resources/text_icons/enemy_bleed.tres" id="3_y0bkt"]
 [ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="4_g3wxu"]

@@ -1,12 +1,11 @@
-[gd_scene load_steps=46 format=3 uid="uid://kcqha4xx46r7"]
+[gd_scene load_steps=43 format=3 uid="uid://kcqha4xx46r7"]
 
 [ext_resource type="Script" uid="uid://b2oqcghmenmfd" path="res://scripts/enemy_scene/enemy.gd" id="1_7p1mj"]
 [ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox_comp.gd" id="3_4ra3w"]
 [ext_resource type="Texture2D" uid="uid://csa25hojkjg65" path="res://assets/sprites/enemy_spritesheet.png" id="3_otmr2"]
-[ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/mods/effects/effect_base.gd" id="3_s1ycm"]
+[ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/mods/effect.gd" id="3_s1ycm"]
 [ext_resource type="Script" uid="uid://bg2iinlcp53aa" path="res://scripts/properties/health_prop.gd" id="4_5uy6h"]
 [ext_resource type="Script" uid="uid://cceowy0wh5ufb" path="res://scripts/properties/health_capacity_prop.gd" id="4_ile5s"]
-[ext_resource type="Script" uid="uid://2fh28xow6f1j" path="res://scripts/mods/effects/health_effect.gd" id="4_shcg2"]
 [ext_resource type="Script" uid="uid://bx0i0x84j70ct" path="res://scripts/components/melee_comp.gd" id="5_nenq2"]
 [ext_resource type="AudioStream" uid="uid://dn6k75a1tyl8k" path="res://assets/audio/sound_effects/hit_sound.wav" id="5_wtq4b"]
 [ext_resource type="Script" uid="uid://cu55fh5hl5rxd" path="res://scripts/properties/melee_cooldown_prop.gd" id="6_nenq2"]
@@ -18,11 +17,9 @@
 [ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/properties/target_priority_prop.gd" id="11_w8i8w"]
 [ext_resource type="Script" uid="uid://bvhh7lwu4sovf" path="res://scripts/properties/knockback_prop.gd" id="11_wrm80"]
 [ext_resource type="Script" uid="uid://cg7x3m1w75avm" path="res://scripts/properties/knockback_resistance_prop.gd" id="12_6awcb"]
-[ext_resource type="Script" uid="uid://bkccmmojcqpl5" path="res://scripts/mods/effects/sabotage_effect.gd" id="12_ile5s"]
 [ext_resource type="Script" uid="uid://b003j8v8bhc26" path="res://scripts/enemy_scene/visuals.gd" id="13_j0cyh"]
 [ext_resource type="Script" uid="uid://ci2gb64dwfmjh" path="res://scripts/properties/speed_prop.gd" id="13_wjec0"]
 [ext_resource type="Script" uid="uid://ceeipidvq5rqy" path="res://scripts/enemy_scene/audio.gd" id="14_g0wcc"]
-[ext_resource type="Script" uid="uid://6ofkt38dyeyp" path="res://scripts/mods/effects/knockback_effect.gd" id="16_rogs8"]
 [ext_resource type="Script" uid="uid://ytlqj8sxugss" path="res://scripts/components/movement_AI_comp.gd" id="21_i4rgx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8qclf"]
@@ -34,21 +31,24 @@ targets = Array[int]([1, 4])
 metadata/_custom_type_script = "uid://bc5nkvlgktyor"
 
 [sub_resource type="Resource" id="Resource_ile5s"]
-script = ExtResource("4_shcg2")
+script = ExtResource("3_s1ycm")
+_property_type = "HealthProp"
 _interval = -1.0
 _repeat = 0
 _factor = -5.0
 metadata/_custom_type_script = "uid://2fh28xow6f1j"
 
 [sub_resource type="Resource" id="Resource_rogs8"]
-script = ExtResource("12_ile5s")
+script = ExtResource("3_s1ycm")
+_property_type = "SabotageProp"
 _interval = -1.0
 _repeat = 0
 _factor = 1.0
 metadata/_custom_type_script = "uid://bkccmmojcqpl5"
 
 [sub_resource type="Resource" id="Resource_wrm80"]
-script = ExtResource("16_rogs8")
+script = ExtResource("3_s1ycm")
+_property_type = "KnockbackProp"
 _interval = -1.0
 _repeat = 0
 _factor = 300.0

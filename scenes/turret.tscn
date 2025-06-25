@@ -12,7 +12,7 @@
 [ext_resource type="Script" uid="uid://bc5nkvlgktyor" path="res://scripts/target_filter.gd" id="7_726tt"]
 [ext_resource type="Texture2D" uid="uid://06sdtfwasbao" path="res://assets/sprites/turret_spritesheet.png" id="8_0dv4j"]
 [ext_resource type="Script" uid="uid://bnt7cwx8k0nm0" path="res://scripts/components/mod_slot_comp.gd" id="8_137wx"]
-[ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/mods/effects/effect_base.gd" id="8_726tt"]
+[ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/mods/effect.gd" id="8_726tt"]
 [ext_resource type="Script" path="res://scripts/properties/spread_prop.gd" id="8_v6fyb"]
 [ext_resource type="Resource" uid="uid://dtogyr1espqpy" path="res://resources/effects/damage.tres" id="9_8c4bs"]
 [ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod_base.gd" id="9_d25s7"]

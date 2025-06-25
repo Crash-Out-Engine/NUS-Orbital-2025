@@ -1,21 +1,21 @@
-[gd_resource type="Resource" script_class="UpgradeMod" load_steps=8 format=3 uid="uid://ido6g1b0tgpf"]
+[gd_resource type="Resource" script_class="UpgradeMod" load_steps=7 format=3 uid="uid://ido6g1b0tgpf"]
 
 [ext_resource type="Texture2D" uid="uid://dvl5rhssulmyk" path="res://resources/text_icons/speed_plus.tres" id="1_o8mws"]
 [ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="1_ruphf"]
 [ext_resource type="Script" uid="uid://d2qeqei6awjb1" path="res://scripts/mods/upgrade_mod.gd" id="2_jvjgx"]
 [ext_resource type="Resource" uid="uid://d1a2felxieh8m" path="res://resources/property_points/speed_pp.tres" id="3_5l8vb"]
-[ext_resource type="Script" path="res://scripts/mods/upgrades/upgrade_base.gd" id="3_v5fl1"]
-[ext_resource type="Script" uid="uid://dd3i2bybtux50" path="res://scripts/mods/upgrades/movement_upgrade.gd" id="6_ai4be"]
+[ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="5_v5fl1"]
 
 [sub_resource type="Resource" id="Resource_ub44e"]
-script = ExtResource("6_ai4be")
+script = ExtResource("5_v5fl1")
+_property_type = "SpeedProp"
 _factor = 20.0
 _target = 0
 metadata/_custom_type_script = "uid://dd3i2bybtux50"
 
 [resource]
 script = ExtResource("2_jvjgx")
-upgrades = Array[ExtResource("3_v5fl1")]([SubResource("Resource_ub44e")])
+upgrades = Array[ExtResource("5_v5fl1")]([SubResource("Resource_ub44e")])
 name = "Speed+"
 icon = ExtResource("1_o8mws")
 description = "Increases your movement speed slightly"

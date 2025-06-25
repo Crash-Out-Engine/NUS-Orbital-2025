@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="UpgradeMod" load_steps=16 format=3 uid="uid://dwfvxifo18je3"]
+[gd_resource type="Resource" script_class="UpgradeMod" load_steps=12 format=3 uid="uid://dwfvxifo18je3"]
 
 [ext_resource type="Texture2D" uid="uid://latw477pp0j" path="res://resources/text_icons/player_size_plus.tres" id="1_1hv7v"]
 [ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="2_30d0s"]
@@ -6,39 +6,39 @@
 [ext_resource type="Resource" uid="uid://cfjsdmeafbke8" path="res://resources/property_points/health_capacity_pp.tres" id="4_o2s7d"]
 [ext_resource type="Resource" uid="uid://dvmlfcbqqrwyt" path="res://resources/property_points/health_pp.tres" id="5_g5a16"]
 [ext_resource type="Script" uid="uid://d2qeqei6awjb1" path="res://scripts/mods/upgrade_mod.gd" id="6_jcc1w"]
-[ext_resource type="Script" path="res://scripts/mods/upgrades/upgrade_base.gd" id="7_vogbo"]
-[ext_resource type="Script" path="res://scripts/mods/upgrades/size_upgrade.gd" id="8_o33of"]
-[ext_resource type="Script" path="res://scripts/mods/upgrades/health_capacity_upgrade.gd" id="9_0tkcq"]
-[ext_resource type="Script" path="res://scripts/mods/upgrades/health_upgrade.gd" id="10_2e4pp"]
-[ext_resource type="Script" uid="uid://dd3i2bybtux50" path="res://scripts/mods/upgrades/movement_upgrade.gd" id="11_xp82o"]
+[ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="7_i1rqj"]
 
 [sub_resource type="Resource" id="Resource_t3xmf"]
-script = ExtResource("8_o33of")
+script = ExtResource("7_i1rqj")
+_property_type = "SizeProp"
 _factor = 1.5
 _target = 0
 metadata/_custom_type_script = "uid://dtbv8tja5mys5"
 
 [sub_resource type="Resource" id="Resource_008eb"]
-script = ExtResource("9_0tkcq")
+script = ExtResource("7_i1rqj")
+_property_type = "HealthCapacityProp"
 _factor = 25.0
 _target = 0
 metadata/_custom_type_script = "uid://c01p77hb3xtxy"
 
 [sub_resource type="Resource" id="Resource_lhfpx"]
-script = ExtResource("10_2e4pp")
+script = ExtResource("7_i1rqj")
+_property_type = "HealthProp"
 _factor = 25.0
 _target = 0
 metadata/_custom_type_script = "uid://bgdmv8hbubguj"
 
 [sub_resource type="Resource" id="Resource_c7vff"]
-script = ExtResource("11_xp82o")
+script = ExtResource("7_i1rqj")
+_property_type = "SpeedProp"
 _factor = -20.0
 _target = 0
 metadata/_custom_type_script = "uid://dd3i2bybtux50"
 
 [resource]
 script = ExtResource("6_jcc1w")
-upgrades = Array[ExtResource("7_vogbo")]([SubResource("Resource_t3xmf"), SubResource("Resource_008eb"), SubResource("Resource_lhfpx"), SubResource("Resource_c7vff")])
+upgrades = Array[ExtResource("7_i1rqj")]([SubResource("Resource_t3xmf"), SubResource("Resource_008eb"), SubResource("Resource_lhfpx"), SubResource("Resource_c7vff")])
 name = "Size+"
 icon = ExtResource("1_1hv7v")
 description = "Increase your body size for some extra health"

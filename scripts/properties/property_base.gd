@@ -1,10 +1,10 @@
 class_name PropertyBase
 extends Node
-## An abstract base class which specifies properties that can be changed by [class EffectBase]s.
+## An abstract base class which specifies properties that can be changed by [class Effect]s.
 
 signal changed(from: float, to: float)
 
-## The value that gets changed by any [EffectBase].
+## The value that gets changed by any [Effect].
 var value: float:
 	set(_value):
 		_value = clampf(_value, min_value, max_value)

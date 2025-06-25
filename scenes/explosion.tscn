@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://scripts/properties/repeat_prop.gd" id="4_hbmxj"]
 [ext_resource type="Script" path="res://scripts/properties/size_prop.gd" id="5_xfoey"]
 [ext_resource type="Script" path="res://scripts/properties/timeout_prop.gd" id="6_v8gpv"]
-[ext_resource type="Script" path="res://scripts/components/explosion_mod_comp.gd" id="6_xfoey"]
+[ext_resource type="Script" uid="uid://d248fd1lh8u2a" path="res://scripts/components/explosion_mod_comp.gd" id="6_xfoey"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_er6rp"]
 radius = 9.0

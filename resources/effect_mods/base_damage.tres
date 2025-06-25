@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="EffectMod" load_steps=7 format=3 uid="uid://dl56w1h7wf83j"]
 
-[ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/mods/effects/effect_base.gd" id="1_t21nv"]
+[ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/mods/effect.gd" id="1_t21nv"]
 [ext_resource type="Resource" uid="uid://dtogyr1espqpy" path="res://resources/effects/damage.tres" id="2_r61ob"]
 [ext_resource type="Texture2D" uid="uid://bx6kp8j87xcrc" path="res://resources/text_icons/health_minus_impact_icon.tres" id="3_07w8q"]
 [ext_resource type="Script" uid="uid://qxcwl20lyaga" path="res://scripts/mods/effect_mod.gd" id="3_mkdlj"]

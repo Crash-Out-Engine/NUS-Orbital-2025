@@ -1,21 +1,21 @@
-[gd_resource type="Resource" script_class="UpgradeMod" load_steps=8 format=3 uid="uid://bckq5o6xawc1n"]
+[gd_resource type="Resource" script_class="UpgradeMod" load_steps=7 format=3 uid="uid://bckq5o6xawc1n"]
 
 [ext_resource type="Texture2D" uid="uid://de71dier2orpq" path="res://resources/text_icons/wrench_cooldown_minus.tres" id="1_mv7ku"]
 [ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="1_s0bs4"]
 [ext_resource type="Script" uid="uid://d2qeqei6awjb1" path="res://scripts/mods/upgrade_mod.gd" id="2_h1rvf"]
-[ext_resource type="Script" path="res://scripts/mods/upgrades/upgrade_base.gd" id="3_87lsd"]
 [ext_resource type="Resource" uid="uid://biniuv5ug1m4x" path="res://resources/property_points/time_pp.tres" id="3_fedko"]
-[ext_resource type="Script" path="res://scripts/mods/upgrades/melee_cooldown_upgrade.gd" id="6_2vfxi"]
+[ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="5_87lsd"]
 
 [sub_resource type="Resource" id="Resource_1v1lv"]
-script = ExtResource("6_2vfxi")
+script = ExtResource("5_87lsd")
+_property_type = "MeleeCooldownProp"
 _factor = -0.05
 _target = 0
 metadata/_custom_type_script = "uid://db1bp268dhwme"
 
 [resource]
 script = ExtResource("2_h1rvf")
-upgrades = Array[ExtResource("3_87lsd")]([SubResource("Resource_1v1lv")])
+upgrades = Array[ExtResource("5_87lsd")]([SubResource("Resource_1v1lv")])
 name = "Melee Swing Speed+"
 icon = ExtResource("1_mv7ku")
 description = "Increase the swing speed of your melee attack"

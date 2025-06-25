@@ -16,7 +16,7 @@ const SPEED = 800
 
 var direction: float
 var target_filter: TargetFilter
-var effects: Array[EffectBase] = []
+var effects: Array[Effect] = []
 
 @onready var timer = $Timer as Timer
 
