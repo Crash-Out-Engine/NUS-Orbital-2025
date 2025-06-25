@@ -45,6 +45,12 @@ func apply_effect(property: PropertyBase) -> void:
 			timer.timeout.connect(_countdown(timer, property, actual_factor))
 			timer.start()
 
+func get_factor() -> float:
+	return _factor
+
+func get_property_type() -> String:
+	return _property_type
+
 
 func _can_effect(property: PropertyBase) -> bool:
 	return property.get_script().get_global_name() == _property_type

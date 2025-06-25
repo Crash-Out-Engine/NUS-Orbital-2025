@@ -90,28 +90,21 @@ func _physics_process(_delta: float) -> void:
 		ranged.active = false
 		hand_locked = false
 		current_turret = _TURRET_SCENE.instantiate()
-		current_turret.global_position = get_global_mouse_position()
-		current_turret.player = self # TODO: Decouple player in multiplayer implementation
+		current_turret.player_path = get_path()
 		turret_spawned.emit(current_turret)
-
-	if Input.is_action_pressed("add turret"):
-		if current_turret != null:
-			current_turret.global_position = get_global_mouse_position()
-			if !_can_place_turret():
-				current_turret.get_node(^"Visuals").set_visual_modulate(Color(1, 0, 0, 0.5))
-			else:
-				current_turret.get_node(^"Visuals").set_visual_modulate(Color(0, 1, 1, 0.5))
+		current_turret.set_state(Turret.State.PLACING_VALID)
 
 	if Input.is_action_just_released("add turret"):
 		if current_turret != null:
-			if _can_place_turret():
-				current_turret.advance_state()
+			if current_turret.try_plan():
 				inventory.use_scraps(turret_cost)
 			else:
-				current_turret.state = Turret.State.CANCELLED
 				turret_placement_failed.emit()
 			current_turret = null
 		hand_action = Hand.HOLDING_GUN
+	
+	if current_turret != null:
+		current_turret.global_position = get_global_mouse_position()
 
 func get_inventory() -> InventoryComp:
 	return inventory
@@ -180,13 +173,7 @@ func _on_health_emptied() -> void:
 		respawn()
 
 func respawn() -> void:
-	health_prop.value = 10 #HACK: create proper respawn sequence
-
-
-func _can_place_turret() -> bool:
-	return (current_turret != null
-			and !current_turret.is_overlapping()
-			and turret_cost <= inventory.get_scraps())
+	health_prop.value = 10 # HACK: create proper respawn sequence
 
 
 func _on_visuals_melee_finished() -> void:
