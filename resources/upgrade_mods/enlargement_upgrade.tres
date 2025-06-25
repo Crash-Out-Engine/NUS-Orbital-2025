@@ -6,31 +6,31 @@
 [ext_resource type="Resource" uid="uid://cfjsdmeafbke8" path="res://resources/property_points/health_capacity_pp.tres" id="4_o2s7d"]
 [ext_resource type="Resource" uid="uid://dvmlfcbqqrwyt" path="res://resources/property_points/health_pp.tres" id="5_g5a16"]
 [ext_resource type="Script" uid="uid://d2qeqei6awjb1" path="res://scripts/mods/upgrade_mod.gd" id="6_jcc1w"]
-[ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="7_vogbo"]
+[ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="7_i1rqj"]
 
 [sub_resource type="Resource" id="Resource_t3xmf"]
-script = ExtResource("7_vogbo")
+script = ExtResource("7_i1rqj")
 _property_type = "SizeProp"
 _factor = 1.5
 _target = 0
 metadata/_custom_type_script = "uid://dtbv8tja5mys5"
 
 [sub_resource type="Resource" id="Resource_008eb"]
-script = ExtResource("7_vogbo")
+script = ExtResource("7_i1rqj")
 _property_type = "HealthCapacityProp"
 _factor = 25.0
 _target = 0
 metadata/_custom_type_script = "uid://c01p77hb3xtxy"
 
 [sub_resource type="Resource" id="Resource_lhfpx"]
-script = ExtResource("7_vogbo")
+script = ExtResource("7_i1rqj")
 _property_type = "HealthProp"
 _factor = 25.0
 _target = 0
 metadata/_custom_type_script = "uid://bgdmv8hbubguj"
 
 [sub_resource type="Resource" id="Resource_c7vff"]
-script = ExtResource("7_vogbo")
+script = ExtResource("7_i1rqj")
 _property_type = "SpeedProp"
 _factor = -20.0
 _target = 0
@@ -38,7 +38,7 @@ metadata/_custom_type_script = "uid://dd3i2bybtux50"
 
 [resource]
 script = ExtResource("6_jcc1w")
-upgrades = Array[ExtResource("7_vogbo")]([SubResource("Resource_t3xmf"), SubResource("Resource_008eb"), SubResource("Resource_lhfpx"), SubResource("Resource_c7vff")])
+upgrades = Array[ExtResource("7_i1rqj")]([SubResource("Resource_t3xmf"), SubResource("Resource_008eb"), SubResource("Resource_lhfpx"), SubResource("Resource_c7vff")])
 name = "Size+"
 icon = ExtResource("1_1hv7v")
 description = "Increase your body size for some extra health"

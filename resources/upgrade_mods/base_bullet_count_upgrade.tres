@@ -4,10 +4,10 @@
 [ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="2_4spn7"]
 [ext_resource type="Script" uid="uid://d2qeqei6awjb1" path="res://scripts/mods/upgrade_mod.gd" id="3_5manq"]
 [ext_resource type="Resource" uid="uid://dumsg6lvj4ux4" path="res://resources/property_points/copy_pp.tres" id="3_06olu"]
-[ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="4_06olu"]
+[ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="5_4spn7"]
 
 [sub_resource type="Resource" id="Resource_owt2h"]
-script = ExtResource("4_06olu")
+script = ExtResource("5_4spn7")
 _property_type = "CopyProp"
 _factor = 1.0
 _target = 0
@@ -15,7 +15,7 @@ metadata/_custom_type_script = "uid://b4u0orbo5ii7h"
 
 [resource]
 script = ExtResource("3_5manq")
-upgrades = Array[ExtResource("4_06olu")]([SubResource("Resource_owt2h")])
+upgrades = Array[ExtResource("5_4spn7")]([SubResource("Resource_owt2h")])
 name = "Bullet+"
 icon = ExtResource("1_bomhx")
 description = "Adds another bullet per shot"

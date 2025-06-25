@@ -4,10 +4,10 @@
 [ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="2_0gm05"]
 [ext_resource type="Resource" uid="uid://bv0roj2kgaw4n" path="res://resources/property_points/spread_pp.tres" id="3_sqjho"]
 [ext_resource type="Script" uid="uid://d2qeqei6awjb1" path="res://scripts/mods/upgrade_mod.gd" id="4_ubr1j"]
-[ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="5_2ocrm"]
+[ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="5_l1jed"]
 
 [sub_resource type="Resource" id="Resource_txiyl"]
-script = ExtResource("5_2ocrm")
+script = ExtResource("5_l1jed")
 _property_type = "SpreadProp"
 _factor = -30.0
 _target = 0
@@ -15,7 +15,7 @@ metadata/_custom_type_script = "uid://dcsx2r4dcu6ue"
 
 [resource]
 script = ExtResource("4_ubr1j")
-upgrades = Array[ExtResource("5_2ocrm")]([SubResource("Resource_txiyl")])
+upgrades = Array[ExtResource("5_l1jed")]([SubResource("Resource_txiyl")])
 name = "Bullet Spread-"
 icon = ExtResource("1_lt0o0")
 description = "Decrease bullet spread"
