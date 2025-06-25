@@ -28,7 +28,7 @@ func _setup_sync() -> void:
 	changed.connect(func(_from, _to):
 			if is_inside_tree() and !_syncing:
 				_sync.rpc(save())
-			)
+	)
 
 @rpc("any_peer", "call_remote", "reliable")
 func _sync(data: PackedByteArray) -> void:
