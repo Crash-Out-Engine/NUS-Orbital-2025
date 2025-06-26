@@ -32,19 +32,22 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if not is_multiplayer_authority():
 		return
-
+	
 	# player_sprite processes
+	if (player_sprite.modulate.v > 1):
+		player_sprite.modulate.v -= V_MODULATE * delta / BLEED_TIME
+		if (player_sprite.modulate.v <= 1):
+			player_sprite.modulate.v = 1
+
+	if not player.state in [Player.State.PLAYING, Player.State.INVENTORY]:
+		return
+
 	if movement.movement_direction.x != 0:
 		player_sprite.flip_h = movement.movement_direction.x < 0
 	if movement.movement_direction != Vector2.ZERO:
 		_play_running.rpc()
 	else:
 		_play_idle.rpc()
-
-	if (player_sprite.modulate.v > 1):
-		player_sprite.modulate.v -= V_MODULATE * delta / BLEED_TIME
-		if (player_sprite.modulate.v <= 1):
-			player_sprite.modulate.v = 1
 
 	# gun_sprite processes
 	gun_sprite.rotation = player.hand.rotation

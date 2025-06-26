@@ -690,7 +690,7 @@ replication_config = SubResource("SceneReplicationConfig_74r1k")
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="Visuals"]
 sprite_frames = SubResource("SpriteFrames_4ni07")
-animation = &"lost"
+animation = &"idle"
 
 [node name="GunSprite" type="AnimatedSprite2D" parent="Visuals"]
 z_index = 5
