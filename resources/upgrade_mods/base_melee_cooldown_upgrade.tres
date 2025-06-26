@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="1_s0bs4"]
 [ext_resource type="Script" uid="uid://d2qeqei6awjb1" path="res://scripts/mods/upgrade_mod.gd" id="2_h1rvf"]
 [ext_resource type="Resource" uid="uid://biniuv5ug1m4x" path="res://resources/property_points/time_pp.tres" id="3_fedko"]
-[ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="5_87lsd"]
+[ext_resource type="Script" path="res://scripts/mods/upgrade.gd" id="5_87lsd"]
 
 [sub_resource type="Resource" id="Resource_1v1lv"]
 script = ExtResource("5_87lsd")

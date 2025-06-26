@@ -15,20 +15,20 @@
 [ext_resource type="Script" uid="uid://leayhs5xslyy" path="res://scripts/properties/repeat_prop.gd" id="11_6e8lb"]
 [ext_resource type="AudioStream" uid="uid://dc66si5kieoq4" path="res://assets/audio/sound_effects/laser_gunshot.wav" id="12_3v2ag"]
 [ext_resource type="Script" uid="uid://bvhh7lwu4sovf" path="res://scripts/properties/knockback_prop.gd" id="12_sc3ue"]
-[ext_resource type="Script" uid="uid://cg7x3m1w75avm" path="res://scripts/properties/knockback_resistance_prop.gd" id="13_8svfe"]
+[ext_resource type="Script" path="res://scripts/properties/knockback_resistance_prop.gd" id="13_8svfe"]
 [ext_resource type="Script" uid="uid://dng6x4ecq2npd" path="res://scripts/player_scene/audio.gd" id="13_a8ls1"]
 [ext_resource type="AudioStream" uid="uid://dk7lmxukxhhcr" path="res://assets/audio/sound_effects/error.wav" id="13_f1ej7"]
 [ext_resource type="AudioStream" uid="uid://ciu1er752oye4" path="res://assets/audio/sound_effects/sand_steps.wav" id="13_jej6c"]
 [ext_resource type="Resource" uid="uid://dtogyr1espqpy" path="res://resources/effects/damage.tres" id="13_l71n6"]
-[ext_resource type="Script" uid="uid://ci2gb64dwfmjh" path="res://scripts/properties/speed_prop.gd" id="14_42b1b"]
-[ext_resource type="Script" uid="uid://bc5nkvlgktyor" path="res://scripts/target_filter.gd" id="14_l71n6"]
+[ext_resource type="Script" path="res://scripts/properties/speed_prop.gd" id="14_42b1b"]
+[ext_resource type="Script" path="res://scripts/target_filter.gd" id="14_l71n6"]
 [ext_resource type="Script" uid="uid://ddhfg683ma0hh" path="res://scripts/player_scene/visuals.gd" id="14_oprun"]
 [ext_resource type="Script" uid="uid://bnt7cwx8k0nm0" path="res://scripts/components/mod_slot_comp.gd" id="16_ke2ow"]
 [ext_resource type="Script" uid="uid://bx0i0x84j70ct" path="res://scripts/components/melee_comp.gd" id="17_4r5pv"]
 [ext_resource type="AudioStream" uid="uid://dn6k75a1tyl8k" path="res://assets/audio/sound_effects/hit_sound.wav" id="17_60mlk"]
 [ext_resource type="Resource" uid="uid://dl56w1h7wf83j" path="res://resources/effect_mods/base_damage.tres" id="18_31cv2"]
 [ext_resource type="Script" uid="uid://cu55fh5hl5rxd" path="res://scripts/properties/melee_cooldown_prop.gd" id="18_60mlk"]
-[ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/mods/effect.gd" id="19_a38lo"]
+[ext_resource type="Script" path="res://scripts/mods/effect.gd" id="19_a38lo"]
 [ext_resource type="Script" uid="uid://155skx5u4uks" path="res://scripts/components/loot_collector_comp.gd" id="19_wqfne"]
 [ext_resource type="Script" uid="uid://j8sk0rxpd865" path="res://scripts/components/inventory_comp.gd" id="20_wnwbv"]
 [ext_resource type="Resource" uid="uid://cjgi5gpx4duko" path="res://resources/effect_mods/base_slowdown.tres" id="21_487ah"]
@@ -55,7 +55,7 @@
 [ext_resource type="Resource" uid="uid://bckq5o6xawc1n" path="res://resources/upgrade_mods/base_melee_cooldown_upgrade.tres" id="42_apa73"]
 [ext_resource type="Resource" uid="uid://cwv1pbjmnp8gh" path="res://resources/effect_mods/base_knockback.tres" id="43_74r1k"]
 [ext_resource type="Resource" uid="uid://dy1qmsvcg7ae8" path="res://resources/effect_mods/base_damage_over_time.tres" id="45_2a3c5"]
-[ext_resource type="Script" uid="uid://c2m7j6a1noda1" path="res://scripts/components/movement_player_comp.gd" id="49_h7ic4"]
+[ext_resource type="Script" path="res://scripts/components/movement_player_comp.gd" id="49_h7ic4"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8svfe"]
 properties/0/path = NodePath(".:state")
@@ -578,7 +578,6 @@ metadata/_custom_type_script = "uid://br6ig8qlkh0ua"
 [node name="SpeedProp" type="Node" parent="Properties"]
 script = ExtResource("14_42b1b")
 initial_speed = 80.0
-metadata/_custom_type_script = "uid://ci2gb64dwfmjh"
 
 [node name="Components" type="Node2D" parent="."]
 
@@ -676,7 +675,6 @@ _knockback_speed_curve = SubResource("Curve_h7ic4")
 _speed = NodePath("../../Properties/SpeedProp")
 _knockback = NodePath("../../Properties/KnockbackProp")
 _knockback_resistance = NodePath("../../Properties/KnockbackResistanceProp")
-metadata/_custom_type_script = "uid://c2m7j6a1noda1"
 
 [node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("player", "melee_cooldown", "ranged_cooldown", "movement")]
 script = ExtResource("14_oprun")
