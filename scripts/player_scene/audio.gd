@@ -31,13 +31,13 @@ func _ready() -> void:
 					_play_turret_placement_error_sound.rpc()
 	)
 	melee_attack.executed.connect(
-			func(_entities):
-				if is_multiplayer_authority():
+			func(entities: Array):
+				if is_multiplayer_authority() and not entities.is_empty():
 					_play_hit_sound.rpc()
 	)
 	melee_repair.executed.connect(
-			func(_entities):
-				if is_multiplayer_authority():
+			func(entities: Array):
+				if is_multiplayer_authority() and not entities.is_empty():
 					_play_repair_sound.rpc()
 	)
 

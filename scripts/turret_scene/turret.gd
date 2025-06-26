@@ -120,7 +120,7 @@ func _handle_state_changed(from: State, to: State):
 			set_collision_layer_value(1, true)
 			set_collision_layer_value(2, false)
 			set_collision_mask_value(1, true)
-			entity_spawned.connect(get_parent().get_parent().add_misc)
+			entity_spawned.connect(get_parent().get_parent().add_entity)
 			hitbox.team = _initial_team
 			ranged.active = true
 

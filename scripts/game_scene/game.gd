@@ -4,6 +4,7 @@ extends Node2D # TODO: Remember to turn on master volume when releasing
 signal game_over(message: String) #message contains the cause of the game over
 
 var transitioning: bool
+var game_seed: int
 
 @onready var target_provider := load("res://resources/target_provider.tres") as TargetProvider
 @onready var player := $EntityContainer/Player as Player
@@ -20,6 +21,7 @@ func _ready() -> void:
 	power_manager.power_depleted.connect(func():
 		end_game("Power has run out")
 	)
+	$WorldGenSystem.setup(self)
 
 
 func get_power() -> float:
@@ -44,12 +46,19 @@ func add_entity(entity: Node2D) -> void:
 	try_connect_ranged(entity)
 
 
-func add_misc(misc: Node2D) -> void:
-	$MiscContainer.add_child(misc)
-
 func end_game(message: String) -> void:
 	game_over.emit(message)
 	power_manager.active = false
 	for entity in entity_container.get_children():
 		if entity.has_method("deactivate"):
 			entity.deactivate()
+
+
+func get_local_player() -> Player:
+	return player # TODO(multiplayer): implement local player
+
+
+func get_seed() -> int:
+	if game_seed == 0: # TODO(multiplayer): implement seed synchronization
+		game_seed = randi()
+	return game_seed

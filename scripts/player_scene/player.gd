@@ -50,7 +50,7 @@ var turret_cost = 25
 func _ready() -> void:
 	inventory.scraps_changed.connect(func(_from: int, _to: int): scraps_changed.emit())
 	health.changed.connect(func(_from: int, _to: int): health_changed.emit())
-	ranged.bullet_spawned.emit(entity_spawned)
+	ranged.bullet_spawned.connect(entity_spawned.emit)
 	visuals.melee_finished.connect(
 			func():
 				if (is_multiplayer_authority()

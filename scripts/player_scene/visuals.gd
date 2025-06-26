@@ -120,8 +120,8 @@ func _play_gun_idle() -> void:
 
 @rpc("any_peer", "call_local", "reliable")
 func _play_gun_fire() -> void:
-	gun_sprite.play("gun_fire", 4.0 / ranged_cooldown.value)
-	gun_blast_sprite.play()
+	gun_sprite.play("gun_fire", 0.5 / ranged_cooldown.value)
+	gun_blast_sprite.play("", 0.5 / ranged_cooldown.value)
 
 
 @rpc("any_peer", "call_local", "reliable")

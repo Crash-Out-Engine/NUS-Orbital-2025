@@ -18,4 +18,4 @@ func _on_spawn_timer_timeout() -> void:
 		enemy.global_position = center + radius * angle_vector
 
 		get_parent().add_entity(enemy)
-		enemy.entity_spawned.connect(get_parent().add_misc)
+		enemy.entity_spawned.connect(get_parent().add_entity)
