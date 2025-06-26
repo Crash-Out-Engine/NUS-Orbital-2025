@@ -216,12 +216,11 @@ script = ExtResource("3_4ra3w")
 team = 2
 metadata/_custom_type_script = "uid://wwqkkrfhwiyn"
 
-[node name="MeleeComp" type="Area2D" parent="Components" node_paths=PackedStringArray("melee_cooldown", "target_priority")]
+[node name="MeleeComp" type="Area2D" parent="Components" node_paths=PackedStringArray("melee_cooldown")]
 script = ExtResource("5_nenq2")
-melee_cooldown = NodePath("../../Properties/MeleeCooldownProp")
-target_priority = NodePath("../../Properties/TargetPriorityProp")
 target_filter = SubResource("Resource_1x4g4")
 effects = Array[ExtResource("3_s1ycm")]([SubResource("Resource_ile5s"), SubResource("Resource_wrm80")])
+melee_cooldown = NodePath("../../Properties/MeleeCooldownProp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Components/MeleeComp"]
 z_index = 100

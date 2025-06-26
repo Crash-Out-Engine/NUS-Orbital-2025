@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="EffectMod" load_steps=7 format=3 uid="uid://cjgi5gpx4duko"]
 
-[ext_resource type="Script" path="res://scripts/mods/effect.gd" id="1_7blga"]
+[ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/mods/effect.gd" id="1_7blga"]
 [ext_resource type="Script" uid="uid://qxcwl20lyaga" path="res://scripts/mods/effect_mod.gd" id="2_ii6ev"]
 [ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="3_74jen"]
 [ext_resource type="Texture2D" uid="uid://b2d6dikxrermq" path="res://resources/text_icons/bullet_cooldown_plus_hit.tres" id="3_w8rws"]

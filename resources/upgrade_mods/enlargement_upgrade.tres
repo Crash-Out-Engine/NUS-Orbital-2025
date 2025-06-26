@@ -6,7 +6,7 @@
 [ext_resource type="Resource" uid="uid://cfjsdmeafbke8" path="res://resources/property_points/health_capacity_pp.tres" id="4_o2s7d"]
 [ext_resource type="Resource" uid="uid://dvmlfcbqqrwyt" path="res://resources/property_points/health_pp.tres" id="5_g5a16"]
 [ext_resource type="Script" uid="uid://d2qeqei6awjb1" path="res://scripts/mods/upgrade_mod.gd" id="6_jcc1w"]
-[ext_resource type="Script" path="res://scripts/mods/upgrade.gd" id="7_i1rqj"]
+[ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="7_i1rqj"]
 
 [sub_resource type="Resource" id="Resource_t3xmf"]
 script = ExtResource("7_i1rqj")

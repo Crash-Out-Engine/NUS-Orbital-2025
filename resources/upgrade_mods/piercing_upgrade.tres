@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bmpr4q0o4nyxt" path="res://resources/text_icons/piercing.tres" id="1_trar0"]
 [ext_resource type="Script" uid="uid://d2qeqei6awjb1" path="res://scripts/mods/upgrade_mod.gd" id="2_hoyo4"]
 [ext_resource type="Resource" uid="uid://bosbtjbfskpsr" path="res://resources/property_points/repeat_pp.tres" id="3_41mmj"]
-[ext_resource type="Script" path="res://scripts/mods/upgrade.gd" id="5_370jw"]
+[ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="5_370jw"]
 
 [sub_resource type="Resource" id="Resource_cs4os"]
 script = ExtResource("5_370jw")
