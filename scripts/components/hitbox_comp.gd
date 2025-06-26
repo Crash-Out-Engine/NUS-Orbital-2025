@@ -1,6 +1,8 @@
 class_name HitboxComp
 extends Node
 
+signal hit_by(entity: Node2D, effects: Array[Effect])
+
 @export var _entity: Node2D
 @export var team: Enums.Team
 
@@ -8,10 +10,15 @@ extends Node
 @export var movement: MovementBaseComp
 
 
-func trigger(effects: Array[Effect], _source: Node2D = null) -> void:
+func trigger(effects: Array[Effect], source: Node2D = null) -> void:
+	if !source.is_multiplayer_authority():
+		return
+
 	for effect in effects:
 		for prop_node in $"../../Properties".get_children():
 			effect.apply_effect(prop_node)
+
+	hit_by.emit(source, effects)
 
 
 func is_targeted_by(target_filter: TargetFilter):

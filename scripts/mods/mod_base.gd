@@ -20,3 +20,12 @@ func _init() -> void:
 
 func get_icon(size: int = 24):
 	return ("[img={%d}]" % size) + icon.resource_path + "[/img]"
+
+#region Save/load
+
+func save() -> PackedByteArray:
+	return var_to_bytes(resource_path)
+
+static func from_saved(data: PackedByteArray) -> ModBase:
+	var path = bytes_to_var(data)
+	return ResourceLoader.load(path) as ModBase

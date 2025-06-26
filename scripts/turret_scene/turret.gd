@@ -3,11 +3,12 @@ extends StaticBody2D
 
 signal state_changed(from: State, to: State)
 signal build_progressed(progress: float)
-signal vfx_emitted(Node2D)
+signal entity_spawned(Node2D)
 
 enum State {
 	DEFAULT,
-	PLACING,
+	PLACING_VALID,
+	PLACING_INVALID,
 	PLANNED,
 	OPERATIONAL,
 	DESTROYED,
@@ -21,55 +22,95 @@ const _LOOT_SCENE = preload("res://scenes/loot.tscn")
 @export_group("Properties")
 @export var health_capacity: HealthCapacityProp
 @export var health: HealthProp
-@export var build_prop: BuildProp
+@export var build: BuildProp
 
 @export_group("Components")
 @export var ranged: RangedBaseComp
 @export var hitbox: HitboxComp
 @export var mod_slots: ModSlotComp
 
-var state: State:
-	set(value):
-		var prev_state = state
-		state = value
-		if prev_state != state:
-			handle_state_changed(prev_state, state)
-			state_changed.emit(prev_state, state)
-var player: Player # TODO: Decouple player in multiplayer implementation.
+## Stores the node path of the player_path that interacts with this turret.
+var player_path: NodePath
 var highlighted = false
+var _state: State:
+	set(value):
+		var prev_state = _state
+		_state = value
+		if prev_state != _state:
+			_sync()
+			_handle_state_changed(prev_state, _state)
+			state_changed.emit(prev_state, _state)
 
-@onready var _team: Enums.Team = hitbox.team
+@onready var _initial_team: Enums.Team = hitbox.team
 
 
 func _ready() -> void:
-	state = State.PLACING
-	health.emptied.connect(func(): state = State.DESTROYED)
-	build_prop.changed.connect(build_or_repair)
+	health.emptied.connect(
+			func():
+				if is_multiplayer_authority():
+					_state = State.DESTROYED
+	)
+	build.changed.connect(_check_build)
+	hitbox.hit_by.connect(_check_repair)
 
 
-func advance_state():
-	match state:
-		State.PLACING:
-			state = State.PLANNED
+func _physics_process(_delta: float) -> void:
+	if _state in [State.PLACING_INVALID, State.PLACING_VALID]:
+		var player := get_tree().root.get_node(player_path)
+		if player.get_multiplayer_authority() == multiplayer.get_unique_id():
+			player.current_turret = self
+			global_position = get_global_mouse_position()
+			if !_can_place(player):
+				set_state(State.PLACING_INVALID)
+			else:
+				set_state(State.PLACING_VALID)
+
+func set_state(value: State) -> void:
+	_state = value
+
+func try_plan() -> bool:
+	if _state == State.PLACING_VALID:
+		advance_state()
+		return true
+	if _state == Turret.State.PLACING_INVALID:
+		set_state(State.CANCELLED)
+		return false
+
+	assert(false, "try_planned should not be called with state %s" % State.find_key(_state))
+	return false
+
+
+func advance_state() -> void:
+	match _state:
+		State.PLACING_VALID:
+			_state = State.PLANNED
 		State.PLANNED:
-			state = State.OPERATIONAL
+			_state = State.OPERATIONAL
 		State.OPERATIONAL:
-			state = State.DESTROYED
+			_state = State.DESTROYED
 		_:
-			assert(false, "State should not advance at %s." % State.find_key(state))
+			assert(false, "State should not advance at %s." % State.find_key(_state))
 
-	return state
+func disassemble():
+	_state = State.DESTROYED
+	var loot = _LOOT_SCENE.instantiate() # HACK: implement proper disassemble drops
+	loot.setup_scrap_loot(20)
+	loot.global_position = global_position
+	entity_spawned.emit(loot)
+
+func get_mod_slots() -> ModSlotComp:
+	return mod_slots
 
 
-func handle_state_changed(from: State, to: State):
+func _handle_state_changed(from: State, to: State):
 	match [from, to]:
-		[_, State.PLACING]:
-			set_collidable(false)
+		[_, State.PLACING_VALID], [_, State.PLACING_INVALID]:
+			_set_collidable(false)
 			ranged.active = false
 			hitbox.team = Enums.Team.NONE
 
-		[_, State.PLANNED]:
-			set_collidable(true)
+		[State.PLACING_VALID, State.PLANNED]:
+			_set_collidable(true)
 			set_collision_layer_value(1, false)
 			set_collision_layer_value(2, true)
 			set_collision_mask_value(1, false)
@@ -79,8 +120,8 @@ func handle_state_changed(from: State, to: State):
 			set_collision_layer_value(1, true)
 			set_collision_layer_value(2, false)
 			set_collision_mask_value(1, true)
-			vfx_emitted.connect(get_parent().get_parent().add_misc)
-			hitbox.team = _team
+			entity_spawned.connect(get_parent().get_parent().add_misc)
+			hitbox.team = _initial_team
 			ranged.active = true
 
 		[_, State.DESTROYED]:
@@ -91,35 +132,86 @@ func handle_state_changed(from: State, to: State):
 			queue_free()
 
 		[_, _]:
-			assert(false, "Invalid state change from %s to %s." % [State.find_key(from), State.find_key(to)])
+			assert(false,
+					"Invalid _state change from %s to %s." % [State.find_key(from), State.find_key(to)])
 
 
-func set_collidable(value: bool) -> void:
+func _set_collidable(value: bool) -> void:
 	$CollisionShape2D.set_deferred("disabled", not value)
 
 
-func is_overlapping() -> bool:
+func _is_overlapping() -> bool:
 	return ($PlacementArea
 			.get_overlapping_bodies()
-			.any(func(body): return body.get_node_or_null(^"Components/HitboxComp") != null))
+			.any(func(body): return body.has_node(^"Components/HitboxComp")))
 
-func build_or_repair(from: float, to: float) -> void:
-	if state == State.PLANNED:
+func _check_build(_from: float, to: float) -> void:
+	if _state == State.PLANNED:
 		if to >= build_target:
-			state = State.OPERATIONAL
+			_state = State.OPERATIONAL
 		build_progressed.emit(to / build_target)
-	if state == State.OPERATIONAL:
-		var cost = min(max(0, player.get_scraps()), min((to - from) * 10,
-				health_capacity.value - health.value) / 20)
-		player.use_scraps(cost)
-		health.value += cost * 20
 
-func disassemble():
-	state = State.DESTROYED
-	var loot = _LOOT_SCENE.instantiate() #HACK: implement proper disassemble drops
-	loot.setup_scrap_loot(20)
-	loot.global_position = global_position
-	vfx_emitted.emit(loot)
+func _check_repair(entity: Node2D, effects: Array[Effect]) -> void:
+	var build_effect_index = (
+			effects.find_custom(func(effect: Effect): return effect.get_property_type() == "BuildProp"))
+	if not (_state == State.OPERATIONAL and build_effect_index != -1 and entity is Player):
+		return
 
-func get_mod_slots() -> ModSlotComp:
-	return mod_slots
+	var player := entity as Player
+	var build_effect = effects[build_effect_index]
+	var cost = clamp(
+			min(build_effect.get_factor() * 10, health_capacity.value - health.value) / 20,
+			0,
+			player.get_scraps())
+	player.use_scraps(cost)
+	health.value += cost * 20
+
+
+func _can_place(player: Player) -> bool:
+	return (!_is_overlapping() and player.turret_cost <= player.get_scraps())
+
+
+#region Sync
+
+func _sync() -> void:
+	if not is_node_ready():
+		await ready
+	if not is_multiplayer_authority():
+		return
+
+	# HACK(multiplayer): Remove false when EntityManager gets implemented
+	while false and get_parent()._entity_count[self.get_path()] < multiplayer.get_peers().size() + 1:
+		await get_tree().process_frame
+		if get_parent() == null: # TODO(multiplayer): check if this check can be removed
+			return
+	_receive_sync.rpc(save_scene())
+
+@rpc("any_peer", "call_remote", "reliable")
+func _receive_sync(data: PackedByteArray) -> void:
+	if !is_node_ready():
+		await ready
+	load_saved_scene(data)
+
+#endregion
+
+
+#region Save/load
+
+func save_scene() -> PackedByteArray:
+	var dict = {}
+	dict["position"] = position
+	dict["_state"] = _state
+	dict["player_path"] = player_path
+	for property_node: PropertyBase in $Properties.get_children():
+		dict[property_node.name] = property_node.save()
+	return var_to_bytes(dict)
+
+func load_saved_scene(data: PackedByteArray) -> void:
+	var dict = bytes_to_var(data)
+	position = dict["position"]
+	_state = dict["_state"]
+	player_path = dict["player_path"]
+	for property_node: PropertyBase in $Properties.get_children():
+		property_node.load_saved(dict[property_node.name])
+
+#endregion

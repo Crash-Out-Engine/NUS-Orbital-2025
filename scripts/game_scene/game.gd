@@ -3,7 +3,6 @@ extends Node2D # TODO: Remember to turn on master volume when releasing
 
 signal game_over(message: String) #message contains the cause of the game over
 
-var game_ongoing: bool
 var transitioning: bool
 
 @onready var target_provider := load("res://resources/target_provider.tres") as TargetProvider
@@ -12,16 +11,14 @@ var transitioning: bool
 @onready var power_manager := $PowerManager as PowerManager
 
 func _ready() -> void:
-	game_ongoing = false
 	transitioning = true
 	target_provider.set_entity_container($EntityContainer)
 	MotionTracker.attach_to(player) # TODO: move entity container to its own system
 	try_connect_ranged(player)
-	player.no_lives.connect(func(): end_game("You died"))
-	player.turret_spawned.connect(add_entity)
+	player.lives_depleted.connect(func(): end_game("You died"))
+	player.entity_spawned.connect(add_entity)
 	power_manager.power_depleted.connect(func():
-		if game_ongoing:
-			end_game("Power has run out")
+		end_game("Power has run out")
 	)
 
 
@@ -51,7 +48,6 @@ func add_misc(misc: Node2D) -> void:
 	$MiscContainer.add_child(misc)
 
 func end_game(message: String) -> void:
-	game_ongoing = false
 	game_over.emit(message)
 	power_manager.active = false
 	for entity in entity_container.get_children():

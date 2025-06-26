@@ -27,8 +27,6 @@ func unapply_upgrade(property: PropertyBase) -> void:
 		property.value -= _factor
 
 
-## To be overrided when implementing specific upgrades; decides if the specified upgrade
-## affects a property.
 func _can_upgrade(property: PropertyBase) -> bool:
 	return property.get_script().get_global_name() == _property_type
 

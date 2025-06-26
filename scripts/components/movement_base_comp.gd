@@ -26,7 +26,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if not active:
-		entity.apply_central_impulse(entity.linear_velocity * entity.mass)
+		entity.linear_velocity = Vector2.ZERO
 		return
 
 	var movement_velocity := movement_direction * _speed.value

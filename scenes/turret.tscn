@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://iqyedsof74fp"]
+[gd_scene load_steps=35 format=3 uid="uid://iqyedsof74fp"]
 
 [ext_resource type="Script" uid="uid://47onqbsq6sc8" path="res://scripts/turret_scene/turret.gd" id="1_x3mc5"]
 [ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox_comp.gd" id="2_el7wl"]
@@ -9,10 +9,10 @@
 [ext_resource type="Script" uid="uid://bhi7w6ril3da2" path="res://scripts/components/ranged_AI_comp.gd" id="5_mqfwu"]
 [ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/properties/target_priority_prop.gd" id="6_dirdf"]
 [ext_resource type="Script" uid="uid://2x8lbjmqr7m7" path="res://scripts/properties/copy_prop.gd" id="7_8a46y"]
-[ext_resource type="Script" path="res://scripts/target_filter.gd" id="7_726tt"]
+[ext_resource type="Script" uid="uid://bc5nkvlgktyor" path="res://scripts/target_filter.gd" id="7_726tt"]
 [ext_resource type="Texture2D" uid="uid://06sdtfwasbao" path="res://assets/sprites/turret_spritesheet.png" id="8_0dv4j"]
 [ext_resource type="Script" uid="uid://bnt7cwx8k0nm0" path="res://scripts/components/mod_slot_comp.gd" id="8_137wx"]
-[ext_resource type="Script" path="res://scripts/mods/effect.gd" id="8_726tt"]
+[ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/mods/effect.gd" id="8_726tt"]
 [ext_resource type="Script" uid="uid://3wplgpaykhjn" path="res://scripts/properties/spread_prop.gd" id="8_v6fyb"]
 [ext_resource type="Resource" uid="uid://dtogyr1espqpy" path="res://resources/effects/damage.tres" id="9_8c4bs"]
 [ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod_base.gd" id="9_d25s7"]
@@ -33,6 +33,44 @@ radius = 16.0
 script = ExtResource("7_726tt")
 targets = Array[int]([2])
 metadata/_custom_type_script = "uid://bc5nkvlgktyor"
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8a46y"]
+properties/0/path = NodePath("BaseSprite:rotation")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("BaseSprite:self_modulate")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("BodySprite:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("BodySprite:modulate")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("BodySprite:visible")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("BodySprite:self_modulate")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath("Highlight:rotation")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+properties/7/path = NodePath("Highlight:visible")
+properties/7/spawn = true
+properties/7/replication_mode = 1
+properties/8/path = NodePath("BuildProgressBar:visible")
+properties/8/spawn = true
+properties/8/replication_mode = 1
+properties/9/path = NodePath("BuildProgressBar:modulate")
+properties/9/spawn = true
+properties/9/replication_mode = 1
+properties/10/path = NodePath("BuildProgressBar:value")
+properties/10/spawn = true
+properties/10/replication_mode = 1
+properties/11/path = NodePath("BuildProgressBar:fill_mode")
+properties/11/spawn = true
+properties/11/replication_mode = 1
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fp1kq"]
 atlas = ExtResource("8_0dv4j")
@@ -90,12 +128,12 @@ region = Rect2(1597, 89, 16, 16)
 atlas = ExtResource("13_0mdkh")
 region = Rect2(1581, 89, 16, 16)
 
-[node name="Turret" type="StaticBody2D" node_paths=PackedStringArray("health_capacity", "health", "build_prop", "ranged", "hitbox", "mod_slots") groups=["allies"]]
+[node name="Turret" type="StaticBody2D" node_paths=PackedStringArray("health_capacity", "health", "build", "ranged", "hitbox", "mod_slots") groups=["allies"]]
 script = ExtResource("1_x3mc5")
 build_target = 100.0
 health_capacity = NodePath("Properties/HealthCapacityProp")
 health = NodePath("Properties/HealthProp")
-build_prop = NodePath("Properties/BuildProp")
+build = NodePath("Properties/BuildProp")
 ranged = NodePath("Components/RangedComp")
 hitbox = NodePath("Components/HitboxComp")
 mod_slots = NodePath("Components/ModSlotComp")
@@ -174,12 +212,15 @@ metadata/_custom_type_script = "uid://bhi7w6ril3da2"
 [node name="Barrel" type="Node2D" parent="Components/RangedComp"]
 position = Vector2(12, 0)
 
-[node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("turret", "turret_ranged", "turret_health", "turret_health_capacity")]
+[node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("turret", "health", "health_capacity", "ranged_cooldown")]
 script = ExtResource("12_fp1kq")
 turret = NodePath("..")
-turret_ranged = NodePath("../Components/RangedComp")
-turret_health = NodePath("../Properties/HealthProp")
-turret_health_capacity = NodePath("../Properties/HealthCapacityProp")
+health = NodePath("../Properties/HealthProp")
+health_capacity = NodePath("../Properties/HealthCapacityProp")
+ranged_cooldown = NodePath("../Properties/RangedCooldownProp")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Visuals"]
+replication_config = SubResource("SceneReplicationConfig_8a46y")
 
 [node name="BodySprite" type="AnimatedSprite2D" parent="Visuals"]
 z_index = 1

@@ -14,7 +14,7 @@ var _mods: Array[ModBase]
 var _readonly_mods: Array[ModBase]
 
 func _ready() -> void:
-	assert(is_instance_valid(entity) and entity.get_node_or_null(^"Properties") != null,
+	assert(is_instance_valid(entity) and entity.has_node(^"Properties"),
 			"Entity should have a Properties child node.")
 	assert(is_instance_valid(attack_comp) and "effects" in attack_comp,
 			"Attack component should have an effects variable.")

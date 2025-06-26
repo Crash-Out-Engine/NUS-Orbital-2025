@@ -5,10 +5,10 @@ extends Node
 @export var explosion: Explosion
 
 func _ready() -> void:
-	assert(is_instance_valid(explosion) and explosion.get_node_or_null(^"Properties") != null,
+	assert(is_instance_valid(explosion) and explosion.has_node(^"Properties"),
 			"Entity should have a Properties child node.")
 
-func _setup_mods() -> void:
+func setup_mods() -> void:
 	if !is_node_ready():
 		await ready
 
