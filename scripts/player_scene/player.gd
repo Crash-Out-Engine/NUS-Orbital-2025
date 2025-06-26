@@ -53,8 +53,9 @@ func _ready() -> void:
 	ranged.bullet_spawned.emit(entity_spawned)
 	visuals.melee_finished.connect(
 			func():
-				if is_multiplayer_authority() and hand.action == Hand.Action.FIRING_WRENCH:
-					hand.unlock()
+				if (is_multiplayer_authority()
+						and hand.action == Hand.Action.FIRING_WRENCH
+						and hand.unlock()):
 					hand.action = Hand.Action.HOLDING_WRENCH
 	)
 	hand.action_changed.connect(_handle_hand_action_changed)
@@ -87,9 +88,9 @@ func _physics_process(_delta: float) -> void:
 			or (!Input.is_action_pressed("melee") and hand.action == HA.HOLDING_WRENCH)
 			or (Input.is_action_just_released("shoot") and hand.action == HA.FIRING_GUN)):
 		hand.action = HA.HOLDING_GUN
-		
+
 	hand.rotation = get_local_mouse_position().angle()
-	
+
 	if current_turret != null:
 		current_turret.global_position = get_global_mouse_position()
 
@@ -169,11 +170,11 @@ func _handle_hand_action_changed(from: Hand.Action, to: Hand.Action) -> void:
 	if not is_multiplayer_authority():
 		return
 	const HA = Hand.Action
-	
+
 	match from:
 		HA.FIRING_GUN:
 			ranged.active = false
-	
+
 	match [from, to]:
 		[var x, HA.PLANNING_WRENCH] when x in [HA.HOLDING_GUN, HA.HOLDING_WRENCH, HA.FIRING_GUN]:
 			current_turret = _TURRET_SCENE.instantiate()
@@ -196,8 +197,8 @@ func _handle_hand_action_changed(from: Hand.Action, to: Hand.Action) -> void:
 			pass
 		[_, _]:
 			assert(false, "Invalid state change from %s to %s." % [HA.find_key(from), HA.find_key(to)])
-			
-			
+
+
 	match to:
 		HA.FIRING_GUN:
 			ranged.active = true
@@ -262,7 +263,7 @@ class Hand:
 		FIRING_WRENCH,
 		PLANNING_WRENCH,
 	}
-	
+
 	var locked: bool = false
 	var action: Action:
 		set = _set_action
@@ -277,7 +278,7 @@ class Hand:
 	func _init():
 		action = Action.HOLDING_GUN
 
-	
+
 	func _set_action(value: Action) -> void:
 		if locked:
 			return
@@ -286,12 +287,12 @@ class Hand:
 			action = value
 			changed.emit()
 			action_changed.emit(prev_value, value)
-			
+
 
 	func lock() -> bool:
 		if locked:
 			return false
-		
+
 		locked = true
 		return true
 
@@ -302,7 +303,7 @@ class Hand:
 
 		locked = false
 		return true
-	
+
 
 	#region Save/load
 
@@ -317,5 +318,5 @@ class Hand:
 		var dict := bytes_to_var(data) as Dictionary
 		rotation = dict["rotation"]
 		action = dict["action"]
-		
+
 	#endregion

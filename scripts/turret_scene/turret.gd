@@ -29,6 +29,9 @@ const _LOOT_SCENE = preload("res://scenes/loot.tscn")
 @export var hitbox: HitboxComp
 @export var mod_slots: ModSlotComp
 
+## Stores the node path of the player_path that interacts with this turret.
+var player_path: NodePath
+var highlighted = false
 var _state: State:
 	set(value):
 		var prev_state = _state
@@ -38,15 +41,15 @@ var _state: State:
 			_handle_state_changed(prev_state, _state)
 			state_changed.emit(prev_state, _state)
 
-## Stores the node path of the player_path that interacts with this turret.
-var player_path: NodePath
-var highlighted = false
-
 @onready var _initial_team: Enums.Team = hitbox.team
 
 
 func _ready() -> void:
-	health.emptied.connect(func(): if is_multiplayer_authority(): _state = State.DESTROYED)
+	health.emptied.connect(
+			func():
+				if is_multiplayer_authority():
+					_state = State.DESTROYED
+	)
 	build.changed.connect(_check_build)
 	hitbox.hit_by.connect(_check_repair)
 
@@ -69,7 +72,7 @@ func try_plan() -> bool:
 	if _state == State.PLACING_VALID:
 		advance_state()
 		return true
-	elif _state == Turret.State.PLACING_INVALID:
+	if _state == Turret.State.PLACING_INVALID:
 		set_state(State.CANCELLED)
 		return false
 
@@ -129,7 +132,8 @@ func _handle_state_changed(from: State, to: State):
 			queue_free()
 
 		[_, _]:
-			assert(false, "Invalid _state change from %s to %s." % [State.find_key(from), State.find_key(to)])
+			assert(false,
+					"Invalid _state change from %s to %s." % [State.find_key(from), State.find_key(to)])
 
 
 func _set_collidable(value: bool) -> void:
@@ -152,7 +156,7 @@ func _check_repair(entity: Node2D, effects: Array[Effect]) -> void:
 			effects.find_custom(func(effect: Effect): return effect.get_property_type() == "BuildProp"))
 	if not (_state == State.OPERATIONAL and build_effect_index != -1 and entity is Player):
 		return
-	
+
 	var player := entity as Player
 	var build_effect = effects[build_effect_index]
 	var cost = clamp(

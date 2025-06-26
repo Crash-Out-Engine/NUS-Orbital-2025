@@ -13,7 +13,7 @@ signal executed(entities: Array[Node2D])
 func _physics_process(_delta: float) -> void:
 	if not is_multiplayer_authority():
 		return
-		
+
 	if not _automated:
 		return
 	if _get_hittable_bodies().size() > 0:

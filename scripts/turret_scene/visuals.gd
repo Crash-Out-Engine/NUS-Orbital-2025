@@ -21,19 +21,29 @@ const GREEN = Color("#36e312")
 
 func _ready() -> void:
 	turret.entity_spawned.connect(
-			func(entity): 
-				if is_multiplayer_authority() and entity is Bullet: 
+			func(entity):
+				if is_multiplayer_authority() and entity is Bullet:
 					_play_fire_anim.rpc()
 	)
 	health.changed.connect(func(from, to):
 			if is_multiplayer_authority() and from > to:
 				_bleed()
 	)
-	health.changed.connect(func(_from, to): if is_multiplayer_authority(): _update_health_bar(to))
+	health.changed.connect(
+			func(_from, to):
+				if is_multiplayer_authority():
+					_update_health_bar(to)
+	)
 	turret.state_changed.connect(
-			func(from, to): if is_multiplayer_authority(): _handle_state_changed(from, to))
+			func(from, to):
+				if is_multiplayer_authority():
+					_handle_state_changed(from, to)
+	)
 	turret.build_progressed.connect(
-			func(progress): if is_multiplayer_authority(): _update_build_progress(progress))
+			func(progress):
+				if is_multiplayer_authority():
+					_update_build_progress(progress)
+	)
 	base_sprite.rotation = randf_range(0.0, 360.0)
 
 

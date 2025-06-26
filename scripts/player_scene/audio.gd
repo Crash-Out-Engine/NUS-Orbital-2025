@@ -15,14 +15,31 @@ extends Node
 
 func _ready() -> void:
 	player.hand.action_changed.connect(
-			func(from, to): if is_multiplayer_authority(): _handle_hand_action_changed(from, to))
+			func(from, to):
+				if is_multiplayer_authority():
+					_handle_hand_action_changed(from, to)
+	)
 
 	player.entity_spawned.connect(
-			func(entity): if is_multiplayer_authority() and entity is Bullet: _play_laser_sound.rpc())
+			func(entity):
+				if is_multiplayer_authority() and entity is Bullet:
+					_play_laser_sound.rpc()
+	)
 	player.turret_placement_failed.connect(
-		func(): if is_multiplayer_authority(): _play_turret_placement_error_sound.rpc())
-	melee_attack.executed.connect(func(_entities): if is_multiplayer_authority(): _play_hit_sound.rpc())
-	melee_repair.executed.connect(func(_entities): if is_multiplayer_authority(): _play_repair_sound.rpc())
+			func():
+				if is_multiplayer_authority():
+					_play_turret_placement_error_sound.rpc()
+	)
+	melee_attack.executed.connect(
+			func(_entities):
+				if is_multiplayer_authority():
+					_play_hit_sound.rpc()
+	)
+	melee_repair.executed.connect(
+			func(_entities):
+				if is_multiplayer_authority():
+					_play_repair_sound.rpc()
+	)
 
 
 func _process(_delta: float) -> void:

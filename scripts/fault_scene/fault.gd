@@ -65,7 +65,7 @@ func _handle_state_changed(from: State, to: State):
 		[State.REBOOTING, State.FIXED]:
 			hitbox.team = Enums.Team.NONE
 			fixed.emit()
-		
+
 		[State.DEFAULT, State.FIXED]:
 			hitbox.team = Enums.Team.NONE
 

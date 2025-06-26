@@ -18,21 +18,32 @@ const BLEED_TIME := 2.0 / 30.0
 
 func _ready() -> void:
 	player.state_changed.connect(
-			func(from, to): if is_multiplayer_authority(): _handle_state_changed(from, to)
+			func(from, to):
+				if is_multiplayer_authority():
+					_handle_state_changed(from, to)
 	)
 	player.hand.action_changed.connect(
-			func(from, to): if is_multiplayer_authority(): _handle_hand_action_changed(from, to)
+			func(from, to):
+				if is_multiplayer_authority():
+					_handle_hand_action_changed(from, to)
 	)
 
 	player.entity_spawned.connect(
-			func(entity): if is_multiplayer_authority() and entity is Bullet: _play_gun_fire.rpc())
-	player.health_changed.connect(func(): if is_multiplayer_authority(): _play_bleed.rpc())
+			func(entity):
+				if is_multiplayer_authority() and entity is Bullet:
+					_play_gun_fire.rpc()
+	)
+	player.health_changed.connect(
+			func():
+				if is_multiplayer_authority():
+					_play_bleed.rpc()
+	)
 
 
 func _process(delta: float) -> void:
 	if not is_multiplayer_authority():
 		return
-	
+
 	# player_sprite processes
 	if (player_sprite.modulate.v > 1):
 		player_sprite.modulate.v -= V_MODULATE * delta / BLEED_TIME

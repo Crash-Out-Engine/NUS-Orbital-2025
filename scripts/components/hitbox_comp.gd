@@ -17,7 +17,7 @@ func trigger(effects: Array[Effect], source: Node2D = null) -> void:
 	for effect in effects:
 		for prop_node in $"../../Properties".get_children():
 			effect.apply_effect(prop_node)
-	
+
 	hit_by.emit(source, effects)
 
 

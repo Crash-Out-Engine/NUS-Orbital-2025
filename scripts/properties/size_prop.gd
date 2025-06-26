@@ -18,4 +18,3 @@ func _handle_size_changed(_from, to: float) -> void:
 	for child in _entity.get_children():
 		if child is Node2D:
 			child.scale = to * Vector2.ONE
-	

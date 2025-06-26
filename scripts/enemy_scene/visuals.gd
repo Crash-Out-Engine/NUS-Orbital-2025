@@ -15,8 +15,15 @@ const FLIP_THRESHOLD: float = 0.001
 
 
 func _ready() -> void:
-	health.emptied.connect(func(): if is_multiplayer_authority(): _play_die_effect.rpc())
-	health.reduced.connect(func(_bleed): if is_multiplayer_authority(): _play_bleed_effect.rpc())
+	health.emptied.connect(
+			func():
+				if is_multiplayer_authority():
+					_play_die_effect.rpc()
+	)
+	health.reduced.connect(
+			func(_bleed):
+				if is_multiplayer_authority():
+					_play_bleed_effect.rpc())
 
 
 func _process(delta: float) -> void:
