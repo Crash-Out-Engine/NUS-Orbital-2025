@@ -7,8 +7,8 @@ const _BULLET_SCENE = preload("res://scenes/bullet.tscn")
 
 
 func _physics_process(_delta: float) -> void:
-	if !player.hand_locked:
-		look_at(get_global_mouse_position())
+	if !player.hand.locked:
+		rotation = player.hand.rotation
 
 	if !active or !ranged_cooldown.can_ranged():
 		return

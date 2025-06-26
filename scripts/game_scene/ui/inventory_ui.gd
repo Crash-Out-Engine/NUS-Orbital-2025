@@ -131,7 +131,6 @@ func opening_setup(inventory_input: InventoryComp, modslot_input: ModSlotComp):
 	crafting_inputs = []
 	crafting_output = null
 	update_crafting()
-	player.open_inventory()
 
 func force_close():
 	close_inventory()
@@ -143,7 +142,6 @@ func close_inventory():
 		for i in crafting_inputs:
 			inventory_comp._add_mod(i)
 		crafting_inputs = []
-	player.close_inventory()
 	can_affect_filter.close_dropdown()
 	component_filter.close_dropdown()
 

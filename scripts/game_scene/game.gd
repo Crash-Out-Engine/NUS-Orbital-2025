@@ -17,8 +17,8 @@ func _ready() -> void:
 	target_provider.set_entity_container($EntityContainer)
 	MotionTracker.attach_to(player) # TODO: move entity container to its own system
 	try_connect_ranged(player)
-	player.no_lives.connect(func(): end_game("You died"))
-	player.turret_spawned.connect(add_entity)
+	player.lives_depleted.connect(func(): end_game("You died"))
+	player.entity_spawned.connect(add_entity)
 	power_manager.power_depleted.connect(func():
 		if game_ongoing:
 			end_game("Power has run out")

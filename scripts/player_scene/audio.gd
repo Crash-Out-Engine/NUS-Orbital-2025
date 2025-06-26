@@ -2,9 +2,9 @@ class_name PlayerAudio
 extends Node
 
 @export var player: Player
-@export var player_ranged: RangedBaseComp
-@export var player_melee: MeleeComp
-@export var player_repair: MeleeComp
+@export var movement: MovementBaseComp
+@export var melee_attack: MeleeComp
+@export var melee_repair: MeleeComp
 
 @onready var footsteps_sound := $FootstepsSound as AudioStreamPlayer
 @onready var laser_sound := $LaserSound as AudioStreamPlayer
@@ -14,31 +14,65 @@ extends Node
 @onready var melee_swing := $MeleeSwing as AudioStreamPlayer
 
 func _ready() -> void:
-	player_ranged.bullet_spawned.connect(play_laser_sound)
-	player.turret_placement_failed.connect(play_turret_placement_error_sound)
-	player_melee.executed.connect(func(_entity): play_hit_sound())
-	player_repair.executed.connect(func(_entity): play_repair_sound())
+	player.hand.action_changed.connect(
+			func(from, to): if is_multiplayer_authority(): _handle_hand_action_changed(from, to))
+
+	player.entity_spawned.connect(
+			func(entity): if is_multiplayer_authority() and entity is Bullet: _play_laser_sound.rpc())
+	player.turret_placement_failed.connect(
+		func(): if is_multiplayer_authority(): _play_turret_placement_error_sound.rpc())
+	melee_attack.executed.connect(func(_entities): if is_multiplayer_authority(): _play_hit_sound.rpc())
+	melee_repair.executed.connect(func(_entities): if is_multiplayer_authority(): _play_repair_sound.rpc())
 
 
 func _process(_delta: float) -> void:
-	if Vector2(Input.get_axis("left", "right"), Input.get_axis("up", "down")) != Vector2.ZERO:
+	if not is_multiplayer_authority():
+		return
+
+	if movement.movement_direction != Vector2.ZERO:
 		if !footsteps_sound.playing:
-			footsteps_sound.play()
+			_play_footsteps_sound.rpc()
 	else:
-		footsteps_sound.stop()
+		_stop_footsteps_sound.rpc()
 
 
-func play_turret_placement_error_sound() -> void:
+func _handle_hand_action_changed(_from: Player.Hand.Action, to: Player.Hand.Action) -> void:
+	const HA = Player.Hand.Action
+	match to:
+		HA.FIRING_WRENCH:
+			_play_melee_swing_sound.rpc()
+
+
+@rpc("any_peer", "call_local", "reliable")
+func _play_footsteps_sound() -> void:
+	footsteps_sound.play()
+
+
+@rpc("any_peer", "call_local", "reliable")
+func _stop_footsteps_sound() -> void:
+	footsteps_sound.stop()
+
+
+@rpc("any_peer", "call_local", "reliable")
+func _play_turret_placement_error_sound() -> void:
 	turret_placement_error_sound.play()
 
-func play_laser_sound(_bullet) -> void:
+
+@rpc("any_peer", "call_local", "reliable")
+func _play_laser_sound() -> void:
 	laser_sound.play()
 
-func play_hit_sound():
+
+@rpc("any_peer", "call_local", "reliable")
+func _play_hit_sound():
 	hit_sound.play()
 
-func play_repair_sound():
+
+@rpc("any_peer", "call_local", "reliable")
+func _play_repair_sound():
 	repair_sound.play()
 
-func play_melee_swing_sound():
+
+@rpc("any_peer", "call_local", "reliable")
+func _play_melee_swing_sound():
 	melee_swing.play()
