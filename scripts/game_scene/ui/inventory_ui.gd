@@ -4,19 +4,19 @@ const ITEM_CONTAINER = preload("res://scenes/item_container.tscn")
 const BLUEPRINT_CONTAINER = preload("res://scenes/blueprint_container.tscn")
 const SCRAP_EMOJI = "res://resources/text_icons/scrap_icon.tres"
 
-@export var player : Player
-@export var unlocked_mods : Array[ModBase]
+@export var unlocked_mods: Array[ModBase]
 
-var crafting_scraps : int = 0
-var crafting_output : ModBase = null
-var checking_blueprints : bool = false
-var selected_blueprint : ModBase = null
-var scrap_diff : int
-var turret : Turret = null
-var inventory_comp : InventoryComp
-var modslot_comp : ModSlotComp
-var crafting_inputs : Array[ModBase] = []
-var _crafting_components : Dictionary[PropertyPoint, int]
+var crafting_scraps: int = 0
+var crafting_output: ModBase = null
+var checking_blueprints: bool = false
+var selected_blueprint: ModBase = null
+var scrap_diff: int
+var turret: Turret = null
+var inventory_comp: InventoryComp
+var modslot_comp: ModSlotComp
+var crafting_inputs: Array[ModBase] = []
+var _crafting_components: Dictionary[PropertyPoint, int]
+var _player: Player
 
 @onready var scrap_counter_label = (
 	$Margin/PanelContainer/HBox/LeftVBox/ScrapCounter/HBox/Label as Label)
@@ -70,6 +70,11 @@ var _crafting_components : Dictionary[PropertyPoint, int]
 func _ready() -> void:
 	visible = false
 
+
+func setup(player: Player) -> void:
+	_player = player
+
+
 func try_open():
 	if Input.is_action_just_pressed("shoot"):
 		if search_bar.has_focus():
@@ -85,7 +90,7 @@ func try_open():
 					close_inventory()
 		else:
 			visible = true
-			opening_setup(player.get_inventory(), player.get_mod_slots())
+			opening_setup(_player.get_inventory(), _player.get_mod_slots())
 
 	if Input.is_action_just_pressed("esc"):
 		if visible:
@@ -155,7 +160,7 @@ func update_blueprint_list():
 	for item in blueprint_list.get_children():
 		blueprint_list.remove_child(item)
 		item.queue_free()
-	for mod in player.get_blueprints():
+	for mod in _player.get_blueprints():
 		if !mod_filter(mod): continue
 		var blueprint = BLUEPRINT_CONTAINER.instantiate() as BlueprintContainer
 		blueprint.mod = mod
@@ -180,7 +185,7 @@ func blueprint_selected(selection: ModBase):
 		blueprint_list.get_children()[curr_selected_blueprint_index].set_selected(true)
 		selected_blueprint = selection
 	blueprint_label.text = blueprint_list.get_children()[curr_selected_blueprint_index].get_mod_name()
-	crafting_output = player.get_blueprints()[curr_selected_blueprint_index]
+	crafting_output = _player.get_blueprints()[curr_selected_blueprint_index]
 	update_inventory_list()
 	update_crafting_components()
 
@@ -193,7 +198,7 @@ func update_inventory_list():
 		blueprint_button_description.text = "[i]View Inventory[/i]"
 		inventory_scroll.visible = false
 		blueprint_scroll.visible = true
-		inventory_mod_counter.text = "%d M.O.D. options" % (player.get_blueprints().size() - 1)
+		inventory_mod_counter.text = "%d M.O.D. options" % (_player.get_blueprints().size() - 1)
 	else:
 		blueprint_button_description.text = ""
 		blueprint_button_description.size = Vector2(0, 0)
@@ -229,7 +234,7 @@ func mod_filter(mod: ModBase) -> bool:
 		if mod == null:
 			success = false
 		else:
-			match(mod.type):
+			match (mod.type):
 				ModBase.Type.UPGRADE:
 					for upgrade in mod.upgrades:
 						if !can_affect_filter.get_selected()[upgrade._target]: success = false
@@ -268,7 +273,7 @@ func update_modslotcomp_upgrade():
 		modslot_comp.get_upgrade_cost(),
 		SCRAP_EMOJI]
 
-	if modslot_comp.get_upgrade_cost() > player.get_scraps():
+	if modslot_comp.get_upgrade_cost() > _player.get_scraps():
 		upgrade_button.disabled = true
 	else:
 		upgrade_button.disabled = false
@@ -336,7 +341,7 @@ func update_crafting_components():
 			crafting_output_label.text = "Insufficient components!"
 			craft_button.disabled = true
 		else:
-			if crafting_scraps + player.get_scraps() >= crafting_output.value:
+			if crafting_scraps + _player.get_scraps() >= crafting_output.value:
 				if scrap_diff > 0:
 					crafting_output_label.text = "Craft %s%s and gain %d[img=36]%s[/img]" % [
 						crafting_output.get_icon(36),
@@ -359,7 +364,7 @@ func update_crafting_components():
 				craft_button.disabled = false
 			else:
 				crafting_output_label.text = "%d more [img=36]%s[/img] required!" % [
-					crafting_output.value - (crafting_scraps + player.get_scraps()),
+					crafting_output.value - (crafting_scraps + _player.get_scraps()),
 					SCRAP_EMOJI
 				]
 
@@ -382,7 +387,7 @@ func _on_disassemble_button_pressed() -> void:
 func add_dragged_item(item: DraggedItem, state: ItemContainer.State):
 	add_child(item)
 	item.dropped.connect(insert_item)
-	match(state):
+	match (state):
 		ItemContainer.State.MODCOMP:
 			modslot_comp._remove_mod(item.mod)
 			update_modslotcomp_list()
@@ -394,7 +399,7 @@ func add_dragged_item(item: DraggedItem, state: ItemContainer.State):
 			update_crafting()
 
 func insert_item(mod: ModBase, destination: ItemContainer.State):
-	match(destination):
+	match (destination):
 		ItemContainer.State.MODCOMP:
 			if modslot_comp._add_mod(mod):
 				update_modslotcomp_list()
@@ -416,7 +421,7 @@ func insert_item(mod: ModBase, destination: ItemContainer.State):
 
 
 func _on_upgrade_button_pressed() -> void:
-	player.use_scraps(modslot_comp.get_upgrade_cost())
+	_player.use_scraps(modslot_comp.get_upgrade_cost())
 	modslot_comp.change_capcity(1)
 	update_modslotcomp_upgrade()
 
@@ -428,9 +433,9 @@ func _on_blueprints_button_pressed() -> void:
 
 func _on_craft_button_pressed() -> void:
 	if scrap_diff < 0:
-		player.use_scraps(-scrap_diff)
+		_player.use_scraps(-scrap_diff)
 	else:
-		player.inventory.register_item(Item.ScrapItem.new(scrap_diff))
+		_player.inventory.register_item(Item.ScrapItem.new(scrap_diff))
 	if crafting_output != null:
 		crafting_inputs = [crafting_output]
 	else:

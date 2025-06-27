@@ -9,7 +9,7 @@ func _physics_process(_delta: float) -> void:
 		return
 
 	var target_provider := load("res://resources/target_provider.tres") as TargetProvider
-	var target = target_provider.get_target($"../../".global_position, target_filter)
+	var target = target_provider.get_target($"../..".global_position, target_filter)
 	if target == null:
 		return
 

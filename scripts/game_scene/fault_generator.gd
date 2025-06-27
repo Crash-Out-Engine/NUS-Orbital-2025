@@ -103,8 +103,7 @@ func _load_chunk(chunk_pos: Vector2i) -> void:
 func _create_fault() -> Fault:
 	if is_multiplayer_authority():
 		var fault := _FAULT_SCENE.instantiate()
-		entity_manager.add_child(fault)
-		# entity_manager.add_entity(fault, self)
+		entity_manager.add_entity(fault, self)
 
 		return fault
 

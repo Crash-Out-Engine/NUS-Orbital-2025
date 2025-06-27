@@ -50,7 +50,8 @@ func _handle_state_changed(from: State, to: State):
 			set_collision_layer_value(1, true)
 			set_collision_layer_value(2, false)
 			set_collision_mask_value(1, true)
-			reboot_timer.start() # TODO(multiplayer): Verify that reboot_timer cannot be null here
+			if reboot_timer != null:
+				reboot_timer.start()
 			hitbox.team = Enums.Team.PLAYER_BUILDING
 			health.value = health_capacity.value
 
@@ -58,7 +59,8 @@ func _handle_state_changed(from: State, to: State):
 			set_collision_layer_value(1, false)
 			set_collision_layer_value(2, true)
 			set_collision_mask_value(1, false)
-			reboot_timer.stop() # TODO(multiplayer): Verify that reboot_timer cannot be null here
+			if reboot_timer != null:
+				reboot_timer.stop()
 			hitbox.team = Enums.Team.TO_BUILD
 			build.reset()
 
