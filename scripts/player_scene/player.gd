@@ -160,7 +160,7 @@ func _handle_state_changed(_from: State, to: State) -> void:
 	match to:
 		State.INVENTORY:
 			if current_turret != null:
-				current_turret.queue_free()
+				current_turret.set_state(Turret.State.CANCELLED)
 			hand.unlock()
 			hand.action = Hand.Action.HOLDING_GUN
 			hand.lock()
@@ -235,6 +235,9 @@ func deactivate():
 #region Sync
 
 func _sync_hand() -> void:
+	if not is_multiplayer_authority():
+		return
+
 	_receive_hand_sync.rpc(hand.save())
 
 @rpc("any_peer", "call_remote", "reliable")

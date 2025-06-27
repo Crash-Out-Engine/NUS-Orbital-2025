@@ -5,10 +5,13 @@ const _BULLET_SCENE = preload("res://scenes/bullet.tscn")
 
 
 func _physics_process(_delta: float) -> void:
+	if not is_multiplayer_authority():
+		return
+
 	if !active or !ranged_cooldown.can_ranged():
 		return
 
-	var target_provider := load("res://resources/target_provider.tres") as TargetProvider
+	var target_provider := load("res://resources/target_provider.tres")
 	var target = target_provider.get_target($"../..".global_position, target_filter)
 	if target == null:
 		return

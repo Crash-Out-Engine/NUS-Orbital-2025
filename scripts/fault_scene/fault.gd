@@ -92,7 +92,7 @@ func _on_reboot_timer_timeout() -> void:
 
 
 func _on_visuals_disappear_finished() -> void:
-	queue_free()
+	get_parent().remove_entity(self)
 
 #region Save/load
 
@@ -107,9 +107,9 @@ func save_scene() -> PackedByteArray:
 func load_saved_scene(data: PackedByteArray) -> void:
 	var dict = bytes_to_var(data)
 	global_position = dict["global_position"]
-	state = dict["state"]
 	if !is_node_ready():
 		await ready
+	state = dict["state"]
 	match state:
 		State.SABOTAGED:
 			build.value = dict["build.value"]

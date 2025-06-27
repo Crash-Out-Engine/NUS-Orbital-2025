@@ -26,6 +26,7 @@ enum ExitScene {
 	GAME_MENU,
 }
 
+var parameters: Dictionary
 var transitioning: bool
 var game_seed: int
 var _local_player: Player
@@ -43,7 +44,11 @@ var _state: State:
 
 func _ready() -> void:
 	target_provider.set_entity_manager(entity_manager)
-	_state = State.INIT
+	if not "session_config_data" in parameters:
+		_state = State.INIT
+	else:
+		var session_config_data = parameters["session_config_data"]
+		load_saved_scene(session_config_data)
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
@@ -89,14 +94,15 @@ func _handle_state_changed(from: State, to: State) -> void:
 	match [from, to]:
 		[State.DEFAULT, State.INIT]:
 			await _setup(InitSequence.PLAYERS)
-			_setup(InitSequence.WORLD_GEN)
-			_setup(InitSequence.CAMERA)
-			_setup(InitSequence.UI)
+			await _setup(InitSequence.WORLD_GEN)
+			await _setup(InitSequence.CAMERA)
+			await _setup(InitSequence.UI)
 			power_manager.power_depleted.connect(func():
 					end_game("Power has run out")
 			)
 			_local_player.lives_depleted.connect(func(): end_game("You died"))
 			_state = State.PLAYING
+			state_changed.connect(func(_from, _to): _sync_state.rpc(_to))
 		[State.INIT, State.PLAYING]:
 			pass
 		[State.PAUSED, State.PLAYING], [State.PLAYING, State.PAUSED]:
@@ -159,7 +165,7 @@ func _register_players(peer_player: Dictionary[int, Player]) -> void:
 	var peer_player_path: Dictionary[int, NodePath] = {}
 	for peer in peer_player:
 		peer_player_path.set(peer, peer_player[peer].get_path())
-	_sync_register_players.rpc(peer_player_path)
+	_synced_register_players.rpc(peer_player_path)
 
 
 func pause_game() -> void:
@@ -173,13 +179,13 @@ func resume_game() -> void:
 
 
 func restart_game() -> void:
-	get_tree().paused = false
-	Functions.load_screen_to_scene("res://scenes/game.tscn")
+	_synced_restart.rpc()
 
 
 func end_game(message: String) -> void:
 	_state = State.GAME_OVER
 	game_over.emit(message)
+	_sync_game_over.rpc(message)
 
 
 func exit_game(to: ExitScene = ExitScene.NONE) -> void:
@@ -217,7 +223,7 @@ func get_seed() -> int:
 #region Sync
 
 @rpc("any_peer", "call_local", "reliable")
-func _sync_register_players(peer_player_path: Dictionary[int, NodePath]) -> void:
+func _synced_register_players(peer_player_path: Dictionary[int, NodePath]) -> void:
 	for peer in peer_player_path:
 		var player = get_tree().root.get_node(peer_player_path[peer])
 		player.set_multiplayer_authority(peer)
@@ -226,14 +232,55 @@ func _sync_register_players(peer_player_path: Dictionary[int, NodePath]) -> void
 		else:
 			player.get_node(^"Components").process_mode = Node.PROCESS_MODE_DISABLED
 
+
+@rpc("any_peer", "call_local", "reliable")
+func _synced_restart() -> void:
+	get_tree().paused = false
+	Functions.load_screen_to_scene("res://scenes/game.tscn", parameters)
+
+
+@rpc("any_peer", "call_remote", "reliable")
+func _sync_state(state: State, message: String = "") -> void:
+	_state = state
+	if state == State.GAME_OVER:
+		game_over.emit(message)
+
+
+@rpc("any_peer", "call_remote", "reliable")
+func _sync_game_over(message: String) -> void:
+	game_over.emit(message)
+
+#endregion
+
+
+#region save
+
+# TODO(Save): Saving other managers should be more sophisticated
+func save_scene() -> PackedByteArray:
+	var session_config := SessionConfig.new()
+	session_config.game_seed = game_seed
+	session_config.state = _state
+	session_config.power = get_power()
+	session_config.entities_data = entity_manager.save_entities()
+	return session_config.save()
+
+
+## Takes in a SessionConfig in the form of PackedByteArray.
+func load_saved_scene(data: PackedByteArray) -> void:
+	var session_config := SessionConfig.from_saved(data)
+	game_seed = session_config.game_seed
+	_state = session_config.state
+	power_manager._power = session_config.power
+	entity_manager.load_entities(session_config.entities_data)
+
 #endregion
 
 
 class SessionConfig:
 	var game_seed: int
-	var state: State
-	var power: float
-	var entities_data: PackedByteArray
+	var state: State = Game.State.INIT
+	var power: float = 100.0
+	var entities_data: PackedByteArray = var_to_bytes([])
 
 
 	func save() -> PackedByteArray:

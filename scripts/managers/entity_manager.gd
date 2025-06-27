@@ -107,8 +107,8 @@ func save_entities() -> PackedByteArray:
 
 
 func load_entities(data: PackedByteArray) -> void:
-	var array: Array[PackedByteArray] = bytes_to_var(data)
-	for entity_data in array:
+	var array: Array = bytes_to_var(data)
+	for entity_data: PackedByteArray in array:
 		var entity = entity_from_saved(entity_data)
 		_add_entity_in_server(entity)
 

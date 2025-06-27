@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://cllljmtjd3348"]
+[gd_scene load_steps=11 format=3 uid="uid://cllljmtjd3348"]
 
 [ext_resource type="Theme" uid="uid://c8t8fqq1p8n4l" path="res://resources/custom_ui.tres" id="1_jjmda"]
 [ext_resource type="Script" uid="uid://yue3ugrfulci" path="res://scripts/multiplayer_lobby_menu.gd" id="2_nknlf"]
 [ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet.png" id="2_wngio"]
 [ext_resource type="FontFile" uid="uid://cj53anigafm5t" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="3_nknlf"]
 [ext_resource type="Theme" uid="uid://cq6cs0mx200sg" path="res://resources/inventory_ui.tres" id="4_u7a7b"]
+[ext_resource type="Script" uid="uid://bjuk4iam1t4q7" path="res://scripts/managers/multiplayer_manager.gd" id="6_nknlf"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_p30b5"]
 texture = ExtResource("2_wngio")
@@ -28,7 +29,7 @@ region = Rect2(1485, 114, 32, 32)
 atlas = ExtResource("2_wngio")
 region = Rect2(1451, 114, 32, 32)
 
-[node name="MultiplayerLobbyMenu" type="Control"]
+[node name="MultiplayerLobbyMenu" type="Control" node_paths=PackedStringArray("_multiplayer_manager")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -37,6 +38,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_jjmda")
 script = ExtResource("2_nknlf")
+_multiplayer_manager = NodePath("MultiplayerManager")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -85,9 +87,10 @@ theme_override_constants/margin_right = 80
 layout_mode = 2
 alignment = 1
 
-[node name="LineEdit" type="LineEdit" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="Address" type="LineEdit" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("4_u7a7b")
+text = "127.0.0.1"
 placeholder_text = "Input Address"
 alignment = 1
 
@@ -95,17 +98,17 @@ alignment = 1
 layout_mode = 2
 alignment = 1
 
-[node name="Button" type="Button" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Host" type="Button" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_nknlf")
 text = "Host"
 
-[node name="Button2" type="Button" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Join" type="Button" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_nknlf")
 text = "Join"
 
-[node name="Button" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="Start" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Start"
@@ -144,4 +147,11 @@ texture_hover = SubResource("AtlasTexture_wngio")
 texture_disabled = SubResource("AtlasTexture_wngio")
 texture_focused = SubResource("AtlasTexture_wngio")
 
+[node name="MultiplayerManager" type="Node" parent="."]
+script = ExtResource("6_nknlf")
+metadata/_custom_type_script = "uid://bjuk4iam1t4q7"
+
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/HBoxContainer/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/HBoxContainer/Join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="Panel/TextureButton" to="." method="_on_texture_button_pressed"]

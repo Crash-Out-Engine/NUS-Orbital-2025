@@ -126,10 +126,10 @@ func _handle_state_changed(from: State, to: State):
 
 		[_, State.DESTROYED]:
 			#TODO: implement loot drops
-			queue_free()
+			get_parent().remove_entity(self)
 
 		[_, State.CANCELLED]:
-			queue_free()
+			get_parent().remove_entity(self)
 
 		[_, _]:
 			assert(false,
@@ -179,8 +179,7 @@ func _sync() -> void:
 	if not is_multiplayer_authority():
 		return
 
-	# HACK(multiplayer): Remove false when EntityManager gets implemented
-	while false and get_parent()._entity_count[self.get_path()] < multiplayer.get_peers().size() + 1:
+	while get_parent()._entity_count[self.get_path()] < multiplayer.get_peers().size() + 1:
 		await get_tree().process_frame
 		if get_parent() == null: # TODO(multiplayer): check if this check can be removed
 			return

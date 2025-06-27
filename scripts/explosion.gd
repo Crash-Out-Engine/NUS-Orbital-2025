@@ -27,7 +27,7 @@ func explode() -> void:
 		anim_player.play("explode")
 		$AudioStreamPlayer.play()
 		await anim_player.animation_finished
-	queue_free()
+	get_parent().remove_entity(self)
 
 func assign_mods(mods: Array[ModBase]) -> void:
 	explosion_mod_comp.mods.assign(mods)
