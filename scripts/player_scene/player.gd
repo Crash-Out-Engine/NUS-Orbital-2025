@@ -43,6 +43,7 @@ var state: State = State.PLAYING:
 var hand: Hand = Hand.new()
 var current_turret = null
 var turret_cost = 25
+var _melee_active: bool = false # HACK: Prefer not to use this variable.
 
 @onready var visuals := $Visuals as PlayerVisuals
 
@@ -67,32 +68,41 @@ func _physics_process(_delta: float) -> void:
 		return
 
 	const HA = Hand.Action
-	if (Input.is_action_just_pressed("inventory")):
-		match state:
-			State.PLAYING:
-				state = State.INVENTORY
-			State.INVENTORY:
-				state = State.PLAYING
-	elif (Input.is_action_pressed("add turret")
-			and hand.action in [HA.HOLDING_GUN, HA.FIRING_GUN, HA.HOLDING_WRENCH]):
-		hand.action = HA.PLANNING_WRENCH
-	elif (Input.is_action_pressed("melee")
+	if (_melee_active
 			and melee_cooldown.can_melee()
 			and hand.action in [HA.HOLDING_GUN, HA.HOLDING_WRENCH]):
 		hand.action = HA.FIRING_WRENCH
 		hand.lock()
-	elif (Input.is_action_pressed("shoot")
-			and hand.action == HA.HOLDING_GUN):
-		hand.action = HA.FIRING_GUN
-	elif ((Input.is_action_just_released("add turret") and hand.action == HA.PLANNING_WRENCH)
-			or (!Input.is_action_pressed("melee") and hand.action == HA.HOLDING_WRENCH)
-			or (Input.is_action_just_released("shoot") and hand.action == HA.FIRING_GUN)):
+
+	if (!_melee_active and hand.action == HA.HOLDING_WRENCH):
 		hand.action = HA.HOLDING_GUN
 
 	hand.rotation = get_local_mouse_position().angle()
 
 	if current_turret != null:
 		current_turret.global_position = get_global_mouse_position()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if not is_multiplayer_authority():
+		return
+
+	const HA = Hand.Action
+	if (event.is_action_pressed("add turret")
+			and hand.action in [HA.HOLDING_GUN, HA.FIRING_GUN, HA.HOLDING_WRENCH]):
+		hand.action = HA.PLANNING_WRENCH
+	if (event.is_action_pressed("shoot")
+			and hand.action == HA.HOLDING_GUN):
+		hand.action = HA.FIRING_GUN
+
+	if event.is_action_pressed("melee"):
+		_melee_active = true
+	if (event.is_action_released("melee")):
+		_melee_active = false
+
+	if ((event.is_action_released("add turret") and hand.action == HA.PLANNING_WRENCH)
+			or (event.is_action_released("shoot") and hand.action == HA.FIRING_GUN)):
+		hand.action = HA.HOLDING_GUN
 
 
 # HACK: Temporary for testing, @deltaMinor please remove
@@ -154,8 +164,10 @@ func _handle_state_changed(_from: State, to: State) -> void:
 			hand.unlock()
 			hand.action = Hand.Action.HOLDING_GUN
 			hand.lock()
+			$Components/MovementComp.active = false
 		State.PLAYING:
 			hand.unlock()
+			$Components/MovementComp.active = true
 		State.LOST, State.DEAD:
 			hand.unlock()
 			hand.action = Hand.Action.HOLDING_GUN

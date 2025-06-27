@@ -47,7 +47,10 @@ func connect_entity_spawned(entity: Node2D) -> void:
 
 
 @rpc("any_peer", "call_local", "reliable")
-func _add_remote_entity(entity_type_string: String, data: PackedByteArray) -> void:
+func _add_remote_entity(
+		entity_type_string: String,
+		data: PackedByteArray,
+		) -> void:
 	if is_multiplayer_authority():
 		var entity = _ENTITY_PACKED_SCENE[entity_type_string].instantiate()
 
@@ -83,8 +86,47 @@ func _on_remote_spawned(node: Node) -> void:
 	call_deferred("connect_entity_spawned", node)
 
 
+#region Sync
+
 @rpc("any_peer", "call_local", "reliable")
 func _sync_increment_entity_count(node_path: NodePath, reset: bool = false) -> void:
 	_entity_count.set(node_path, 0 if reset else _entity_count.get(node_path, 0) + 1)
 	if _entity_count[node_path] == multiplayer.get_peers().size() + 1:
 		pass # For any possible setup rpc calls
+
+#endregion
+
+
+#region Save/load
+
+func save_entities() -> PackedByteArray:
+	var array: Array[PackedByteArray] = []
+	for entity in get_children():
+		array.append(save_entity(entity))
+	return var_to_bytes(array)
+
+
+func load_entities(data: PackedByteArray) -> void:
+	var array: Array[PackedByteArray] = bytes_to_var(data)
+	for entity_data in array:
+		var entity = entity_from_saved(entity_data)
+		_add_entity_in_server(entity)
+
+
+static func save_entity(entity: Node2D) -> PackedByteArray:
+	var dict := {}
+	dict["entity_type"] = entity.get_script().get_global_name()
+	dict["entity.name"] = entity.name
+	dict["saved"] = entity.save_scene()
+	return var_to_bytes(entity)
+
+
+static func entity_from_saved(data: PackedByteArray) -> Node2D:
+	var dict := bytes_to_var(data) as Dictionary
+	var entity_type = dict["entity_type"]
+	var entity = _ENTITY_PACKED_SCENE[entity_type].instantiate()
+	entity.name = dict["entity.name"]
+	entity.load_saved_scene(dict["saved"])
+	return entity
+
+#endregion

@@ -12,11 +12,14 @@ func update():
 	icon.texture = mod.icon
 
 func _process(_delta: float) -> void:
-	if Input.is_action_just_released("shoot"):
+	global_position = get_global_mouse_position()
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_released("shoot"):
 		dropped.emit(mod, destination)
 		queue_free()
-	else:
-		global_position = get_global_mouse_position()
+		get_viewport().set_input_as_handled()
+
 
 func _on_area_entered(area: Area2D) -> void:
 	if area is ItemDropArea:

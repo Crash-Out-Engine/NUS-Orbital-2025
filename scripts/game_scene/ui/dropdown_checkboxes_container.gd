@@ -28,12 +28,16 @@ func _ready() -> void:
 	label.text = title
 	all_selector.pressed.connect(unify_all)
 
-func _process(_delta: float) -> void:
-	if dropdown_open():
-		if Input.is_action_just_pressed("shoot"):
-			if (!selection_button.get_global_rect().has_point(get_global_mouse_position())
+
+func _input(event: InputEvent) -> void:
+	if not dropdown_open():
+		return
+
+	if event.is_action_pressed("LMB"):
+		if (!selection_button.get_global_rect().has_point(get_global_mouse_position())
 				and !dropdown_panel.get_global_rect().has_point(get_global_mouse_position())):
-				close_dropdown()
+			close_dropdown()
+
 
 func get_selected() -> Array[bool]:
 	var result: Array[bool] = []

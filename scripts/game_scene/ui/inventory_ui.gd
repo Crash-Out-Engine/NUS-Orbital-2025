@@ -18,93 +18,82 @@ var crafting_inputs: Array[ModBase] = []
 var _crafting_components: Dictionary[PropertyPoint, int]
 var _player: Player
 
-@onready var scrap_counter_label = (
+@onready var scrap_counter_label := (
 	$Margin/PanelContainer/HBox/LeftVBox/ScrapCounter/HBox/Label as Label)
-@onready var mod_slot_size_label = (
+@onready var mod_slot_size_label := (
 	$Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox/HBox/ModSlotLabel as Label)
-@onready var target_display = (
+@onready var target_display := (
 	$Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox/Sprite2DRect as Sprite2DRect)
-@onready var disassemble_button = (
+@onready var disassemble_button := (
 	$Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox/DisassembleButton as Button)
-@onready var upgrade_button = (
+@onready var upgrade_button := (
 	$Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox/UpgradeButton as Button)
-@onready var upgrade_button_label = (
+@onready var upgrade_button_label := (
 	$Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox/UpgradeButton/RichTextLabel as RichTextLabel)
-@onready var inventory_mod_counter = (
+@onready var inventory_mod_counter := (
 	$Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox/InventoryModCounter as Label)
-@onready var modcomp_list = (
+@onready var modcomp_list := (
 	$Margin/PanelContainer/HBox/LeftVBox/ModSlotList/VBox/ScrollContainer/VBox as Container)
-@onready var inventory_list = (
+@onready var inventory_list := (
 	$Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox/InventoryList/Margin/VBox as Container)
-@onready var inventory_scroll = (
+@onready var inventory_scroll := (
 	$Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox/InventoryList as ScrollContainer)
-@onready var blueprint_scroll = (
+@onready var blueprint_scroll := (
 	$Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox/BlueprintList as ScrollContainer)
-@onready var blueprint_list = (
+@onready var blueprint_list := (
 	$Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox/BlueprintList/Margin/VBox
 	as VBoxContainer)
-@onready var blueprint_label = (
+@onready var blueprint_label := (
 	$Margin/PanelContainer/HBox/RightVBox/HBox/CraftingOutput/VBox/BlueprintPanel/RichTextLabel
 	as RichTextLabel)
-@onready var blueprint_description_panel = %BlueprintDescriptionPanel as PanelContainer
-@onready var blueprint_button_description = %RichTextLabel as RichTextLabel
-@onready var crafting_inputs_list = (
+@onready var blueprint_description_panel := %BlueprintDescriptionPanel as PanelContainer
+@onready var blueprint_button_description := %RichTextLabel as RichTextLabel
+@onready var crafting_inputs_list := (
 	$Margin/PanelContainer/HBox/RightVBox/HBox/CraftingInput/ScrollContainer/VBox as Container)
-@onready var crafting_instructions_label = (
+@onready var crafting_instructions_label := (
 	$Margin/PanelContainer/HBox/RightVBox/HBox/CraftingInput/CraftingInstructionsLabel as Label)
-@onready var crafting_components_list = (
+@onready var crafting_components_list := (
 	$Margin/PanelContainer/HBox/RightVBox/CraftOptions/RichTextLabel as RichTextLabel)
-@onready var crafting_output_label = (
+@onready var crafting_output_label := (
 	$Margin/PanelContainer/HBox/RightVBox/CraftButton/RichTextLabel as RichTextLabel)
 @onready var craft_button = $Margin/PanelContainer/HBox/RightVBox/CraftButton as Button
-@onready var search_bar = (
+@onready var search_bar := (
 	$Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox/SearchBar as LineEdit)
-@onready var analysis = $Analysis as Container
-@onready var analysis_label = $Analysis/PanelContainer/Label as Label
-@onready var can_affect_filter = %CanAffectFilter as DropdownCheckboxesContainer
-@onready var component_filter = %ComponentFilter as DropdownCheckboxesContainer
-@onready var particles = (
+@onready var analysis := $Analysis as Container
+@onready var analysis_label := $Analysis/PanelContainer/Label as Label
+@onready var can_affect_filter := %CanAffectFilter as DropdownCheckboxesContainer
+@onready var component_filter := %ComponentFilter as DropdownCheckboxesContainer
+@onready var particles := (
 	$Margin/PanelContainer/HBox/RightVBox/HBox/CraftingInput/CPUParticles2D as CPUParticles2D)
-@onready var audio = $Audio as InventoryAudio
-
-func _ready() -> void:
-	visible = false
+@onready var audio := $Audio as InventoryAudio
 
 
-func setup(player: Player) -> void:
-	_player = player
+func _gui_input(event: InputEvent) -> void:
+	if not visible:
+		return
 
-
-func try_open():
-	if Input.is_action_just_pressed("shoot"):
+	if event.is_action_pressed("LMB"):
 		if search_bar.has_focus():
 			if !search_bar.get_global_rect().has_point(get_global_mouse_position()):
 				search_bar.release_focus()
 
-	if Input.is_action_just_pressed("inventory"):
-		if visible:
-			if analysis.visible:
-				analysis.visible = false
-			else:
-				if !search_bar.has_focus():
-					close_inventory()
-		else:
-			visible = true
-			opening_setup(_player.get_inventory(), _player.get_mod_slots())
 
-	if Input.is_action_just_pressed("esc"):
-		if visible:
-			if analysis.visible:
-				analysis.visible = false
-			else:
-				if search_bar.has_focus():
-					search_bar.release_focus()
-				elif can_affect_filter.dropdown_open():
-					can_affect_filter.close_dropdown()
-				elif component_filter.dropdown_open():
-					component_filter.close_dropdown()
-				else:
-					close_inventory()
+func setup(game: Game, player: Player) -> void:
+	_player = player
+	game.game_over.connect(func(_message): _close_inventory())
+
+
+func open():
+	visible = true
+	opening_setup(_player.get_inventory(), _player.get_mod_slots())
+
+
+func defocus_element():
+	if analysis.visible:
+		analysis.visible = false
+	else:
+		_close_inventory()
+
 
 func is_open() -> bool:
 	return visible
@@ -137,10 +126,8 @@ func opening_setup(inventory_input: InventoryComp, modslot_input: ModSlotComp):
 	crafting_output = null
 	update_crafting()
 
-func force_close():
-	close_inventory()
 
-func close_inventory():
+func _close_inventory():
 	analysis.visible = false
 	visible = false
 	if crafting_inputs.size() > 0:
@@ -382,7 +369,7 @@ func _on_more_info_button_pressed() -> void:
 
 func _on_disassemble_button_pressed() -> void:
 	turret.disassemble()
-	close_inventory()
+	_close_inventory()
 
 func add_dragged_item(item: DraggedItem, state: ItemContainer.State):
 	add_child(item)

@@ -13,15 +13,14 @@ func _process(_delta: float) -> void:
 	tree.entities.set_text(0,
 			"Entities: %s"
 			% get_tree().current_scene.find_child("EntityManager").get_child_count())
-	
+
 
 func setup(player: Player) -> void:
 	_player = player
 
 
-func try_debug():
-	if Input.is_action_just_pressed("debug"):
-		visible = !visible
+func toggle_debug():
+	visible = !visible
 
 
 func _on_tree_item_edited() -> void: # HACK: Greatly relies on the node paths being correct.

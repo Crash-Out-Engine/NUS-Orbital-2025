@@ -19,11 +19,12 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("debug"):
-		_debug_enabled = !_debug_enabled
-
 	if _debug_enabled:
 		show()
 		queue_redraw()
 	else:
 		hide()
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("debug"):
+		_debug_enabled = !_debug_enabled

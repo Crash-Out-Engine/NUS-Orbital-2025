@@ -186,12 +186,14 @@ _data = [Vector2(0.00445434, 0), 0.0, 0.0, 0, 0, Vector2(0.418708, 0), 0.0, 0.0,
 point_count = 4
 
 [node name="Game" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_yqjtg")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_yqjtg")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+process_mode = 1
 zoom = Vector2(2, 2)
 process_callback = 0
 position_smoothing_enabled = true
@@ -202,6 +204,7 @@ script = ExtResource("4_37s47")
 metadata/_custom_type_script = "uid://rpe1k6t1qksx"
 
 [node name="EnemySpawner" type="Node2D" parent="."]
+process_mode = 1
 script = ExtResource("5_iywne")
 
 [node name="SpawnTimer" type="Timer" parent="EnemySpawner"]
@@ -219,6 +222,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 1600.0
 offset_bottom = 900.0
+mouse_filter = 2
 script = ExtResource("6_rysoc")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/HUDBars"]
@@ -412,6 +416,7 @@ anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 grow_horizontal = 0
+mouse_filter = 2
 script = ExtResource("10_5newe")
 
 [node name="Map" type="Panel" parent="UI/HUDMap"]
@@ -432,17 +437,18 @@ offset_bottom = 244.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_1kice")
 
 [node name="InventoryUI" parent="UI" instance=ExtResource("12_bt5mj")]
+visible = false
 z_index = 20
 
-[node name="PauseMenu" type="Control" parent="UI" node_paths=PackedStringArray("game")]
+[node name="PauseMenu" type="Control" parent="UI"]
 process_mode = 2
+visible = false
 z_index = 20
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1600.0
 offset_bottom = 900.0
 script = ExtResource("14_bt5mj")
-game = NodePath("../..")
 
 [node name="PanelContainer" type="PanelContainer" parent="UI/PauseMenu"]
 layout_mode = 1
@@ -565,6 +571,7 @@ anchor_right = 1.0
 offset_left = -304.0
 offset_bottom = 632.0
 grow_horizontal = 0
+mouse_filter = 1
 theme = ExtResource("14_264po")
 script = ExtResource("15_264po")
 
@@ -587,7 +594,8 @@ layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("16_1kice")
 
-[node name="GameOverPanel" type="Control" parent="UI" node_paths=PackedStringArray("game_scene")]
+[node name="GameOverPanel" type="Control" parent="UI"]
+visible = false
 z_index = 20
 layout_mode = 3
 anchors_preset = 0
@@ -595,7 +603,6 @@ offset_right = 1600.0
 offset_bottom = 900.0
 theme = ExtResource("12_ssvqc")
 script = ExtResource("19_bt5mj")
-game_scene = NodePath("../..")
 
 [node name="PanelContainer" type="PanelContainer" parent="UI/GameOverPanel"]
 layout_mode = 1
@@ -650,16 +657,19 @@ theme_override_fonts/font = ExtResource("9_kvuet")
 text = "Close Game"
 
 [node name="EntityManager" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("_power_manager")]
+process_mode = 1
 _spawnable_scenes = PackedStringArray("uid://b52amtg2hmpm6", "uid://kcqha4xx46r7", "uid://df7vaxvbmprk4", "uid://dhntafslopc4h", "uid://cqq2h867dq6v3", "uid://ytw0s5xnqwvt", "uid://iqyedsof74fp")
 spawn_path = NodePath(".")
 script = ExtResource("19_bhx41")
 _power_manager = NodePath("../PowerManager")
 
 [node name="PowerManager" type="Node" parent="."]
+process_mode = 1
 script = ExtResource("24_e1j6l")
 metadata/_custom_type_script = "uid://cu3yjuf8cf25w"
 
 [node name="WorldGenSystem" type="Node" parent="." node_paths=PackedStringArray("layers")]
+process_mode = 1
 script = ExtResource("25_pl11u")
 layers = [NodePath("SandTileGenerator"), NodePath("OverlayTileGenerator"), NodePath("FaultGenerator")]
 load_chunk_radius = Vector2i(7, 7)
@@ -704,6 +714,7 @@ player_camera = NodePath("../../Camera2D")
 metadata/_custom_type_script = "uid://dlfl58jvcogf5"
 
 [node name="GameMusic" type="AudioStreamPlayer" parent="."]
+process_mode = 1
 stream = ExtResource("21_5newe")
 volume_db = -5.0
 autoplay = true
