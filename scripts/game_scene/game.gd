@@ -100,7 +100,7 @@ func _handle_state_changed(from: State, to: State) -> void:
 			power_manager.power_depleted.connect(func():
 					end_game("Power has run out")
 			)
-			_local_player.lives_depleted.connect(func(): end_game("You died"))
+			_local_player.lives_depleted.connect(func(): end_game("%s died" % _local_player.name))
 			_state = State.PLAYING
 			state_changed.connect(func(_from, _to): _sync_state.rpc(_to))
 		[State.INIT, State.PLAYING]:
