@@ -1,5 +1,6 @@
 extends Control
 
+var active: bool = false
 var _player: Player
 var _entity_manager: EntityManager
 
@@ -7,6 +8,9 @@ var _entity_manager: EntityManager
 
 
 func _process(_delta: float) -> void:
+	if not active:
+		return
+
 	tree.fps.set_text(0,
 			"FPS: %0.2f / Physics FPS: %0.2f"
 			% [1.0 / Performance.get_monitor(Performance.TIME_PROCESS),
@@ -19,6 +23,8 @@ func _process(_delta: float) -> void:
 func setup(player: Player, entity_manager: EntityManager) -> void:
 	_player = player
 	_entity_manager = entity_manager
+	
+	active = true
 
 
 func toggle_debug():

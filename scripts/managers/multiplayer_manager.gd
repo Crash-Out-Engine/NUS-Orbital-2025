@@ -7,6 +7,7 @@ const MAX_PLAYER_COUNT := 5
 var ready_player_count: int
 var _peer: ENetMultiplayerPeer
 var _world_seed: int
+var _local_player_ready: bool = false
 
 
 func _ready() -> void:
@@ -51,6 +52,10 @@ func get_seed() -> int:
 
 
 func player_ready(_id: int) -> void:
+	if _local_player_ready:
+		return
+	
+	_local_player_ready = true
 	_broadcast_player_ready.rpc()
 
 
