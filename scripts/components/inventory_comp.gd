@@ -7,11 +7,16 @@ extends Node
 ## object reference of the [class ModBase].
 
 signal scraps_changed(from: int, to: int)
+signal slots_updated(size: int, capacity: int)
 
 @export var initial_mods: Array[ModBase]
 @export var initial_scraps: int
 
+@export var mod_targeting_comp: ModTargetingComp
+@export var blueprint_comp: BlueprintComp
+
 var inventory_ui: Control
+var _entity: Node2D
 var _entity_slot: ModSlotComp
 var _mods: Dictionary[ModBase, int]
 var _scraps: int:
@@ -37,17 +42,35 @@ func register_item(item: Item):
 
 ## Allows the entity (typically Player) to access another entity's ModSlotComp,
 ## throws an error if not found.
-func access_entity(entity: Node2D) -> void:
+func access_entity() -> void:
+	var entity := mod_targeting_comp.get_target()
+
 	assert(entity != null
 		and entity.has_node(^"Components/ModSlotComp"),
 		"Entity accessed should have ModSlotComp.")
 
+	_entity = entity
 	_entity_slot = entity.get_node(^"Components/ModSlotComp")
-	await _entity_slot.ready
+	_entity_slot.updated.connect(slots_updated.emit)
+	slots_updated.emit(_entity_slot.get_mods().size(), _entity_slot.get_capacity())
 
 
 func unaccess_entity() -> void:
+	_entity_slot.updated.disconnect(slots_updated.emit)
+	_entity = null
 	_entity_slot = null
+
+
+func is_entity_turret() -> bool:
+	return _entity is Turret
+
+
+func disassemble_turret() -> bool:
+	if is_entity_turret():
+		(_entity as Turret).disassemble()
+		return true
+
+	return false
 
 
 func get_mods() -> Dictionary[ModBase, int]:
@@ -65,27 +88,60 @@ func use_scraps(amount: int) -> void:
 	_scraps -= amount
 
 
-func get_entity_mods() -> Array[ModBase]:
+func get_blueprints() -> Array[ModBase]:
+	return blueprint_comp.get_blueprints()
+
+
+#region Entity slots
+
+func get_slots_comp() -> ModSlotComp:
+	return _entity_slot
+
+
+func get_slots_mods() -> Array[ModBase]:
 	return _entity_slot.get_mods()
 
 
-func _handle_mod_equipped(mod: ModBase):
+func get_slots_upgrade_cost() -> int:
+	return _entity_slot.get_upgrade_cost()
+
+
+func can_upgrade_slots() -> bool:
+	return _scraps >= _entity_slot.get_upgrade_cost()
+
+
+func upgrade_slots() -> bool:
+	if _scraps < _entity_slot.get_upgrade_cost():
+		return false
+
+	_scraps -= _entity_slot.get_upgrade_cost()
+	_entity_slot.increment_capacity()
+	return true
+
+#endregion
+
+
+func equip_mod(mod: ModBase):
 	assert(mod in _mods and _mods[mod] > 0,
 		"Mod not found in inventory.")
 
-	var empty_slot_index := _entity_slot.get_mods().find(null)
-	assert(empty_slot_index != -1, "No empty slots left in entity.")
+	assert(not _entity_slot.is_full(),
+			"No empty slots left in entity.")
 
 	_mods[mod] -= 1
-	_entity_slot.set_slot(empty_slot_index, mod)
+	_entity_slot.add_mod(mod)
 
 
-func _handle_mod_unequipped(slot_index: int):
-	var mod = _entity_slot.get_mods()[slot_index]
+func unequip_mod(mod: ModBase):
 	assert(mod != null, "Mod not found in entity mod slot.")
 
 	_add_mod(mod)
-	_entity_slot.set_slot(slot_index, null)
+	_entity_slot.remove_mod(mod)
+
+
+func recycle_mod(mod: ModBase):
+	_remove_mod(mod)
+	_scraps += mod.get_recycle_value()
 
 
 func _add_mod(mod: ModBase) -> void:

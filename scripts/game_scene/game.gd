@@ -107,7 +107,7 @@ func _handle_state_changed(from: State, to: State) -> void:
 			pass
 		[State.PAUSED, State.PLAYING], [State.PLAYING, State.PAUSED]:
 			pass
-		[State.PAUSED, State.EXIT]:
+		[State.PAUSED, State.EXIT], [State.GAME_OVER, State.EXIT]:
 			pass ## Possible teardown code
 		[State.PLAYING, State.GAME_OVER]:
 			power_manager.active = false

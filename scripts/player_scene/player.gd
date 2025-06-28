@@ -8,7 +8,7 @@ signal scraps_changed()
 signal lives_depleted()
 signal state_changed(from: State, to: State)
 
-enum State{
+enum State {
 	PLAYING,
 	INVENTORY,
 	DEAD,
@@ -30,8 +30,6 @@ const _TURRET_SCENE := preload("res://scenes/turret.tscn")
 @export var melee_repair: MeleeComp
 @export var inventory: InventoryComp
 @export var blueprints: BlueprintComp
-@export var mod_target: ModTargetingComp
-@export var mod_slots: ModSlotComp
 
 var state: State = State.PLAYING:
 	set(value):
@@ -105,20 +103,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		hand.action = HA.HOLDING_GUN
 
 
-# HACK: Temporary for testing, @deltaMinor please remove
-func add_random_mod(turret: Turret) -> void:
-	if (turret.has_node(^"Components/ModSlotComp")
-			and turret.get_node(^"Components/ModSlotComp").get_mods().find(null) == -1):
-		assert(false, "WOT?")
-	var inventory_mods = inventory.get_mods()
-	for key: ModBase in inventory_mods.keys():
-		if inventory_mods[key] > 0:
-			inventory.access_entity(turret)
-			inventory._handle_mod_equipped(key)
-			inventory.unaccess_entity()
-			return
-
-
 # region forwarding
 
 func get_health() -> float:
@@ -144,11 +128,6 @@ func get_blueprints() -> Array[ModBase]:
 func get_inventory() -> InventoryComp:
 	return inventory
 
-
-func get_mod_slots() -> ModSlotComp:
-	if mod_target.current_target == null:
-		return mod_slots
-	return mod_target.current_target.get_mod_slots()
 
 # endregion
 
@@ -188,11 +167,12 @@ func _handle_hand_action_changed(from: Hand.Action, to: Hand.Action) -> void:
 			ranged.active = false
 
 	match [from, to]:
-		[var x, HA.PLANNING_WRENCH] when x in [HA.HOLDING_GUN, HA.HOLDING_WRENCH, HA.FIRING_GUN]:
+		[ var x, HA.PLANNING_WRENCH] when x in [HA.HOLDING_GUN, HA.HOLDING_WRENCH, HA.FIRING_GUN]:
 			current_turret = _TURRET_SCENE.instantiate()
 			current_turret.player_path = get_path()
-			entity_spawned.emit(current_turret)
+			current_turret.global_position = get_global_mouse_position()
 			current_turret.set_state(Turret.State.PLACING_VALID)
+			entity_spawned.emit(current_turret)
 		[HA.PLANNING_WRENCH, HA.HOLDING_GUN]:
 			if current_turret != null:
 				if current_turret.try_plan():
@@ -200,7 +180,7 @@ func _handle_hand_action_changed(from: Hand.Action, to: Hand.Action) -> void:
 				else:
 					turret_placement_failed.emit()
 				current_turret = null
-		[var x, HA.FIRING_WRENCH] when x in [HA.HOLDING_GUN, HA.HOLDING_WRENCH]:
+		[ var x, HA.FIRING_WRENCH] when x in [HA.HOLDING_GUN, HA.HOLDING_WRENCH]:
 			melee_attack.rotation = hand.rotation
 			melee_repair.rotation = hand.rotation
 			melee_attack.activate()

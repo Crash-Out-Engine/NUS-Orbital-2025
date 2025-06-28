@@ -17,7 +17,7 @@ const PEEK_FACTOR = 0.5
 ## viewport.
 const MAX_RECT_PROPORTION = 0.5
 
-
+var active: bool = false
 var _max_offset_rect: Vector2
 var _player: Player
 
@@ -28,6 +28,9 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+	if not active:
+		return
+
 	var desired_offset = (get_local_mouse_position()) * PEEK_FACTOR
 	desired_offset = desired_offset.clamp(-_max_offset_rect / 2, _max_offset_rect / 2)
 	global_position = _player.global_position + desired_offset
@@ -35,6 +38,8 @@ func _process(_delta: float) -> void:
 
 func setup(player: Player) -> void:
 	_player = player
+	
+	active = true
 
 
 func _resize() -> void:

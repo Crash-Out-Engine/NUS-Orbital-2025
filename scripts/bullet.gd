@@ -53,7 +53,7 @@ func _on_body_entered(body: Node2D) -> void:
 			explosion.target_filter = target_filter
 			explosion.assign_mods(bullet_mods_comp.mods)
 			explosion.effects = effects
-			
+
 			entity_spawned.emit(explosion)
 
 		if repeat_prop.check_empty():

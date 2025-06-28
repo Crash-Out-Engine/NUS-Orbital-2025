@@ -17,6 +17,10 @@ var _entity_count: Dictionary[NodePath, int] = {}
 var _load_queue: Dictionary[NodePath, PackedByteArray] = {}
 
 
+func _ready() -> void:
+	spawned.connect(_on_remote_spawned)
+
+
 func add_entity(entity: Node2D, source: Node) -> void:
 	if source.is_multiplayer_authority():
 		if is_multiplayer_authority():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://iqyedsof74fp"]
+[gd_scene load_steps=35 format=3 uid="uid://iqyedsof74fp"]
 
 [ext_resource type="Script" uid="uid://47onqbsq6sc8" path="res://scripts/turret_scene/turret.gd" id="1_x3mc5"]
 [ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox_comp.gd" id="2_el7wl"]
@@ -22,11 +22,6 @@
 [ext_resource type="Script" uid="uid://cywswu1o8bqjs" path="res://scripts/turret_scene/visuals.gd" id="12_fp1kq"]
 [ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet.png" id="13_0mdkh"]
 [ext_resource type="AudioStream" uid="uid://cba76dqigqmco" path="res://assets/audio/sound_effects/metal_hit.wav" id="17_mpvso"]
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_v6fyb"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0dv4j"]
 radius = 8.0
@@ -143,9 +138,6 @@ ranged = NodePath("Components/RangedComp")
 hitbox = NodePath("Components/HitboxComp")
 mod_slots = NodePath("Components/ModSlotComp")
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_v6fyb")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 100
 shape = SubResource("CircleShape2D_0dv4j")
@@ -200,7 +192,7 @@ metadata/_custom_type_script = "uid://wwqkkrfhwiyn"
 
 [node name="ModSlotComp" type="Node" parent="Components" node_paths=PackedStringArray("entity", "attack_comp")]
 script = ExtResource("8_137wx")
-capacity = 3
+_capacity = 3
 initial_mods = Array[ExtResource("9_d25s7")]([ExtResource("10_d25s7")])
 entity = NodePath("../..")
 attack_comp = NodePath("../RangedComp")

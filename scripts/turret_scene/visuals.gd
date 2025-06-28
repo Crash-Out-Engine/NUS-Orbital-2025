@@ -37,6 +37,7 @@ func _ready() -> void:
 				if is_multiplayer_authority():
 					_update_health_bar(to)
 	)
+	_handle_state_changed(Turret.State.DEFAULT, turret._state)
 	turret.state_changed.connect(
 			func(from, to):
 				if is_multiplayer_authority():
