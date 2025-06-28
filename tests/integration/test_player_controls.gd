@@ -5,7 +5,7 @@ const _PLAYER_SCENE = preload("res://scenes/player.tscn")
 func test_move_forward():
 	var player = add_child_autofree(_PLAYER_SCENE.instantiate())
 	assert_true(player != null)
-	
+
 	var sender := GutInputSender.new(player)
 	sender.add_receiver(Input)
 
