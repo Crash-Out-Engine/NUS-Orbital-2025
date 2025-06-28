@@ -141,7 +141,7 @@ func update_modslots_counter(mods: int, capacity: int) -> void:
 
 func update_blueprint_list():
 	for item in blueprint_list.get_children():
-		item.queue_free()
+		item.free()
 
 	for mod in inventory_comp.get_blueprints():
 		if !mod_filter(mod): continue
