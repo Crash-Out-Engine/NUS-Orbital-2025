@@ -45,17 +45,17 @@ func get_upgrade_cost() -> int:
 func add_mod(mod: ModBase) -> bool:
 	if is_full():
 		return false
-	
+
 	_synced_add_mod.rpc(mod.save())
 	return true
 
 func remove_mod(mod: ModBase) -> bool:
 	if not mod in _mods:
 		return false
-	
+
 	_synced_remove_mod.rpc(mod.save())
 	return true
-	
+
 
 func _setup_mods() -> void:
 	_readonly_mods = _mods.duplicate()
@@ -127,7 +127,7 @@ func _synced_increment_capacity() -> void:
 @rpc("any_peer", "call_local", "reliable")
 func _synced_add_mod(mod_data: PackedByteArray) -> void:
 	var mod = ModBase.from_saved(mod_data)
-	
+
 	_cleanup_mods()
 	_mods.append(mod)
 	_setup_mods()

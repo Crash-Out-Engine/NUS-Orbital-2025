@@ -99,7 +99,7 @@ func is_open() -> bool:
 func opening_setup():
 	inventory_comp.access_entity()
 	inventory_comp.slots_updated.connect(update_modslots_counter)
-		
+
 	update_inventory_list()
 	inventory_comp.scraps_changed.connect(
 			func(_prev_value, new_value): update_scrap_counter(new_value))
@@ -142,7 +142,7 @@ func update_modslots_counter(mods: int, capacity: int) -> void:
 func update_blueprint_list():
 	for item in blueprint_list.get_children():
 		item.queue_free()
-	
+
 	for mod in inventory_comp.get_blueprints():
 		if !mod_filter(mod): continue
 		var blueprint = BLUEPRINT_CONTAINER.instantiate() as BlueprintContainer

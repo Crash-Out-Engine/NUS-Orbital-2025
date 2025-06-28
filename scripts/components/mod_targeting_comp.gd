@@ -12,8 +12,8 @@ func _physics_process(_delta: float) -> void:
 func get_target() -> Node2D:
 	if _current_target == null:
 		return $"../.."
-	else:
-		return _current_target
+
+	return _current_target
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is Turret:
@@ -26,7 +26,7 @@ func _on_body_exited(body: Node2D) -> void:
 	if body == _current_target:
 		_current_target.highlighted = false
 		_current_target = null
-		
+
 		var min_target: Turret
 		var min_dist_squared := INF
 		for new_body in get_overlapping_bodies():

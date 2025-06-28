@@ -38,7 +38,7 @@ func _process(_delta: float) -> void:
 
 func setup(player: Player) -> void:
 	_player = player
-	
+
 	active = true
 
 
