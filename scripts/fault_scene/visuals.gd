@@ -14,8 +14,8 @@ signal disappear_finished
 func _ready() -> void:
 	repair_bar.visible = false
 	rebooting_bar.visible = false
-	fault.state_changed.connect(_handle_state_changed)
 	fault.repair_progressed.connect(_update_repair_progress)
+	fault.ready.connect(func(): fault.state_changed.connect(_handle_state_changed))
 
 
 func _process(_delta: float) -> void:

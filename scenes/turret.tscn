@@ -192,7 +192,7 @@ metadata/_custom_type_script = "uid://wwqkkrfhwiyn"
 
 [node name="ModSlotComp" type="Node" parent="Components" node_paths=PackedStringArray("entity", "attack_comp")]
 script = ExtResource("8_137wx")
-capacity = 3
+_capacity = 3
 initial_mods = Array[ExtResource("9_d25s7")]([ExtResource("10_d25s7")])
 entity = NodePath("../..")
 attack_comp = NodePath("../RangedComp")
@@ -212,12 +212,13 @@ metadata/_custom_type_script = "uid://bhi7w6ril3da2"
 [node name="Barrel" type="Node2D" parent="Components/RangedComp"]
 position = Vector2(12, 0)
 
-[node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("turret", "health", "health_capacity", "ranged_cooldown")]
+[node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("turret", "health", "health_capacity", "ranged_cooldown", "ranged")]
 script = ExtResource("12_fp1kq")
 turret = NodePath("..")
 health = NodePath("../Properties/HealthProp")
 health_capacity = NodePath("../Properties/HealthCapacityProp")
 ranged_cooldown = NodePath("../Properties/RangedCooldownProp")
+ranged = NodePath("../Components/RangedComp")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Visuals"]
 replication_config = SubResource("SceneReplicationConfig_8a46y")

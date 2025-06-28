@@ -9,9 +9,9 @@ const CHUNK_SIZE: Vector2i = Vector2i(128, 128)
 @export_custom(PROPERTY_HINT_LINK, "suffix: chunks") var load_chunk_radius: Vector2i
 @export_custom(PROPERTY_HINT_LINK, "suffix: chunks") var unload_chunk_radius: Vector2i
 
-var player: Player
 var active: bool
 
+var _player: Player
 var _active_chunks_boundary: Rect2i = Rect2i()
 var _rng := RandomNumberGenerator.new()
 var _prev_player_chunk_pos: Vector2i = Vector2i.MIN
@@ -26,12 +26,12 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if active:
-		_check_refresh(player.global_position)
+		_check_refresh(_player.global_position)
 
 
-func setup(game: Game) -> void:
-	_rng.seed = game.get_seed()
-	player = game.get_local_player()
+func setup(game_seed: int, local_player: Player) -> void:
+	_rng.seed = game_seed
+	_player = local_player
 
 	for layer in layers:
 		layer.setup(_rng.randi(), CHUNK_SIZE)

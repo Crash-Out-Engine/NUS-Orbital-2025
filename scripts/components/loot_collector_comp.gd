@@ -24,7 +24,7 @@ func _physics_process(delta: float) -> void:
 
 		if displacement.length() < CONSUME_RADIUS:
 			inventory.register_item(loot.item)
-			loot.queue_free()
+			loot.get_parent().remove_entity(loot)
 			continue
 
 		var direction = displacement.normalized()

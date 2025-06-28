@@ -1,13 +1,13 @@
 class_name TargetProvider
 extends Resource
 
-var _entity_container: Node = null
+var _entity_manager: EntityManager
 var _entities_cache: Dictionary[Enums.Team, Array] = {}
 
 
-func set_entity_container(entity_container: Node) -> void:
-	_entity_container = entity_container
-	_entity_container.child_order_changed.connect(refresh)
+func set_entity_manager(entity_manager: EntityManager) -> void:
+	_entity_manager = entity_manager
+	_entity_manager.child_order_changed.connect(refresh)
 	refresh()
 
 
@@ -29,7 +29,7 @@ func get_target(from: Vector2, target_filter: TargetFilter) -> Node2D:
 
 func refresh() -> void:
 	_entities_cache.clear()
-	var valid_entities = (_entity_container
+	var valid_entities = (_entity_manager
 		.get_children()
 		.filter(func(entity):
 				return (entity is Node2D

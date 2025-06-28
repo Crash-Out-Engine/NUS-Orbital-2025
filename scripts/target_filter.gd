@@ -13,7 +13,7 @@ func save() -> PackedByteArray:
 static func from_saved(data: PackedByteArray) -> TargetFilter:
 	var dict = bytes_to_var(data)
 	var target_filter = new()
-	target_filter.targets = dict.targets
+	target_filter.targets = dict["targets"]
 	return target_filter
 
 #endregion

@@ -27,7 +27,7 @@ var mouse_hovering = false
 func update():
 	name_label.text = mod.get_icon(36) + mod.name
 
-	match(state):
+	match state:
 		State.MODCOMP:
 			name_label.visible = true
 			count_label.visible = false
@@ -44,14 +44,16 @@ func update():
 func _process(_delta: float) -> void:
 	if mouse_hovering:
 		description_panel.global_position = get_global_mouse_position()
-		if Input.is_action_just_pressed("shoot") and grabbable:
-			var item = _DRAGGED_ITEM.instantiate()
-			item.mod = mod
-			item.destination = state
-			create_dragged_item.emit(item, state)
-			item.update()
-			description.visible = false
-			mouse_hovering = false
+
+func _gui_input(event: InputEvent) -> void:
+	if event.is_action_pressed("LMB") and mouse_hovering and grabbable:
+		var item = _DRAGGED_ITEM.instantiate()
+		item.mod = mod
+		item.destination = state
+		create_dragged_item.emit(item, state)
+		item.update()
+		description.visible = false
+		mouse_hovering = false
 
 func _on_mouse_entered() -> void:
 	description.visible = true

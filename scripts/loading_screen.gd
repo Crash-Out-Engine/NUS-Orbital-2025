@@ -8,7 +8,8 @@ extends CanvasLayer
 func _ready():
 	ResourceLoader.load_threaded_request(next_scene_path)
 	anim_player.play("init")
-	if "transitioning" in get_tree().current_scene: get_tree().current_scene.transitioning = true
+	if "transitioning" in get_tree().current_scene:
+		get_tree().current_scene.transitioning = true
 
 func _process(_delta: float) -> void:
 	if ResourceLoader.load_threaded_get_status(next_scene_path) == ResourceLoader.THREAD_LOAD_LOADED:
@@ -21,10 +22,12 @@ func _process(_delta: float) -> void:
 		#TODO: implement parameters in scenes that can be passed by the loading screen
 		if "parameters" in new_node: new_node.parameters = parameters
 		var current_scene = get_tree().current_scene
-		get_tree().get_root().add_child(new_node)
+		current_scene.name = "_%s" % current_scene.name
+		get_tree().get_root().add_child(new_node, true)
 		get_tree().current_scene = new_node
 		reparent(get_tree().current_scene)
 		current_scene.queue_free()
 		await anim_player.animation_finished
-		if "transitioning" in new_node: new_node.transitioning = false
+		if "transitioning" in new_node:
+			new_node.transitioning = false
 		queue_free()

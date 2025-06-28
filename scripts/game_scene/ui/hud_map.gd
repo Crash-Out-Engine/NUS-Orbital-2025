@@ -3,30 +3,39 @@ extends Control
 const MAP_SCALE := Vector2(8.0, 8.0)
 const _MAP_ICON_SCENE := preload("res://scenes/map_icon.tscn")
 
-@export var player: Player
-@export var map: Panel
-@export var entity_container: Node
-
+var active: bool = false
+var _player: Player
+var _entity_manager: EntityManager
 var _center: Vector2
 var _map_size: Vector2
 var _entities_icons: Dictionary[Node2D, Sprite2D] = {}
+
+@onready var map := $Map as Panel
 
 
 func _ready() -> void:
 	_map_size = map.size
 	_center = _map_size / Vector2(2, 2)
 
+
+func setup(player: Player, entity_manager: EntityManager) -> void:
+	_entity_manager = entity_manager
+	_player = player
+
 	# Ensures that node order is irrelevant to its function.
-	entity_container.child_entered_tree.connect(setup_icon)
-	for entity in entity_container.get_children():
+	_entity_manager.child_entered_tree.connect(setup_icon)
+	for entity in _entity_manager.get_children():
 		setup_icon(entity)
+
+	active = true
 
 
 func _process(_delta: float) -> void:
-	for entity: Node2D in _entities_icons.keys():
-		var icon = _entities_icons.get(entity)
-		icon.position = _to_map_coord(entity.global_position)
-		icon.visible = _is_within_map(icon.position)
+	if active:
+		for entity: Node2D in _entities_icons.keys():
+			var icon = _entities_icons.get(entity)
+			icon.position = _to_map_coord(entity.global_position)
+			icon.visible = _is_within_map(icon.position)
 
 
 func setup_icon(node: Node) -> void:
@@ -62,7 +71,7 @@ func setup_icon(node: Node) -> void:
 
 
 func _to_map_coord(pos: Vector2) -> Vector2:
-	return (pos - player.global_position) / MAP_SCALE + _center
+	return (pos - _player.global_position) / MAP_SCALE + _center
 
 
 func _is_within_map(mapped_pos: Vector2) -> bool:

@@ -19,7 +19,7 @@ func die():
 		return
 
 	await visuals.bleed_finished
-	queue_free()
+	get_parent().remove_entity(self)
 
 	var loot = _LOOT_SCENE.instantiate()
 	loot.setup_scrap_loot(1)

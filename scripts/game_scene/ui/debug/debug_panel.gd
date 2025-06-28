@@ -1,6 +1,6 @@
 extends Control
 
-@export var player: Player
+var _player: Player
 
 @onready var tree := $VBoxContainer/Tree as Tree
 
@@ -11,13 +11,16 @@ func _process(_delta: float) -> void:
 			% [1.0 / Performance.get_monitor(Performance.TIME_PROCESS),
 					1.0 / Performance.get_monitor(Performance.TIME_PHYSICS_PROCESS)])
 	tree.entities.set_text(0,
-			"Entities: %s / Misc: %s"
-			% [get_tree().current_scene.find_child("EntityContainer").get_child_count(),
-			get_tree().current_scene.find_child("MiscContainer").get_child_count()])
+			"Entities: %s"
+			% get_tree().current_scene.find_child("EntityManager").get_child_count())
 
-func try_debug():
-	if Input.is_action_just_pressed("debug"):
-		visible = !visible
+
+func setup(player: Player) -> void:
+	_player = player
+
+
+func toggle_debug():
+	visible = !visible
 
 
 func _on_tree_item_edited() -> void: # HACK: Greatly relies on the node paths being correct.

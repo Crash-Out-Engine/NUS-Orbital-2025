@@ -21,6 +21,9 @@ func _init() -> void:
 func get_icon(size: int = 24):
 	return ("[img={%d}]" % size) + icon.resource_path + "[/img]"
 
+func get_recycle_value() -> int:
+	return int(float(value) * 0.8)
+
 #region Save/load
 
 func save() -> PackedByteArray:

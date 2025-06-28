@@ -50,7 +50,8 @@ func _handle_state_changed(from: State, to: State):
 			set_collision_layer_value(1, true)
 			set_collision_layer_value(2, false)
 			set_collision_mask_value(1, true)
-			reboot_timer.start() # TODO(multiplayer): Verify that reboot_timer cannot be null here
+			if reboot_timer != null:
+				reboot_timer.start()
 			hitbox.team = Enums.Team.PLAYER_BUILDING
 			health.value = health_capacity.value
 
@@ -58,7 +59,8 @@ func _handle_state_changed(from: State, to: State):
 			set_collision_layer_value(1, false)
 			set_collision_layer_value(2, true)
 			set_collision_mask_value(1, false)
-			reboot_timer.stop() # TODO(multiplayer): Verify that reboot_timer cannot be null here
+			if reboot_timer != null:
+				reboot_timer.stop()
 			hitbox.team = Enums.Team.TO_BUILD
 			build.reset()
 
@@ -90,7 +92,7 @@ func _on_reboot_timer_timeout() -> void:
 
 
 func _on_visuals_disappear_finished() -> void:
-	queue_free()
+	get_parent().remove_entity(self)
 
 #region Save/load
 
@@ -105,9 +107,9 @@ func save_scene() -> PackedByteArray:
 func load_saved_scene(data: PackedByteArray) -> void:
 	var dict = bytes_to_var(data)
 	global_position = dict["global_position"]
-	state = dict["state"]
 	if !is_node_ready():
 		await ready
+	state = dict["state"]
 	match state:
 		State.SABOTAGED:
 			build.value = dict["build.value"]

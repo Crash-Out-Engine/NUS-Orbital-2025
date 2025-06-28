@@ -1,7 +1,10 @@
 class_name Loot
 extends Area2D
 
-var item: Item
+var item: Item:
+	set(value):
+		item = value
+		_handle_set_item()
 
 @onready var base_sprite = $BaseSprite as Sprite2D
 @onready var overlay_sprite = $OverlaySprite as Sprite2D
@@ -9,16 +12,6 @@ var item: Item
 
 func _ready() -> void:
 	rotation = randf_range(0.0, 360.0)
-	match(item.type):
-		Item.Type.SCRAP:
-			base_sprite.frame = 0
-			overlay_sprite.visible = false
-			scale = Vector2(1, 1)
-		Item.Type.MOD:
-			base_sprite.frame = 1
-			overlay_sprite.visible = true
-			overlay_sprite.texture = item.mod.icon
-			scale = Vector2(2, 2)
 
 
 func setup_scrap_loot(value: int) -> void:
@@ -30,7 +23,21 @@ func setup_mod_loots(mod: ModBase) -> void:
 
 
 func move(displacement: Vector2) -> void:
-	_sync_move.rpc(displacement)
+	_synced_move.rpc(displacement)
+
+
+func _handle_set_item() -> void:
+	await ready
+	match item.type:
+		Item.Type.SCRAP:
+			base_sprite.frame = 0
+			overlay_sprite.visible = false
+			scale = Vector2(1, 1)
+		Item.Type.MOD:
+			base_sprite.frame = 1
+			overlay_sprite.visible = true
+			overlay_sprite.texture = item.mod.icon
+			scale = Vector2(2, 2)
 
 
 func _on_tree_entered() -> void:
@@ -42,7 +49,7 @@ func _on_tree_entered() -> void:
 #region Sync
 
 @rpc("any_peer", "call_local", "reliable")
-func _sync_move(displacement: Vector2) -> void:
+func _synced_move(displacement: Vector2) -> void:
 	position += displacement
 
 #endregion

@@ -8,7 +8,7 @@ signal scraps_changed()
 signal lives_depleted()
 signal state_changed(from: State, to: State)
 
-enum State{
+enum State {
 	PLAYING,
 	INVENTORY,
 	DEAD,
@@ -30,8 +30,6 @@ const _TURRET_SCENE := preload("res://scenes/turret.tscn")
 @export var melee_repair: MeleeComp
 @export var inventory: InventoryComp
 @export var blueprints: BlueprintComp
-@export var mod_target: ModTargetingComp
-@export var mod_slots: ModSlotComp
 
 var state: State = State.PLAYING:
 	set(value):
@@ -43,6 +41,7 @@ var state: State = State.PLAYING:
 var hand: Hand = Hand.new()
 var current_turret = null
 var turret_cost = 25
+var _melee_active: bool = false # HACK: Prefer not to use this variable.
 
 @onready var visuals := $Visuals as PlayerVisuals
 
@@ -67,26 +66,13 @@ func _physics_process(_delta: float) -> void:
 		return
 
 	const HA = Hand.Action
-	if (Input.is_action_just_pressed("inventory")):
-		match state:
-			State.PLAYING:
-				state = State.INVENTORY
-			State.INVENTORY:
-				state = State.PLAYING
-	elif (Input.is_action_pressed("add turret")
-			and hand.action in [HA.HOLDING_GUN, HA.FIRING_GUN, HA.HOLDING_WRENCH]):
-		hand.action = HA.PLANNING_WRENCH
-	elif (Input.is_action_pressed("melee")
+	if (_melee_active
 			and melee_cooldown.can_melee()
 			and hand.action in [HA.HOLDING_GUN, HA.HOLDING_WRENCH]):
 		hand.action = HA.FIRING_WRENCH
 		hand.lock()
-	elif (Input.is_action_pressed("shoot")
-			and hand.action == HA.HOLDING_GUN):
-		hand.action = HA.FIRING_GUN
-	elif ((Input.is_action_just_released("add turret") and hand.action == HA.PLANNING_WRENCH)
-			or (!Input.is_action_pressed("melee") and hand.action == HA.HOLDING_WRENCH)
-			or (Input.is_action_just_released("shoot") and hand.action == HA.FIRING_GUN)):
+
+	if (!_melee_active and hand.action == HA.HOLDING_WRENCH):
 		hand.action = HA.HOLDING_GUN
 
 	hand.rotation = get_local_mouse_position().angle()
@@ -95,18 +81,26 @@ func _physics_process(_delta: float) -> void:
 		current_turret.global_position = get_global_mouse_position()
 
 
-# HACK: Temporary for testing, @deltaMinor please remove
-func add_random_mod(turret: Turret) -> void:
-	if (turret.has_node(^"Components/ModSlotComp")
-			and turret.get_node(^"Components/ModSlotComp").get_mods().find(null) == -1):
-		assert(false, "WOT?")
-	var inventory_mods = inventory.get_mods()
-	for key: ModBase in inventory_mods.keys():
-		if inventory_mods[key] > 0:
-			inventory.access_entity(turret)
-			inventory._handle_mod_equipped(key)
-			inventory.unaccess_entity()
-			return
+func _unhandled_input(event: InputEvent) -> void:
+	if not is_multiplayer_authority():
+		return
+
+	const HA = Hand.Action
+	if (event.is_action_pressed("add turret")
+			and hand.action in [HA.HOLDING_GUN, HA.FIRING_GUN, HA.HOLDING_WRENCH]):
+		hand.action = HA.PLANNING_WRENCH
+	if (event.is_action_pressed("shoot")
+			and hand.action == HA.HOLDING_GUN):
+		hand.action = HA.FIRING_GUN
+
+	if event.is_action_pressed("melee"):
+		_melee_active = true
+	if (event.is_action_released("melee")):
+		_melee_active = false
+
+	if ((event.is_action_released("add turret") and hand.action == HA.PLANNING_WRENCH)
+			or (event.is_action_released("shoot") and hand.action == HA.FIRING_GUN)):
+		hand.action = HA.HOLDING_GUN
 
 
 # region forwarding
@@ -135,11 +129,6 @@ func get_inventory() -> InventoryComp:
 	return inventory
 
 
-func get_mod_slots() -> ModSlotComp:
-	if mod_target.current_target == null:
-		return mod_slots
-	return mod_target.current_target.get_mod_slots()
-
 # endregion
 
 
@@ -150,12 +139,14 @@ func _handle_state_changed(_from: State, to: State) -> void:
 	match to:
 		State.INVENTORY:
 			if current_turret != null:
-				current_turret.queue_free()
+				current_turret.set_state(Turret.State.CANCELLED)
 			hand.unlock()
 			hand.action = Hand.Action.HOLDING_GUN
 			hand.lock()
+			$Components/MovementComp.active = false
 		State.PLAYING:
 			hand.unlock()
+			$Components/MovementComp.active = true
 		State.LOST, State.DEAD:
 			hand.unlock()
 			hand.action = Hand.Action.HOLDING_GUN
@@ -176,11 +167,12 @@ func _handle_hand_action_changed(from: Hand.Action, to: Hand.Action) -> void:
 			ranged.active = false
 
 	match [from, to]:
-		[var x, HA.PLANNING_WRENCH] when x in [HA.HOLDING_GUN, HA.HOLDING_WRENCH, HA.FIRING_GUN]:
+		[ var x, HA.PLANNING_WRENCH] when x in [HA.HOLDING_GUN, HA.HOLDING_WRENCH, HA.FIRING_GUN]:
 			current_turret = _TURRET_SCENE.instantiate()
 			current_turret.player_path = get_path()
-			entity_spawned.emit(current_turret)
+			current_turret.global_position = get_global_mouse_position()
 			current_turret.set_state(Turret.State.PLACING_VALID)
+			entity_spawned.emit(current_turret)
 		[HA.PLANNING_WRENCH, HA.HOLDING_GUN]:
 			if current_turret != null:
 				if current_turret.try_plan():
@@ -188,7 +180,7 @@ func _handle_hand_action_changed(from: Hand.Action, to: Hand.Action) -> void:
 				else:
 					turret_placement_failed.emit()
 				current_turret = null
-		[var x, HA.FIRING_WRENCH] when x in [HA.HOLDING_GUN, HA.HOLDING_WRENCH]:
+		[ var x, HA.FIRING_WRENCH] when x in [HA.HOLDING_GUN, HA.HOLDING_WRENCH]:
 			melee_attack.rotation = hand.rotation
 			melee_repair.rotation = hand.rotation
 			melee_attack.activate()
@@ -223,6 +215,9 @@ func deactivate():
 #region Sync
 
 func _sync_hand() -> void:
+	if not is_multiplayer_authority():
+		return
+
 	_receive_hand_sync.rpc(hand.save())
 
 @rpc("any_peer", "call_remote", "reliable")

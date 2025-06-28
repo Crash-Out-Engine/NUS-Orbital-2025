@@ -13,6 +13,9 @@ const GREEN = Color("#36e312")
 @export var health_capacity: HealthCapacityProp
 @export var ranged_cooldown: RangedCooldownProp
 
+@export_group("Components")
+@export var ranged: RangedBaseComp
+
 @onready var base_sprite := $BaseSprite as Sprite2D
 @onready var body_sprite := $BodySprite as AnimatedSprite2D
 @onready var highlight := $Highlight as Sprite2D
@@ -34,6 +37,7 @@ func _ready() -> void:
 				if is_multiplayer_authority():
 					_update_health_bar(to)
 	)
+	_handle_state_changed(Turret.State.DEFAULT, turret._state)
 	turret.state_changed.connect(
 			func(from, to):
 				if is_multiplayer_authority():
@@ -54,6 +58,7 @@ func _process(delta: float) -> void:
 	# Animation & transform
 	if !body_sprite.is_playing():
 		_play_idle_anim.rpc()
+	body_sprite.rotation = ranged.rotation
 	highlight.rotation = body_sprite.rotation
 	highlight.visible = turret.highlighted
 

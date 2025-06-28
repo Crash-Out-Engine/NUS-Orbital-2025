@@ -1,7 +1,8 @@
 extends Control
 
-@export var player: Player
-@export var game: Node2D
+var active: bool = false
+var _player: Player
+var _power_manager: PowerManager
 
 @onready var health_bar := $VBoxContainer/HealthBar/TextureProgressBar as TextureProgressBar
 @onready var health_label := (
@@ -32,21 +33,27 @@ extends Control
 ] as Array[TextureRect]
 @onready var scrap_label := $VBoxContainer/ScrapCounter/Icon/Label as Label
 
-func _ready() -> void:
-	update_health_bar()
-	update_scraps_counter()
-	player.health_changed.connect(update_health_bar)
-	player.scraps_changed.connect(update_scraps_counter)
-
 
 func _process(_delta: float) -> void:
-	update_power_bar(game.get_power() as int)
+	if active:
+		update_power_bar(_power_manager.get_power() as int)
+
+
+func setup(player: Player, power_manager: PowerManager):
+	_player = player
+	_power_manager = power_manager
+	active = true
+
+	update_health_bar()
+	update_scraps_counter()
+	_player.health_changed.connect(update_health_bar)
+	_player.scraps_changed.connect(update_scraps_counter)
 
 
 func update_health_bar() -> void:
-	var ratio = player.get_health() / player.get_health_capacity()
+	var ratio = _player.get_health() / _player.get_health_capacity()
 	health_bar.value = 100.0 * ratio
-	health_label.text = "%d/%d" % [player.get_health(), player.get_health_capacity()]
+	health_label.text = "%d/%d" % [_player.get_health(), _player.get_health_capacity()]
 
 
 func update_power_bar(new_amount: int) -> void:
@@ -70,4 +77,4 @@ func update_power_bar(new_amount: int) -> void:
 
 
 func update_scraps_counter() -> void:
-	scrap_label.text = str(player.get_scraps())
+	scrap_label.text = str(_player.get_scraps())

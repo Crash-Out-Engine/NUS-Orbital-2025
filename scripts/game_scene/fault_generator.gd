@@ -52,8 +52,11 @@ func _generate_chunk(chunk_pos: Vector2i) -> void:
 		_chunk_player_count.set(chunk_pos, _chunk_player_count.get(chunk_pos, 0) + 1)
 
 
-@rpc("authority", "call_local", "reliable")
+@rpc("any_peer", "call_local", "reliable")
 func _clear_chunk(chunk_pos: Vector2i) -> void:
+	if not is_multiplayer_authority():
+		return
+
 	_chunk_player_count[chunk_pos] -= 1
 
 	if _chunk_player_count[chunk_pos] == 0:
@@ -72,7 +75,7 @@ func _save_chunk(chunk_pos: Vector2i) -> void:
 
 func _free_chunk(chunk_pos: Vector2i) -> void:
 	for fault: Fault in _chunk_faults[chunk_pos]:
-		fault.queue_free()
+		fault.get_parent().remove_entity(fault)
 	_chunk_faults.erase(chunk_pos)
 
 
@@ -103,8 +106,7 @@ func _load_chunk(chunk_pos: Vector2i) -> void:
 func _create_fault() -> Fault:
 	if is_multiplayer_authority():
 		var fault := _FAULT_SCENE.instantiate()
-		entity_manager.add_child(fault)
-		# entity_manager.add_entity(fault, self)
+		entity_manager.add_entity(fault, self)
 
 		return fault
 

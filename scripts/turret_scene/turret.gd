@@ -40,11 +40,13 @@ var _state: State:
 			_sync()
 			_handle_state_changed(prev_state, _state)
 			state_changed.emit(prev_state, _state)
+var _syncing: bool = false
 
 @onready var _initial_team: Enums.Team = hitbox.team
 
 
 func _ready() -> void:
+	ranged.bullet_spawned.connect(entity_spawned.emit)
 	health.emptied.connect(
 			func():
 				if is_multiplayer_authority():
@@ -55,11 +57,12 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if _state in [State.PLACING_INVALID, State.PLACING_VALID]:
+	if !player_path.is_empty() and _state in [State.PLACING_INVALID, State.PLACING_VALID]:
 		var player := get_tree().root.get_node(player_path)
-		if player.get_multiplayer_authority() == multiplayer.get_unique_id():
+		if player.is_multiplayer_authority():
 			player.current_turret = self
 			global_position = get_global_mouse_position()
+			_sync()
 			if !_can_place(player):
 				set_state(State.PLACING_INVALID)
 			else:
@@ -71,6 +74,7 @@ func set_state(value: State) -> void:
 func try_plan() -> bool:
 	if _state == State.PLACING_VALID:
 		advance_state()
+		player_path = NodePath()
 		return true
 	if _state == Turret.State.PLACING_INVALID:
 		set_state(State.CANCELLED)
@@ -98,9 +102,6 @@ func disassemble():
 	loot.global_position = global_position
 	entity_spawned.emit(loot)
 
-func get_mod_slots() -> ModSlotComp:
-	return mod_slots
-
 
 func _handle_state_changed(from: State, to: State):
 	match [from, to]:
@@ -120,16 +121,15 @@ func _handle_state_changed(from: State, to: State):
 			set_collision_layer_value(1, true)
 			set_collision_layer_value(2, false)
 			set_collision_mask_value(1, true)
-			entity_spawned.connect(get_parent().get_parent().add_entity)
 			hitbox.team = _initial_team
 			ranged.active = true
 
 		[_, State.DESTROYED]:
 			#TODO: implement loot drops
-			queue_free()
+			get_parent().remove_entity(self)
 
 		[_, State.CANCELLED]:
-			queue_free()
+			get_parent().remove_entity(self)
 
 		[_, _]:
 			assert(false,
@@ -176,11 +176,11 @@ func _can_place(player: Player) -> bool:
 func _sync() -> void:
 	if not is_node_ready():
 		await ready
-	if not is_multiplayer_authority():
+	if _syncing:
 		return
 
-	# HACK(multiplayer): Remove false when EntityManager gets implemented
-	while false and get_parent()._entity_count[self.get_path()] < multiplayer.get_peers().size() + 1:
+	while (!get_parent()._entity_count.has(self.get_path())
+			or get_parent()._entity_count[self.get_path()] < multiplayer.get_peers().size() + 1):
 		await get_tree().process_frame
 		if get_parent() == null: # TODO(multiplayer): check if this check can be removed
 			return
@@ -207,11 +207,13 @@ func save_scene() -> PackedByteArray:
 	return var_to_bytes(dict)
 
 func load_saved_scene(data: PackedByteArray) -> void:
+	_syncing = true
 	var dict = bytes_to_var(data)
 	position = dict["position"]
 	_state = dict["_state"]
 	player_path = dict["player_path"]
 	for property_node: PropertyBase in $Properties.get_children():
 		property_node.load_saved(dict[property_node.name])
+	_syncing = false
 
 #endregion

@@ -1,6 +1,8 @@
 class_name Bullet
 extends Area2D
 
+signal entity_spawned(entity: Node2D)
+
 const _EXPLOSION_SCENE = preload("res://scenes/explosion.tscn")
 const SPEED = 800
 
@@ -34,7 +36,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_timer_timeout() -> void:
-	queue_free()
+	get_parent().remove_entity(self)
 
 
 func _on_body_entered(body: Node2D) -> void:
@@ -51,10 +53,11 @@ func _on_body_entered(body: Node2D) -> void:
 			explosion.target_filter = target_filter
 			explosion.assign_mods(bullet_mods_comp.mods)
 			explosion.effects = effects
-			call_deferred("add_sibling", explosion)
+
+			entity_spawned.emit(explosion)
 
 		if repeat_prop.check_empty():
-			queue_free()
+			get_parent().remove_entity(self)
 
 func assign_mods(mods: Array[ModBase]) -> void:
 	bullet_mods_comp.mods.assign(mods)
