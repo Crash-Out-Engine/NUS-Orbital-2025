@@ -1,6 +1,7 @@
 extends Control
 
 var _player: Player
+var _entity_manager: EntityManager
 
 @onready var tree := $VBoxContainer/Tree as Tree
 
@@ -12,11 +13,12 @@ func _process(_delta: float) -> void:
 					1.0 / Performance.get_monitor(Performance.TIME_PHYSICS_PROCESS)])
 	tree.entities.set_text(0,
 			"Entities: %s"
-			% get_tree().current_scene.find_child("EntityManager").get_child_count())
+			% _entity_manager.get_child_count())
 
 
-func setup(player: Player) -> void:
+func setup(player: Player, entity_manager: EntityManager) -> void:
 	_player = player
+	_entity_manager = entity_manager
 
 
 func toggle_debug():
@@ -30,13 +32,18 @@ func _on_tree_item_edited() -> void: # HACK: Greatly relies on the node paths be
 			match item.get_text(0):
 				"God mode":
 					if item.is_checked(0):
-						$/root/Game.power = abs(INF / 2)
-						$/root/Game/EntityContainer/Player/Properties/HealthProp.value = absi(int(INF)) / 2
-						$/root/Game/EntityContainer/Player/Components/InventoryComp._scraps = absi(int(INF)) / 2
+						$/root/Game/PowerManager._power = abs(INF / 2)
+						_player.get_node(^"Properties/HealthCapacityProp").value = absi(int(INF) / 2) 
+						_player.get_node(^"Properties/HealthProp").value = absi(int(INF) / 2) 
+						_player.get_node(^"Components/InventoryComp")._scraps = absi(int(INF) / 2)
 					else:
-						$/root/Game.power = 100
-						$/root/Game/EntityContainer/Player/Properties/HealthProp.value = 50
-						$/root/Game/EntityContainer/Player/Components/InventoryComp._scraps = 50
+						$/root/Game/PowerManager._power = $/root/Game/PowerManager._initial_power 
+						var health_capacity_prop := _player.get_node(^"Properties/HealthCapacityProp") as HealthCapacityProp
+						health_capacity_prop.value = health_capacity_prop._initial_health_capacity
+						var health_prop := _player.get_node(^"Properties/HealthProp") as HealthProp
+						health_prop.value = health_prop._initial_health
+						var inventory_comp := _player.get_node(^"Components/InventoryComp") as InventoryComp
+						inventory_comp._scraps = inventory_comp.initial_scraps
 
 		TreeItem.CELL_MODE_RANGE:
 			match item.get_parent().get_text(0):
@@ -44,8 +51,6 @@ func _on_tree_item_edited() -> void: # HACK: Greatly relies on the node paths be
 					$/root/Game/EnemySpawner/SpawnTimer.wait_time = 1.0 / item.get_range(0)
 					$/root/Game/EnemySpawner/SpawnTimer.start()
 				"Set health":
-					$/root/Game/EntityContainer/Player/Properties/HealthProp.value = (
-						$/root/Game/EntityContainer/Player/Properties/HealthCapacityProp.value
-						- item.get_range(0))
+					_player.get_node(^"Properties/HealthProp").value = item.get_range(0)
 				"Set scraps":
-					$/root/Game/EntityContainer/Player/Components/InventoryComp._scraps = item.get_range(0)
+					_player.get_node(^"Components/InventoryComp")._scraps = item.get_range(0)

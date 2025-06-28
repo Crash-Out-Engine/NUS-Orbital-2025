@@ -137,7 +137,7 @@ func _setup(sequence: InitSequence) -> void:
 			$UI/HUDBars.setup(get_local_player(), power_manager)
 			$UI/HUDMap.setup(get_local_player(), entity_manager)
 			$UI/InventoryUI.setup(self, get_local_player())
-			$UI/DebugPanel.setup(get_local_player())
+			$UI/DebugPanel.setup(get_local_player(), entity_manager)
 			$UI/PauseMenu.setup(self)
 			$UI/GameOverPanel.setup(self)
 
