@@ -20,12 +20,9 @@ var direction: float
 var target_filter: TargetFilter
 var effects: Array[Effect] = []
 
-@onready var timer = $Timer as Timer
 
 func _ready() -> void:
-	timeout_prop.changed.connect(func(_from, to): timer.wait_time = to)
 	bullet_mods_comp.setup_mods()
-	timer.start()
 
 func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority():
@@ -33,10 +30,6 @@ func _physics_process(delta: float) -> void:
 
 	global_position += Vector2.from_angle(direction) * SPEED * delta
 	global_rotation = direction
-
-
-func _on_timer_timeout() -> void:
-	get_parent().remove_entity(self)
 
 
 func _on_body_entered(body: Node2D) -> void:
