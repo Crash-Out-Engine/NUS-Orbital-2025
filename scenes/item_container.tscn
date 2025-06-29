@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://d174m3iyasqt4"]
+[gd_scene load_steps=8 format=3 uid="uid://d174m3iyasqt4"]
 
 [ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet.png" id="1_n11ee"]
 [ext_resource type="FontFile" uid="uid://cj53anigafm5t" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="2_2umob"]
 [ext_resource type="Script" uid="uid://cbmjumxd6gbwt" path="res://scripts/game_scene/ui/item_container.gd" id="2_p36xk"]
+[ext_resource type="FontFile" uid="uid://bvdfbft27q66n" path="res://assets/fonts/zeldadxt.ttf" id="4_ixpej"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2umob"]
 texture = ExtResource("1_n11ee")
@@ -90,8 +91,9 @@ custom_minimum_size = Vector2(360, 0)
 layout_mode = 2
 mouse_filter = 2
 theme_override_fonts/normal_font = ExtResource("2_2umob")
+theme_override_fonts/italics_font = ExtResource("4_ixpej")
 bbcode_enabled = true
-text = "ffdgs"
+text = "[i][color=red]PERMANENT: This M.O.D. cannot be unequipped.[/color][/i]"
 fit_content = true
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

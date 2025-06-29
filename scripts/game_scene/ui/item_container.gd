@@ -39,6 +39,8 @@ func update():
 			name_label.visible = true
 			count_label.visible = false
 
+	if mod.state != ModBase.State.ACTIVE:
+		grabbable = false
 	description_label.text = get_description()
 
 func _process(_delta: float) -> void:
@@ -73,6 +75,14 @@ func get_description():
 		paragraph += "%s×%d" % [pp.get_icon(), mod.property_points[pp]]
 	paragraph += (
 		"\nScrap value:%d[img={24}]res://resources/text_icons/scrap_icon.tres[/img]" % mod.value)
+	match(mod.state):
+		ModBase.State.ACTIVE:
+			pass
+		ModBase.State.DEFUNCT:
+			pass
+		ModBase.State.PERMANENT:
+			paragraph += (
+				"\n\n[i][color=red]PERMANENT: This M.O.D. cannot be unequipped.[/color][/i]")
 	return paragraph
 
 

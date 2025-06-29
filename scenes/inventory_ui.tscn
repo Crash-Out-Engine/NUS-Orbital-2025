@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://bsk2hjudnw4rw"]
+[gd_scene load_steps=75 format=3 uid="uid://bsk2hjudnw4rw"]
 
 [ext_resource type="Script" uid="uid://dq5no236vfiso" path="res://scripts/game_scene/ui/inventory_ui.gd" id="1_tahbm"]
 [ext_resource type="Theme" uid="uid://cq6cs0mx200sg" path="res://resources/inventory_ui.tres" id="1_ylkvr"]
@@ -7,7 +7,6 @@
 [ext_resource type="Resource" uid="uid://dl56w1h7wf83j" path="res://resources/effect_mods/base_damage.tres" id="4_1dxi5"]
 [ext_resource type="Texture2D" uid="uid://cd6dttechhj5b" path="res://assets/sprites/inventorytargetanimations_spritesheet.png" id="4_iradw"]
 [ext_resource type="Resource" uid="uid://cjgi5gpx4duko" path="res://resources/effect_mods/base_slowdown.tres" id="4_uwj4j"]
-[ext_resource type="Script" uid="uid://ddx5f4odv710k" path="res://scripts/sprite_2d_rect.gd" id="5_eifbp"]
 [ext_resource type="Script" uid="uid://ckg514fwkuf4" path="res://scripts/game_scene/ui/item_drop_area.gd" id="6_2lmnb"]
 [ext_resource type="PackedScene" uid="uid://d4aipu4148p78" path="res://scenes/DropdownCheckboxesContainer.tscn" id="9_cwdri"]
 [ext_resource type="FontFile" uid="uid://bvdfbft27q66n" path="res://assets/fonts/zeldadxt.ttf" id="9_dqfnd"]
@@ -33,9 +32,256 @@
 atlas = ExtResource("3_mdwe3")
 region = Rect2(1655, 114, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_eifbp"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_43rgy"]
 atlas = ExtResource("4_iradw")
-region = Rect2(1, 1, 94, 40)
+region = Rect2(0, 0, 96, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q5115"]
+atlas = ExtResource("4_iradw")
+region = Rect2(0, 42, 96, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x5sj0"]
+atlas = ExtResource("4_iradw")
+region = Rect2(0, 84, 96, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0hq57"]
+atlas = ExtResource("4_iradw")
+region = Rect2(0, 126, 96, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qqsxv"]
+atlas = ExtResource("4_iradw")
+region = Rect2(0, 168, 96, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_st7lq"]
+atlas = ExtResource("4_iradw")
+region = Rect2(0, 210, 96, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pspyc"]
+atlas = ExtResource("4_iradw")
+region = Rect2(0, 252, 96, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7w6jp"]
+atlas = ExtResource("4_iradw")
+region = Rect2(0, 294, 96, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_46rye"]
+atlas = ExtResource("4_iradw")
+region = Rect2(96, 0, 96, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ynr1n"]
+atlas = ExtResource("4_iradw")
+region = Rect2(96, 42, 96, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_evjum"]
+atlas = ExtResource("4_iradw")
+region = Rect2(96, 84, 96, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r80nu"]
+atlas = ExtResource("4_iradw")
+region = Rect2(96, 126, 96, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uxw4w"]
+atlas = ExtResource("4_iradw")
+region = Rect2(96, 168, 96, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r5ik5"]
+atlas = ExtResource("4_iradw")
+region = Rect2(96, 210, 96, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_crli6"]
+atlas = ExtResource("4_iradw")
+region = Rect2(96, 252, 96, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fe5tn"]
+atlas = ExtResource("4_iradw")
+region = Rect2(96, 294, 96, 42)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pkf25"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_43rgy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q5115")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x5sj0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0hq57")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qqsxv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_st7lq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pspyc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7w6jp")
+}],
+"loop": true,
+"name": &"player",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_46rye")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ynr1n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_evjum")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r80nu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_46rye")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ynr1n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_evjum")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r80nu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_46rye")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ynr1n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_evjum")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r80nu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uxw4w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uxw4w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uxw4w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uxw4w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r5ik5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r5ik5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r5ik5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r5ik5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_crli6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_crli6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_crli6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_crli6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fe5tn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fe5tn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fe5tn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fe5tn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_crli6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_crli6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_crli6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_crli6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r5ik5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r5ik5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r5ik5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r5ik5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uxw4w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uxw4w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uxw4w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uxw4w")
+}],
+"loop": true,
+"name": &"turret",
+"speed": 12.0
+}]
+
+[sub_resource type="ImageTexture" id="ImageTexture_43rgy"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q5115"]
+texture = ExtResource("3_mdwe3")
+expand_margin_top = 2.0
+expand_margin_bottom = 2.0
+region_rect = Rect2(1431, 70, 12, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x5sj0"]
+texture = ExtResource("3_mdwe3")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+region_rect = Rect2(1431, 56, 12, 12)
+
+[sub_resource type="Theme" id="Theme_0hq57"]
+default_font_size = 16
+VScrollBar/icons/decrement = SubResource("ImageTexture_43rgy")
+VScrollBar/icons/decrement_highlight = SubResource("ImageTexture_43rgy")
+VScrollBar/icons/decrement_pressed = SubResource("ImageTexture_43rgy")
+VScrollBar/icons/increment = SubResource("ImageTexture_43rgy")
+VScrollBar/icons/increment_highlight = SubResource("ImageTexture_43rgy")
+VScrollBar/icons/increment_pressed = SubResource("ImageTexture_43rgy")
+VScrollBar/styles/grabber = SubResource("StyleBoxTexture_q5115")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxTexture_q5115")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxTexture_q5115")
+VScrollBar/styles/scroll = SubResource("StyleBoxTexture_x5sj0")
+VScrollBar/styles/scroll_focus = SubResource("StyleBoxTexture_x5sj0")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2lmnb"]
 atlas = ExtResource("3_mdwe3")
@@ -171,14 +417,6 @@ texture_margin_right = 16.0
 texture_margin_bottom = 16.0
 region_rect = Rect2(1441, 254, 48, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8wyaw"]
-atlas = ExtResource("3_mdwe3")
-region = Rect2(1485, 114, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cwdri"]
-atlas = ExtResource("3_mdwe3")
-region = Rect2(1451, 114, 32, 32)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2lmnb"]
 size = Vector2(488.25, 256)
 
@@ -247,16 +485,42 @@ mouse_filter = 1
 
 [node name="VBox" type="VBoxContainer" parent="Margin/PanelContainer/HBox/LeftVBox/TargetDisplay"]
 layout_mode = 2
+alignment = 1
 
-[node name="Sprite2DRect" type="TextureRect" parent="Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox"]
+[node name="MarginContainer" type="MarginContainer" parent="Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox"]
+custom_minimum_size = Vector2(424, 180)
 layout_mode = 2
-texture = SubResource("AtlasTexture_eifbp")
-expand_mode = 5
-stretch_mode = 4
-script = ExtResource("5_eifbp")
-frame_margin = Vector2(1, 1)
-frame_size = Vector2(94, 40)
-h_frames = 2
+
+[node name="TargetDisplayAnimation" type="AnimatedSprite2D" parent="Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox/MarginContainer"]
+unique_name_in_owner = true
+scale = Vector2(4.5, 4.5)
+sprite_frames = SubResource("SpriteFrames_pkf25")
+animation = &"player"
+offset = Vector2(47.111, 20)
+
+[node name="MarginContainer" type="MarginContainer" parent="Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox/MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 175
+theme_override_constants/margin_bottom = 10
+
+[node name="TargetDisplayLabel" type="RichTextLabel" parent="Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox/MarginContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = SubResource("Theme_0hq57")
+theme_override_fonts/normal_font = ExtResource("11_cwdri")
+bbcode_enabled = true
+text = "Click on 
+asddsaf
+sdaf
+dsadsa
+fdsf
+fdsads
+ffdsasad
+fdsa"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="HBox" type="HBoxContainer" parent="Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox"]
 layout_mode = 2
@@ -576,35 +840,6 @@ For ?? eAFDSs"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Analysis" type="MarginContainer" parent="."]
-visible = false
-z_index = 100
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 128
-theme_override_constants/margin_top = 128
-theme_override_constants/margin_right = 128
-theme_override_constants/margin_bottom = 128
-
-[node name="PanelContainer" type="PanelContainer" parent="Analysis"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Analysis/PanelContainer"]
-layout_mode = 2
-size_flags_vertical = 1
-text = "Additional Analysis"
-
-[node name="ExitButton" type="TextureButton" parent="Analysis/PanelContainer"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-texture_normal = SubResource("AtlasTexture_8wyaw")
-texture_pressed = SubResource("AtlasTexture_cwdri")
-
 [node name="ModCompItemDropArea" type="Area2D" parent="."]
 position = Vector2(32, -370)
 script = ExtResource("6_2lmnb")
@@ -657,4 +892,3 @@ bus = &"SFX"
 [connection signal="mouse_exited" from="Margin/PanelContainer/HBox/RightVBox/HBox/CraftingOutput/VBox/BlueprintsButton" to="Margin/PanelContainer/HBox/RightVBox/HBox/CraftingOutput/VBox/BlueprintsButton" method="_on_mouse_exited"]
 [connection signal="pressed" from="Margin/PanelContainer/HBox/RightVBox/HBox/CraftingOutput/VBox/BlueprintsButton" to="." method="_on_blueprints_button_pressed"]
 [connection signal="pressed" from="Margin/PanelContainer/HBox/RightVBox/CraftButton" to="." method="_on_craft_button_pressed"]
-[connection signal="pressed" from="Analysis/PanelContainer/ExitButton" to="." method="_on_exit_button_pressed"]

@@ -123,6 +123,8 @@ func _handle_state_changed(from: State, to: State):
 			set_collision_mask_value(1, true)
 			hitbox.team = _initial_team
 			ranged.active = true
+			for mod in mod_slots.initial_mods:
+				mod.state = ModBase.State.PERMANENT
 
 		[_, State.DESTROYED]:
 			#TODO: implement loot drops
@@ -170,6 +172,16 @@ func _check_repair(entity: Node2D, effects: Array[Effect]) -> void:
 func _can_place(player: Player) -> bool:
 	return (!_is_overlapping() and player.turret_cost <= player.get_scraps())
 
+func get_analysis() -> String:
+	var analysis = "Health:%d/%d\nFire interval:%0.2fs\n" % [
+			$Properties/HealthProp.value,
+			$Properties/HealthCapacityProp.value,
+			$Properties/RangedCooldownProp.value]
+	if $Properties/CopyProp.value > 1:
+		analysis += "Bullets/Shot:%d\nSpread:%d deg\n" % [
+			$Properties/CopyProp.value,
+			$Properties/SpreadProp.value]
+	return analysis
 
 #region Sync
 

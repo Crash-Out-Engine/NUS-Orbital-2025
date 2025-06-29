@@ -7,6 +7,12 @@ enum Type {
 	UPGRADE,
 }
 
+enum State {
+	ACTIVE,
+	DEFUNCT,
+	PERMANENT
+}
+
 @export var name: String
 @export var icon: AtlasTexture
 @export var description: String
@@ -14,6 +20,7 @@ enum Type {
 @export var value: int
 
 var type: Type
+var state: State = State.ACTIVE
 
 func _init() -> void:
 	assert(false, "ModBase is an abstract class and cannot be instantiated.")

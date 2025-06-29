@@ -29,6 +29,7 @@ const _TURRET_SCENE := preload("res://scenes/turret.tscn")
 @export var melee_attack: MeleeComp
 @export var melee_repair: MeleeComp
 @export var inventory: InventoryComp
+@export var mod_slots: ModSlotComp
 @export var blueprints: BlueprintComp
 
 var state: State = State.PLAYING:
@@ -59,6 +60,8 @@ func _ready() -> void:
 	)
 	hand.action_changed.connect(_handle_hand_action_changed)
 	hand.changed.connect(_sync_hand)
+	for mod in mod_slots.initial_mods:
+		mod.state = ModBase.State.PERMANENT
 
 
 func _physics_process(_delta: float) -> void:
@@ -104,6 +107,26 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 # region forwarding
+
+func get_analysis() -> String:
+	var analysis = "Health:%d/%d\nFire interval:%0.2fs\n" % [
+			$Properties/HealthProp.value,
+			$Properties/HealthCapacityProp.value,
+			$Properties/RangedCooldownProp.value]
+	if $Properties/CopyProp.value > 1:
+		analysis += "Bullets/Shot:%d\nSpread:%d deg\n" % [
+			$Properties/CopyProp.value,
+			$Properties/SpreadProp.value]
+	analysis += "Melee interval:%0.2fs\nSpeed:%d" % [
+			$Properties/MeleeCooldownProp.value,
+			$Properties/SpeedProp.value]
+	if $Properties/KnockbackResistanceProp.value != 1:
+		analysis += "\nKnockback resistance:%d" % $Properties/KnockbackResistanceProp.value
+	if $Properties/SizeProp.value != 1:
+		analysis += "\nSize:%0.2f" % $Properties/SizeProp.value
+	if $Properties/RepeatProp.value > 1:
+		analysis += "\nLives:%d" % $Properties/RepeatProp.value
+	return analysis
 
 func get_health() -> float:
 	return health.value
