@@ -64,8 +64,6 @@ func _unhandled_key_input(event: InputEvent) -> void:
 					pause_game()
 				else:
 					$UI/InventoryUI.defocus_element()
-					if not $UI/InventoryUI.is_open() and _local_player.state == Player.State.INVENTORY:
-						_local_player.state = Player.State.PLAYING
 
 			if event.is_action_pressed("debug"): # Debug action should be propagated to DebugVisualsBase.
 				$UI/DebugPanel.toggle_debug()
@@ -74,11 +72,13 @@ func _unhandled_key_input(event: InputEvent) -> void:
 				get_viewport().set_input_as_handled()
 				if not $UI/InventoryUI.is_open() and _local_player.state == Player.State.PLAYING:
 					_local_player.state = Player.State.INVENTORY
-					$UI/InventoryUI.open()
+					$UI/InventoryUI.open().connect(
+							func():
+								if _local_player.state == Player.State.INVENTORY:
+									_local_player.state = Player.State.PLAYING
+					, ConnectFlags.CONNECT_ONE_SHOT)
 				else:
 					$UI/InventoryUI.defocus_element()
-					if not $UI/InventoryUI.is_open() and  _local_player.state == Player.State.INVENTORY:
-						_local_player.state = Player.State.PLAYING
 
 		State.PAUSED:
 			if event.is_action_pressed("esc"):
@@ -193,8 +193,7 @@ func end_game(message: String) -> void:
 		time_message = "\nYou lasted %d minutes %d seconds" % [minutes, seconds]
 	else:
 		time_message = "\nYou lasted %d seconds" % seconds
-	game_over.emit(message + time_message)
-	_sync_game_over.rpc(message)
+	_synced_game_over.rpc(message + time_message)
 
 
 func exit_game(to: ExitScene = ExitScene.NONE) -> void:
@@ -255,8 +254,8 @@ func _sync_state(state: State, message: String = "") -> void:
 		game_over.emit(message)
 
 
-@rpc("any_peer", "call_remote", "reliable")
-func _sync_game_over(message: String) -> void:
+@rpc("any_peer", "call_local", "reliable")
+func _synced_game_over(message: String) -> void:
 	game_over.emit(message)
 
 #endregion

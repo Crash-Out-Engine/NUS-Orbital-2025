@@ -1,4 +1,7 @@
+class_name InventoryUI
 extends Control
+
+signal closed()
 
 const ITEM_CONTAINER = preload("res://scenes/item_container.tscn")
 const BLUEPRINT_CONTAINER = preload("res://scenes/blueprint_container.tscn")
@@ -82,9 +85,16 @@ func setup(game: Game, player: Player) -> void:
 	game.game_over.connect(func(_message): _close_inventory())
 
 
-func open():
+## Opens the inventory UI.
+## [br]
+## Returns an [signal InventoryUI.closed] signal that emits when the inventory
+## UI is closed.
+func open() -> Signal:
 	visible = true
 	opening_setup()
+	for connection: Dictionary in closed.get_connections():
+		connection.signal.disconnect(connection.callable)
+	return closed
 
 
 func defocus_element():
@@ -137,6 +147,7 @@ func _close_inventory():
 	component_filter.close_dropdown()
 	inventory_comp.slots_updated.disconnect(update_modslots_counter)
 	inventory_comp.unaccess_entity()
+	closed.emit()
 
 func update_scrap_counter(scrap: int) -> void:
 	scrap_counter_label.text = str(scrap)
@@ -379,7 +390,6 @@ func update_analysis():
 
 func _on_disassemble_button_pressed() -> void:
 	inventory_comp.disassemble_turret()
-	inventory_comp.player.state = Player.State.PLAYING
 	_close_inventory()
 
 func add_dragged_item(item: DraggedItem, state: ItemContainer.State):
