@@ -1,6 +1,12 @@
 class_name MultiplayerManager
 extends Node
 
+signal ready_players_changed()
+signal server_disconnected()
+signal player_disconnected()
+signal player_joined()
+signal state_changed(from: State, to: State)
+
 enum State {
 	DEFAULT,
 	HOSTING,
@@ -9,12 +15,6 @@ enum State {
 	READY,
 	ALL_READY,
 }
-
-signal ready_players_changed()
-signal server_disconnected()
-signal player_disconnected()
-signal player_joined()
-signal state_changed(from: State, to: State)
 
 const DEFAULT_PORT := 8899
 const MAX_PLAYER_COUNT := 5
@@ -83,7 +83,7 @@ func disconnect_multiplayer() -> void:
 	_peer.close()
 	multiplayer.multiplayer_peer = null
 	ready_players = {}
-	
+
 	state = State.DEFAULT
 
 
@@ -118,7 +118,7 @@ func get_seed() -> int:
 func _register_player_ready(id: int) -> void:
 	if not is_multiplayer_authority():
 		return
-	
+
 	ready_players[id] = true
 	_synced_ready_players.rpc(ready_players)
 
@@ -170,4 +170,3 @@ func _handle_peer_disconnected(id: int) -> void:
 		player_disconnected.emit()
 		_peer.refuse_new_connections = false
 		state = State.HOSTING if multiplayer.is_server() else State.JOINED
-	

@@ -23,7 +23,7 @@ func _process(_delta: float) -> void:
 func setup(player: Player, entity_manager: EntityManager) -> void:
 	_player = player
 	_entity_manager = entity_manager
-	
+
 	active = true
 
 
@@ -39,12 +39,13 @@ func _on_tree_item_edited() -> void: # HACK: Greatly relies on the node paths be
 				"God mode":
 					if item.is_checked(0):
 						$/root/Game/PowerManager._power = abs(INF / 2)
-						_player.get_node(^"Properties/HealthCapacityProp").value = absi(int(INF) / 2) 
-						_player.get_node(^"Properties/HealthProp").value = absi(int(INF) / 2) 
+						_player.get_node(^"Properties/HealthCapacityProp").value = absi(int(INF) / 2)
+						_player.get_node(^"Properties/HealthProp").value = absi(int(INF) / 2)
 						_player.get_node(^"Components/InventoryComp")._scraps = absi(int(INF) / 2)
 					else:
-						$/root/Game/PowerManager._power = $/root/Game/PowerManager._initial_power 
-						var health_capacity_prop := _player.get_node(^"Properties/HealthCapacityProp") as HealthCapacityProp
+						$/root/Game/PowerManager._power = $/root/Game/PowerManager._initial_power
+						var health_capacity_prop := (
+								_player.get_node(^"Properties/HealthCapacityProp") as HealthCapacityProp)
 						health_capacity_prop.value = health_capacity_prop._initial_health_capacity
 						var health_prop := _player.get_node(^"Properties/HealthProp") as HealthProp
 						health_prop.value = health_prop._initial_health

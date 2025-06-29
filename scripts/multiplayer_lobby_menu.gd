@@ -76,12 +76,15 @@ func update_status(error_message: String = "") -> void:
 			front_text = "Starting"
 			if is_multiplayer_authority():
 				_multiplayer_manager.start_game_for_all()
-	
+
 	var back_text: String
 	match _multiplayer_manager.state:
-		MultiplayerManager.State.HOSTING, MultiplayerManager.State.JOINED, MultiplayerManager.State.READY, MultiplayerManager.State.ALL_READY:
+		MultiplayerManager.State.HOSTING,\
+		MultiplayerManager.State.JOINED,\
+		MultiplayerManager.State.READY,\
+		MultiplayerManager.State.ALL_READY:
 			back_text = ("%d player(s) here" % _multiplayer_manager.get_player_count())
-	
+
 	_status_label.text = "%s\n%s" % [front_text, back_text]
 
 
