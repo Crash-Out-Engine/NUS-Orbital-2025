@@ -60,8 +60,6 @@ func _ready() -> void:
 	)
 	hand.action_changed.connect(_handle_hand_action_changed)
 	hand.changed.connect(_sync_hand)
-	for mod in mod_slots.initial_mods:
-		mod.state = ModBase.State.PERMANENT
 
 
 func _physics_process(_delta: float) -> void:

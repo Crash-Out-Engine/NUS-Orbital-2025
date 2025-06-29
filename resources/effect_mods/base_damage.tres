@@ -24,5 +24,4 @@ property_points = Dictionary[ExtResource("3_tcrbk"), int]({
 ExtResource("4_16gqk"): 1
 })
 value = 20
-state = 0
 metadata/_custom_type_script = "uid://qxcwl20lyaga"

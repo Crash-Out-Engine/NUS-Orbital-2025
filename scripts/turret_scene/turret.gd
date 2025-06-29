@@ -123,8 +123,6 @@ func _handle_state_changed(from: State, to: State):
 			set_collision_mask_value(1, true)
 			hitbox.team = _initial_team
 			ranged.active = true
-			for mod in mod_slots.initial_mods:
-				mod.state = ModBase.State.PERMANENT
 
 		[_, State.DESTROYED]:
 			#TODO: implement loot drops
