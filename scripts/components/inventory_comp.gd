@@ -25,7 +25,6 @@ var _scraps: int:
 		_scraps = value
 		scraps_changed.emit(prev_value, _scraps)
 
-@onready var player := get_parent().get_parent() as Player
 
 func _ready() -> void:
 	for mod in initial_mods:
