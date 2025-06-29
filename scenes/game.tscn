@@ -21,7 +21,7 @@
 [ext_resource type="Theme" uid="uid://c8t8fqq1p8n4l" path="res://resources/custom_ui.tres" id="12_ssvqc"]
 [ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/mods/effect.gd" id="12_wljb1"]
 [ext_resource type="Resource" uid="uid://dwfvxifo18je3" path="res://resources/upgrade_mods/enlargement_upgrade.tres" id="13_458eo"]
-[ext_resource type="Resource" uid="uid://cjgi5gpx4duko" path="res://resources/effect_mods/base_slowdown.tres" id="13_sgl2t"]
+[ext_resource type="Resource" uid="uid://ytf5ejqaa4c7" path="res://resources/effect_mods/base_slowdown.tres" id="13_sgl2t"]
 [ext_resource type="Texture2D" uid="uid://bx6kp8j87xcrc" path="res://resources/text_icons/health_minus_impact_icon.tres" id="13_v2yb1"]
 [ext_resource type="Theme" uid="uid://d0hhc2538lbdn" path="res://resources/debug_ui.tres" id="14_264po"]
 [ext_resource type="Script" uid="uid://d0hynie2odmvm" path="res://scripts/game_scene/ui/pause_menu.gd" id="14_bt5mj"]

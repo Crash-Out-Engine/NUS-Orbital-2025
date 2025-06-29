@@ -8,3 +8,4 @@ _property_type = "HealthProp"
 _interval = -1.0
 _repeat = 0
 _factor = -8.0
+metadata/_custom_type_script = "uid://2fh28xow6f1j"
