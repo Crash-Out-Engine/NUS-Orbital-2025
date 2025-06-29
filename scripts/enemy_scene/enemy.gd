@@ -47,7 +47,7 @@ func die():
 	for i in range(2, modslot_comp.get_mods().size()):
 		if rng.randf() < 0.25: #HACK: to implement proper loot drop chances
 			var mod = _LOOT_SCENE.instantiate()
-			mod.setup_mod_loots(modslot_comp.get_mods()[i])
+			mod.setup_mod_loot(modslot_comp.get_mods()[i])
 			mod.global_position = global_position
 			entity_spawned.emit(mod)
 

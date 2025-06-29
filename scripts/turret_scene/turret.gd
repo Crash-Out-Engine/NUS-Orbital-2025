@@ -99,7 +99,7 @@ func disassemble():
 	_state = State.DESTROYED
 	for mod in mod_slots.get_mods():
 		var loot = _LOOT_SCENE.instantiate()
-		loot.setup_mod_loots(mod)
+		loot.setup_mod_loot(mod)
 		loot.global_position = global_position
 		entity_spawned.emit(loot)
 	var levels = mod_slots._capacity - mod_slots.initial_capacity
