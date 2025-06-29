@@ -1,8 +1,12 @@
+class_name InventoryUI
 extends Control
+
+signal closed()
 
 const ITEM_CONTAINER = preload("res://scenes/item_container.tscn")
 const BLUEPRINT_CONTAINER = preload("res://scenes/blueprint_container.tscn")
 const SCRAP_EMOJI = "res://resources/text_icons/scrap_icon.tres"
+const INFO_ICON = "res://resources/text_icons/info.tres"
 
 @export var unlocked_mods: Array[ModBase]
 
@@ -11,6 +15,8 @@ var crafting_output: ModBase = null
 var checking_blueprints: bool = false
 var selected_blueprint: ModBase = null
 var scrap_diff: int
+var analysis_shown: bool = false
+var dragged_item: ModBase = null
 var inventory_comp: InventoryComp
 var modslot_comp: ModSlotComp
 var crafting_inputs: Array[ModBase] = []
@@ -20,8 +26,8 @@ var _crafting_components: Dictionary[PropertyPoint, int]
 	$Margin/PanelContainer/HBox/LeftVBox/ScrapCounter/HBox/Label as Label)
 @onready var mod_slot_size_label := (
 	$Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox/HBox/ModSlotLabel as Label)
-@onready var target_display := (
-	$Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox/Sprite2DRect as Sprite2DRect)
+@onready var target_display_anim := %TargetDisplayAnimation as AnimatedSprite2D
+@onready var target_display_label := %TargetDisplayLabel as RichTextLabel
 @onready var disassemble_button := (
 	$Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox/DisassembleButton as Button)
 @onready var upgrade_button := (
@@ -57,8 +63,6 @@ var _crafting_components: Dictionary[PropertyPoint, int]
 @onready var craft_button = $Margin/PanelContainer/HBox/RightVBox/CraftButton as Button
 @onready var search_bar := (
 	$Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox/SearchBar as LineEdit)
-@onready var analysis := $Analysis as Container
-@onready var analysis_label := $Analysis/PanelContainer/Label as Label
 @onready var can_affect_filter := %CanAffectFilter as DropdownCheckboxesContainer
 @onready var component_filter := %ComponentFilter as DropdownCheckboxesContainer
 @onready var particles := (
@@ -81,22 +85,29 @@ func setup(game: Game, player: Player) -> void:
 	game.game_over.connect(func(_message): _close_inventory())
 
 
-func open():
+## Opens the inventory UI.
+## [br]
+## Returns an [signal InventoryUI.closed] signal that emits when the inventory
+## UI is closed.
+func open() -> Signal:
 	visible = true
 	opening_setup()
+	for connection: Dictionary in closed.get_connections():
+		connection.signal.disconnect(connection.callable)
+	return closed
 
 
 func defocus_element():
-	if analysis.visible:
-		analysis.visible = false
-	else:
-		_close_inventory()
+	_close_inventory()
 
 
 func is_open() -> bool:
 	return visible
 
 func opening_setup():
+	analysis_shown = false
+	update_analysis()
+
 	inventory_comp.access_entity()
 	inventory_comp.slots_updated.connect(update_modslots_counter)
 
@@ -107,7 +118,10 @@ func opening_setup():
 	modslot_comp = inventory_comp.get_slots_comp()
 	update_modslotcomp_list()
 
-	target_display.frame = 1 if inventory_comp.is_entity_turret() else 0
+	if inventory_comp.is_entity_turret():
+		target_display_anim.play("turret")
+	else:
+		target_display_anim.play("player")
 	disassemble_button.visible = inventory_comp.is_entity_turret()
 
 	checking_blueprints = false
@@ -122,7 +136,8 @@ func _close_inventory():
 	if not is_open():
 		return
 
-	analysis.visible = false
+	if dragged_item != null:
+		inventory_comp._add_mod(dragged_item)
 	visible = false
 	if crafting_inputs.size() > 0:
 		for i in crafting_inputs:
@@ -132,6 +147,7 @@ func _close_inventory():
 	component_filter.close_dropdown()
 	inventory_comp.slots_updated.disconnect(update_modslots_counter)
 	inventory_comp.unaccess_entity()
+	closed.emit()
 
 func update_scrap_counter(scrap: int) -> void:
 	scrap_counter_label.text = str(scrap)
@@ -355,11 +371,22 @@ func set_margins(container: MarginContainer, left: int, top: int, right: int, bo
 	container.add_theme_constant_override("margin_right", right)
 	container.add_theme_constant_override("margin_bottom", bottom)
 
+
 func _on_more_info_button_pressed() -> void:
-	analysis_label.text = "Analysis of %s" % (
-			"Turret"if inventory_comp.is_entity_turret() else "Player")
-	#TODO: implement analysis texts
-	analysis.visible = true
+	analysis_shown = !analysis_shown
+	update_analysis()
+
+func update_analysis():
+	if !analysis_shown:
+		target_display_label.text = (
+			"[color=#46cd6d]Press [img=24]%s[/img] for analysis[/color]" % INFO_ICON)
+		target_display_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		target_display_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	else:
+		target_display_label.text = (
+			"[color=#46cd6d]%s[/color]" % inventory_comp._entity.get_analysis())
+		target_display_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+		target_display_label.vertical_alignment = VERTICAL_ALIGNMENT_TOP
 
 func _on_disassemble_button_pressed() -> void:
 	inventory_comp.disassemble_turret()
@@ -367,6 +394,7 @@ func _on_disassemble_button_pressed() -> void:
 
 func add_dragged_item(item: DraggedItem, state: ItemContainer.State):
 	add_child(item)
+	dragged_item = item.mod
 	item.dropped.connect(insert_item)
 	match (state):
 		ItemContainer.State.MODCOMP:
@@ -378,8 +406,11 @@ func add_dragged_item(item: DraggedItem, state: ItemContainer.State):
 		ItemContainer.State.CRAFTING:
 			crafting_inputs.erase(item.mod)
 			update_crafting()
+	if analysis_shown:
+		update_analysis()
 
 func insert_item(mod: ModBase, destination: ItemContainer.State):
+	dragged_item = null
 	match (destination):
 		ItemContainer.State.MODCOMP:
 			if modslot_comp.add_mod(mod):
@@ -399,6 +430,8 @@ func insert_item(mod: ModBase, destination: ItemContainer.State):
 			audio.play_place_item()
 			crafting_inputs.append(mod)
 			update_crafting()
+
+	update_analysis()
 
 
 func _on_upgrade_button_pressed() -> void:
@@ -425,10 +458,6 @@ func _on_craft_button_pressed() -> void:
 	blueprint_selected(null)
 	particles.emitting = true
 	audio.play_success()
-
-
-func _on_exit_button_pressed() -> void:
-	analysis.visible = false
 
 
 func _on_search_bar_text_changed(_new_text: String) -> void:

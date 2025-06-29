@@ -17,23 +17,25 @@ func _physics_process(_delta: float) -> void:
 		return
 
 	var motion_tracker := target.get_node(^"MotionTracker") as MotionTracker
+	var bullet: Bullet = _BULLET_SCENE.instantiate()
+	bullet.effects.assign(effects)
+	bullet.assign_mods(mods)
+	bullet.target_filter = target_filter
+	bullet_spawned.emit(bullet)
+	await bullet.ready
 	var predicted_position = _predict_position(motion_tracker.position,
-			motion_tracker.velocity, Bullet.SPEED)
+			motion_tracker.velocity, bullet.get_speed())
 	if is_nan(predicted_position.x) or is_nan(predicted_position.y):
+		bullet.queue_free()
 		return # Formula failed for whatever reason.
 
 	# Ranged now has a valid target and can fire.
 	look_at(predicted_position)
 
-	var bullet: Bullet = _BULLET_SCENE.instantiate()
-	bullet.effects.assign(effects)
-	bullet.assign_mods(mods)
-	bullet.target_filter = target_filter
 	bullet.global_position = barrel.global_position
 	bullet.direction = barrel.global_position.angle_to_point(predicted_position)
 
 	ranged_cooldown.do_ranged()
-	bullet_spawned.emit(bullet)
 
 
 func _predict_position(target_pos: Vector2, target_vel: Vector2, bullet_speed: float) -> Vector2:

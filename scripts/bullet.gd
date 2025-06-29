@@ -4,12 +4,12 @@ extends Area2D
 signal entity_spawned(entity: Node2D)
 
 const _EXPLOSION_SCENE = preload("res://scenes/explosion.tscn")
-const SPEED = 800
 
 @export_group("Properties")
 @export var repeat_prop: RepeatProp
 @export var size_prop: SizeProp
 @export var copy_prop: CopyProp
+@export var speed_prop: SpeedProp
 @export var spread_prop: SpreadProp
 @export var timeout_prop: TimeoutProp
 
@@ -28,9 +28,12 @@ func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority():
 		return
 
-	global_position += Vector2.from_angle(direction) * SPEED * delta
+	global_position += Vector2.from_angle(direction) * speed_prop.value * delta
 	global_rotation = direction
 
+
+func get_speed() -> float:
+	return speed_prop.value
 
 func _on_body_entered(body: Node2D) -> void:
 	if not is_multiplayer_authority():

@@ -75,4 +75,3 @@ class ModItem:
 		return new(ModBase.from_saved(dict.mod))
 
 	#endregionmod: ModBase) -> void:
-

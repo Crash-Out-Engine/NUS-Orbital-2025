@@ -15,7 +15,7 @@
 [ext_resource type="Script" uid="uid://leayhs5xslyy" path="res://scripts/properties/repeat_prop.gd" id="11_6e8lb"]
 [ext_resource type="AudioStream" uid="uid://dc66si5kieoq4" path="res://assets/audio/sound_effects/laser_gunshot.wav" id="12_3v2ag"]
 [ext_resource type="Script" uid="uid://bvhh7lwu4sovf" path="res://scripts/properties/knockback_prop.gd" id="12_sc3ue"]
-[ext_resource type="Script" uid="uid://cg7x3m1w75avm" path="res://scripts/properties/knockback_resistance_prop.gd" id="13_8svfe"]
+[ext_resource type="Script" path="res://scripts/properties/knockback_resistance_prop.gd" id="13_8svfe"]
 [ext_resource type="Script" uid="uid://dng6x4ecq2npd" path="res://scripts/player_scene/audio.gd" id="13_a8ls1"]
 [ext_resource type="AudioStream" uid="uid://dk7lmxukxhhcr" path="res://assets/audio/sound_effects/error.wav" id="13_f1ej7"]
 [ext_resource type="AudioStream" uid="uid://ciu1er752oye4" path="res://assets/audio/sound_effects/sand_steps.wav" id="13_jej6c"]
@@ -31,7 +31,7 @@
 [ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/mods/effect.gd" id="19_a38lo"]
 [ext_resource type="Script" uid="uid://155skx5u4uks" path="res://scripts/components/loot_collector_comp.gd" id="19_wqfne"]
 [ext_resource type="Script" uid="uid://j8sk0rxpd865" path="res://scripts/components/inventory_comp.gd" id="20_wnwbv"]
-[ext_resource type="Resource" uid="uid://cjgi5gpx4duko" path="res://resources/effect_mods/base_slowdown.tres" id="21_487ah"]
+[ext_resource type="Resource" uid="uid://ytf5ejqaa4c7" path="res://resources/effect_mods/base_slowdown.tres" id="21_487ah"]
 [ext_resource type="Script" uid="uid://ueqkmve06wfj" path="res://scripts/components/mod_targeting_comp.gd" id="21_gl8cc"]
 [ext_resource type="Resource" uid="uid://c3s1g4ybomxx6" path="res://resources/upgrade_mods/base_health_capacity_upgrade.tres" id="21_md1ol"]
 [ext_resource type="Texture2D" uid="uid://qffoquvsdmfp" path="res://assets/sprites/playerhand_spritesheet.png" id="22_pf23h"]
@@ -503,7 +503,7 @@ animations = [{
 "speed": 15.0
 }]
 
-[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("health", "health_capacity", "melee_cooldown", "size_prop", "lives", "ranged", "melee_attack", "melee_repair", "inventory", "blueprints") groups=["allies"]]
+[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("health", "health_capacity", "melee_cooldown", "size_prop", "lives", "ranged", "melee_attack", "melee_repair", "inventory", "mod_slots", "blueprints") groups=["allies"]]
 z_index = 1
 collision_layer = 3
 collision_mask = 3
@@ -518,6 +518,7 @@ ranged = NodePath("Components/RangedComp")
 melee_attack = NodePath("Components/MeleeComp")
 melee_repair = NodePath("Components/RepairComp")
 inventory = NodePath("Components/InventoryComp")
+mod_slots = NodePath("Components/ModSlotComp")
 blueprints = NodePath("Components/BlueprintComp")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
@@ -587,7 +588,7 @@ movement = NodePath("../MovementComp")
 
 [node name="ModSlotComp" type="Node" parent="Components" node_paths=PackedStringArray("entity", "attack_comp")]
 script = ExtResource("16_ke2ow")
-_capacity = 7
+initial_capacity = 4
 initial_mods = Array[ExtResource("10_md1ol")]([ExtResource("18_31cv2")])
 entity = NodePath("../..")
 attack_comp = NodePath("../RangedComp")
@@ -651,7 +652,6 @@ shape = SubResource("CircleShape2D_wqfne")
 
 [node name="InventoryComp" type="Node" parent="Components" node_paths=PackedStringArray("mod_targeting_comp", "blueprint_comp")]
 script = ExtResource("20_wnwbv")
-initial_mods = Array[ExtResource("10_md1ol")]([ExtResource("18_31cv2"), ExtResource("18_31cv2"), ExtResource("21_487ah"), ExtResource("21_487ah"), ExtResource("21_md1ol"), ExtResource("23_jc3p3"), ExtResource("23_jc3p3"), ExtResource("23_jc3p3"), ExtResource("23_jc3p3"), ExtResource("25_j2b1d"), ExtResource("26_cs1tg"), ExtResource("27_cs1tg"), ExtResource("27_cs1tg"), ExtResource("30_fdfoy"), ExtResource("31_hhpqf"), ExtResource("31_hhpqf"), ExtResource("31_hhpqf"), ExtResource("32_g5jhy"), ExtResource("32_g5jhy"), ExtResource("32_g5jhy"), ExtResource("33_holxr"), ExtResource("34_mx1m4"), ExtResource("34_mx1m4"), ExtResource("34_mx1m4"), ExtResource("34_mx1m4"), ExtResource("35_4gjji"), ExtResource("36_u2ulf"), ExtResource("38_2gdjj"), ExtResource("41_ha2mi"), ExtResource("41_ha2mi"), ExtResource("41_ha2mi"), ExtResource("41_ha2mi"), ExtResource("41_ha2mi"), ExtResource("41_ha2mi"), ExtResource("42_apa73"), ExtResource("42_apa73"), ExtResource("42_apa73"), ExtResource("42_apa73"), ExtResource("42_apa73"), ExtResource("43_74r1k"), ExtResource("43_74r1k"), ExtResource("43_74r1k"), ExtResource("45_2a3c5"), ExtResource("45_2a3c5")])
 initial_scraps = 60
 mod_targeting_comp = NodePath("../ModTargetingComp")
 blueprint_comp = NodePath("../BlueprintComp")
@@ -659,7 +659,7 @@ metadata/_custom_type_script = "uid://j8sk0rxpd865"
 
 [node name="BlueprintComp" type="Node" parent="Components"]
 script = ExtResource("23_bj30b")
-unlocked_mods = Array[ExtResource("10_md1ol")]([null, ExtResource("18_31cv2"), ExtResource("21_487ah"), ExtResource("21_md1ol")])
+unlocked_mods = Array[ExtResource("10_md1ol")]([null, ExtResource("18_31cv2"), ExtResource("45_2a3c5"), ExtResource("43_74r1k"), ExtResource("21_md1ol"), ExtResource("23_jc3p3"), ExtResource("25_j2b1d"), ExtResource("26_cs1tg"), ExtResource("21_487ah"), ExtResource("42_apa73"), ExtResource("41_ha2mi"), ExtResource("30_fdfoy"), ExtResource("33_holxr"), ExtResource("34_mx1m4"), ExtResource("32_g5jhy"), ExtResource("31_hhpqf"), ExtResource("27_cs1tg"), ExtResource("35_4gjji"), ExtResource("36_u2ulf"), ExtResource("38_2gdjj")])
 
 [node name="ModTargetingComp" type="Area2D" parent="Components"]
 script = ExtResource("21_gl8cc")

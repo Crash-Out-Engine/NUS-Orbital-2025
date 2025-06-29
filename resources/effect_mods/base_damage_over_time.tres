@@ -1,15 +1,21 @@
 [gd_resource type="Resource" script_class="EffectMod" load_steps=7 format=3 uid="uid://dy1qmsvcg7ae8"]
 
-[ext_resource type="Script" path="res://scripts/mods/effect.gd" id="1_y0bkt"]
-[ext_resource type="Resource" uid="uid://dtogyr1espqpy" path="res://resources/effects/damage.tres" id="2_vdxq8"]
+[ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/mods/effect.gd" id="1_y0bkt"]
 [ext_resource type="Texture2D" uid="uid://chv5luwpro7qm" path="res://resources/text_icons/enemy_bleed.tres" id="3_y0bkt"]
 [ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="4_g3wxu"]
 [ext_resource type="Resource" uid="uid://dvmlfcbqqrwyt" path="res://resources/property_points/health_pp.tres" id="5_c2ukd"]
 [ext_resource type="Script" uid="uid://qxcwl20lyaga" path="res://scripts/mods/effect_mod.gd" id="6_q3ot3"]
 
+[sub_resource type="Resource" id="Resource_4dn0p"]
+script = ExtResource("1_y0bkt")
+_property_type = "HealthProp"
+_interval = 0.8
+_repeat = 8
+_factor = -2.0
+
 [resource]
 script = ExtResource("6_q3ot3")
-effects = Array[ExtResource("1_y0bkt")]([ExtResource("2_vdxq8")])
+effects = Array[ExtResource("1_y0bkt")]([SubResource("Resource_4dn0p")])
 name = "Bleed"
 icon = ExtResource("3_y0bkt")
 description = "Causes target to bleed for some time"

@@ -38,6 +38,7 @@ var _state: State:
 			state_changed.emit(prev_value, value)
 			_handle_state_changed(prev_value, value)
 
+@onready var start_time := Time.get_ticks_msec() as int
 @onready var target_provider := load("res://resources/target_provider.tres") as TargetProvider
 @onready var entity_manager := $EntityManager as EntityManager
 @onready var power_manager := $PowerManager as PowerManager
@@ -63,8 +64,6 @@ func _unhandled_key_input(event: InputEvent) -> void:
 					pause_game()
 				else:
 					$UI/InventoryUI.defocus_element()
-					if not $UI/InventoryUI.is_open() and _local_player.state == Player.State.INVENTORY:
-						_local_player.state = Player.State.PLAYING
 
 			if event.is_action_pressed("debug"): # Debug action should be propagated to DebugVisualsBase.
 				$UI/DebugPanel.toggle_debug()
@@ -73,11 +72,13 @@ func _unhandled_key_input(event: InputEvent) -> void:
 				get_viewport().set_input_as_handled()
 				if not $UI/InventoryUI.is_open() and _local_player.state == Player.State.PLAYING:
 					_local_player.state = Player.State.INVENTORY
-					$UI/InventoryUI.open()
+					$UI/InventoryUI.open().connect(
+							func():
+								if _local_player.state == Player.State.INVENTORY:
+									_local_player.state = Player.State.PLAYING
+					, ConnectFlags.CONNECT_ONE_SHOT)
 				else:
 					$UI/InventoryUI.defocus_element()
-					if not $UI/InventoryUI.is_open() and  _local_player.state == Player.State.INVENTORY:
-						_local_player.state = Player.State.PLAYING
 
 		State.PAUSED:
 			if event.is_action_pressed("esc"):
@@ -184,8 +185,15 @@ func restart_game() -> void:
 
 func end_game(message: String) -> void:
 	_state = State.GAME_OVER
-	game_over.emit(message)
-	_sync_game_over.rpc(message)
+	var seconds = (Time.get_ticks_msec() - start_time) / 1000 as int
+	var minutes = floor(seconds / 60)
+	seconds -= minutes * 60
+	var time_message = "" as String
+	if minutes > 0:
+		time_message = "\nYou lasted %d minutes %d seconds" % [minutes, seconds]
+	else:
+		time_message = "\nYou lasted %d seconds" % seconds
+	_synced_game_over.rpc(message + time_message)
 
 
 func exit_game(to: ExitScene = ExitScene.NONE) -> void:
@@ -246,8 +254,8 @@ func _sync_state(state: State, message: String = "") -> void:
 		game_over.emit(message)
 
 
-@rpc("any_peer", "call_remote", "reliable")
-func _sync_game_over(message: String) -> void:
+@rpc("any_peer", "call_local", "reliable")
+func _synced_game_over(message: String) -> void:
 	game_over.emit(message)
 
 #endregion

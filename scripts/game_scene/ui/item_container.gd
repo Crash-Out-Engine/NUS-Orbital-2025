@@ -73,6 +73,7 @@ func get_description():
 		paragraph += "%s×%d" % [pp.get_icon(), mod.property_points[pp]]
 	paragraph += (
 		"\nScrap value:%d[img={24}]res://resources/text_icons/scrap_icon.tres[/img]" % mod.value)
+
 	return paragraph
 
 

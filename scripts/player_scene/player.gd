@@ -29,6 +29,7 @@ const _TURRET_SCENE := preload("res://scenes/turret.tscn")
 @export var melee_attack: MeleeComp
 @export var melee_repair: MeleeComp
 @export var inventory: InventoryComp
+@export var mod_slots: ModSlotComp
 @export var blueprints: BlueprintComp
 
 var state: State = State.PLAYING:
@@ -42,6 +43,7 @@ var hand: Hand = Hand.new()
 var current_turret = null
 var turret_cost = 25
 var _melee_active: bool = false # HACK: Prefer not to use this variable.
+var _ranged_active: bool = false
 
 @onready var visuals := $Visuals as PlayerVisuals
 
@@ -75,6 +77,9 @@ func _physics_process(_delta: float) -> void:
 	if (!_melee_active and hand.action == HA.HOLDING_WRENCH):
 		hand.action = HA.HOLDING_GUN
 
+	if _ranged_active and hand.action == HA.HOLDING_GUN:
+		hand.action = HA.FIRING_GUN
+
 	hand.rotation = get_local_mouse_position().angle()
 
 	if current_turret != null:
@@ -89,9 +94,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	if (event.is_action_pressed("add turret")
 			and hand.action in [HA.HOLDING_GUN, HA.FIRING_GUN, HA.HOLDING_WRENCH]):
 		hand.action = HA.PLANNING_WRENCH
-	if (event.is_action_pressed("shoot")
-			and hand.action == HA.HOLDING_GUN):
-		hand.action = HA.FIRING_GUN
+	if event.is_action_pressed("shoot"):
+		_ranged_active = true
+	if event.is_action_released("shoot"):
+		_ranged_active = false
 
 	if event.is_action_pressed("melee"):
 		_melee_active = true
@@ -104,6 +110,26 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 # region forwarding
+
+func get_analysis() -> String:
+	var analysis = "Health:%d/%d\nFire interval:%0.2fs\n" % [
+			$Properties/HealthProp.value,
+			$Properties/HealthCapacityProp.value,
+			$Properties/RangedCooldownProp.value]
+	if $Properties/CopyProp.value > 1:
+		analysis += "Bullets/Shot:%d\nSpread:%d deg\n" % [
+			$Properties/CopyProp.value,
+			$Properties/SpreadProp.value]
+	analysis += "Melee interval:%0.2fs\nSpeed:%d" % [
+			$Properties/MeleeCooldownProp.value,
+			$Properties/SpeedProp.value]
+	if $Properties/KnockbackResistanceProp.value != 1:
+		analysis += "\nKnockback resistance:%d" % $Properties/KnockbackResistanceProp.value
+	if $Properties/SizeProp.value != 1:
+		analysis += "\nSize:%0.2f" % $Properties/SizeProp.value
+	if $Properties/RepeatProp.value > 1:
+		analysis += "\nLives:%d" % $Properties/RepeatProp.value
+	return analysis
 
 func get_health() -> float:
 	return health.value

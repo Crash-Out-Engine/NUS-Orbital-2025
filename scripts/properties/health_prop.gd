@@ -13,6 +13,7 @@ func _ready() -> void:
 		assert(0 <= _initial_health and _initial_health <= _health_capacity_prop._initial_health_capacity,
 				"Initial _initial_health value should be between 0 and initial _initial_health capacity")
 		max_value = _health_capacity_prop._initial_health_capacity
+		min_value = 0.0
 		_health_capacity_prop.changed.connect(func(_from, to): max_value = to)
 	value = _initial_health
 	changed.connect(_check_empty)

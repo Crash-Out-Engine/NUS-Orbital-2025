@@ -97,10 +97,16 @@ func advance_state() -> void:
 
 func disassemble():
 	_state = State.DESTROYED
-	var loot = _LOOT_SCENE.instantiate() # HACK: implement proper disassemble drops
-	loot.setup_scrap_loot(20)
-	loot.global_position = global_position
-	entity_spawned.emit(loot)
+	for mod in mod_slots.get_mods():
+		var loot = _LOOT_SCENE.instantiate()
+		loot.setup_mod_loot(mod)
+		loot.global_position = global_position
+		entity_spawned.emit(loot)
+	var levels = mod_slots._capacity - mod_slots.initial_capacity
+	var scraps = _LOOT_SCENE.instantiate()
+	scraps.setup_scrap_loot((levels + 1) * levels * mod_slots.upgrade_cost * 0.4)
+	scraps.global_position = global_position
+	entity_spawned.emit(scraps)
 
 
 func _handle_state_changed(from: State, to: State):
@@ -170,6 +176,16 @@ func _check_repair(entity: Node2D, effects: Array[Effect]) -> void:
 func _can_place(player: Player) -> bool:
 	return (!_is_overlapping() and player.turret_cost <= player.get_scraps())
 
+func get_analysis() -> String:
+	var analysis = "Health:%d/%d\nFire interval:%0.2fs\n" % [
+			$Properties/HealthProp.value,
+			$Properties/HealthCapacityProp.value,
+			$Properties/RangedCooldownProp.value]
+	if $Properties/CopyProp.value > 1:
+		analysis += "Bullets/Shot:%d\nSpread:%d deg\n" % [
+			$Properties/CopyProp.value,
+			$Properties/SpreadProp.value]
+	return analysis
 
 #region Sync
 

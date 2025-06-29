@@ -3,6 +3,5 @@
 [ext_resource type="Texture2D" uid="uid://uoi1itlf4aec" path="res://assets/sprites/property_icons_spritesheet.png" id="1_sbq60"]
 
 [resource]
-resource_local_to_scene = true
 atlas = ExtResource("1_sbq60")
 region = Rect2(0, 0, 18, 18)

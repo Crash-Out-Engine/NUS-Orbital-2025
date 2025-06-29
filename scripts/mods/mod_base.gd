@@ -7,6 +7,7 @@ enum Type {
 	UPGRADE,
 }
 
+
 @export var name: String
 @export var icon: AtlasTexture
 @export var description: String

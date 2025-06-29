@@ -25,6 +25,18 @@ func _ready() -> void:
 				if is_multiplayer_authority():
 					_play_bleed_effect.rpc())
 
+	match enemy.type:
+		Enemy.Type.MELEE:
+			body_sprite.play("melee")
+		Enemy.Type.RANGED:
+			body_sprite.play("ranged")
+			body_sprite.frame = 4
+			enemy.entity_spawned.connect(
+				func(entity):
+					if is_multiplayer_authority() and entity is Bullet:
+						_play_fire_anim.rpc()
+			)
+
 
 func _process(delta: float) -> void:
 	if not is_multiplayer_authority():
@@ -52,3 +64,7 @@ func _play_die_effect():
 @rpc("any_peer", "call_local", "reliable")
 func _play_bleed_effect():
 	body_sprite.self_modulate.v = V_MODULATE
+
+@rpc("any_peer", "call_local", "reliable")
+func _play_fire_anim() -> void:
+	body_sprite.play("ranged")
