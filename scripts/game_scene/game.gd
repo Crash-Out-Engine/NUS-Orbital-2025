@@ -100,7 +100,7 @@ func _handle_state_changed(from: State, to: State) -> void:
 			power_manager.power_depleted.connect(func():
 					end_game("Power has run out")
 			)
-			_local_player.lives_depleted.connect(func(): end_game("You died"))
+			_local_player.lives_depleted.connect(func(): end_game("%s died" % _local_player.name))
 			_state = State.PLAYING
 			state_changed.connect(func(_from, _to): _sync_state.rpc(_to))
 		[State.INIT, State.PLAYING]:
@@ -137,7 +137,7 @@ func _setup(sequence: InitSequence) -> void:
 			$UI/HUDBars.setup(get_local_player(), power_manager)
 			$UI/HUDMap.setup(get_local_player(), entity_manager)
 			$UI/InventoryUI.setup(self, get_local_player())
-			$UI/DebugPanel.setup(get_local_player())
+			$UI/DebugPanel.setup(get_local_player(), entity_manager)
 			$UI/PauseMenu.setup(self)
 			$UI/GameOverPanel.setup(self)
 

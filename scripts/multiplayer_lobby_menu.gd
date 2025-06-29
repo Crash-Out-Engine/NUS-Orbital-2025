@@ -2,8 +2,8 @@ extends Control
 
 @export var _multiplayer_manager: MultiplayerManager
 
+var state
 var _waiting: bool = false
-var _hosting: bool = false
 
 @onready var _host_button := $Panel/MarginContainer/VBoxContainer/HBoxContainer/Host as Button
 @onready var _join_button := $Panel/MarginContainer/VBoxContainer/HBoxContainer/Join as Button
@@ -14,8 +14,16 @@ var _hosting: bool = false
 
 func _ready() -> void:
 	_reset()
-	multiplayer.peer_connected.connect(func(_id): update_status())
-	multiplayer.peer_disconnected.connect(func(_id): update_status())
+	_multiplayer_manager.player_joined.connect(update_status)
+	_multiplayer_manager.ready_players_changed.connect(update_status)
+	_multiplayer_manager.server_disconnected.connect(func():
+			_reset()
+			update_status("Host disconnected")
+	)
+	_multiplayer_manager.player_disconnected.connect(func():
+			update_status()
+	)
+	_multiplayer_manager.state_changed.connect(func(_from, _to): update_status())
 
 
 func _input(event: InputEvent) -> void:
@@ -31,26 +39,53 @@ func _on_texture_button_pressed() -> void:
 
 func _reset() -> void:
 	_waiting = false
-	_hosting = false
-	_enable_host_join()
-	_disable_start()
 	_address.text = "127.0.0.1"
-	_status_label.text = ""
+	update_status()
+	_multiplayer_manager.disconnect_multiplayer()
 
 
 func update_status(error_message: String = "") -> void:
-	if error_message.is_empty():
-		var status: String
-		if not _waiting:
-			status = "Hosting" if _hosting else "Joining"
-		else:
-			status = ("Waiting for start (%d/%d)"
-					% [_multiplayer_manager.ready_player_count, multiplayer.get_peers().size() + 1])
+	match _multiplayer_manager.state:
+		MultiplayerManager.State.DEFAULT:
+			_enable_host_join()
+			_disable_start()
+		MultiplayerManager.State.HOSTING:
+			_disable_host_join()
+			_enable_start()
+		MultiplayerManager.State.JOINING:
+			_disable_host_join()
+		MultiplayerManager.State.JOINED:
+			_enable_start()
+		MultiplayerManager.State.READY:
+			_disable_start()
 
-		_status_label.text = ("%s...\n%d player(s) here"
-				% [status, (multiplayer.get_peers().size() + 1)])
-	else:
-		_status_label.text = error_message
+	var front_text: String
+	match _multiplayer_manager.state:
+		MultiplayerManager.State.DEFAULT:
+			front_text = error_message
+		MultiplayerManager.State.HOSTING:
+			front_text = "Hosting"
+		MultiplayerManager.State.JOINING:
+			front_text = "Joining"
+		MultiplayerManager.State.JOINED:
+			front_text = "Joined"
+		MultiplayerManager.State.READY:
+			front_text = ("Waiting for start (%d/%d)"
+					% [_multiplayer_manager.get_ready_count(), _multiplayer_manager.get_player_count()])
+		MultiplayerManager.State.ALL_READY:
+			front_text = "Starting"
+			if is_multiplayer_authority():
+				_multiplayer_manager.start_game_for_all()
+
+	var back_text: String
+	match _multiplayer_manager.state:
+		MultiplayerManager.State.HOSTING,\
+		MultiplayerManager.State.JOINED,\
+		MultiplayerManager.State.READY,\
+		MultiplayerManager.State.ALL_READY:
+			back_text = ("%d player(s) here" % _multiplayer_manager.get_player_count())
+
+	_status_label.text = "%s\n%s" % [front_text, back_text]
 
 
 func _enable_host_join() -> void:
@@ -73,9 +108,6 @@ func _disable_start() -> void:
 
 func _on_host_pressed() -> void:
 	if _multiplayer_manager.set_host():
-		_hosting = true
-		_disable_host_join()
-		_enable_start()
 		update_status()
 	else:
 		update_status("Can't host, address in use")
@@ -83,8 +115,6 @@ func _on_host_pressed() -> void:
 
 func _on_join_pressed() -> void:
 	if _multiplayer_manager.set_client(_address.text):
-		_disable_host_join()
-		_enable_start()
 		update_status()
 	else:
 		update_status("Address is invalid")
@@ -94,7 +124,6 @@ func _on_start_pressed() -> void:
 	if _waiting == true:
 		return
 
-	_disable_start()
 	_waiting = true
-	_multiplayer_manager.player_ready(multiplayer.get_unique_id())
+	_multiplayer_manager.set_player_ready()
 	update_status()

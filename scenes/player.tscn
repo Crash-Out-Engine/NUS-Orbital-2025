@@ -533,11 +533,11 @@ shape = SubResource("CapsuleShape2D_g2els")
 
 [node name="HealthCapacityProp" type="Node" parent="Properties"]
 script = ExtResource("8_4ni07")
-_health_capacity = 50.0
+_initial_health_capacity = 50.0
 
 [node name="HealthProp" type="Node" parent="Properties" node_paths=PackedStringArray("_health_capacity_prop")]
 script = ExtResource("3_qhqgy")
-health = 50.0
+_initial_health = 50.0
 _health_capacity_prop = NodePath("../HealthCapacityProp")
 
 [node name="RangedCooldownProp" type="Node" parent="Properties"]

@@ -6,8 +6,8 @@ var item: Item:
 		item = value
 		_handle_set_item()
 
-@onready var base_sprite = $BaseSprite as Sprite2D
-@onready var overlay_sprite = $OverlaySprite as Sprite2D
+@onready var base_sprite := $BaseSprite as Sprite2D
+@onready var overlay_sprite := $OverlaySprite as Sprite2D
 
 
 func _ready() -> void:
