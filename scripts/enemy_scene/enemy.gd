@@ -30,7 +30,7 @@ func _ready() -> void:
 	health_prop.emptied.connect(die)
 
 func add_mod(mod: ModBase):
-	modslot_comp.initial_mods.append(mod)
+	modslot_comp.add_mod(mod)
 
 func die():
 	if not is_multiplayer_authority():

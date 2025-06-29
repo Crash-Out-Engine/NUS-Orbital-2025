@@ -15,6 +15,8 @@ signal slots_updated(size: int, capacity: int)
 @export var mod_targeting_comp: ModTargetingComp
 @export var blueprint_comp: BlueprintComp
 
+@onready var player := get_parent().get_parent() as Player
+
 var inventory_ui: Control
 var _entity: Node2D
 var _entity_slot: ModSlotComp

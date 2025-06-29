@@ -9,8 +9,8 @@ signal updated(size: int, capacity: int)
 @export var entity: Node
 @export var attack_comp: Node
 
+var upgrade_cost: int = 100
 var _capacity: int
-var upgrade_cost: int = 100 # TODO: implement upgrade cost scaling
 var _mods: Array[ModBase]
 var _readonly_mods: Array[ModBase]
 

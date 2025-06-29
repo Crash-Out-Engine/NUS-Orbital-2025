@@ -38,6 +38,7 @@ var _state: State:
 			state_changed.emit(prev_value, value)
 			_handle_state_changed(prev_value, value)
 
+@onready var start_time := Time.get_ticks_msec() as int
 @onready var target_provider := load("res://resources/target_provider.tres") as TargetProvider
 @onready var entity_manager := $EntityManager as EntityManager
 @onready var power_manager := $PowerManager as PowerManager
@@ -184,7 +185,15 @@ func restart_game() -> void:
 
 func end_game(message: String) -> void:
 	_state = State.GAME_OVER
-	game_over.emit(message)
+	var seconds = (Time.get_ticks_msec() - start_time) / 1000 as int
+	var minutes = floor(seconds / 60)
+	seconds -= minutes * 60
+	var time_message = "" as String
+	if minutes > 0:
+		time_message = "\nYou lasted %d minutes %d seconds" % [minutes, seconds]
+	else:
+		time_message = "\nYou lasted %d seconds" % seconds
+	game_over.emit(message + time_message)
 	_sync_game_over.rpc(message)
 
 

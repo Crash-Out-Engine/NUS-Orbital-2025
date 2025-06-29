@@ -32,10 +32,12 @@ func _handle_set_item() -> void:
 		Item.Type.SCRAP:
 			base_sprite.frame = 0
 			overlay_sprite.visible = false
+			scale = Vector2(1.0, 1.0)
 		Item.Type.MOD:
 			base_sprite.frame = 1
 			overlay_sprite.visible = true
 			overlay_sprite.texture = item.mod.icon
+			scale = Vector2(1.25, 1.25)
 
 
 func _on_tree_entered() -> void:

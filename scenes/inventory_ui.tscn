@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=3 uid="uid://bsk2hjudnw4rw"]
+[gd_scene load_steps=72 format=3 uid="uid://bsk2hjudnw4rw"]
 
 [ext_resource type="Script" uid="uid://dq5no236vfiso" path="res://scripts/game_scene/ui/inventory_ui.gd" id="1_tahbm"]
 [ext_resource type="Theme" uid="uid://cq6cs0mx200sg" path="res://resources/inventory_ui.tres" id="1_ylkvr"]
@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet.png" id="3_mdwe3"]
 [ext_resource type="Resource" uid="uid://dl56w1h7wf83j" path="res://resources/effect_mods/base_damage.tres" id="4_1dxi5"]
 [ext_resource type="Texture2D" uid="uid://cd6dttechhj5b" path="res://assets/sprites/inventorytargetanimations_spritesheet.png" id="4_iradw"]
-[ext_resource type="Resource" uid="uid://cjgi5gpx4duko" path="res://resources/effect_mods/base_increase_ranged_cooldown.tres" id="4_uwj4j"]
+[ext_resource type="Resource" uid="uid://di0bb7c5sxvpc" path="res://resources/effect_mods/base_increase_ranged_cooldown.tres" id="4_uwj4j"]
 [ext_resource type="Script" uid="uid://ckg514fwkuf4" path="res://scripts/game_scene/ui/item_drop_area.gd" id="6_2lmnb"]
 [ext_resource type="PackedScene" uid="uid://d4aipu4148p78" path="res://scenes/DropdownCheckboxesContainer.tscn" id="9_cwdri"]
 [ext_resource type="FontFile" uid="uid://bvdfbft27q66n" path="res://assets/fonts/zeldadxt.ttf" id="9_dqfnd"]
@@ -290,10 +290,6 @@ region = Rect2(1621, 114, 32, 32)
 atlas = ExtResource("3_mdwe3")
 region = Rect2(1587, 114, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1dxi5"]
-atlas = ExtResource("3_mdwe3")
-region = Rect2(1614, 90, 16, 16)
-
 [sub_resource type="Resource" id="Resource_rg5pf"]
 script = ExtResource("10_rg5pf")
 text = "Self"
@@ -559,19 +555,7 @@ alignment = 1
 layout_mode = 2
 theme_override_colors/font_color = Color(0.11, 0.11, 0.0528, 1)
 theme_override_font_sizes/font_size = 32
-text = "Disassemble(+100"
-
-[node name="TextureRect" type="TextureRect" parent="Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox/DisassembleButton/Margin/HBox"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_1dxi5")
-expand_mode = 3
-stretch_mode = 6
-
-[node name="ClosingBracket" type="Label" parent="Margin/PanelContainer/HBox/LeftVBox/TargetDisplay/VBox/DisassembleButton/Margin/HBox"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.105882, 0.105882, 0.0509804, 1)
-theme_override_font_sizes/font_size = 32
-text = ")"
+text = "Disassemble"
 
 [node name="ModSlotList" type="PanelContainer" parent="Margin/PanelContainer/HBox/LeftVBox"]
 layout_mode = 2

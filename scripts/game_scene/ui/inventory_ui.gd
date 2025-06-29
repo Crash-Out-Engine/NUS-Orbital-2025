@@ -12,12 +12,12 @@ var crafting_output: ModBase = null
 var checking_blueprints: bool = false
 var selected_blueprint: ModBase = null
 var scrap_diff: int
+var analysis_shown: bool = false
+var dragged_item: ModBase = null
 var inventory_comp: InventoryComp
 var modslot_comp: ModSlotComp
 var crafting_inputs: Array[ModBase] = []
 var _crafting_components: Dictionary[PropertyPoint, int]
-var analysis_shown: bool = false
-var dragged_item: ModBase = null
 
 @onready var scrap_counter_label := (
 	$Margin/PanelContainer/HBox/LeftVBox/ScrapCounter/HBox/Label as Label)
@@ -379,6 +379,7 @@ func update_analysis():
 
 func _on_disassemble_button_pressed() -> void:
 	inventory_comp.disassemble_turret()
+	inventory_comp.player.state = Player.State.PLAYING
 	_close_inventory()
 
 func add_dragged_item(item: DraggedItem, state: ItemContainer.State):

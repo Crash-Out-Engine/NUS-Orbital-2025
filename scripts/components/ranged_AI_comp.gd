@@ -34,7 +34,7 @@ func _physics_process(_delta: float) -> void:
 
 	bullet.global_position = barrel.global_position
 	bullet.direction = barrel.global_position.angle_to_point(predicted_position)
-	
+
 	ranged_cooldown.do_ranged()
 
 

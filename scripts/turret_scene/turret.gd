@@ -104,7 +104,7 @@ func disassemble():
 		entity_spawned.emit(loot)
 	var levels = mod_slots._capacity - mod_slots.initial_capacity
 	var scraps = _LOOT_SCENE.instantiate()
-	scraps.setup_mod_loots((levels + 1) * levels * mod_slots.upgrade_cost * 0.4)
+	scraps.setup_scrap_loot((levels + 1) * levels * mod_slots.upgrade_cost * 0.4)
 	scraps.global_position = global_position
 	entity_spawned.emit(scraps)
 

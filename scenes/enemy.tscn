@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://kcqha4xx46r7"]
+[gd_scene load_steps=64 format=3 uid="uid://kcqha4xx46r7"]
 
 [ext_resource type="Script" uid="uid://b2oqcghmenmfd" path="res://scripts/enemy_scene/enemy.gd" id="1_7p1mj"]
 [ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox_comp.gd" id="3_4ra3w"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/properties/target_priority_prop.gd" id="11_w8i8w"]
 [ext_resource type="Script" uid="uid://bvhh7lwu4sovf" path="res://scripts/properties/knockback_prop.gd" id="11_wrm80"]
 [ext_resource type="Script" path="res://scripts/properties/knockback_resistance_prop.gd" id="12_6awcb"]
+[ext_resource type="Script" uid="uid://b5m4xwnftefoj" path="res://scripts/properties/size_prop.gd" id="12_lioqc"]
 [ext_resource type="Script" uid="uid://b003j8v8bhc26" path="res://scripts/enemy_scene/visuals.gd" id="13_j0cyh"]
 [ext_resource type="Script" uid="uid://ci2gb64dwfmjh" path="res://scripts/properties/speed_prop.gd" id="13_wjec0"]
 [ext_resource type="Script" uid="uid://ceeipidvq5rqy" path="res://scripts/enemy_scene/audio.gd" id="14_g0wcc"]
@@ -271,12 +272,10 @@ shape = SubResource("CircleShape2D_8qclf")
 
 [node name="HealthCapacityProp" type="Node" parent="Properties"]
 script = ExtResource("4_ile5s")
-_health_capacity = 40.0
 metadata/_custom_type_script = "uid://cceowy0wh5ufb"
 
 [node name="HealthProp" type="Node" parent="Properties" node_paths=PackedStringArray("_health_capacity_prop")]
 script = ExtResource("4_5uy6h")
-health = 40.0
 _health_capacity_prop = NodePath("../HealthCapacityProp")
 
 [node name="MeleeCooldownProp" type="Node" parent="Properties"]
@@ -305,6 +304,10 @@ script = ExtResource("12_6awcb")
 [node name="SpeedProp" type="Node" parent="Properties"]
 script = ExtResource("13_wjec0")
 initial_speed = 100.0
+
+[node name="SizeProp" type="Node" parent="Properties"]
+script = ExtResource("12_lioqc")
+metadata/_custom_type_script = "uid://b5m4xwnftefoj"
 
 [node name="Components" type="Node2D" parent="."]
 
