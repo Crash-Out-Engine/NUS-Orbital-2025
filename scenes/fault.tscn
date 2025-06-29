@@ -483,13 +483,13 @@ priority = 10.0
 
 [node name="HealthProp" type="Node" parent="Properties" node_paths=PackedStringArray("_health_capacity_prop")]
 script = ExtResource("5_bergw")
-health = 0.001
+_initial_health = 0.001
 _health_capacity_prop = NodePath("../HealthCapacityProp")
 metadata/_custom_type_script = "uid://bg2iinlcp53aa"
 
 [node name="HealthCapacityProp" type="Node" parent="Properties"]
 script = ExtResource("6_srlrk")
-_health_capacity = 0.001
+_initial_health_capacity = 0.001
 metadata/_custom_type_script = "uid://cceowy0wh5ufb"
 
 [node name="Components" type="Node2D" parent="."]

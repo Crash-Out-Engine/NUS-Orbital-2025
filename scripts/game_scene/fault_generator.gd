@@ -67,14 +67,15 @@ func _clear_chunk(chunk_pos: Vector2i) -> void:
 func _save_chunk(chunk_pos: Vector2i) -> void:
 	if chunk_pos not in _chunk_faults:
 		assert(false, "%s" % chunk_pos)
-	var chunk_fault_data := _chunk_faults[chunk_pos].map(
-			func(fault: Fault) -> PackedByteArray: return fault.save_scene())
+	var chunk_fault_data := _chunk_faults[chunk_pos]\
+			.filter(func(fault): return fault != null)\
+			.map(func(fault: Fault) -> PackedByteArray: return fault.save_scene())
 	var byte_data := var_to_bytes(chunk_fault_data)
 	_chunk_data[chunk_pos] = byte_data
 
 
 func _free_chunk(chunk_pos: Vector2i) -> void:
-	for fault: Fault in _chunk_faults[chunk_pos]:
+	for fault: Fault in _chunk_faults[chunk_pos].filter(func(fault): return fault != null):
 		fault.get_parent().remove_entity(fault)
 	_chunk_faults.erase(chunk_pos)
 

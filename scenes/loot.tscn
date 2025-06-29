@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cqq2h867dq6v3"]
+[gd_scene load_steps=7 format=3 uid="uid://cqq2h867dq6v3"]
 
 [ext_resource type="Script" uid="uid://byjtyhf2tnuyx" path="res://scripts/loot.gd" id="1_xofgn"]
 [ext_resource type="Texture2D" uid="uid://b2tks1tuu2rsb" path="res://assets/sprites/loot_spritesheet.png" id="2_o0pg5"]
 [ext_resource type="Texture2D" uid="uid://bx6kp8j87xcrc" path="res://resources/text_icons/health_minus_impact_icon.tres" id="3_30m34"]
+[ext_resource type="Script" uid="uid://u5g8y25fayqm" path="res://scripts/properties/timeout_prop.gd" id="4_rtp8m"]
+[ext_resource type="Script" uid="uid://bf4nu35h1yc87" path="res://scripts/components/lifetime_comp.gd" id="5_vl55g"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5os5r"]
 radius = 5.0
@@ -25,5 +27,19 @@ frame = 1
 [node name="OverlaySprite" type="Sprite2D" parent="."]
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("3_30m34")
+
+[node name="Properties" type="Node" parent="."]
+
+[node name="TimeoutProp" type="Node" parent="Properties"]
+script = ExtResource("4_rtp8m")
+time = 20.0
+metadata/_custom_type_script = "uid://u5g8y25fayqm"
+
+[node name="Components" type="Node2D" parent="."]
+
+[node name="LifetimeComp" type="Timer" parent="Components" node_paths=PackedStringArray("timeout_prop")]
+script = ExtResource("5_vl55g")
+timeout_prop = NodePath("../../Properties/TimeoutProp")
+metadata/_custom_type_script = "uid://bf4nu35h1yc87"
 
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
