@@ -15,7 +15,7 @@ func _process(_delta: float) -> void:
 	global_position = get_global_mouse_position()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_released("shoot"):
+	if event.is_action_released("LMB"):
 		dropped.emit(mod, destination)
 		queue_free()
 		get_viewport().set_input_as_handled()
