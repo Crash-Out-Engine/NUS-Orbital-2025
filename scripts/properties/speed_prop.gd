@@ -7,3 +7,4 @@ extends PropertyBase
 
 func _ready() -> void:
 	value = initial_speed
+	min_value = 0.0

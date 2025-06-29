@@ -1,14 +1,13 @@
-[gd_resource type="Resource" script_class="UpgradeMod" load_steps=8 format=3 uid="uid://bw7rj0gh8sked"]
+[gd_resource type="Resource" script_class="UpgradeMod" load_steps=7 format=3 uid="uid://bw7rj0gh8sked"]
 
 [ext_resource type="Texture2D" uid="uid://b28j5po2g5mbo" path="res://resources/text_icons/explosion_plus.tres" id="1_5tkb2"]
 [ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="2_2in1p"]
 [ext_resource type="Resource" uid="uid://btlyda8bvnqes" path="res://resources/property_points/size_pp.tres" id="3_2in1p"]
 [ext_resource type="Script" uid="uid://d2qeqei6awjb1" path="res://scripts/mods/upgrade_mod.gd" id="4_xm0e8"]
 [ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="5_eaf7b"]
-[ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="6_sexk7"]
 
 [sub_resource type="Resource" id="Resource_xm0e8"]
-script = ExtResource("6_sexk7")
+script = ExtResource("5_eaf7b")
 _property_type = "SizeProp"
 _factor = 0.5
 _target = 2

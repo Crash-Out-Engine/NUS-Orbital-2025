@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://b52amtg2hmpm6"]
+[gd_scene load_steps=13 format=3 uid="uid://b52amtg2hmpm6"]
 
 [ext_resource type="Script" uid="uid://baxqvovb4qoty" path="res://scripts/bullet.gd" id="1_mkf8s"]
 [ext_resource type="Script" uid="uid://leayhs5xslyy" path="res://scripts/properties/repeat_prop.gd" id="2_y25gk"]
 [ext_resource type="Script" uid="uid://b5m4xwnftefoj" path="res://scripts/properties/size_prop.gd" id="3_l5glv"]
 [ext_resource type="Script" uid="uid://c7ygu18bbsb30" path="res://scripts/components/bullet_mods_comp.gd" id="4_eoqba"]
 [ext_resource type="Script" uid="uid://2x8lbjmqr7m7" path="res://scripts/properties/copy_prop.gd" id="4_tamys"]
+[ext_resource type="Script" uid="uid://ci2gb64dwfmjh" path="res://scripts/properties/speed_prop.gd" id="5_1cfmv"]
 [ext_resource type="Script" uid="uid://3wplgpaykhjn" path="res://scripts/properties/spread_prop.gd" id="5_26lx3"]
 [ext_resource type="Script" uid="uid://u5g8y25fayqm" path="res://scripts/properties/timeout_prop.gd" id="6_26lx3"]
 
@@ -27,11 +28,12 @@ colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 0.94902, 0.94902, 0.94902, 1)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_y25gk"]
 gradient = SubResource("Gradient_mkf8s")
 
-[node name="Bullet" type="Area2D" node_paths=PackedStringArray("repeat_prop", "size_prop", "copy_prop", "spread_prop", "timeout_prop", "bullet_mods_comp")]
+[node name="Bullet" type="Area2D" node_paths=PackedStringArray("repeat_prop", "size_prop", "copy_prop", "speed_prop", "spread_prop", "timeout_prop", "bullet_mods_comp")]
 script = ExtResource("1_mkf8s")
 repeat_prop = NodePath("Properties/RepeatProp")
 size_prop = NodePath("Properties/SizeProp")
 copy_prop = NodePath("Properties/CopyProp")
+speed_prop = NodePath("Properties/SpeedProp")
 spread_prop = NodePath("Properties/SpreadProp")
 timeout_prop = NodePath("Properties/TimeoutProp")
 bullet_mods_comp = NodePath("Components/BulletModsComp")
@@ -60,6 +62,11 @@ metadata/_custom_type_script = "uid://b5m4xwnftefoj"
 [node name="CopyProp" type="Node" parent="Properties"]
 script = ExtResource("4_tamys")
 metadata/_custom_type_script = "uid://2x8lbjmqr7m7"
+
+[node name="SpeedProp" type="Node" parent="Properties"]
+script = ExtResource("5_1cfmv")
+initial_speed = 800.0
+metadata/_custom_type_script = "uid://ci2gb64dwfmjh"
 
 [node name="SpreadProp" type="Node" parent="Properties"]
 script = ExtResource("5_26lx3")

@@ -4,16 +4,18 @@ extends Node
 
 signal updated(size: int, capacity: int)
 
-@export var _capacity: int
+@export var initial_capacity: int
 @export var initial_mods: Array[ModBase]
 @export var entity: Node
 @export var attack_comp: Node
 
-var upgrade_cost: int = 50 # TODO: implement upgrade cost scaling
+var _capacity: int
+var upgrade_cost: int = 100 # TODO: implement upgrade cost scaling
 var _mods: Array[ModBase]
 var _readonly_mods: Array[ModBase]
 
 func _ready() -> void:
+	_capacity = initial_capacity
 	assert(is_instance_valid(entity) and entity.has_node(^"Properties"),
 			"Entity should have a Properties child node.")
 	assert(is_instance_valid(attack_comp) and "effects" in attack_comp,
@@ -121,6 +123,7 @@ func _cleanup_mods() -> void:
 @rpc("any_peer", "call_local", "reliable")
 func _synced_increment_capacity() -> void:
 	_capacity += 1
+	upgrade_cost *= 2
 	updated.emit(_mods.size(), _capacity)
 
 

@@ -97,10 +97,16 @@ func advance_state() -> void:
 
 func disassemble():
 	_state = State.DESTROYED
-	var loot = _LOOT_SCENE.instantiate() # HACK: implement proper disassemble drops
-	loot.setup_scrap_loot(20)
-	loot.global_position = global_position
-	entity_spawned.emit(loot)
+	for mod in mod_slots.get_mods():
+		var loot = _LOOT_SCENE.instantiate()
+		loot.setup_mod_loots(mod)
+		loot.global_position = global_position
+		entity_spawned.emit(loot)
+	var levels = mod_slots._capacity - mod_slots.initial_capacity
+	var scraps = _LOOT_SCENE.instantiate()
+	scraps.setup_mod_loots((levels + 1) * levels * mod_slots.upgrade_cost * 0.4)
+	scraps.global_position = global_position
+	entity_spawned.emit(scraps)
 
 
 func _handle_state_changed(from: State, to: State):

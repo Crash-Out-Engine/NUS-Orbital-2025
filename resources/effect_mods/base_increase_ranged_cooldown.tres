@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="EffectMod" load_steps=7 format=3 uid="uid://cjgi5gpx4duko"]
+
+[ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/mods/effect.gd" id="1_7blga"]
+[ext_resource type="Script" uid="uid://qxcwl20lyaga" path="res://scripts/mods/effect_mod.gd" id="2_ii6ev"]
+[ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="3_74jen"]
+[ext_resource type="Texture2D" uid="uid://b2d6dikxrermq" path="res://resources/text_icons/bullet_cooldown_plus_hit.tres" id="3_w8rws"]
+[ext_resource type="Resource" uid="uid://biniuv5ug1m4x" path="res://resources/property_points/time_pp.tres" id="5_w8rws"]
+
+[sub_resource type="Resource" id="Resource_uli5v"]
+script = ExtResource("1_7blga")
+_property_type = "SpeedProp"
+_interval = 5.0
+_repeat = 0
+_factor = 0.5
+metadata/_custom_type_script = "uid://jmln2tigpxla"
+
+[resource]
+script = ExtResource("2_ii6ev")
+effects = Array[ExtResource("1_7blga")]([SubResource("Resource_uli5v")])
+name = "Target Firing Speed-"
+icon = ExtResource("3_w8rws")
+description = "Reduces firing speed of target"
+property_points = Dictionary[ExtResource("3_74jen"), int]({
+ExtResource("5_w8rws"): 1
+})
+value = 25
+metadata/_custom_type_script = "uid://qxcwl20lyaga"

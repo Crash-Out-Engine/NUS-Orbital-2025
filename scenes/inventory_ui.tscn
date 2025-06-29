@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=3 uid="uid://bsk2hjudnw4rw"]
+[gd_scene load_steps=73 format=3 uid="uid://bsk2hjudnw4rw"]
 
 [ext_resource type="Script" uid="uid://dq5no236vfiso" path="res://scripts/game_scene/ui/inventory_ui.gd" id="1_tahbm"]
 [ext_resource type="Theme" uid="uid://cq6cs0mx200sg" path="res://resources/inventory_ui.tres" id="1_ylkvr"]
@@ -6,14 +6,13 @@
 [ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet.png" id="3_mdwe3"]
 [ext_resource type="Resource" uid="uid://dl56w1h7wf83j" path="res://resources/effect_mods/base_damage.tres" id="4_1dxi5"]
 [ext_resource type="Texture2D" uid="uid://cd6dttechhj5b" path="res://assets/sprites/inventorytargetanimations_spritesheet.png" id="4_iradw"]
-[ext_resource type="Resource" uid="uid://cjgi5gpx4duko" path="res://resources/effect_mods/base_slowdown.tres" id="4_uwj4j"]
+[ext_resource type="Resource" uid="uid://cjgi5gpx4duko" path="res://resources/effect_mods/base_increase_ranged_cooldown.tres" id="4_uwj4j"]
 [ext_resource type="Script" uid="uid://ckg514fwkuf4" path="res://scripts/game_scene/ui/item_drop_area.gd" id="6_2lmnb"]
 [ext_resource type="PackedScene" uid="uid://d4aipu4148p78" path="res://scenes/DropdownCheckboxesContainer.tscn" id="9_cwdri"]
 [ext_resource type="FontFile" uid="uid://bvdfbft27q66n" path="res://assets/fonts/zeldadxt.ttf" id="9_dqfnd"]
 [ext_resource type="Script" uid="uid://cik3248uw0sp4" path="res://scripts/game_scene/ui/blueprints_button.gd" id="10_8wyaw"]
 [ext_resource type="Script" uid="uid://b8v8vds425m6f" path="res://scripts/game_scene/ui/selectable.gd" id="10_rg5pf"]
 [ext_resource type="FontFile" uid="uid://cj53anigafm5t" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="11_cwdri"]
-[ext_resource type="Texture2D" uid="uid://dycvchx23s4he" path="res://resources/text_icons/build_icon.tres" id="11_gqjem"]
 [ext_resource type="Texture2D" uid="uid://cqi7tq8gukrgt" path="res://resources/text_icons/copy_icon.tres" id="12_wt5d1"]
 [ext_resource type="Texture2D" uid="uid://gambl07kuk10" path="res://resources/text_icons/health_icon.tres" id="13_6tlqh"]
 [ext_resource type="Texture2D" uid="uid://birmdunsd7jma" path="res://resources/text_icons/health_capacity_icon.tres" id="14_43rgy"]
@@ -316,13 +315,6 @@ metadata/_custom_type_script = "uid://b8v8vds425m6f"
 [sub_resource type="Resource" id="Resource_rc4hi"]
 script = ExtResource("10_rg5pf")
 text = "Target"
-selected = false
-metadata/_custom_type_script = "uid://b8v8vds425m6f"
-
-[sub_resource type="Resource" id="Resource_7w6jp"]
-script = ExtResource("10_rg5pf")
-text = "Build"
-icon = ExtResource("11_gqjem")
 selected = false
 metadata/_custom_type_script = "uid://b8v8vds425m6f"
 
@@ -647,7 +639,7 @@ items = Array[ExtResource("10_rg5pf")]([SubResource("Resource_rg5pf"), SubResour
 unique_name_in_owner = true
 layout_mode = 2
 title = "Components"
-items = Array[ExtResource("10_rg5pf")]([SubResource("Resource_7w6jp"), SubResource("Resource_46rye"), SubResource("Resource_ynr1n"), SubResource("Resource_evjum"), SubResource("Resource_r80nu"), SubResource("Resource_uxw4w"), SubResource("Resource_r5ik5"), SubResource("Resource_crli6"), SubResource("Resource_fe5tn"), SubResource("Resource_pkf25")])
+items = Array[ExtResource("10_rg5pf")]([SubResource("Resource_46rye"), SubResource("Resource_ynr1n"), SubResource("Resource_evjum"), SubResource("Resource_r80nu"), SubResource("Resource_uxw4w"), SubResource("Resource_r5ik5"), SubResource("Resource_crli6"), SubResource("Resource_fe5tn"), SubResource("Resource_pkf25")])
 
 [node name="InventoryList" type="ScrollContainer" parent="Margin/PanelContainer/HBox/MidVBox/PanelContainer/VBox"]
 layout_mode = 2

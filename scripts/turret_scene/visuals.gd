@@ -125,4 +125,3 @@ func _play_idle_anim() -> void:
 func _play_fire_anim() -> void:
 	body_sprite.sprite_frames.set_animation_speed("fire", 4.0 / ranged_cooldown.value)
 	body_sprite.play("fire")
-

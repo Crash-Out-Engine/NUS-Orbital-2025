@@ -192,7 +192,7 @@ metadata/_custom_type_script = "uid://wwqkkrfhwiyn"
 
 [node name="ModSlotComp" type="Node" parent="Components" node_paths=PackedStringArray("entity", "attack_comp")]
 script = ExtResource("8_137wx")
-_capacity = 3
+initial_capacity = 3
 initial_mods = Array[ExtResource("9_d25s7")]([ExtResource("10_d25s7")])
 entity = NodePath("../..")
 attack_comp = NodePath("../RangedComp")
