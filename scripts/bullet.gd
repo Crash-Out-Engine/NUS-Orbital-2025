@@ -18,7 +18,7 @@ const _EXPLOSION_SCENE = preload("res://scenes/explosion.tscn")
 
 var direction: float
 var target_filter: TargetFilter
-var effects: Array[Effect] = []
+var attack: Attack
 
 
 func _ready() -> void:
@@ -48,7 +48,7 @@ func _on_body_entered(body: Node2D) -> void:
 			explosion.global_position = global_position + pos_offset.rotated(i * interval)
 			explosion.target_filter = target_filter
 			explosion.assign_mods(bullet_mods_comp.mods)
-			explosion.effects = effects
+			explosion.attack = attack
 
 			entity_spawned.emit(explosion)
 
@@ -66,7 +66,7 @@ func save_scene() -> PackedByteArray:
 	dict["position"] = position
 	dict["direction"] = direction
 	dict["target_filter"] = target_filter.save()
-	dict["effects"] = Effect.save_array(effects)
+	dict["attack"] = attack.save()
 	for property_node: PropertyBase in $Properties.get_children():
 		dict[property_node.name] = property_node.save()
 	return var_to_bytes(dict)
@@ -76,7 +76,7 @@ func load_saved_scene(data: PackedByteArray) -> void:
 	position = dict["position"]
 	direction = dict["direction"]
 	target_filter = TargetFilter.from_saved(dict["target_filter"])
-	effects = Effect.from_saved_array(dict["effects"])
+	attack = Attack.from_saved(dict["effects"])
 	for property_node: PropertyBase in $Properties.get_children():
 		property_node.load_saved(dict[property_node.name])
 

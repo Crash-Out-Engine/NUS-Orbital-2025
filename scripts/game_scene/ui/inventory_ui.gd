@@ -236,7 +236,7 @@ func mod_filter(mod: ModBase) -> bool:
 			match (mod.type):
 				ModBase.Type.UPGRADE:
 					for upgrade in mod.upgrades:
-						if !can_affect_filter.get_selected()[upgrade._target]: success = false
+						if !can_affect_filter.get_selected()[upgrade.get_target()]: success = false
 				ModBase.Type.EFFECT:
 					if !can_affect_filter.get_selected()[3]: success = false
 				ModBase.Type.BEHAVIOURAL:

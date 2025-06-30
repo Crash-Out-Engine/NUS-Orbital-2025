@@ -18,7 +18,7 @@ func _physics_process(_delta: float) -> void:
 
 	var motion_tracker := target.get_node(^"MotionTracker") as MotionTracker
 	var bullet: Bullet = _BULLET_SCENE.instantiate()
-	bullet.effects.assign(effects)
+	bullet.attack = Attack.from(_entity, effects)
 	bullet.assign_mods(mods)
 	bullet.target_filter = target_filter
 	bullet_spawned.emit(bullet)

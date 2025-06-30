@@ -5,12 +5,14 @@ signal bullet_spawned(bullet: Node2D)
 
 @export var active: bool = false
 @export var barrel: Node2D
-@export var ranged_cooldown: RangedCooldownProp
 @export var target_filter: TargetFilter
 @export var mods: Array[ModBase]
 @export var effects: Array[Effect]
+
+@export var _entity: Node2D
 @export var bullet_count: CopyProp
 @export var spread: SpreadProp
+@export var ranged_cooldown: RangedCooldownProp
 
 
 func _init() -> void:

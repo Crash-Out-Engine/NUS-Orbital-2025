@@ -7,7 +7,7 @@ extends Area2D
 @export var timeout_prop: TimeoutProp
 
 var target_filter: TargetFilter
-var effects: Array[Effect] = []
+var attack: Attack
 
 @onready var anim_player = $AnimationPlayer as AnimationPlayer
 
@@ -33,9 +33,12 @@ func assign_mods(mods: Array[ModBase]) -> void:
 	explosion_mod_comp.mods.assign(mods)
 
 func _on_body_entered(body: Node2D) -> void:
+	if not is_multiplayer_authority():
+		return
+
 	if (body.has_node(^"Components/HitboxComp")
 			and body.get_node(^"Components/HitboxComp").is_targeted_by(target_filter)):
-		body.get_node(^"Components/HitboxComp").trigger(effects, self)
+		body.get_node(^"Components/HitboxComp").trigger(attack)
 		body.get_node(^"Components/HitboxComp").apply_knockback(global_position)
 
 
@@ -46,7 +49,7 @@ func save_scene() -> PackedByteArray:
 	dict["position"] = position
 	dict["rotation"] = rotation
 	dict["target_filter"] = target_filter.save()
-	dict["effects"] = Effect.save_array(effects)
+	dict["attack"] = attack.save()
 	for property_node: PropertyBase in $Properties.get_children():
 		dict[property_node.name] = property_node.save()
 	return var_to_bytes(dict)
@@ -56,7 +59,7 @@ func load_saved_scene(data: PackedByteArray) -> void:
 	position = dict["position"]
 	rotation = dict["rotation"]
 	target_filter = TargetFilter.from_saved(dict["target_filter"])
-	effects = Effect.from_saved_array(dict["effects"])
+	attack = Attack.from_saved(dict["attack"])
 	for property_node: PropertyBase in $Properties.get_children():
 		property_node.load_saved(dict[property_node.name])
 

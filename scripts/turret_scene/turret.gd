@@ -157,14 +157,17 @@ func _check_build(_from: float, to: float) -> void:
 			_state = State.OPERATIONAL
 		build_progressed.emit(to / build_target)
 
-func _check_repair(entity: Node2D, effects: Array[Effect]) -> void:
+func _check_repair(attack: Attack) -> void:
 	var build_effect_index = (
-			effects.find_custom(func(effect: Effect): return effect.get_property_type() == "BuildProp"))
-	if not (_state == State.OPERATIONAL and build_effect_index != -1 and entity is Player):
+			attack.effects.find_custom(
+					func(effect: Effect): return effect.get_property_type() == "BuildProp"))
+	if not (_state == State.OPERATIONAL
+			and build_effect_index != -1
+			and attack.origin_type == "Player"):
 		return
 
-	var player := entity as Player
-	var build_effect = effects[build_effect_index]
+	var player := get_tree().root.get_node(attack.origin_path) as Player
+	var build_effect = attack.effects[build_effect_index]
 	var cost = clamp(
 			min(build_effect.get_factor() * 10, health_capacity.value - health.value) / 20,
 			0,

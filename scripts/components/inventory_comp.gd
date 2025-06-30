@@ -15,7 +15,6 @@ signal slots_updated(size: int, capacity: int)
 @export var mod_targeting_comp: ModTargetingComp
 @export var blueprint_comp: BlueprintComp
 
-var inventory_ui: Control
 var _entity: Node2D
 var _entity_slot: ModSlotComp
 var _mods: Dictionary[ModBase, int]
@@ -23,8 +22,9 @@ var _scraps: int:
 	set(value):
 		var prev_value = _scraps
 		_scraps = value
-		scraps_changed.emit(prev_value, _scraps)
-
+		scraps_changed.emit(prev_value, value)
+		_sync_set_scraps.rpc(value)
+	
 
 func _ready() -> void:
 	for mod in initial_mods:
@@ -151,3 +151,12 @@ func _remove_mod(mod: ModBase) -> void:
 	assert(mod in _mods and _mods[mod] > 0,
 		"Mod not found in inventory.")
 	_mods[mod] -= 1
+
+
+#region Sync
+
+@rpc("any_peer", "call_remote", "reliable")
+func _sync_set_scraps(value: int) -> void:
+	_scraps = value
+
+#endregion
