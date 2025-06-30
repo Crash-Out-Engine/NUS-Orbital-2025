@@ -8,6 +8,7 @@ extends Node
 
 signal scraps_changed(from: int, to: int)
 signal slots_updated(size: int, capacity: int)
+signal collected_mod(mod: ModBase)
 
 @export var initial_mods: Array[ModBase]
 @export var initial_scraps: int
@@ -38,6 +39,7 @@ func register_item(item: Item):
 			_scraps += (item as Item.ScrapItem).count
 		Item.Type.MOD:
 			_add_mod((item as Item.ModItem).mod)
+			collected_mod.emit((item as Item.ModItem).mod)
 
 
 ## Allows the entity (typically Player) to access another entity's ModSlotComp,
