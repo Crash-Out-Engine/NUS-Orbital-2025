@@ -84,4 +84,4 @@ func update_scraps_counter() -> void:
 
 func show_mod_collected(mod: ModBase) -> void:
 	mod_label.text = "[outline_size=8]Picked up %s%s[/outline_size]" % [mod.get_icon(), mod.name]
-	mod_label.modulate.a = 1.0 
+	mod_label.modulate.a = 1.0
