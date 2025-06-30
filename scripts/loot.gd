@@ -27,7 +27,8 @@ func move(displacement: Vector2) -> void:
 
 
 func _handle_set_item() -> void:
-	await ready
+	if not is_node_ready():
+		await ready
 	match item.type:
 		Item.Type.SCRAP:
 			base_sprite.frame = 0
