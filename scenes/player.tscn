@@ -15,7 +15,7 @@
 [ext_resource type="Script" uid="uid://leayhs5xslyy" path="res://scripts/properties/repeat_prop.gd" id="11_6e8lb"]
 [ext_resource type="AudioStream" uid="uid://dc66si5kieoq4" path="res://assets/audio/sound_effects/laser_gunshot.wav" id="12_3v2ag"]
 [ext_resource type="Script" uid="uid://bvhh7lwu4sovf" path="res://scripts/properties/knockback_prop.gd" id="12_sc3ue"]
-[ext_resource type="Script" path="res://scripts/properties/knockback_resistance_prop.gd" id="13_8svfe"]
+[ext_resource type="Script" uid="uid://cg7x3m1w75avm" path="res://scripts/properties/knockback_resistance_prop.gd" id="13_8svfe"]
 [ext_resource type="Script" uid="uid://dng6x4ecq2npd" path="res://scripts/player_scene/audio.gd" id="13_a8ls1"]
 [ext_resource type="AudioStream" uid="uid://dk7lmxukxhhcr" path="res://assets/audio/sound_effects/error.wav" id="13_f1ej7"]
 [ext_resource type="AudioStream" uid="uid://ciu1er752oye4" path="res://assets/audio/sound_effects/sand_steps.wav" id="13_jej6c"]
