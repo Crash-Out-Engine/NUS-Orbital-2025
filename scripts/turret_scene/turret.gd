@@ -42,9 +42,6 @@ var _state: State:
 			state_changed.emit(prev_state, _state)
 var _syncing: bool = false
 
-@onready var _initial_team: Enums.Team = hitbox.team
-
-
 func _ready() -> void:
 	ranged.bullet_spawned.connect(entity_spawned.emit)
 	health.emptied.connect(
@@ -127,7 +124,7 @@ func _handle_state_changed(from: State, to: State):
 			set_collision_layer_value(1, true)
 			set_collision_layer_value(2, false)
 			set_collision_mask_value(1, true)
-			hitbox.team = _initial_team
+			hitbox.team = Enums.Team.PLAYER_BUILDING
 			ranged.active = true
 
 		[_, State.DESTROYED]:

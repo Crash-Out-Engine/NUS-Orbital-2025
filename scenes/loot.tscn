@@ -26,6 +26,7 @@ hframes = 2
 frame = 1
 
 [node name="OverlaySprite" type="Sprite2D" parent="."]
+visible = false
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("3_30m34")
 

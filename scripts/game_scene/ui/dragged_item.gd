@@ -6,7 +6,7 @@ signal dropped(mod: ModBase, destination: ItemContainer.State)
 @export var mod: ModBase
 @export var destination: ItemContainer.State
 
-@onready var icon = $Panel/TextureRect as TextureRect
+@onready var icon = $BaseSprite/OverlaySprite as Sprite2D
 
 func update():
 	icon.texture = mod.icon
