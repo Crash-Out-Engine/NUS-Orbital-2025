@@ -137,11 +137,11 @@ func _close_inventory():
 		return
 
 	if dragged_item != null:
-		inventory_comp._add_mod(dragged_item)
+		inventory_comp.add_mod(dragged_item)
 	visible = false
 	if crafting_inputs.size() > 0:
 		for i in crafting_inputs:
-			inventory_comp._add_mod(i)
+			inventory_comp.add_mod(i)
 		crafting_inputs = []
 	can_affect_filter.close_dropdown()
 	component_filter.close_dropdown()
@@ -401,7 +401,7 @@ func add_dragged_item(item: DraggedItem, state: ItemContainer.State):
 			modslot_comp.remove_mod(item.mod)
 			update_modslotcomp_list()
 		ItemContainer.State.INVENTORY:
-			inventory_comp._remove_mod(item.mod)
+			inventory_comp.remove_mod(item.mod)
 			update_inventory_list()
 		ItemContainer.State.CRAFTING:
 			crafting_inputs.erase(item.mod)
@@ -418,12 +418,12 @@ func insert_item(mod: ModBase, destination: ItemContainer.State):
 				audio.play_place_item()
 			else:
 				audio.play_fail()
-				inventory_comp._add_mod(mod)
+				inventory_comp.add_mod(mod)
 				update_inventory_list()
 
 		ItemContainer.State.INVENTORY:
 			audio.play_place_item()
-			inventory_comp._add_mod(mod)
+			inventory_comp.add_mod(mod)
 			update_inventory_list()
 
 		ItemContainer.State.CRAFTING:

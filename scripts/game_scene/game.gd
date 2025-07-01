@@ -221,7 +221,7 @@ func get_local_player() -> Player:
 
 
 func get_seed() -> int:
-	if game_seed == 0: # TODO(multiplayer): implement seed synchronization
+	if game_seed == 0:
 		game_seed = randi()
 	return game_seed
 
