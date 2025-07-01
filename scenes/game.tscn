@@ -447,6 +447,16 @@ label_settings = SubResource("LabelSettings_ca42v")
 horizontal_alignment = 2
 vertical_alignment = 2
 
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/HUDBars/VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("9_kvuet")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "[outline_size=8]Picked up ???[/outline_size]"
+fit_content = true
+
 [node name="HUDMap" type="Control" parent="UI"]
 layout_mode = 3
 anchors_preset = 1

@@ -32,11 +32,13 @@ var _power_manager: PowerManager
 	$"VBoxContainer/PowerBar/16Bar/Off"
 ] as Array[TextureRect]
 @onready var scrap_label := $VBoxContainer/ScrapCounter/Icon/Label as Label
+@onready var mod_label := $VBoxContainer/RichTextLabel as RichTextLabel
 
-
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if active:
 		update_power_bar(_power_manager.get_power() as int)
+	if mod_label.modulate.a > 0:
+		mod_label.modulate.a -= delta / 1.0
 
 
 func setup(player: Player, power_manager: PowerManager):
@@ -48,6 +50,7 @@ func setup(player: Player, power_manager: PowerManager):
 	update_scraps_counter()
 	_player.health_changed.connect(update_health_bar)
 	_player.scraps_changed.connect(update_scraps_counter)
+	_player.inventory.collected_mod.connect(show_mod_collected)
 
 
 func update_health_bar() -> void:
@@ -58,7 +61,7 @@ func update_health_bar() -> void:
 
 func update_power_bar(new_amount: int) -> void:
 	power_bar.value = new_amount % 100
-	power_label.text = str(new_amount % 100)
+	power_label.text = str(new_amount)
 	new_amount /= 100
 	for i in 5:
 		if (new_amount % 2 == 1):
@@ -78,3 +81,7 @@ func update_power_bar(new_amount: int) -> void:
 
 func update_scraps_counter() -> void:
 	scrap_label.text = str(_player.get_scraps())
+
+func show_mod_collected(mod: ModBase) -> void:
+	mod_label.text = "[outline_size=8]Picked up %s%s[/outline_size]" % [mod.get_icon(), mod.name]
+	mod_label.modulate.a = 1.0

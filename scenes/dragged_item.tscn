@@ -1,19 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://cs8cukrm6unxr"]
+[gd_scene load_steps=5 format=3 uid="uid://cs8cukrm6unxr"]
 
 [ext_resource type="Script" uid="uid://bpeqcqb1a5e6g" path="res://scripts/game_scene/ui/dragged_item.gd" id="1_8y4iv"]
-[ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet.png" id="2_uthne"]
+[ext_resource type="Texture2D" uid="uid://b2tks1tuu2rsb" path="res://assets/sprites/loot_spritesheet.png" id="2_8y4iv"]
 [ext_resource type="Texture2D" uid="uid://bx6kp8j87xcrc" path="res://resources/text_icons/health_minus_impact_icon.tres" id="3_8y4iv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0ymor"]
 size = Vector2(64, 64)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_15hdx"]
-texture = ExtResource("2_uthne")
-texture_margin_left = 8.0
-texture_margin_top = 8.0
-texture_margin_right = 8.0
-texture_margin_bottom = 8.0
-region_rect = Rect2(1591, 254, 48, 48)
 
 [node name="DraggedItem" type="Area2D"]
 top_level = true
@@ -23,22 +15,15 @@ script = ExtResource("1_8y4iv")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_0ymor")
 
-[node name="Panel" type="PanelContainer" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -32.0
-offset_top = -32.0
-offset_right = 32.0
-offset_bottom = 32.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_15hdx")
+[node name="BaseSprite" type="Sprite2D" parent="."]
+position = Vector2(1.43051e-06, 2.5034e-06)
+scale = Vector2(5.84615, 5.84615)
+texture = ExtResource("2_8y4iv")
+hframes = 2
+frame = 1
 
-[node name="TextureRect" type="TextureRect" parent="Panel"]
-layout_mode = 2
+[node name="OverlaySprite" type="Sprite2D" parent="BaseSprite"]
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("3_8y4iv")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
