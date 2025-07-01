@@ -125,7 +125,6 @@ func _handle_state_changed(from: State, to: State):
 			set_collision_layer_value(2, false)
 			set_collision_mask_value(1, true)
 			hitbox.team = Enums.Team.PLAYER_BUILDING
-			print(hitbox.team)
 			ranged.active = true
 
 		[_, State.DESTROYED]:
