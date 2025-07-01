@@ -6,7 +6,6 @@ extends Area2D
 @export var size_prop: SizeProp
 @export var timeout_prop: TimeoutProp
 
-var target_filter: TargetFilter
 var attack: Attack
 
 @onready var anim_player = $AnimationPlayer as AnimationPlayer
@@ -37,7 +36,7 @@ func _on_body_entered(body: Node2D) -> void:
 		return
 
 	if (body.has_node(^"Components/HitboxComp")
-			and body.get_node(^"Components/HitboxComp").is_targeted_by(target_filter)):
+			and body.get_node(^"Components/HitboxComp").is_targeted_by(attack.target_filter)):
 		body.get_node(^"Components/HitboxComp").trigger(attack)
 		body.get_node(^"Components/HitboxComp").apply_knockback(global_position)
 
@@ -48,7 +47,6 @@ func save_scene() -> PackedByteArray:
 	var dict = {}
 	dict["position"] = position
 	dict["rotation"] = rotation
-	dict["target_filter"] = target_filter.save()
 	dict["attack"] = attack.save()
 	for property_node: PropertyBase in $Properties.get_children():
 		dict[property_node.name] = property_node.save()
@@ -58,7 +56,6 @@ func load_saved_scene(data: PackedByteArray) -> void:
 	var dict = bytes_to_var(data)
 	position = dict["position"]
 	rotation = dict["rotation"]
-	target_filter = TargetFilter.from_saved(dict["target_filter"])
 	attack = Attack.from_saved(dict["attack"])
 	for property_node: PropertyBase in $Properties.get_children():
 		property_node.load_saved(dict[property_node.name])

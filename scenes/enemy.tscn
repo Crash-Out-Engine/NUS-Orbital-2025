@@ -293,7 +293,6 @@ script = ExtResource("9_2pwtc")
 
 [node name="SpreadProp" type="Node" parent="Properties"]
 script = ExtResource("10_rogs8")
-_spread = 90.0
 
 [node name="KnockbackProp" type="Node" parent="Properties"]
 script = ExtResource("11_wrm80")
@@ -344,14 +343,14 @@ entity = NodePath("../..")
 attack_comp = NodePath("../RangedComp")
 metadata/_custom_type_script = "uid://bnt7cwx8k0nm0"
 
-[node name="RangedComp" type="Node2D" parent="Components" node_paths=PackedStringArray("barrel", "_entity", "bullet_count", "spread", "ranged_cooldown")]
+[node name="RangedComp" type="Node2D" parent="Components" node_paths=PackedStringArray("barrel", "_entity", "_copy_prop", "_spread_prop", "_ranged_cooldown_prop")]
 script = ExtResource("8_8qclf")
 barrel = NodePath("Barrel")
 target_filter = SubResource("Resource_2pwtc")
 _entity = NodePath("../..")
-bullet_count = NodePath("../../Properties/CopyProp")
-spread = NodePath("../../Properties/SpreadProp")
-ranged_cooldown = NodePath("../../Properties/RangedCooldownProp")
+_copy_prop = NodePath("../../Properties/CopyProp")
+_spread_prop = NodePath("../../Properties/SpreadProp")
+_ranged_cooldown_prop = NodePath("../../Properties/RangedCooldownProp")
 metadata/_custom_type_script = "uid://bhi7w6ril3da2"
 
 [node name="Barrel" type="Node2D" parent="Components/RangedComp"]

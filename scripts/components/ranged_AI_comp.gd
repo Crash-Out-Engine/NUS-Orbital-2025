@@ -1,14 +1,12 @@
 class_name RangedAIComp
 extends RangedBaseComp
 
-const _BULLET_SCENE = preload("res://scenes/bullet.tscn")
-
 
 func _physics_process(_delta: float) -> void:
 	if not is_multiplayer_authority():
 		return
 
-	if !active or !ranged_cooldown.can_ranged():
+	if !active:
 		return
 
 	var target_provider := load("res://resources/target_provider.tres")
@@ -17,25 +15,18 @@ func _physics_process(_delta: float) -> void:
 		return
 
 	var motion_tracker := target.get_node(^"MotionTracker") as MotionTracker
-	var bullet: Bullet = _BULLET_SCENE.instantiate()
-	bullet.attack = Attack.from(_entity, effects)
-	bullet.assign_mods(mods)
-	bullet.target_filter = target_filter
-	bullet_spawned.emit(bullet)
-	await bullet.ready
+
+	# HACK: Should calculate bullet speed from initial settings
 	var predicted_position = _predict_position(motion_tracker.position,
-			motion_tracker.velocity, bullet.get_speed())
+			motion_tracker.velocity, Bullet.ASSUMED_SPEED)
+
 	if is_nan(predicted_position.x) or is_nan(predicted_position.y):
-		bullet.queue_free()
 		return # Formula failed for whatever reason.
 
 	# Ranged now has a valid target and can fire.
 	look_at(predicted_position)
 
-	bullet.global_position = barrel.global_position
-	bullet.direction = barrel.global_position.angle_to_point(predicted_position)
-
-	ranged_cooldown.do_ranged()
+	activate()
 
 
 func _predict_position(target_pos: Vector2, target_vel: Vector2, bullet_speed: float) -> Vector2:

@@ -30,7 +30,7 @@ func activate() -> void:
 		await get_tree().create_timer(delay).timeout
 		var bodies = _get_hittable_bodies()
 		for body in bodies:
-			body.get_node(^"Components/HitboxComp").trigger(Attack.from(_entity, _effects))
+			body.get_node(^"Components/HitboxComp").trigger(Attack.from(_entity, _effects, target_filter))
 			body.get_node(^"Components/HitboxComp").apply_knockback(global_position)
 		executed.emit(bodies)
 
