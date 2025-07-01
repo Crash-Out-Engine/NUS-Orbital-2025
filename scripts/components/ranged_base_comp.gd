@@ -39,13 +39,13 @@ func activate() -> void:
 
 	if !_ranged_cooldown_prop.can_ranged():
 		return
-	
+
 	var attack = Attack.from(_entity, effects, target_filter)
 	var bullet_count: int = max(1, int(_copy_prop.value) * 2 - 1)
 	var interval: float = _spread_prop.get_angle() / (bullet_count - 1) if bullet_count > 1 else 0.0
 	var starting_angle: float = (global_rotation
 			- (_spread_prop.get_angle() / 2 if bullet_count > 1 else 0.0))
-	
+
 	for i in bullet_count:
 		var bullet := _BULLET_SCENE.instantiate() as Bullet
 		bullet.attack = Attack.from(_entity, effects, target_filter)

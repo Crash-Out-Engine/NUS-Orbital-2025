@@ -42,7 +42,7 @@ func apply_effect(property: PropertyBase) -> LingeringTimer:
 		property.value += _factor
 		return
 
-	
+
 	if _repeat > 0: # Repeat effect
 		_countdown(property, _repeat)
 		return
@@ -106,27 +106,27 @@ static func from_saved_array(data: PackedByteArray) -> Array[Effect]:
 class LingeringTimer:
 	extends Timer
 	var _factor: float
-	
+
 	@onready var _property := get_parent() as PropertyBase
-	
+
 
 	static func attach_to(property: PropertyBase, interval: float, factor: float) -> LingeringTimer:
 		var lingering_timer = LingeringTimer.new(interval, factor)
 		property.add_child(lingering_timer)
 		return lingering_timer
-	
+
 
 	func _init(interval: float, factor: float) -> void:
 		_factor = factor
 		wait_time = interval
 		one_shot = true
-	
+
 
 	func _ready() -> void:
 		_property.value += _factor
 		timeout.connect(disable)
-	
-	
+
+
 	## Disables and undoes lingering.
 	## [br]
 	## Returns [code]true[/code] if lingering was previously active, otherwise

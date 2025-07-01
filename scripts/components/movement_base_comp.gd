@@ -1,8 +1,6 @@
 class_name MovementBaseComp
 extends Node
 
-# TODO: Integrate KnocbackResistanceProp into knockback calculations
-
 @export var entity: RigidBody2D
 @export var _knockback_speed_curve: Curve = Curve.new()
 @export_group("Properties")

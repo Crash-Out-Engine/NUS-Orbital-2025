@@ -13,7 +13,7 @@ func setup_mods() -> void:
 		await ready
 
 	var upgrade_mods: Array[UpgradeMod]
-	var behavioural_mods: Array # TODO: Implement application mod
+	var behavioural_mods: Array # TODO: Implement behavioural mod
 	upgrade_mods.assign(
 			mods.filter(func(mod): return mod != null and mod.type == ModBase.Type.UPGRADE))
 	behavioural_mods.assign(

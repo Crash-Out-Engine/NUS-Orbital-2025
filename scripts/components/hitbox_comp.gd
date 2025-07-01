@@ -38,7 +38,7 @@ static func make_effect_signature(effect: Effect, entity: Node2D) -> PackedByteA
 func _auth_trigger(attack_data: PackedByteArray) -> void:
 	if not is_multiplayer_authority():
 		return
-	
+
 	var attack := Attack.from_saved(attack_data)
 
 	for effect in attack.effects:
@@ -51,7 +51,7 @@ func _auth_trigger(attack_data: PackedByteArray) -> void:
 				if signature in _effect_signatures and _effect_signatures[signature] != null:
 					_effect_signatures[signature].disable()
 				_effect_signatures.set(signature, lingering)
-	
+
 	# Clear freed lingering effects
 	for signature in _effect_signatures:
 		if _effect_signatures[signature] == null:

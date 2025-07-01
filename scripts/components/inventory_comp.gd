@@ -28,7 +28,7 @@ var _scraps: int:
 		if prev_value != value:
 			_scraps = value
 			scraps_changed.emit(prev_value, value)
-	
+
 
 func _ready() -> void:
 	for mod in initial_mods:

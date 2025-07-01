@@ -8,8 +8,8 @@ func _physics_process(_delta: float) -> void:
 
 	if !_entity.hand.locked:
 		rotation = _entity.hand.rotation
-	
+
 	if !active:
 		return
-		
+
 	activate()

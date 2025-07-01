@@ -1,5 +1,5 @@
 class_name Game
-extends Node2D # TODO: Remember to turn on master volume when releasing
+extends Node2D
 
 ## Emitted when the game is over, [param message] contains the reason of game over.
 signal game_over(message: String)
@@ -138,7 +138,7 @@ func _setup(sequence: InitSequence) -> void:
 			$UI/HUDBars.setup(get_local_player(), power_manager)
 			$UI/HUDMap.setup(get_local_player(), entity_manager)
 			$UI/InventoryUI.setup(self, get_local_player())
-			$UI/DebugPanel.setup(get_local_player(), entity_manager)
+			$UI/DebugPanel.setup(get_local_player(), entity_manager, power_manager, $EnemySpawner)
 			$UI/PauseMenu.setup(self)
 			$UI/GameOverPanel.setup(self)
 
