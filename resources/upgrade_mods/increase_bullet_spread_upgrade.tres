@@ -9,7 +9,7 @@
 [sub_resource type="Resource" id="Resource_txiyl"]
 script = ExtResource("5_sjb04")
 _property_type = "SpreadProp"
-_factor = 30.0
+_factor = 0.5
 _target = 0
 metadata/_custom_type_script = "uid://dcsx2r4dcu6ue"
 

@@ -11,11 +11,6 @@ enum Target {
 @export var _factor: float
 @export var _target: Target
 
-func set_factor(value: float) -> void:
-	_factor = value
-
-func set_target(value: Target) -> void:
-	_target = value
 
 func apply_upgrade(property: PropertyBase) -> void:
 	if _can_upgrade(property):
@@ -25,6 +20,10 @@ func apply_upgrade(property: PropertyBase) -> void:
 func unapply_upgrade(property: PropertyBase) -> void:
 	if _can_upgrade(property):
 		property.value -= _factor
+
+
+func get_target() -> Target:
+	return _target
 
 
 func _can_upgrade(property: PropertyBase) -> bool:

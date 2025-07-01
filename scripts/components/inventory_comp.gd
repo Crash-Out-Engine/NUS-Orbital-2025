@@ -16,35 +16,40 @@ signal collected_mod(mod: ModBase)
 @export var mod_targeting_comp: ModTargetingComp
 @export var blueprint_comp: BlueprintComp
 
-var inventory_ui: Control
+## Authority variable.
 var _entity: Node2D
+## Authority variable.
 var _entity_slot: ModSlotComp
+## Synced variable.
 var _mods: Dictionary[ModBase, int]
+## Synced variable.
 var _scraps: int:
 	set(value):
 		var prev_value = _scraps
-		_scraps = value
-		scraps_changed.emit(prev_value, _scraps)
+		if prev_value != value:
+			_scraps = value
+			scraps_changed.emit(prev_value, value)
 
 
 func _ready() -> void:
 	for mod in initial_mods:
-		_add_mod(mod)
+		_local_add_mod(mod)
 	_scraps = initial_scraps
 
 
 func register_item(item: Item):
+	Utils.assert_authority(self)
 	match item.type:
 		Item.Type.SCRAP:
-			_scraps += (item as Item.ScrapItem).count
+			_synced_set_scraps.rpc(_scraps + (item as Item.ScrapItem).count)
 		Item.Type.MOD:
-			_add_mod((item as Item.ModItem).mod)
-			collected_mod.emit((item as Item.ModItem).mod)
+			add_mod((item as Item.ModItem).mod)
 
 
 ## Allows the entity (typically Player) to access another entity's ModSlotComp,
 ## throws an error if not found.
 func access_entity() -> void:
+	Utils.assert_authority(self)
 	var entity := mod_targeting_comp.get_target()
 
 	assert(entity != null
@@ -58,6 +63,7 @@ func access_entity() -> void:
 
 
 func unaccess_entity() -> void:
+	Utils.assert_authority(self)
 	_entity_slot.updated.disconnect(slots_updated.emit)
 	_entity = null
 	_entity_slot = null
@@ -68,6 +74,7 @@ func is_entity_turret() -> bool:
 
 
 func disassemble_turret() -> bool:
+	Utils.assert_authority(self)
 	if is_entity_turret():
 		(_entity as Turret).disassemble()
 		return true
@@ -85,9 +92,15 @@ func get_scraps() -> int:
 	return _scraps
 
 
-func use_scraps(amount: int) -> void:
+func auth_use_scraps(amount: int) -> void:
 	assert(amount >= 0, "Amount used should not be a negative number.")
-	_scraps -= amount
+	_synced_set_scraps(_scraps - amount)
+
+
+func use_scraps(amount: int) -> void:
+	Utils.assert_authority(self)
+	assert(amount >= 0, "Amount used should not be a negative number.")
+	_synced_set_scraps(_scraps - amount)
 
 
 func get_blueprints() -> Array[ModBase]:
@@ -113,10 +126,12 @@ func can_upgrade_slots() -> bool:
 
 
 func upgrade_slots() -> bool:
+	Utils.assert_authority(self)
+
 	if _scraps < _entity_slot.get_upgrade_cost():
 		return false
 
-	_scraps -= _entity_slot.get_upgrade_cost()
+	_synced_set_scraps.rpc(_scraps - _entity_slot.get_upgrade_cost())
 	_entity_slot.increment_capacity()
 	return true
 
@@ -124,6 +139,7 @@ func upgrade_slots() -> bool:
 
 
 func equip_mod(mod: ModBase):
+	Utils.assert_authority(self)
 	assert(mod in _mods and _mods[mod] > 0,
 		"Mod not found in inventory.")
 
@@ -135,21 +151,58 @@ func equip_mod(mod: ModBase):
 
 
 func unequip_mod(mod: ModBase):
+	Utils.assert_authority(self)
 	assert(mod != null, "Mod not found in entity mod slot.")
 
-	_add_mod(mod)
+	add_mod(mod)
 	_entity_slot.remove_mod(mod)
 
 
 func recycle_mod(mod: ModBase):
-	_remove_mod(mod)
-	_scraps += mod.get_recycle_value()
+	Utils.assert_authority(self)
+	_synced_remove_mod(mod.save())
+	_synced_set_scraps(_scraps + mod.get_recycle_value())
 
 
-func _add_mod(mod: ModBase) -> void:
-	_mods[mod] =_mods.get_or_add(mod, 0) + 1
+func add_mod(mod: ModBase) -> void:
+	Utils.assert_authority(self)
+	_synced_add_mod.rpc(mod.save())
 
-func _remove_mod(mod: ModBase) -> void:
+
+func remove_mod(mod: ModBase) -> void:
+	Utils.assert_authority(self)
+	assert(mod in _mods and _mods[mod] > 0,
+			"Mod not found in inventory.")
+	_synced_remove_mod.rpc(mod.save())
+
+
+func _local_add_mod(mod: ModBase) -> void:
+	_mods[mod] = _mods.get_or_add(mod, 0) + 1
+	collected_mod.emit(mod)
+
+
+func _local_remove_mod(mod: ModBase) -> void:
 	assert(mod in _mods and _mods[mod] > 0,
 		"Mod not found in inventory.")
 	_mods[mod] -= 1
+
+
+#region Sync
+
+@rpc("any_peer", "call_local", "reliable")
+func _synced_set_scraps(value: int) -> void:
+	_scraps = value
+
+
+@rpc("any_peer", "call_local", "reliable")
+func _synced_add_mod(mod_data: PackedByteArray) -> void:
+	var mod = ModBase.from_saved(mod_data)
+	_local_add_mod(mod)
+
+
+@rpc("any_peer", "call_local", "reliable")
+func _synced_remove_mod(mod_data: PackedByteArray) -> void:
+	var mod = ModBase.from_saved(mod_data)
+	_local_remove_mod(mod)
+
+#endregion

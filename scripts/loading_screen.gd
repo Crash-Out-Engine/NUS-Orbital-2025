@@ -17,9 +17,10 @@ func _process(_delta: float) -> void:
 		if anim_player.is_playing():
 			await anim_player.animation_finished
 		anim_player.play_backwards("init")
+
 		var new_scene: PackedScene = ResourceLoader.load_threaded_get(next_scene_path)
 		var new_node = new_scene.instantiate()
-		#TODO: implement parameters in scenes that can be passed by the loading screen
+
 		if "parameters" in new_node: new_node.parameters = parameters
 		var current_scene = get_tree().current_scene
 		current_scene.name = "_%s" % current_scene.name
@@ -27,6 +28,7 @@ func _process(_delta: float) -> void:
 		get_tree().current_scene = new_node
 		reparent(get_tree().current_scene)
 		current_scene.queue_free()
+
 		await anim_player.animation_finished
 		if "transitioning" in new_node:
 			new_node.transitioning = false

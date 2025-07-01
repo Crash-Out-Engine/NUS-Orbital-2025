@@ -21,5 +21,5 @@ static func compile_upgrades(
 					acc.append_array(e)
 					return acc,
 					[])
-			.filter(func(upgrade: Upgrade): return upgrade._target == target))
+			.filter(func(upgrade: Upgrade): return upgrade.get_target() == target))
 	return return_value

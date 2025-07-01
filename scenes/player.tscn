@@ -550,7 +550,7 @@ priority = 2.0
 [node name="MeleeCooldownProp" type="Node" parent="Properties"]
 script = ExtResource("18_60mlk")
 
-[node name="MeleeCooldownProp2" type="Node" parent="Properties"]
+[node name="RepairCooldownProp" type="Node" parent="Properties"]
 script = ExtResource("18_60mlk")
 
 [node name="SizeProp" type="Node" parent="Properties"]
@@ -561,7 +561,6 @@ script = ExtResource("9_giy8y")
 
 [node name="SpreadProp" type="Node" parent="Properties"]
 script = ExtResource("10_fdfoy")
-_spread = 90.0
 
 [node name="RepeatProp" type="Node" parent="Properties"]
 script = ExtResource("11_6e8lb")
@@ -594,27 +593,28 @@ entity = NodePath("../..")
 attack_comp = NodePath("../RangedComp")
 metadata/_custom_type_script = "uid://bnt7cwx8k0nm0"
 
-[node name="RangedComp" type="Node2D" parent="Components" node_paths=PackedStringArray("player", "barrel", "ranged_cooldown", "bullet_count", "spread")]
+[node name="RangedComp" type="Node2D" parent="Components" node_paths=PackedStringArray("barrel", "_entity", "_copy_prop", "_spread_prop", "_ranged_cooldown_prop")]
 script = ExtResource("7_smehm")
-player = NodePath("../..")
 barrel = NodePath("Barrel")
-ranged_cooldown = NodePath("../../Properties/RangedCooldownProp")
 target_filter = SubResource("Resource_ujl30")
 effects = Array[ExtResource("19_a38lo")]([ExtResource("13_l71n6")])
-bullet_count = NodePath("../../Properties/CopyProp")
-spread = NodePath("../../Properties/SpreadProp")
+_entity = NodePath("../..")
+_copy_prop = NodePath("../../Properties/CopyProp")
+_spread_prop = NodePath("../../Properties/SpreadProp")
+_ranged_cooldown_prop = NodePath("../../Properties/RangedCooldownProp")
 metadata/_custom_type_script = "uid://s08wfqwqu2jn"
 
 [node name="Barrel" type="Node2D" parent="Components/RangedComp"]
 position = Vector2(21, 0)
 
-[node name="MeleeComp" type="Area2D" parent="Components" node_paths=PackedStringArray("melee_cooldown")]
+[node name="MeleeComp" type="Area2D" parent="Components" node_paths=PackedStringArray("_entity", "_melee_cooldown")]
 script = ExtResource("17_4r5pv")
 delay = 0.1
 _automated = false
 target_filter = SubResource("Resource_pf23h")
-effects = Array[ExtResource("19_a38lo")]([SubResource("Resource_74r1k"), SubResource("Resource_8svfe")])
-melee_cooldown = NodePath("../../Properties/MeleeCooldownProp")
+_effects = Array[ExtResource("19_a38lo")]([SubResource("Resource_74r1k"), SubResource("Resource_8svfe")])
+_entity = NodePath("../..")
+_melee_cooldown = NodePath("../../Properties/MeleeCooldownProp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Components/MeleeComp"]
 process_mode = 1
@@ -623,15 +623,16 @@ position = Vector2(28, 0)
 shape = SubResource("RectangleShape2D_a38lo")
 debug_color = Color(0.7, 0, 0, 0.419608)
 
-[node name="RepairComp" type="Area2D" parent="Components" node_paths=PackedStringArray("melee_cooldown")]
+[node name="RepairComp" type="Area2D" parent="Components" node_paths=PackedStringArray("_entity", "_melee_cooldown")]
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("17_4r5pv")
 delay = 0.1
 _automated = false
 target_filter = SubResource("Resource_ke2ow")
-effects = Array[ExtResource("19_a38lo")]([SubResource("Resource_2a3c5")])
-melee_cooldown = NodePath("../../Properties/MeleeCooldownProp2")
+_effects = Array[ExtResource("19_a38lo")]([SubResource("Resource_2a3c5")])
+_entity = NodePath("../..")
+_melee_cooldown = NodePath("../../Properties/RepairCooldownProp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Components/RepairComp"]
 process_mode = 1

@@ -6,8 +6,9 @@ signal executed(entities: Array[Node2D])
 @export_range(0, 100, 0.0001, "suffix:s") var delay: float = 0.0
 @export var _automated: bool = true
 @export var target_filter: TargetFilter
-@export var effects: Array[Effect]
-@export var melee_cooldown: MeleeCooldownProp
+@export var _effects: Array[Effect]
+@export var _entity: Node2D
+@export var _melee_cooldown: MeleeCooldownProp
 
 
 func _physics_process(_delta: float) -> void:
@@ -24,12 +25,12 @@ func _physics_process(_delta: float) -> void:
 ##
 ## Can be called by other scripts to manually execute a melee attack.
 func activate() -> void:
-	if melee_cooldown.can_melee():
-		melee_cooldown.do_melee()
+	if _melee_cooldown.can_melee():
+		_melee_cooldown.do_melee()
 		await get_tree().create_timer(delay).timeout
 		var bodies = _get_hittable_bodies()
 		for body in bodies:
-			body.get_node(^"Components/HitboxComp").trigger(effects, $"../..")
+			body.get_node(^"Components/HitboxComp").trigger(Attack.from(_entity, _effects, target_filter))
 			body.get_node(^"Components/HitboxComp").apply_knockback(global_position)
 		executed.emit(bodies)
 

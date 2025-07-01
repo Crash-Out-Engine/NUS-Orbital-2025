@@ -74,4 +74,4 @@ class ModItem:
 		assert(dict.type == Type.MOD, "Invalid save data.")
 		return new(ModBase.from_saved(dict.mod))
 
-	#endregionmod: ModBase) -> void:
+	#endregion

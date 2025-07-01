@@ -95,7 +95,7 @@ func _setup_mods() -> void:
 func _cleanup_mods() -> void:
 	var upgrade_mods: Array[UpgradeMod]
 	var effect_mods: Array[EffectMod]
-	var behavioural_mods: Array # TODO: Implement behavioral mod
+	var behavioural_mods: Array # TODO: Implement behavioural mod
 	upgrade_mods.assign(
 			_mods.filter(func(mod): return mod != null and mod.type == ModBase.Type.UPGRADE))
 	effect_mods.assign(

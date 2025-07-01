@@ -143,6 +143,10 @@ func get_scraps() -> int:
 	return inventory.get_scraps()
 
 
+func auth_use_scraps(amount: int) -> void:
+	inventory.auth_use_scraps(amount)
+
+
 func use_scraps(amount: int) -> void:
 	inventory.use_scraps(amount)
 

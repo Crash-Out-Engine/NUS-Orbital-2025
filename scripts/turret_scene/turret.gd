@@ -154,19 +154,22 @@ func _check_build(_from: float, to: float) -> void:
 			_state = State.OPERATIONAL
 		build_progressed.emit(to / build_target)
 
-func _check_repair(entity: Node2D, effects: Array[Effect]) -> void:
+func _check_repair(attack: Attack) -> void:
 	var build_effect_index = (
-			effects.find_custom(func(effect: Effect): return effect.get_property_type() == "BuildProp"))
-	if not (_state == State.OPERATIONAL and build_effect_index != -1 and entity is Player):
+			attack.effects.find_custom(
+					func(effect: Effect): return effect.get_property_type() == "BuildProp"))
+	if not (_state == State.OPERATIONAL
+			and build_effect_index != -1
+			and attack.origin_type == "Player"):
 		return
 
-	var player := entity as Player
-	var build_effect = effects[build_effect_index]
+	var player := get_tree().root.get_node(attack.origin_path) as Player
+	var build_effect = attack.effects[build_effect_index]
 	var cost = clamp(
 			min(build_effect.get_factor() * 10, health_capacity.value - health.value) / 20,
 			0,
 			player.get_scraps())
-	player.use_scraps(cost)
+	player.auth_use_scraps(cost)
 	health.value += cost * 20
 
 
@@ -195,7 +198,7 @@ func _sync() -> void:
 	while (!get_parent()._entity_count.has(self.get_path())
 			or get_parent()._entity_count[self.get_path()] < multiplayer.get_peers().size() + 1):
 		await get_tree().process_frame
-		if get_parent() == null: # TODO(multiplayer): check if this check can be removed
+		if get_parent() == null:
 			return
 	_receive_sync.rpc(save_scene())
 
@@ -203,7 +206,9 @@ func _sync() -> void:
 func _receive_sync(data: PackedByteArray) -> void:
 	if !is_node_ready():
 		await ready
+	_syncing = true
 	load_saved_scene(data)
+	_syncing = false
 
 #endregion
 
@@ -220,13 +225,11 @@ func save_scene() -> PackedByteArray:
 	return var_to_bytes(dict)
 
 func load_saved_scene(data: PackedByteArray) -> void:
-	_syncing = true
 	var dict = bytes_to_var(data)
 	position = dict["position"]
 	_state = dict["_state"]
 	player_path = dict["player_path"]
 	for property_node: PropertyBase in $Properties.get_children():
 		property_node.load_saved(dict[property_node.name])
-	_syncing = false
 
 #endregion

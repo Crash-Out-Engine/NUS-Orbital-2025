@@ -50,7 +50,7 @@ _property_type = "HealthProp"
 _interval = -1.0
 _repeat = 0
 _factor = -5.0
-metadata/_custom_type_script = "uid://2fh28xow6f1j"
+metadata/_custom_type_script = "uid://cr0bo4trqg3j1"
 
 [sub_resource type="Resource" id="Resource_wrm80"]
 script = ExtResource("3_s1ycm")
@@ -58,7 +58,7 @@ _property_type = "KnockbackProp"
 _interval = -1.0
 _repeat = 0
 _factor = 200.0
-metadata/_custom_type_script = "uid://6ofkt38dyeyp"
+metadata/_custom_type_script = "uid://cr0bo4trqg3j1"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j0cyh"]
 
@@ -293,7 +293,6 @@ script = ExtResource("9_2pwtc")
 
 [node name="SpreadProp" type="Node" parent="Properties"]
 script = ExtResource("10_rogs8")
-_spread = 90.0
 
 [node name="KnockbackProp" type="Node" parent="Properties"]
 script = ExtResource("11_wrm80")
@@ -311,16 +310,18 @@ metadata/_custom_type_script = "uid://b5m4xwnftefoj"
 
 [node name="Components" type="Node2D" parent="."]
 
-[node name="HitboxComp" type="Node" parent="Components"]
+[node name="HitboxComp" type="Node" parent="Components" node_paths=PackedStringArray("_entity")]
 script = ExtResource("3_4ra3w")
+_entity = NodePath("../..")
 team = 2
 metadata/_custom_type_script = "uid://wwqkkrfhwiyn"
 
-[node name="MeleeComp" type="Area2D" parent="Components" node_paths=PackedStringArray("melee_cooldown")]
+[node name="MeleeComp" type="Area2D" parent="Components" node_paths=PackedStringArray("_entity", "_melee_cooldown")]
 script = ExtResource("5_nenq2")
 target_filter = SubResource("Resource_1x4g4")
-effects = Array[ExtResource("3_s1ycm")]([SubResource("Resource_ile5s"), SubResource("Resource_wrm80")])
-melee_cooldown = NodePath("../../Properties/MeleeCooldownProp")
+_effects = Array[ExtResource("3_s1ycm")]([SubResource("Resource_ile5s"), SubResource("Resource_wrm80")])
+_entity = NodePath("../..")
+_melee_cooldown = NodePath("../../Properties/MeleeCooldownProp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Components/MeleeComp"]
 z_index = 100
@@ -342,13 +343,14 @@ entity = NodePath("../..")
 attack_comp = NodePath("../RangedComp")
 metadata/_custom_type_script = "uid://bnt7cwx8k0nm0"
 
-[node name="RangedComp" type="Node2D" parent="Components" node_paths=PackedStringArray("barrel", "ranged_cooldown", "bullet_count", "spread")]
+[node name="RangedComp" type="Node2D" parent="Components" node_paths=PackedStringArray("barrel", "_entity", "_copy_prop", "_spread_prop", "_ranged_cooldown_prop")]
 script = ExtResource("8_8qclf")
 barrel = NodePath("Barrel")
-ranged_cooldown = NodePath("../../Properties/RangedCooldownProp")
 target_filter = SubResource("Resource_2pwtc")
-bullet_count = NodePath("../../Properties/CopyProp")
-spread = NodePath("../../Properties/SpreadProp")
+_entity = NodePath("../..")
+_copy_prop = NodePath("../../Properties/CopyProp")
+_spread_prop = NodePath("../../Properties/SpreadProp")
+_ranged_cooldown_prop = NodePath("../../Properties/RangedCooldownProp")
 metadata/_custom_type_script = "uid://bhi7w6ril3da2"
 
 [node name="Barrel" type="Node2D" parent="Components/RangedComp"]
