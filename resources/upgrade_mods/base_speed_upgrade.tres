@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="ModBase" load_steps=8 format=3 uid="uid://ido6g1b0tgpf"]
+[gd_resource type="Resource" script_class="Mod" load_steps=8 format=3 uid="uid://ido6g1b0tgpf"]
 
-[ext_resource type="Script" uid="uid://dlwahujwxjfnc" path="res://scripts/mod_entry.gd" id="1_5l8vb"]
+[ext_resource type="Script" uid="uid://dlwahujwxjfnc" path="res://scripts/mods/mod_entry.gd" id="1_5l8vb"]
 [ext_resource type="Texture2D" uid="uid://dvl5rhssulmyk" path="res://resources/text_icons/speed_plus.tres" id="1_o8mws"]
 [ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="1_ruphf"]
-[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod_base.gd" id="2_jvjgx"]
+[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod.gd" id="2_jvjgx"]
 [ext_resource type="Resource" uid="uid://d1a2felxieh8m" path="res://resources/property_points/speed_pp.tres" id="3_5l8vb"]
 [ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="5_v5fl1"]
 

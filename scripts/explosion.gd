@@ -28,7 +28,7 @@ func explode() -> void:
 		await anim_player.animation_finished
 	get_parent().remove_entity(self)
 
-func assign_mods(mods: Array[ModBase]) -> void:
+func assign_mods(mods: Array[Mod]) -> void:
 	explosion_mod_comp.mods.assign(mods)
 
 func _on_body_entered(body: Node2D) -> void:

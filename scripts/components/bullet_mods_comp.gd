@@ -1,7 +1,7 @@
 class_name BulletModsComp
 extends Node
 
-@export var mods: Array[ModBase]
+@export var mods: Array[Mod]
 @export var bullet: Bullet
 
 func _ready() -> void:
@@ -13,6 +13,6 @@ func setup_mods() -> void:
 		await ready
 
 	var bullet_properties := bullet.get_node(^"Properties").get_children()
-	for upgrade in ModBase.compile_upgrades(mods, Upgrade.Target.BULLET):
+	for upgrade in Mod.compile_upgrades(mods, Upgrade.Target.BULLET):
 		for prop_node in bullet_properties:
 			upgrade.apply_upgrade(prop_node)

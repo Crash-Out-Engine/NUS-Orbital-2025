@@ -15,7 +15,7 @@
 [ext_resource type="Script" uid="uid://dlfl58jvcogf5" path="res://scripts/game_scene/chunk_debug.gd" id="10_vtaks"]
 [ext_resource type="Resource" uid="uid://gtpo8u16foe8" path="res://resources/upgrade_mods/base_ranged_cooldown_upgrade.tres" id="11_0sl42"]
 [ext_resource type="AudioStream" uid="uid://d0bs4frau5lf8" path="res://assets/audio/sound_effects/pause_sound.wav" id="11_ca42v"]
-[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod_base.gd" id="11_sww3w"]
+[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod.gd" id="11_sww3w"]
 [ext_resource type="PackedScene" uid="uid://bsk2hjudnw4rw" path="res://scenes/inventory_ui.tscn" id="12_bt5mj"]
 [ext_resource type="Resource" uid="uid://ido6g1b0tgpf" path="res://resources/upgrade_mods/base_speed_upgrade.tres" id="12_oaba0"]
 [ext_resource type="Theme" uid="uid://c8t8fqq1p8n4l" path="res://resources/custom_ui.tres" id="12_ssvqc"]

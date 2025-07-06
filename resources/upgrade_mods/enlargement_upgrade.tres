@@ -1,12 +1,12 @@
-[gd_resource type="Resource" script_class="ModBase" load_steps=13 format=3 uid="uid://dwfvxifo18je3"]
+[gd_resource type="Resource" script_class="Mod" load_steps=13 format=3 uid="uid://dwfvxifo18je3"]
 
 [ext_resource type="Texture2D" uid="uid://latw477pp0j" path="res://resources/text_icons/player_size_plus.tres" id="1_1hv7v"]
-[ext_resource type="Script" uid="uid://dlwahujwxjfnc" path="res://scripts/mod_entry.gd" id="1_yfvjl"]
+[ext_resource type="Script" uid="uid://dlwahujwxjfnc" path="res://scripts/mods/mod_entry.gd" id="1_yfvjl"]
 [ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="2_30d0s"]
 [ext_resource type="Resource" uid="uid://btlyda8bvnqes" path="res://resources/property_points/size_pp.tres" id="3_64riv"]
 [ext_resource type="Resource" uid="uid://cfjsdmeafbke8" path="res://resources/property_points/health_capacity_pp.tres" id="4_o2s7d"]
 [ext_resource type="Resource" uid="uid://dvmlfcbqqrwyt" path="res://resources/property_points/health_pp.tres" id="5_g5a16"]
-[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod_base.gd" id="6_jcc1w"]
+[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod.gd" id="6_jcc1w"]
 [ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="7_i1rqj"]
 
 [sub_resource type="Resource" id="Resource_t3xmf"]

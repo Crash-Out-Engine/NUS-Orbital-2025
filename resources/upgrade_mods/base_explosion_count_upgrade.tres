@@ -1,11 +1,11 @@
-[gd_resource type="Resource" script_class="ModBase" load_steps=8 format=3 uid="uid://dsx66xpf5hf3m"]
+[gd_resource type="Resource" script_class="Mod" load_steps=8 format=3 uid="uid://dsx66xpf5hf3m"]
 
 [ext_resource type="Texture2D" uid="uid://ckjwukgoold5k" path="res://resources/text_icons/explosion_count_plus.tres" id="1_472my"]
 [ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="2_472my"]
 [ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="2_cy7rv"]
 [ext_resource type="Resource" uid="uid://dumsg6lvj4ux4" path="res://resources/property_points/copy_pp.tres" id="3_ntrvq"]
-[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod_base.gd" id="4_pniru"]
-[ext_resource type="Script" uid="uid://dlwahujwxjfnc" path="res://scripts/mod_entry.gd" id="5_7ul2y"]
+[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod.gd" id="4_pniru"]
+[ext_resource type="Script" uid="uid://dlwahujwxjfnc" path="res://scripts/mods/mod_entry.gd" id="5_7ul2y"]
 
 [sub_resource type="Resource" id="Resource_472my"]
 script = ExtResource("2_472my")

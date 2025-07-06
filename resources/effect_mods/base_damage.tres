@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="ModBase" load_steps=7 format=3 uid="uid://dl56w1h7wf83j"]
+[gd_resource type="Resource" script_class="Mod" load_steps=7 format=3 uid="uid://dl56w1h7wf83j"]
 
-[ext_resource type="Script" uid="uid://dlwahujwxjfnc" path="res://scripts/mod_entry.gd" id="1_t21nv"]
+[ext_resource type="Script" uid="uid://dlwahujwxjfnc" path="res://scripts/mods/mod_entry.gd" id="1_t21nv"]
 [ext_resource type="Resource" uid="uid://dtogyr1espqpy" path="res://resources/effects/damage.tres" id="2_07w8q"]
 [ext_resource type="Texture2D" uid="uid://bx6kp8j87xcrc" path="res://resources/text_icons/health_minus_impact_icon.tres" id="3_07w8q"]
-[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod_base.gd" id="3_mkdlj"]
+[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod.gd" id="3_mkdlj"]
 [ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="3_tcrbk"]
 [ext_resource type="Resource" uid="uid://dvmlfcbqqrwyt" path="res://resources/property_points/health_pp.tres" id="4_16gqk"]
 

@@ -1,4 +1,4 @@
-class_name ModBase
+class_name Mod
 extends Resource
 
 enum Type {
@@ -18,21 +18,21 @@ enum Type {
 var type: Type
 
 
-static func compile_entries(mods: Array[ModBase]) -> Array[ModEntry]:
+static func compile_entries(mods: Array[Mod]) -> Array[ModEntry]:
 	var array: Array[ModEntry]
 	for mod in mods:
 		array.append_array(mod.entries)
 	return array
 
 
-static func compile_effects(mods: Array[ModBase]) -> Array[Effect]:
+static func compile_effects(mods: Array[Mod]) -> Array[Effect]:
 	var array: Array[Effect]
 	for mod in mods:
 		array.append_array(mod.get_effects())
 	return array
 
 
-static func compile_upgrades(mods: Array[ModBase], target: Upgrade.Target) -> Array[Upgrade]:
+static func compile_upgrades(mods: Array[Mod], target: Upgrade.Target) -> Array[Upgrade]:
 	var array: Array[Upgrade]
 	for mod in mods:
 		array.append_array(mod.get_upgrades(target))
@@ -64,6 +64,6 @@ func get_effects() -> Array[Effect]:
 func save() -> PackedByteArray:
 	return var_to_bytes(resource_path)
 
-static func from_saved(data: PackedByteArray) -> ModBase:
+static func from_saved(data: PackedByteArray) -> Mod:
 	var path = bytes_to_var(data)
-	return ResourceLoader.load(path) as ModBase
+	return ResourceLoader.load(path) as Mod

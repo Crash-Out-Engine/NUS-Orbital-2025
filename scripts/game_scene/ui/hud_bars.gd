@@ -82,6 +82,6 @@ func update_power_bar(new_amount: int) -> void:
 func update_scraps_counter() -> void:
 	scrap_label.text = str(_player.get_scraps())
 
-func show_mod_collected(mod: ModBase) -> void:
+func show_mod_collected(mod: Mod) -> void:
 	mod_label.text = "[outline_size=8]Picked up %s%s[/outline_size]" % [mod.get_icon(), mod.name]
 	mod_label.modulate.a = 1.0

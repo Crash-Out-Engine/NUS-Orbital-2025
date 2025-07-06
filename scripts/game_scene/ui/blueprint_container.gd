@@ -1,11 +1,11 @@
 class_name BlueprintContainer
 extends PanelContainer
 
-signal pressed(mod: ModBase)
+signal pressed(mod: Mod)
 
 const _DRAGGED_ITEM = preload("res://scenes/dragged_item.tscn")
 
-@export var mod: ModBase = null
+@export var mod: Mod = null
 
 var selected: bool = false
 var mouse_hovering = false

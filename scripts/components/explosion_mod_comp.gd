@@ -1,7 +1,7 @@
 class_name ExplosionModComp
 extends Node
 
-@export var mods: Array[ModBase]
+@export var mods: Array[Mod]
 @export var explosion: Explosion
 
 func _ready() -> void:
@@ -13,6 +13,6 @@ func setup_mods() -> void:
 		await ready
 
 	var explosion_properties := explosion.get_node(^"Properties").get_children()
-	for upgrade in ModBase.compile_upgrades(mods, Upgrade.Target.EXPLOSION):
+	for upgrade in Mod.compile_upgrades(mods, Upgrade.Target.EXPLOSION):
 		for prop_node in explosion_properties:
 			upgrade.apply_upgrade(prop_node)

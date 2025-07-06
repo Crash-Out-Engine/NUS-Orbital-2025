@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="ModBase" load_steps=8 format=3 uid="uid://bckq5o6xawc1n"]
+[gd_resource type="Resource" script_class="Mod" load_steps=8 format=3 uid="uid://bckq5o6xawc1n"]
 
-[ext_resource type="Script" uid="uid://dlwahujwxjfnc" path="res://scripts/mod_entry.gd" id="1_fedko"]
+[ext_resource type="Script" uid="uid://dlwahujwxjfnc" path="res://scripts/mods/mod_entry.gd" id="1_fedko"]
 [ext_resource type="Texture2D" uid="uid://de71dier2orpq" path="res://resources/text_icons/wrench_cooldown_minus.tres" id="1_mv7ku"]
 [ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="1_s0bs4"]
-[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod_base.gd" id="2_h1rvf"]
+[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod.gd" id="2_h1rvf"]
 [ext_resource type="Resource" uid="uid://biniuv5ug1m4x" path="res://resources/property_points/time_pp.tres" id="3_fedko"]
 [ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="5_87lsd"]
 

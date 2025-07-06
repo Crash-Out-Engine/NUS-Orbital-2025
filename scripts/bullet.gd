@@ -38,7 +38,7 @@ func get_speed() -> float:
 	return speed_prop.value
 
 
-func assign_mods(mods: Array[ModBase]) -> void:
+func assign_mods(mods: Array[Mod]) -> void:
 	bullet_mods_comp.mods.assign(mods)
 
 

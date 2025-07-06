@@ -55,9 +55,9 @@ class ScrapItem:
 class ModItem:
 	extends Item
 
-	var mod: ModBase
+	var mod: Mod
 
-	func _init(_mod: ModBase) -> void:
+	func _init(_mod: Mod) -> void:
 		type = Type.MOD
 		mod = _mod
 
@@ -72,6 +72,6 @@ class ModItem:
 	static func from_saved(data: PackedByteArray) -> ModItem:
 		var dict = bytes_to_var(data)
 		assert(dict.type == Type.MOD, "Invalid save data.")
-		return new(ModBase.from_saved(dict.mod))
+		return new(Mod.from_saved(dict.mod))
 
 	#endregion

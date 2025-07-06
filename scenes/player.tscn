@@ -11,7 +11,7 @@
 [ext_resource type="Script" uid="uid://b5m4xwnftefoj" path="res://scripts/properties/size_prop.gd" id="8_hax0n"]
 [ext_resource type="Script" uid="uid://2x8lbjmqr7m7" path="res://scripts/properties/copy_prop.gd" id="9_giy8y"]
 [ext_resource type="Script" uid="uid://3wplgpaykhjn" path="res://scripts/properties/spread_prop.gd" id="10_fdfoy"]
-[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod_base.gd" id="10_md1ol"]
+[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod.gd" id="10_md1ol"]
 [ext_resource type="Script" uid="uid://leayhs5xslyy" path="res://scripts/properties/repeat_prop.gd" id="11_6e8lb"]
 [ext_resource type="AudioStream" uid="uid://dc66si5kieoq4" path="res://assets/audio/sound_effects/laser_gunshot.wav" id="12_3v2ag"]
 [ext_resource type="Script" uid="uid://bvhh7lwu4sovf" path="res://scripts/properties/knockback_prop.gd" id="12_sc3ue"]

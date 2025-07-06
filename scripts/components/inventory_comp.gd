@@ -2,15 +2,15 @@ class_name InventoryComp
 extends Node
 ## Inventory component within a player.
 ##
-## This component requires that each distinct [class ModBase] exists as a single
+## This component requires that each distinct [class Mod] exists as a single
 ## shared [class Resource] instance across the game, as it matches with the
-## object reference of the [class ModBase].
+## object reference of the [class Mod].
 
 signal scraps_changed(from: int, to: int)
 signal slots_updated(size: int, capacity: int)
-signal collected_mod(mod: ModBase)
+signal collected_mod(mod: Mod)
 
-@export var initial_mods: Array[ModBase]
+@export var initial_mods: Array[Mod]
 @export var initial_scraps: int
 
 @export var mod_targeting_comp: ModTargetingComp
@@ -21,7 +21,7 @@ var _entity: Node2D
 ## Authority variable.
 var _entity_slot: ModSlotComp
 ## Synced variable.
-var _mods: Dictionary[ModBase, int]
+var _mods: Dictionary[Mod, int]
 ## Synced variable.
 var _scraps: int:
 	set(value):
@@ -82,7 +82,7 @@ func disassemble_turret() -> bool:
 	return false
 
 
-func get_mods() -> Dictionary[ModBase, int]:
+func get_mods() -> Dictionary[Mod, int]:
 	var duped_mods = _mods.duplicate()
 	duped_mods.make_read_only()
 	return duped_mods
@@ -103,7 +103,7 @@ func use_scraps(amount: int) -> void:
 	_synced_set_scraps(_scraps - amount)
 
 
-func get_blueprints() -> Array[ModBase]:
+func get_blueprints() -> Array[Mod]:
 	return blueprint_comp.get_blueprints()
 
 
@@ -113,7 +113,7 @@ func get_slots_comp() -> ModSlotComp:
 	return _entity_slot
 
 
-func get_slots_mods() -> Array[ModBase]:
+func get_slots_mods() -> Array[Mod]:
 	return _entity_slot.get_mods()
 
 
@@ -138,7 +138,7 @@ func upgrade_slots() -> bool:
 #endregion
 
 
-func equip_mod(mod: ModBase):
+func equip_mod(mod: Mod):
 	Utils.assert_authority(self)
 	assert(mod in _mods and _mods[mod] > 0,
 		"Mod not found in inventory.")
@@ -150,7 +150,7 @@ func equip_mod(mod: ModBase):
 	_entity_slot.add_mod(mod)
 
 
-func unequip_mod(mod: ModBase):
+func unequip_mod(mod: Mod):
 	Utils.assert_authority(self)
 	assert(mod != null, "Mod not found in entity mod slot.")
 
@@ -158,30 +158,30 @@ func unequip_mod(mod: ModBase):
 	_entity_slot.remove_mod(mod)
 
 
-func recycle_mod(mod: ModBase):
+func recycle_mod(mod: Mod):
 	Utils.assert_authority(self)
 	_synced_remove_mod(mod.save())
 	_synced_set_scraps(_scraps + mod.get_recycle_value())
 
 
-func add_mod(mod: ModBase) -> void:
+func add_mod(mod: Mod) -> void:
 	Utils.assert_authority(self)
 	_synced_add_mod.rpc(mod.save())
 
 
-func remove_mod(mod: ModBase) -> void:
+func remove_mod(mod: Mod) -> void:
 	Utils.assert_authority(self)
 	assert(mod in _mods and _mods[mod] > 0,
 			"Mod not found in inventory.")
 	_synced_remove_mod.rpc(mod.save())
 
 
-func _local_add_mod(mod: ModBase) -> void:
+func _local_add_mod(mod: Mod) -> void:
 	_mods[mod] = _mods.get_or_add(mod, 0) + 1
 	collected_mod.emit(mod)
 
 
-func _local_remove_mod(mod: ModBase) -> void:
+func _local_remove_mod(mod: Mod) -> void:
 	assert(mod in _mods and _mods[mod] > 0,
 		"Mod not found in inventory.")
 	_mods[mod] -= 1
@@ -196,13 +196,13 @@ func _synced_set_scraps(value: int) -> void:
 
 @rpc("any_peer", "call_local", "reliable")
 func _synced_add_mod(mod_data: PackedByteArray) -> void:
-	var mod = ModBase.from_saved(mod_data)
+	var mod = Mod.from_saved(mod_data)
 	_local_add_mod(mod)
 
 
 @rpc("any_peer", "call_local", "reliable")
 func _synced_remove_mod(mod_data: PackedByteArray) -> void:
-	var mod = ModBase.from_saved(mod_data)
+	var mod = Mod.from_saved(mod_data)
 	_local_remove_mod(mod)
 
 #endregion

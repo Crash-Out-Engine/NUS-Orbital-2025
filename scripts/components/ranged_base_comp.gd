@@ -8,7 +8,7 @@ const _BULLET_SCENE = preload("res://scenes/bullet.tscn")
 @export var active: bool = false
 @export var barrel: Node2D
 @export var target_filter: TargetFilter
-@export var mods: Array[ModBase]
+@export var mods: Array[Mod]
 @export var effects: Array[Effect]
 
 @export_group("Entity nodes")

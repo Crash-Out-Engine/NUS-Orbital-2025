@@ -5,14 +5,14 @@ extends Node
 signal updated(size: int, capacity: int)
 
 @export var initial_capacity: int
-@export var initial_mods: Array[ModBase]
+@export var initial_mods: Array[Mod]
 @export var entity: Node
 @export var attack_comp: Node
 
 var upgrade_cost: int = 100
 var _capacity: int
-var _mods: Array[ModBase]
-var _readonly_mods: Array[ModBase]
+var _mods: Array[Mod]
+var _readonly_mods: Array[Mod]
 
 func _ready() -> void:
 	_capacity = initial_capacity
@@ -26,7 +26,7 @@ func _ready() -> void:
 	_setup_mods()
 
 
-func get_mods() -> Array[ModBase]:
+func get_mods() -> Array[Mod]:
 	return _readonly_mods
 
 
@@ -44,14 +44,14 @@ func increment_capacity() -> void:
 func get_upgrade_cost() -> int:
 	return upgrade_cost
 
-func add_mod(mod: ModBase) -> bool:
+func add_mod(mod: Mod) -> bool:
 	if is_full():
 		return false
 
 	_synced_add_mod.rpc(mod.save())
 	return true
 
-func remove_mod(mod: ModBase) -> bool:
+func remove_mod(mod: Mod) -> bool:
 	if not mod in _mods:
 		return false
 
@@ -68,11 +68,11 @@ func _setup_mods() -> void:
 		await attack_comp.ready
 
 	var entity_properties := entity.get_node(^"Properties").get_children()
-	for upgrade in ModBase.compile_upgrades(_mods, Upgrade.Target.ENTITY):
+	for upgrade in Mod.compile_upgrades(_mods, Upgrade.Target.ENTITY):
 		for prop_node in entity_properties:
 			upgrade.apply_upgrade(prop_node)
 
-	var effects := ModBase.compile_effects(_mods)
+	var effects := Mod.compile_effects(_mods)
 	attack_comp.effects.assign(effects)
 
 	attack_comp.mods = _mods
@@ -81,7 +81,7 @@ func _setup_mods() -> void:
 
 func _cleanup_mods() -> void:
 	var entity_properties := entity.get_node(^"Properties").get_children()
-	for upgrade in ModBase.compile_upgrades(_mods, Upgrade.Target.ENTITY):
+	for upgrade in Mod.compile_upgrades(_mods, Upgrade.Target.ENTITY):
 		for prop_node in entity_properties:
 			upgrade.unapply_upgrade(prop_node)
 
@@ -102,7 +102,7 @@ func _synced_increment_capacity() -> void:
 
 @rpc("any_peer", "call_local", "reliable")
 func _synced_add_mod(mod_data: PackedByteArray) -> void:
-	var mod = ModBase.from_saved(mod_data)
+	var mod = Mod.from_saved(mod_data)
 
 	_cleanup_mods()
 	_mods.append(mod)
@@ -112,7 +112,7 @@ func _synced_add_mod(mod_data: PackedByteArray) -> void:
 
 @rpc("any_peer", "call_local", "reliable")
 func _synced_remove_mod(mod_data: PackedByteArray) -> void:
-	var mod = ModBase.from_saved(mod_data)
+	var mod = Mod.from_saved(mod_data)
 
 	_cleanup_mods()
 	_mods.erase(mod)

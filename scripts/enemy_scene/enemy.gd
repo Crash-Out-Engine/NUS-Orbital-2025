@@ -29,7 +29,7 @@ func _ready() -> void:
 			ranged_comp.bullet_spawned.connect(entity_spawned.emit)
 	health_prop.emptied.connect(die)
 
-func add_mod(mod: ModBase):
+func add_mod(mod: Mod):
 	modslot_comp.add_mod(mod)
 
 func die():

@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="ModBase" load_steps=8 format=3 uid="uid://di0bb7c5sxvpc"]
+[gd_resource type="Resource" script_class="Mod" load_steps=8 format=3 uid="uid://di0bb7c5sxvpc"]
 
-[ext_resource type="Script" uid="uid://dlwahujwxjfnc" path="res://scripts/mod_entry.gd" id="1_7blga"]
+[ext_resource type="Script" uid="uid://dlwahujwxjfnc" path="res://scripts/mods/mod_entry.gd" id="1_7blga"]
 [ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/mods/effect.gd" id="2_4xrky"]
-[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod_base.gd" id="2_tx2vg"]
+[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod.gd" id="2_tx2vg"]
 [ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="3_74jen"]
 [ext_resource type="Texture2D" uid="uid://b2d6dikxrermq" path="res://resources/text_icons/bullet_cooldown_plus_hit.tres" id="3_w8rws"]
 [ext_resource type="Resource" uid="uid://biniuv5ug1m4x" path="res://resources/property_points/time_pp.tres" id="5_w8rws"]

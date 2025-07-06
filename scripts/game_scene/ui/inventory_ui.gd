@@ -8,18 +8,18 @@ const BLUEPRINT_CONTAINER = preload("res://scenes/blueprint_container.tscn")
 const SCRAP_EMOJI = "res://resources/text_icons/scrap_icon.tres"
 const INFO_ICON = "res://resources/text_icons/info.tres"
 
-@export var unlocked_mods: Array[ModBase]
+@export var unlocked_mods: Array[Mod]
 
 var crafting_scraps: int = 0
-var crafting_output: ModBase = null
+var crafting_output: Mod = null
 var checking_blueprints: bool = false
-var selected_blueprint: ModBase = null
+var selected_blueprint: Mod = null
 var scrap_diff: int
 var analysis_shown: bool = false
-var dragged_item: ModBase = null
+var dragged_item: Mod = null
 var inventory_comp: InventoryComp
 var modslot_comp: ModSlotComp
-var crafting_inputs: Array[ModBase] = []
+var crafting_inputs: Array[Mod] = []
 var _crafting_components: Dictionary[PropertyPoint, int]
 
 @onready var scrap_counter_label := (
@@ -168,7 +168,7 @@ func update_blueprint_list():
 		blueprint.pressed.connect(blueprint_selected)
 	blueprint_selected(selected_blueprint)
 
-func blueprint_selected(selection: ModBase):
+func blueprint_selected(selection: Mod):
 	var prev_selected_blueprint_index = blueprint_list.get_children().find_custom(
 		func(blueprint): return blueprint.mod == selected_blueprint)
 	var curr_selected_blueprint_index = blueprint_list.get_children().find_custom(
@@ -222,7 +222,7 @@ func update_inventory_list():
 			item.create_dragged_item.connect(add_dragged_item)
 		inventory_mod_counter.text = "%d unique M.O.D.s, %d in total" % [mod_array.size(), total]
 
-func mod_filter(mod: ModBase) -> bool:
+func mod_filter(mod: Mod) -> bool:
 	var success: bool = true
 	if search_bar.text != "":
 		if mod == null:
@@ -234,12 +234,12 @@ func mod_filter(mod: ModBase) -> bool:
 			success = false
 		else:
 			match (mod.type):
-				ModBase.Type.UPGRADE:
+				Mod.Type.UPGRADE:
 					for upgrade in mod.upgrades:
 						if !can_affect_filter.get_selected()[upgrade.get_target()]: success = false
-				ModBase.Type.EFFECT:
+				Mod.Type.EFFECT:
 					if !can_affect_filter.get_selected()[3]: success = false
-				ModBase.Type.BEHAVIOURAL:
+				Mod.Type.BEHAVIOURAL:
 					pass
 	if component_filter.get_state() != DropdownCheckboxesContainer.State.ALL_SELECTED:
 		if mod == null:
@@ -296,7 +296,7 @@ func update_crafting():
 func update_crafting_components():
 	_crafting_components.clear()
 	crafting_scraps = (crafting_inputs
-			.reduce(func(acc: int, mod: ModBase): return acc + mod.get_recycle_value(), 0))
+			.reduce(func(acc: int, mod: Mod): return acc + mod.get_recycle_value(), 0))
 	for mod in crafting_inputs:
 		for pp in mod.property_points:
 			_crafting_components[pp] = _crafting_components.get_or_add(pp, 0) + mod.property_points[pp]
@@ -409,7 +409,7 @@ func add_dragged_item(item: DraggedItem, state: ItemContainer.State):
 	if analysis_shown:
 		update_analysis()
 
-func insert_item(mod: ModBase, destination: ItemContainer.State):
+func insert_item(mod: Mod, destination: ItemContainer.State):
 	dragged_item = null
 	match (destination):
 		ItemContainer.State.MODCOMP:
