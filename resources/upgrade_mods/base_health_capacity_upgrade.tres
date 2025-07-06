@@ -1,14 +1,16 @@
-[gd_resource type="Resource" script_class="UpgradeMod" load_steps=9 format=3 uid="uid://c3s1g4ybomxx6"]
+[gd_resource type="Resource" script_class="ModBase" load_steps=10 format=3 uid="uid://c3s1g4ybomxx6"]
 
 [ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="1_c0ky6"]
 [ext_resource type="Texture2D" uid="uid://cthxud4wvklx8" path="res://resources/text_icons/health_capacity_plus.tres" id="1_he1hk"]
+[ext_resource type="Script" uid="uid://dlwahujwxjfnc" path="res://scripts/mod_entry.gd" id="1_mhkam"]
 [ext_resource type="Resource" uid="uid://cfjsdmeafbke8" path="res://resources/property_points/health_capacity_pp.tres" id="2_mhkam"]
-[ext_resource type="Script" uid="uid://d2qeqei6awjb1" path="res://scripts/mods/upgrade_mod.gd" id="2_mlikk"]
+[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod_base.gd" id="2_mlikk"]
 [ext_resource type="Resource" uid="uid://dvmlfcbqqrwyt" path="res://resources/property_points/health_pp.tres" id="3_he1hk"]
 [ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="6_j2ftp"]
 
 [sub_resource type="Resource" id="Resource_m3xpl"]
 script = ExtResource("6_j2ftp")
+special = false
 _property_type = "HealthCapacityProp"
 _factor = 10.0
 _target = 0
@@ -16,6 +18,7 @@ metadata/_custom_type_script = "uid://c01p77hb3xtxy"
 
 [sub_resource type="Resource" id="Resource_tnek4"]
 script = ExtResource("6_j2ftp")
+special = false
 _property_type = "HealthProp"
 _factor = 10.0
 _target = 0
@@ -23,7 +26,6 @@ metadata/_custom_type_script = "uid://bgdmv8hbubguj"
 
 [resource]
 script = ExtResource("2_mlikk")
-upgrades = Array[ExtResource("6_j2ftp")]([SubResource("Resource_m3xpl"), SubResource("Resource_tnek4")])
 name = "Health Capacity+"
 icon = ExtResource("1_he1hk")
 description = "Increases your health slightly"
@@ -32,4 +34,5 @@ ExtResource("2_mhkam"): 1,
 ExtResource("3_he1hk"): 1
 })
 value = 30
+entries = Array[ExtResource("1_mhkam")]([SubResource("Resource_m3xpl"), SubResource("Resource_tnek4")])
 metadata/_custom_type_script = "uid://d2qeqei6awjb1"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://c3y7gurn6a6pv"]
+[gd_scene load_steps=65 format=3 uid="uid://c3y7gurn6a6pv"]
 
 [ext_resource type="Script" uid="uid://d2o1hku0svi7t" path="res://scripts/game_scene/game.gd" id="1_yqjtg"]
 [ext_resource type="Script" uid="uid://b4nnqgafyjd1u" path="res://scripts/game_scene/camera_debug.gd" id="4_37s47"]
@@ -19,20 +19,15 @@
 [ext_resource type="PackedScene" uid="uid://bsk2hjudnw4rw" path="res://scenes/inventory_ui.tscn" id="12_bt5mj"]
 [ext_resource type="Resource" uid="uid://ido6g1b0tgpf" path="res://resources/upgrade_mods/base_speed_upgrade.tres" id="12_oaba0"]
 [ext_resource type="Theme" uid="uid://c8t8fqq1p8n4l" path="res://resources/custom_ui.tres" id="12_ssvqc"]
-[ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/mods/effect.gd" id="12_wljb1"]
 [ext_resource type="Resource" uid="uid://dwfvxifo18je3" path="res://resources/upgrade_mods/enlargement_upgrade.tres" id="13_458eo"]
 [ext_resource type="Resource" uid="uid://ytf5ejqaa4c7" path="res://resources/effect_mods/base_slowdown.tres" id="13_sgl2t"]
-[ext_resource type="Texture2D" uid="uid://bx6kp8j87xcrc" path="res://resources/text_icons/health_minus_impact_icon.tres" id="13_v2yb1"]
 [ext_resource type="Theme" uid="uid://d0hhc2538lbdn" path="res://resources/debug_ui.tres" id="14_264po"]
 [ext_resource type="Script" uid="uid://d0hynie2odmvm" path="res://scripts/game_scene/ui/pause_menu.gd" id="14_bt5mj"]
 [ext_resource type="Resource" uid="uid://cci24ym6eag5g" path="res://resources/upgrade_mods/piercing_upgrade.tres" id="14_h3rex"]
-[ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="14_js0lu"]
 [ext_resource type="Resource" uid="uid://gnm1t2fhtlvr" path="res://resources/upgrade_mods/decrease_bullet_spread_upgrade.tres" id="15_8ool0"]
 [ext_resource type="Script" uid="uid://b5ihjg2jg7kkh" path="res://scripts/game_scene/ui/debug/debug_panel.gd" id="15_264po"]
-[ext_resource type="Resource" uid="uid://dvmlfcbqqrwyt" path="res://resources/property_points/health_pp.tres" id="15_gxtfn"]
 [ext_resource type="Script" uid="uid://cse3mqdmlr8dq" path="res://scripts/game_scene/ui/debug/tree.gd" id="16_1kice"]
 [ext_resource type="Texture2D" uid="uid://ccfwh73q4xx04" path="res://assets/tilesheets/tilemap.png" id="16_264po"]
-[ext_resource type="Script" uid="uid://qxcwl20lyaga" path="res://scripts/mods/effect_mod.gd" id="16_twgab"]
 [ext_resource type="Script" uid="uid://bxej7b3iw18rm" path="res://scripts/managers/entity_manager.gd" id="19_bhx41"]
 [ext_resource type="Script" uid="uid://cjibf46shciwg" path="res://scripts/game_scene/game_over_panel.gd" id="19_bt5mj"]
 [ext_resource type="AudioStream" uid="uid://d1v6522e76f16" path="res://assets/audio/songs/8_bit_mission.wav" id="21_5newe"]
@@ -123,27 +118,6 @@ texture_margin_top = 32.0
 texture_margin_right = 32.0
 texture_margin_bottom = 32.0
 region_rect = Rect2(1798, 4, 106, 106)
-
-[sub_resource type="Resource" id="Resource_16gqk"]
-script = ExtResource("12_wljb1")
-_property_type = "HealthProp"
-_interval = -1.0
-_repeat = 0
-_factor = -20.0
-metadata/_custom_type_script = "uid://2fh28xow6f1j"
-
-[sub_resource type="Resource" id="Resource_m4url"]
-resource_local_to_scene = true
-script = ExtResource("16_twgab")
-effects = Array[ExtResource("12_wljb1")]([SubResource("Resource_16gqk")])
-name = "Damage+"
-icon = ExtResource("13_v2yb1")
-description = "Increases damage taken by target"
-property_points = Dictionary[ExtResource("14_js0lu"), int]({
-ExtResource("15_gxtfn"): 1
-})
-value = 20
-metadata/_custom_type_script = "uid://qxcwl20lyaga"
 
 [sub_resource type="LabelSettings" id="LabelSettings_bt5mj"]
 font_size = 72
@@ -486,7 +460,7 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_1kice")
 [node name="InventoryUI" parent="UI" instance=ExtResource("12_bt5mj")]
 visible = false
 z_index = 20
-unlocked_mods = Array[ExtResource("11_sww3w")]([SubResource("Resource_m4url"), ExtResource("13_sgl2t")])
+unlocked_mods = Array[ExtResource("11_sww3w")]([ExtResource("6_m4url"), ExtResource("13_sgl2t")])
 
 [node name="PauseMenu" type="Control" parent="UI"]
 process_mode = 2

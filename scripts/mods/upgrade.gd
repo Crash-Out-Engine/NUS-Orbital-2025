@@ -1,5 +1,5 @@
 class_name Upgrade
-extends Resource
+extends ModEntry
 
 enum Target {
 	ENTITY,
@@ -7,9 +7,15 @@ enum Target {
 	EXPLOSION
 }
 
+
+@export var special: bool = false # TODO: Implement special upgrades
 @export_custom(PROPERTY_HINT_TYPE_STRING, "PropertyBase") var _property_type: String
 @export var _factor: float
 @export var _target: Target
+
+
+func _init() -> void:
+	type = ModEntry.Type.UPGRADE
 
 
 func apply_upgrade(property: PropertyBase) -> void:
@@ -31,11 +37,10 @@ func _can_upgrade(property: PropertyBase) -> bool:
 
 #region Save/load
 
-func save() -> PackedByteArray:
-	var dict = {}
+func save(dict: Dictionary = {}) -> PackedByteArray:
 	dict["_property_type"] = _property_type
 	dict["_factor"] = _factor
-	return var_to_bytes(dict)
+	return super.save(dict)
 
 static func from_saved(data: PackedByteArray) -> Upgrade:
 	var dict = bytes_to_var(data)
@@ -46,10 +51,10 @@ static func from_saved(data: PackedByteArray) -> Upgrade:
 	return upgrade
 
 
-static func save_array(array: Array[Upgrade]) -> PackedByteArray:
+static func save_upgrade_array(array: Array[Upgrade]) -> PackedByteArray:
 	return var_to_bytes(array.map(func(upgrade): return upgrade.save()))
 
-static func from_saved_array(data: PackedByteArray) -> Array[Upgrade]:
+static func from_saved_upgrade_array(data: PackedByteArray) -> Array[Upgrade]:
 	var array: Array[Upgrade]
 	array.assign(bytes_to_var(data).map(func(upgrade_data): return Upgrade.from_saved(upgrade_data)))
 	return array

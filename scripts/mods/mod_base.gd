@@ -13,17 +13,51 @@ enum Type {
 @export var description: String
 @export var property_points: Dictionary[PropertyPoint, int]
 @export var value: int
+@export var entries: Array[ModEntry]
 
 var type: Type
 
-func _init() -> void:
-	assert(false, "ModBase is an abstract class and cannot be instantiated.")
+
+static func compile_entries(mods: Array[ModBase]) -> Array[ModEntry]:
+	var array: Array[ModEntry]
+	for mod in mods:
+		array.append_array(mod.entries)
+	return array
+
+
+static func compile_effects(mods: Array[ModBase]) -> Array[Effect]:
+	var array: Array[Effect]
+	for mod in mods:
+		array.append_array(mod.get_effects())
+	return array
+
+
+static func compile_upgrades(mods: Array[ModBase], target: Upgrade.Target) -> Array[Upgrade]:
+	var array: Array[Upgrade]
+	for mod in mods:
+		array.append_array(mod.get_upgrades(target))
+	return array
+
 
 func get_icon(size: int = 24):
 	return ("[img={%d}]" % size) + icon.resource_path + "[/img]"
 
 func get_recycle_value() -> int:
 	return int(float(value) * 0.8)
+
+func get_upgrades(target: Upgrade.Target) -> Array[Upgrade]:
+	var array: Array[Upgrade]
+	array.assign(
+			entries.filter(
+					func(entry): return entry.type == ModEntry.Type.UPGRADE and entry.get_target() == target
+			)
+	)
+	return array
+
+func get_effects() -> Array[Effect]:
+	var array: Array[Effect]
+	array.assign(entries.filter(func(entry): return entry.type == ModEntry.Type.EFFECT))
+	return array
 
 #region Save/load
 

@@ -67,54 +67,27 @@ func _setup_mods() -> void:
 	if !attack_comp.is_node_ready():
 		await attack_comp.ready
 
-	var upgrade_mods: Array[UpgradeMod]
-	var effect_mods: Array[EffectMod]
-	var behavioural_mods: Array # TODO: Implement behavioural mod
-	upgrade_mods.assign(
-			_mods.filter(func(mod): return mod != null and mod.type == ModBase.Type.UPGRADE))
-	effect_mods.assign(
-			_mods.filter(func(mod): return mod != null and mod.type == ModBase.Type.EFFECT))
-	behavioural_mods.assign(
-			_mods.filter(func(mod): return mod != null and mod.type == ModBase.Type.BEHAVIOURAL))
-
 	var entity_properties := entity.get_node(^"Properties").get_children()
-	for upgrade in UpgradeMod.compile_upgrades(upgrade_mods, Upgrade.Target.ENTITY):
+	for upgrade in ModBase.compile_upgrades(_mods, Upgrade.Target.ENTITY):
 		for prop_node in entity_properties:
 			upgrade.apply_upgrade(prop_node)
 
-	var effects := EffectMod.compile_effects(effect_mods)
+	var effects := ModBase.compile_effects(_mods)
 	attack_comp.effects.assign(effects)
-
-	if "behavioural_mods" in attack_comp:
-		attack_comp.behavioural_mods.assign(behavioural_mods)
 
 	attack_comp.mods = _mods
 	updated.emit(_mods.size(), _capacity)
 
 
 func _cleanup_mods() -> void:
-	var upgrade_mods: Array[UpgradeMod]
-	var effect_mods: Array[EffectMod]
-	var behavioural_mods: Array # TODO: Implement behavioural mod
-	upgrade_mods.assign(
-			_mods.filter(func(mod): return mod != null and mod.type == ModBase.Type.UPGRADE))
-	effect_mods.assign(
-			_mods.filter(func(mod): return mod != null and mod.type == ModBase.Type.EFFECT))
-	behavioural_mods.assign(
-			_mods.filter(func(mod): return mod != null and mod.type == ModBase.Type.BEHAVIOURAL))
-
 	var entity_properties := entity.get_node(^"Properties").get_children()
-	for upgrade in UpgradeMod.compile_upgrades(upgrade_mods, Upgrade.Target.ENTITY):
+	for upgrade in ModBase.compile_upgrades(_mods, Upgrade.Target.ENTITY):
 		for prop_node in entity_properties:
 			upgrade.unapply_upgrade(prop_node)
 
-	var effects := EffectMod.compile_effects(effect_mods)
 	attack_comp.effects.assign([])
 
-	if "behavioural_mods" in attack_comp:
-		attack_comp.behavioural_mods.assign(behavioural_mods)
-
-	attack_comp.mods = _mods
+	attack_comp.mods.assign([])
 	updated.emit(_mods.size(), _capacity)
 
 

@@ -1,13 +1,15 @@
-[gd_resource type="Resource" script_class="UpgradeMod" load_steps=7 format=3 uid="uid://chylya72720me"]
+[gd_resource type="Resource" script_class="ModBase" load_steps=8 format=3 uid="uid://chylya72720me"]
 
 [ext_resource type="Texture2D" uid="uid://b28j5po2g5mbo" path="res://resources/text_icons/explosion_plus.tres" id="1_lqted"]
+[ext_resource type="Script" uid="uid://dlwahujwxjfnc" path="res://scripts/mod_entry.gd" id="1_thvv2"]
 [ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="2_tirmo"]
 [ext_resource type="Resource" uid="uid://btlyda8bvnqes" path="res://resources/property_points/size_pp.tres" id="3_thvv2"]
-[ext_resource type="Script" uid="uid://d2qeqei6awjb1" path="res://scripts/mods/upgrade_mod.gd" id="4_3t3ou"]
+[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod_base.gd" id="4_3t3ou"]
 [ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="5_lqted"]
 
 [sub_resource type="Resource" id="Resource_tirmo"]
 script = ExtResource("5_lqted")
+special = false
 _property_type = "SizeProp"
 _factor = 0.5
 _target = 2
@@ -15,7 +17,6 @@ metadata/_custom_type_script = "uid://dtbv8tja5mys5"
 
 [resource]
 script = ExtResource("4_3t3ou")
-upgrades = Array[ExtResource("5_lqted")]([SubResource("Resource_tirmo")])
 name = "Explosion Size+"
 icon = ExtResource("1_lqted")
 description = "Increase size of explosions"
@@ -23,4 +24,5 @@ property_points = Dictionary[ExtResource("2_tirmo"), int]({
 ExtResource("3_thvv2"): 1
 })
 value = 200
+entries = Array[ExtResource("1_thvv2")]([SubResource("Resource_tirmo")])
 metadata/_custom_type_script = "uid://d2qeqei6awjb1"

@@ -1,5 +1,5 @@
-class_name Effect
-extends Resource
+class_name Effect # TODO: Implement special effects
+extends ModEntry
 ## An effect that can be applied to [PropertyBase] properties.
 ## [br]
 ## Types of effects:[br]
@@ -27,6 +27,8 @@ extends Resource
 func _init() -> void:
 	assert(not (_repeat > 0 and _interval <= 0),
 			"Effect is invalid; a repeated effect should have a positive interval.")
+
+	type = ModEntry.Type.EFFECT
 
 
 ## Helps apply the effect to the property without changing the effect's own
@@ -73,13 +75,12 @@ func _countdown(property: PropertyBase, counter: int) -> Callable:
 
 #region Save/load
 
-func save() -> PackedByteArray:
-	var dict = {}
+func save(dict: Dictionary = {}) -> PackedByteArray:
 	dict["_property_type"] = _property_type
 	dict["_interval"] = _interval
 	dict["_repeat"] = _repeat
 	dict["_factor"] = _factor
-	return var_to_bytes(dict)
+	return super.save(dict)
 
 static func from_saved(data: PackedByteArray) -> Effect:
 	var dict = bytes_to_var(data)
@@ -92,10 +93,10 @@ static func from_saved(data: PackedByteArray) -> Effect:
 	return effect
 
 
-static func save_array(array: Array[Effect]) -> PackedByteArray:
+static func save_effect_array(array: Array[Effect]) -> PackedByteArray:
 	return var_to_bytes(array.map(func(effect): return effect.save()))
 
-static func from_saved_array(data: PackedByteArray) -> Array[Effect]:
+static func from_saved_effect_array(data: PackedByteArray) -> Array[Effect]:
 	var array: Array[Effect]
 	array.assign(bytes_to_var(data).map(func(effect_data): return Effect.from_saved(effect_data)))
 	return array

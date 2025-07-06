@@ -42,7 +42,7 @@ func save() -> PackedByteArray:
   dict["origin_type"] = origin_type
   dict["origin_id"] = origin_id
   dict["origin_path"] = origin_path
-  dict["effects"] = Effect.save_array(effects)
+  dict["effects"] = Effect.save_effect_array(effects)
   dict["target_filter"] = target_filter.save()
   return var_to_bytes(dict)
 
@@ -53,7 +53,7 @@ static func from_saved(data: PackedByteArray) -> Attack:
   attack.origin_type = dict["origin_type"]
   attack.origin_id = dict["origin_id"]
   attack.origin_path = dict["origin_path"]
-  attack.effects = Effect.from_saved_array(dict["effects"])
+  attack.effects = Effect.from_saved_effect_array(dict["effects"])
   attack.target_filter = TargetFilter.from_saved(dict["target_filter"])
   return attack
 
