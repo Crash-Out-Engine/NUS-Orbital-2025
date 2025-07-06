@@ -1,21 +1,12 @@
 class_name Mod
 extends Resource
 
-enum Type {
-	BEHAVIOURAL,
-	EFFECT,
-	UPGRADE,
-}
-
-
 @export var name: String
 @export var icon: AtlasTexture
 @export var description: String
 @export var property_points: Dictionary[PropertyPoint, int]
 @export var value: int
 @export var entries: Array[ModEntry]
-
-var type: Type
 
 
 static func compile_entries(mods: Array[Mod]) -> Array[ModEntry]:

@@ -233,14 +233,7 @@ func mod_filter(mod: Mod) -> bool:
 		if mod == null:
 			success = false
 		else:
-			match (mod.type):
-				Mod.Type.UPGRADE:
-					for upgrade in mod.upgrades:
-						if !can_affect_filter.get_selected()[upgrade.get_target()]: success = false
-				Mod.Type.EFFECT:
-					if !can_affect_filter.get_selected()[3]: success = false
-				Mod.Type.BEHAVIOURAL:
-					pass
+			pass # TODO: @deltaMinor to look at possible modifications to UI
 	if component_filter.get_state() != DropdownCheckboxesContainer.State.ALL_SELECTED:
 		if mod == null:
 			success = false
