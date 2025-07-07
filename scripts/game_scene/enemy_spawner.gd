@@ -3,7 +3,7 @@ extends Node2D
 const _ENEMY_SCENE = preload("res://scenes/enemy.tscn")
 
 @export var active := true
-@export var mods : Array[ModBase]
+@export var mods : Array[Mod]
 
 var count: float = 0.0
 var rng = RandomNumberGenerator.new()

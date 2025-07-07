@@ -1,13 +1,15 @@
-[gd_resource type="Resource" script_class="UpgradeMod" load_steps=7 format=3 uid="uid://bk5uopkgkg01u"]
+[gd_resource type="Resource" script_class="Mod" load_steps=8 format=3 uid="uid://bk5uopkgkg01u"]
 
 [ext_resource type="Texture2D" uid="uid://c5vahafgua8dt" path="res://resources/text_icons/bullet_plus.tres" id="1_bomhx"]
 [ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="2_4spn7"]
-[ext_resource type="Script" uid="uid://d2qeqei6awjb1" path="res://scripts/mods/upgrade_mod.gd" id="3_5manq"]
+[ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="2_5manq"]
+[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod.gd" id="3_5manq"]
 [ext_resource type="Resource" uid="uid://dumsg6lvj4ux4" path="res://resources/property_points/copy_pp.tres" id="3_06olu"]
-[ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="5_4spn7"]
+[ext_resource type="Script" uid="uid://dlwahujwxjfnc" path="res://scripts/mods/mod_entry.gd" id="5_4spn7"]
 
 [sub_resource type="Resource" id="Resource_owt2h"]
-script = ExtResource("5_4spn7")
+script = ExtResource("2_5manq")
+special = false
 _property_type = "CopyProp"
 _factor = 1.0
 _target = 0
@@ -15,7 +17,6 @@ metadata/_custom_type_script = "uid://b4u0orbo5ii7h"
 
 [resource]
 script = ExtResource("3_5manq")
-upgrades = Array[ExtResource("5_4spn7")]([SubResource("Resource_owt2h")])
 name = "Bullet+"
 icon = ExtResource("1_bomhx")
 description = "Adds another bullet per shot"
@@ -23,4 +24,5 @@ property_points = Dictionary[ExtResource("2_4spn7"), int]({
 ExtResource("3_06olu"): 1
 })
 value = 150
+entries = Array[ExtResource("5_4spn7")]([SubResource("Resource_owt2h")])
 metadata/_custom_type_script = "uid://d2qeqei6awjb1"

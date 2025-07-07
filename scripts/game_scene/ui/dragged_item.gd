@@ -1,9 +1,9 @@
 class_name DraggedItem
 extends Area2D
 
-signal dropped(mod: ModBase, destination: ItemContainer.State)
+signal dropped(mod: Mod, destination: ItemContainer.State)
 
-@export var mod: ModBase
+@export var mod: Mod
 @export var destination: ItemContainer.State
 
 @onready var icon = $BaseSprite/OverlaySprite as Sprite2D

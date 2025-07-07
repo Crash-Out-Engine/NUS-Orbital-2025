@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://kcqha4xx46r7"]
+[gd_scene load_steps=63 format=3 uid="uid://kcqha4xx46r7"]
 
 [ext_resource type="Script" uid="uid://b2oqcghmenmfd" path="res://scripts/enemy_scene/enemy.gd" id="1_7p1mj"]
 [ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox_comp.gd" id="3_4ra3w"]
@@ -22,11 +22,10 @@
 [ext_resource type="Script" uid="uid://ci2gb64dwfmjh" path="res://scripts/properties/speed_prop.gd" id="13_wjec0"]
 [ext_resource type="Script" uid="uid://ceeipidvq5rqy" path="res://scripts/enemy_scene/audio.gd" id="14_g0wcc"]
 [ext_resource type="Script" uid="uid://bnt7cwx8k0nm0" path="res://scripts/components/mod_slot_comp.gd" id="16_1f82d"]
-[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod_base.gd" id="17_lioqc"]
+[ext_resource type="Script" uid="uid://dlwahujwxjfnc" path="res://scripts/mods/mod_entry.gd" id="17_lioqa"]
+[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod.gd" id="17_lioqc"]
 [ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="18_0lg75"]
-[ext_resource type="Script" uid="uid://qxcwl20lyaga" path="res://scripts/mods/effect_mod.gd" id="19_lsnsy"]
 [ext_resource type="Texture2D" uid="uid://fi3oi3y0iiwk" path="res://assets/sprites/ranged_enemy_spritesheet.png" id="20_wrm80"]
-[ext_resource type="Script" uid="uid://d2qeqei6awjb1" path="res://scripts/mods/upgrade_mod.gd" id="21_ekh6n"]
 [ext_resource type="Script" uid="uid://ytlqj8sxugss" path="res://scripts/components/movement_AI_comp.gd" id="21_i4rgx"]
 [ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="22_2sbpf"]
 [ext_resource type="AudioStream" uid="uid://dc66si5kieoq4" path="res://assets/audio/sound_effects/laser_gunshot.wav" id="29_1f82d"]
@@ -83,16 +82,17 @@ _factor = 200.0
 metadata/_custom_type_script = "uid://cr0bo4trqg3j1"
 
 [sub_resource type="Resource" id="Resource_605iw"]
-script = ExtResource("19_lsnsy")
-effects = Array[ExtResource("3_s1ycm")]([SubResource("Resource_78kod"), SubResource("Resource_qaulx")])
+script = ExtResource("17_lioqc")
 name = ""
 description = ""
 property_points = Dictionary[ExtResource("18_0lg75"), int]({})
 value = 0
+entries = Array[ExtResource("17_lioqa")]([SubResource("Resource_78kod"), SubResource("Resource_qaulx")])
 metadata/_custom_type_script = "uid://qxcwl20lyaga"
 
 [sub_resource type="Resource" id="Resource_x6q4o"]
 script = ExtResource("22_2sbpf")
+special = false
 _property_type = "SpeedProp"
 _factor = -600.0
 _target = 1
@@ -100,18 +100,19 @@ metadata/_custom_type_script = "uid://bv5qyje0vek6w"
 
 [sub_resource type="Resource" id="Resource_1f82d"]
 script = ExtResource("22_2sbpf")
+special = false
 _property_type = "SizeProp"
 _factor = 0.5
 _target = 1
 metadata/_custom_type_script = "uid://bv5qyje0vek6w"
 
 [sub_resource type="Resource" id="Resource_2tuss"]
-script = ExtResource("21_ekh6n")
-upgrades = Array[ExtResource("22_2sbpf")]([SubResource("Resource_x6q4o"), SubResource("Resource_1f82d")])
+script = ExtResource("17_lioqc")
 name = ""
 description = ""
 property_points = Dictionary[ExtResource("18_0lg75"), int]({})
 value = 0
+entries = Array[ExtResource("17_lioqa")]([SubResource("Resource_x6q4o"), SubResource("Resource_1f82d")])
 metadata/_custom_type_script = "uid://d2qeqei6awjb1"
 
 [sub_resource type="Resource" id="Resource_2pwtc"]

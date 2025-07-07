@@ -1,13 +1,15 @@
-[gd_resource type="Resource" script_class="UpgradeMod" load_steps=7 format=3 uid="uid://dk6e5yyhtcbel"]
+[gd_resource type="Resource" script_class="Mod" load_steps=8 format=3 uid="uid://dk6e5yyhtcbel"]
 
 [ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="1_0qv6a"]
 [ext_resource type="Texture2D" uid="uid://dty8jggd7oy84" path="res://resources/text_icons/bullet_size_plus.tres" id="1_einia"]
-[ext_resource type="Script" uid="uid://d2qeqei6awjb1" path="res://scripts/mods/upgrade_mod.gd" id="2_coeuu"]
+[ext_resource type="Script" uid="uid://dlwahujwxjfnc" path="res://scripts/mods/mod_entry.gd" id="1_ssr6u"]
+[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod.gd" id="2_coeuu"]
 [ext_resource type="Resource" uid="uid://btlyda8bvnqes" path="res://resources/property_points/size_pp.tres" id="3_ssr6u"]
 [ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="5_einia"]
 
 [sub_resource type="Resource" id="Resource_33dai"]
 script = ExtResource("5_einia")
+special = false
 _property_type = "SizeProp"
 _factor = 1.0
 _target = 1
@@ -15,7 +17,6 @@ metadata/_custom_type_script = "uid://dtbv8tja5mys5"
 
 [resource]
 script = ExtResource("2_coeuu")
-upgrades = Array[ExtResource("5_einia")]([SubResource("Resource_33dai")])
 name = "Bullet Size+"
 icon = ExtResource("1_einia")
 description = "Increase the size of your bullets"
@@ -23,4 +24,5 @@ property_points = Dictionary[ExtResource("1_0qv6a"), int]({
 ExtResource("3_ssr6u"): 1
 })
 value = 50
+entries = Array[ExtResource("1_ssr6u")]([SubResource("Resource_33dai")])
 metadata/_custom_type_script = "uid://d2qeqei6awjb1"

@@ -18,7 +18,7 @@ func setup_scrap_loot(value: int) -> void:
 	item = Item.ScrapItem.new(value)
 
 
-func setup_mod_loot(mod: ModBase) -> void:
+func setup_mod_loot(mod: Mod) -> void:
 	item = Item.ModItem.new(mod)
 
 

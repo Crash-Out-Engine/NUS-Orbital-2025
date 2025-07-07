@@ -151,7 +151,7 @@ func use_scraps(amount: int) -> void:
 	inventory.use_scraps(amount)
 
 
-func get_blueprints() -> Array[ModBase]:
+func get_blueprints() -> Array[Mod]:
 	return blueprints.get_blueprints()
 
 

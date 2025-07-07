@@ -11,7 +11,7 @@ enum State {
 
 const _DRAGGED_ITEM = preload("res://scenes/dragged_item.tscn")
 
-@export var mod: ModBase
+@export var mod: Mod
 @export var count: int
 @export var state: State
 
