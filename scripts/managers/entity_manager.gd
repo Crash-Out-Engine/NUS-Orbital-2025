@@ -35,8 +35,8 @@ func _ready() -> void:
 ## Note: method call will be ignored if [param source] is not authority.
 func server_add_entity(entity: Node2D, source: Node) -> void:
 	if not source.is_multiplayer_authority():
-		return 
-	
+		return
+
 	if is_multiplayer_authority():
 		_add_entity(entity)
 	else:
