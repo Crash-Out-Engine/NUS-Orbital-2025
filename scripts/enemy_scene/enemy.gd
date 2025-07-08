@@ -37,7 +37,7 @@ func die():
 		return
 
 	await visuals.bleed_finished
-	get_parent().remove_entity(self)
+	get_parent().server_remove_entity(self)
 
 	var loot = _LOOT_SCENE.instantiate()
 	loot.setup_scrap_loot(modslot_comp.get_mods().size() + type - 1)

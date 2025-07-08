@@ -23,4 +23,4 @@ func _ready() -> void:
 		timeout_prop.changed.connect(func(_from, to): _timer.start(to))
 		_timer.start(timeout_prop.value)
 	if autodespawn:
-		_timer.timeout.connect(func(): _entity.get_parent().remove_entity(_entity))
+		_timer.timeout.connect(func(): _entity.get_parent().server_remove_entity(_entity))

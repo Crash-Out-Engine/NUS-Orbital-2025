@@ -92,7 +92,7 @@ func _on_reboot_timer_timeout() -> void:
 
 
 func _on_visuals_disappear_finished() -> void:
-	get_parent().remove_entity(self)
+	get_parent().server_remove_entity(self)
 
 #region Save/load
 

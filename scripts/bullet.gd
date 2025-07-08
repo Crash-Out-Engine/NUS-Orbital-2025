@@ -59,7 +59,7 @@ func _on_body_entered(body: Node2D) -> void:
 			entity_spawned.emit(explosion)
 
 		if repeat_prop.check_empty():
-			get_parent().remove_entity(self)
+			get_parent().server_remove_entity(self)
 
 
 #region Save/load

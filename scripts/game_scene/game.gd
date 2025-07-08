@@ -156,7 +156,7 @@ func _add_players() -> void:
 		var player = _PLAYER_SCENE.instantiate()
 		player.position.x += 40 * i # HACK: Should implement proper collision detection
 		var peer = ids[i]
-		entity_manager.add_entity(player, self)
+		entity_manager.server_add_entity(player, self)
 		peer_player.set(peer, player)
 
 	call_deferred("_register_players", peer_player)
@@ -269,7 +269,7 @@ func save_scene() -> PackedByteArray:
 	session_config.game_seed = game_seed
 	session_config.state = _state
 	session_config.power = get_power()
-	session_config.entities_data = entity_manager.save_entities()
+	session_config.entities_data = entity_manager.save()
 	return session_config.save()
 
 
@@ -278,8 +278,9 @@ func load_saved_scene(data: PackedByteArray) -> void:
 	var session_config := SessionConfig.from_saved(data)
 	game_seed = session_config.game_seed
 	_state = session_config.state
-	power_manager._power = session_config.power
-	entity_manager.load_entities(session_config.entities_data)
+	if is_multiplayer_authority():
+		power_manager._power = session_config.power
+		entity_manager.load_saved(session_config.entities_data)
 
 #endregion
 

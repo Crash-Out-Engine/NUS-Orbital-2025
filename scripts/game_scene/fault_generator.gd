@@ -76,7 +76,7 @@ func _save_chunk(chunk_pos: Vector2i) -> void:
 
 func _free_chunk(chunk_pos: Vector2i) -> void:
 	for fault: Fault in _chunk_faults[chunk_pos].filter(func(fault): return fault != null):
-		fault.get_parent().remove_entity(fault)
+		entity_manager.server_remove_entity(fault)
 	_chunk_faults.erase(chunk_pos)
 
 
@@ -107,7 +107,7 @@ func _load_chunk(chunk_pos: Vector2i) -> void:
 func _create_fault() -> Fault:
 	if is_multiplayer_authority():
 		var fault := _FAULT_SCENE.instantiate()
-		entity_manager.add_entity(fault, self)
+		entity_manager.server_add_entity(fault, self)
 
 		return fault
 
