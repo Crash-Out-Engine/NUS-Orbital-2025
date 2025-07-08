@@ -129,10 +129,10 @@ func _handle_state_changed(from: State, to: State):
 
 		[_, State.DESTROYED]:
 			#TODO: implement loot drops
-			get_parent().remove_entity(self)
+			get_parent().server_remove_entity(self)
 
 		[_, State.CANCELLED]:
-			get_parent().remove_entity(self)
+			get_parent().server_remove_entity(self)
 
 		[_, _]:
 			assert(false,

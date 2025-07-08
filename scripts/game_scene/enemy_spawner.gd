@@ -25,7 +25,7 @@ func _on_spawn_timer_timeout() -> void: # TODO(multiplayer): Have more elaborate
 		enemy.global_position = center + radius * angle_vector
 		enemy.type = Enemy.Type.RANGED if rng.randf() < count/800 else Enemy.Type.MELEE
 		var total_mods = floor(rng.randf_range(0, count/80))
-		_entity_manager.add_entity(enemy, self)
+		_entity_manager.server_add_entity(enemy, self)
 		await enemy.ready
 		for i in total_mods:
 			var temp = rng.randf_range(0, 9)
