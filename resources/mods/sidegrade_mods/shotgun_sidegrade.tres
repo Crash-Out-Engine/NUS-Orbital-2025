@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="Mod" load_steps=10 format=3 uid="uid://b0u7x1o8kmeii"]
+
+[ext_resource type="Script" uid="uid://dlwahujwxjfnc" path="res://scripts/mods/mod_entry.gd" id="1_rl773"]
+[ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="2_at010"]
+[ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="2_jj8bo"]
+[ext_resource type="Texture2D" uid="uid://wlvrbrys85e5" path="res://resources/text_icons/shotgun.tres" id="3_153j0"]
+[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod.gd" id="3_gq5la"]
+[ext_resource type="Resource" uid="uid://dumsg6lvj4ux4" path="res://resources/property_points/copy_pp.tres" id="5_apm8r"]
+
+[sub_resource type="Resource" id="Resource_rfxbh"]
+script = ExtResource("2_at010")
+special = false
+_property_type = "CopyProp"
+_factor = 2.0
+_target = 0
+metadata/_custom_type_script = "uid://bv5qyje0vek6w"
+
+[sub_resource type="Resource" id="Resource_u6yrx"]
+script = ExtResource("2_at010")
+special = false
+_property_type = "TimeoutProp"
+_factor = -2.9
+_target = 1
+metadata/_custom_type_script = "uid://bv5qyje0vek6w"
+
+[sub_resource type="Resource" id="Resource_at010"]
+script = ExtResource("2_at010")
+special = false
+_property_type = "RangedCooldownProp"
+_factor = 0.75
+_target = 0
+metadata/_custom_type_script = "uid://bv5qyje0vek6w"
+
+[resource]
+script = ExtResource("3_gq5la")
+name = "Shotgun"
+icon = ExtResource("3_153j0")
+description = "Fire multiple bullets per shot in a wide scatter"
+property_points = Dictionary[ExtResource("2_jj8bo"), int]({
+ExtResource("5_apm8r"): 2
+})
+value = 350
+entries = Array[ExtResource("1_rl773")]([SubResource("Resource_rfxbh"), SubResource("Resource_u6yrx"), SubResource("Resource_at010")])
+metadata/_custom_type_script = "uid://cntpggq7q3bfh"

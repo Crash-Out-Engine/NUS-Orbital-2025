@@ -8,6 +8,7 @@ var _timer: Timer = Timer.new()
 
 func _ready() -> void:
 	value = ranged_cooldown
+	min_value = 0.02
 	_timer.one_shot = true
 	add_child(_timer)
 

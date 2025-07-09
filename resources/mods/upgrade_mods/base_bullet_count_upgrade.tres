@@ -25,4 +25,3 @@ ExtResource("3_06olu"): 1
 })
 value = 150
 entries = Array[ExtResource("5_4spn7")]([SubResource("Resource_owt2h")])
-metadata/_custom_type_script = "uid://d2qeqei6awjb1"

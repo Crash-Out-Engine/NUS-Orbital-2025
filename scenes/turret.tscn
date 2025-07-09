@@ -18,7 +18,7 @@
 [ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod.gd" id="9_d25s7"]
 [ext_resource type="AudioStream" uid="uid://dc66si5kieoq4" path="res://assets/audio/sound_effects/laser_gunshot.wav" id="9_tg0ex"]
 [ext_resource type="Script" uid="uid://crg4hg2cfow05" path="res://scripts/turret_scene/audio.gd" id="10_6k4ik"]
-[ext_resource type="Resource" uid="uid://dl56w1h7wf83j" path="res://resources/effect_mods/base_damage.tres" id="10_d25s7"]
+[ext_resource type="Resource" uid="uid://dl56w1h7wf83j" path="res://resources/mods/effect_mods/base_damage.tres" id="10_d25s7"]
 [ext_resource type="Script" uid="uid://cywswu1o8bqjs" path="res://scripts/turret_scene/visuals.gd" id="12_fp1kq"]
 [ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet.png" id="13_0mdkh"]
 [ext_resource type="AudioStream" uid="uid://cba76dqigqmco" path="res://assets/audio/sound_effects/metal_hit.wav" id="17_mpvso"]
