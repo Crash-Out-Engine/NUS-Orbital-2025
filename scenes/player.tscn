@@ -620,7 +620,6 @@ metadata/_custom_type_script = "uid://s08wfqwqu2jn"
 position = Vector2(21, 0)
 
 [node name="MeleeComp" type="Area2D" parent="Components" node_paths=PackedStringArray("_entity", "_melee_cooldown")]
-visible = false
 script = ExtResource("17_4r5pv")
 delay = 0.1
 _automated = false
@@ -637,7 +636,6 @@ shape = SubResource("RectangleShape2D_a38lo")
 debug_color = Color(0.7, 0, 0, 0.419608)
 
 [node name="RepairComp" type="Area2D" parent="Components" node_paths=PackedStringArray("_entity", "_melee_cooldown")]
-visible = false
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("17_4r5pv")
