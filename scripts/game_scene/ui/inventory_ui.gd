@@ -233,7 +233,26 @@ func mod_filter(mod: Mod) -> bool:
 		if mod == null:
 			success = false
 		else:
-			pass # TODO: @deltaMinor to look at possible modifications to UI
+			for entry in mod.entries:
+				match entry.type:
+					ModEntry.Type.UPGRADE:
+						match entry._target:
+							Upgrade.Target.ENTITY:
+								if !can_affect_filter.get_selected()[0]:
+									success = false
+									break
+							Upgrade.Target.BULLET:
+								if !can_affect_filter.get_selected()[1]:
+									success = false
+									break
+							Upgrade.Target.EXPLOSION:
+								if !can_affect_filter.get_selected()[2]:
+									success = false
+									break
+					ModEntry.Type.EFFECT:
+						if !can_affect_filter.get_selected()[3]:
+							success = false
+							break
 	if component_filter.get_state() != DropdownCheckboxesContainer.State.ALL_SELECTED:
 		if mod == null:
 			success = false

@@ -6,25 +6,25 @@
 [ext_resource type="Script" uid="uid://dixn701xl56vv" path="res://scripts/game_scene/enemy_spawner.gd" id="5_iywne"]
 [ext_resource type="Script" uid="uid://brohp3alww54k" path="res://scripts/game_scene/ui/ui.gd" id="5_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet.png" id="6_1kice"]
-[ext_resource type="Resource" uid="uid://dl56w1h7wf83j" path="res://resources/effect_mods/base_damage.tres" id="6_m4url"]
+[ext_resource type="Resource" uid="uid://dl56w1h7wf83j" path="res://resources/mods/effect_mods/base_damage.tres" id="6_m4url"]
 [ext_resource type="Script" uid="uid://ysb1rej05rno" path="res://scripts/game_scene/ui/hud_bars.gd" id="6_rysoc"]
 [ext_resource type="FontFile" uid="uid://cj53anigafm5t" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="9_kvuet"]
-[ext_resource type="Resource" uid="uid://bk5uopkgkg01u" path="res://resources/upgrade_mods/base_bullet_count_upgrade.tres" id="9_pr1ej"]
-[ext_resource type="Resource" uid="uid://c3s1g4ybomxx6" path="res://resources/upgrade_mods/base_health_capacity_upgrade.tres" id="10_05nbr"]
+[ext_resource type="Resource" uid="uid://bk5uopkgkg01u" path="res://resources/mods/upgrade_mods/base_bullet_count_upgrade.tres" id="9_pr1ej"]
+[ext_resource type="Resource" uid="uid://c3s1g4ybomxx6" path="res://resources/mods/upgrade_mods/base_health_capacity_upgrade.tres" id="10_05nbr"]
 [ext_resource type="Script" uid="uid://kvm0revtye6k" path="res://scripts/game_scene/ui/hud_map.gd" id="10_5newe"]
 [ext_resource type="Script" uid="uid://dlfl58jvcogf5" path="res://scripts/game_scene/chunk_debug.gd" id="10_vtaks"]
-[ext_resource type="Resource" uid="uid://gtpo8u16foe8" path="res://resources/upgrade_mods/base_ranged_cooldown_upgrade.tres" id="11_0sl42"]
+[ext_resource type="Resource" uid="uid://gtpo8u16foe8" path="res://resources/mods/upgrade_mods/base_ranged_cooldown_upgrade.tres" id="11_0sl42"]
 [ext_resource type="AudioStream" uid="uid://d0bs4frau5lf8" path="res://assets/audio/sound_effects/pause_sound.wav" id="11_ca42v"]
 [ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod.gd" id="11_sww3w"]
 [ext_resource type="PackedScene" uid="uid://bsk2hjudnw4rw" path="res://scenes/inventory_ui.tscn" id="12_bt5mj"]
-[ext_resource type="Resource" uid="uid://ido6g1b0tgpf" path="res://resources/upgrade_mods/base_speed_upgrade.tres" id="12_oaba0"]
+[ext_resource type="Resource" uid="uid://ido6g1b0tgpf" path="res://resources/mods/upgrade_mods/base_speed_upgrade.tres" id="12_oaba0"]
 [ext_resource type="Theme" uid="uid://c8t8fqq1p8n4l" path="res://resources/custom_ui.tres" id="12_ssvqc"]
-[ext_resource type="Resource" uid="uid://dwfvxifo18je3" path="res://resources/upgrade_mods/enlargement_upgrade.tres" id="13_458eo"]
-[ext_resource type="Resource" uid="uid://ytf5ejqaa4c7" path="res://resources/effect_mods/base_slowdown.tres" id="13_sgl2t"]
+[ext_resource type="Resource" uid="uid://dwfvxifo18je3" path="res://resources/mods/upgrade_mods/enlargement_upgrade.tres" id="13_458eo"]
+[ext_resource type="Resource" uid="uid://ytf5ejqaa4c7" path="res://resources/mods/effect_mods/base_slowdown.tres" id="13_sgl2t"]
 [ext_resource type="Theme" uid="uid://d0hhc2538lbdn" path="res://resources/debug_ui.tres" id="14_264po"]
 [ext_resource type="Script" uid="uid://d0hynie2odmvm" path="res://scripts/game_scene/ui/pause_menu.gd" id="14_bt5mj"]
-[ext_resource type="Resource" uid="uid://cci24ym6eag5g" path="res://resources/upgrade_mods/piercing_upgrade.tres" id="14_h3rex"]
-[ext_resource type="Resource" uid="uid://gnm1t2fhtlvr" path="res://resources/upgrade_mods/decrease_bullet_spread_upgrade.tres" id="15_8ool0"]
+[ext_resource type="Resource" uid="uid://cci24ym6eag5g" path="res://resources/mods/upgrade_mods/piercing_upgrade.tres" id="14_h3rex"]
+[ext_resource type="Resource" uid="uid://gnm1t2fhtlvr" path="res://resources/mods/upgrade_mods/decrease_bullet_spread_upgrade.tres" id="15_8ool0"]
 [ext_resource type="Script" uid="uid://b5ihjg2jg7kkh" path="res://scripts/game_scene/ui/debug/debug_panel.gd" id="15_264po"]
 [ext_resource type="Script" uid="uid://cse3mqdmlr8dq" path="res://scripts/game_scene/ui/debug/tree.gd" id="16_1kice"]
 [ext_resource type="Texture2D" uid="uid://ccfwh73q4xx04" path="res://assets/tilesheets/tilemap.png" id="16_264po"]
@@ -738,7 +738,7 @@ metadata/_custom_type_script = "uid://dlfl58jvcogf5"
 [node name="GameMusic" type="AudioStreamPlayer" parent="."]
 process_mode = 1
 stream = ExtResource("21_5newe")
-volume_db = -5.0
+volume_db = -10.0
 autoplay = true
 bus = &"Music"
 
