@@ -14,7 +14,7 @@ const BLEED_TIME := 2.0 / 30.0
 @onready var player_sprite := $PlayerSprite as AnimatedSprite2D
 @onready var gun_sprite := $GunSprite as AnimatedSprite2D
 @onready var gun_blast_sprite := $GunSprite/GunBlastSprite as AnimatedSprite2D
-@onready var gun_reload_bar := $GunSprite/ReloadBarSprite as Sprite2D
+@onready var gun_reload_bar := $GunSprite/ReloadBarSprite as AnimatedSprite2D
 
 func _ready() -> void:
 	player.state_changed.connect(
@@ -63,9 +63,6 @@ func _process(delta: float) -> void:
 	# gun_sprite processes
 	gun_sprite.rotation = player.hand.rotation
 	gun_sprite.scale.y = 1 if absf(player.hand.rotation) < PI / 2.0 else -1
-	gun_reload_bar.frame = floor(
-		4 * (1 - ranged_cooldown._timer.time_left / ranged_cooldown.value))
-
 
 func _handle_state_changed(_from: Player.State, to: Player.State) -> void:
 	const PS = Player.State
@@ -126,6 +123,7 @@ func _play_gun_idle() -> void:
 @rpc("any_peer", "call_local", "reliable")
 func _play_gun_fire() -> void:
 	gun_sprite.play("gun")
+	gun_reload_bar.play("default", 1 / ranged_cooldown.value)
 	gun_reload_bar.visible = true
 	gun_blast_sprite.play()
 

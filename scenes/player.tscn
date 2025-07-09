@@ -1,4 +1,4 @@
-[gd_scene load_steps=114 format=3 uid="uid://ytw0s5xnqwvt"]
+[gd_scene load_steps=120 format=3 uid="uid://ytw0s5xnqwvt"]
 
 [ext_resource type="Script" uid="uid://c8f8kowfp34yp" path="res://scripts/player_scene/player.gd" id="1_f1ej7"]
 [ext_resource type="Texture2D" uid="uid://dvanyjoqcolwr" path="res://assets/sprites/player_spritesheet.png" id="2_y4r1p"]
@@ -471,6 +471,49 @@ animations = [{
 "speed": 15.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_vau08"]
+atlas = ExtResource("52_42b1b")
+region = Rect2(0, 0, 6, 3)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qsb7e"]
+atlas = ExtResource("52_42b1b")
+region = Rect2(0, 3, 6, 3)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qjsmb"]
+atlas = ExtResource("52_42b1b")
+region = Rect2(0, 6, 6, 3)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mwp2n"]
+atlas = ExtResource("52_42b1b")
+region = Rect2(0, 9, 6, 3)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0yhus"]
+atlas = ExtResource("52_42b1b")
+region = Rect2(0, 12, 6, 3)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jlll7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vau08")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qsb7e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qjsmb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mwp2n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0yhus")
+}],
+"loop": false,
+"name": &"default",
+"speed": 4.0
+}]
+
 [node name="Player" type="RigidBody2D" node_paths=PackedStringArray("health", "health_capacity", "melee_cooldown", "size_prop", "lives", "ranged", "melee_attack", "melee_repair", "inventory", "mod_slots", "blueprints") groups=["allies"]]
 z_index = 1
 collision_layer = 3
@@ -675,10 +718,11 @@ frame = 3
 frame_progress = 1.0
 offset = Vector2(27, 0)
 
-[node name="ReloadBarSprite" type="Sprite2D" parent="Visuals/GunSprite"]
+[node name="ReloadBarSprite" type="AnimatedSprite2D" parent="Visuals/GunSprite"]
 position = Vector2(15.5, 1)
-texture = ExtResource("52_42b1b")
-vframes = 5
+sprite_frames = SubResource("SpriteFrames_jlll7")
+frame = 4
+frame_progress = 1.0
 
 [node name="Audio" type="Node" parent="." node_paths=PackedStringArray("player", "movement", "melee_attack", "melee_repair")]
 script = ExtResource("13_a8ls1")
