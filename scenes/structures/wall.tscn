@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://cuvu1ikd3ndwp"]
+
+[ext_resource type="Script" uid="uid://chyqvs2afv2mw" path="res://scripts/wall_scene/wall.gd" id="1_1jefv"]
+[ext_resource type="Script" uid="uid://bg2iinlcp53aa" path="res://scripts/properties/health_prop.gd" id="2_xckha"]
+[ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox_comp.gd" id="3_mc1qh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gnurj"]
+size = Vector2(150, 16)
+
+[node name="Wall" type="StaticBody2D" node_paths=PackedStringArray("health")]
+script = ExtResource("1_1jefv")
+health = NodePath("Properties/HealthProp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+top_level = true
+shape = SubResource("RectangleShape2D_gnurj")
+
+[node name="Properties" type="Node" parent="."]
+
+[node name="HealthProp" type="Node" parent="Properties"]
+script = ExtResource("2_xckha")
+metadata/_custom_type_script = "uid://bg2iinlcp53aa"
+
+[node name="Components" type="Node2D" parent="."]
+
+[node name="HitboxComp" type="Node" parent="Components" node_paths=PackedStringArray("_entity")]
+script = ExtResource("3_mc1qh")
+_entity = NodePath("../..")
+metadata/_custom_type_script = "uid://wwqkkrfhwiyn"
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="Visuals"]
+polygon = PackedVector2Array(-75, -8, -75, 8, 75, 8, 75, -8)
+
+[node name="Audio" type="Node" parent="."]
