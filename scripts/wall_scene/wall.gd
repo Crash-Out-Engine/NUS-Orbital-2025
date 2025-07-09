@@ -24,7 +24,7 @@ func save_scene() -> PackedByteArray:
 
 
 func load_saved_scene(data: PackedByteArray) -> void:
-	var dict = bytes_to_var(data) as Dictionary	
+	var dict = bytes_to_var(data) as Dictionary
 	global_position = dict["global_position"]
 	for property_node: PropertyBase in $Properties.get_children():
 		property_node.load_saved(dict[property_node.name])
