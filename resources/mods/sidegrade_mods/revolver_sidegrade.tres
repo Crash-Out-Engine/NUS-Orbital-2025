@@ -1,0 +1,47 @@
+[gd_resource type="Resource" script_class="Mod" load_steps=12 format=3 uid="uid://wrlbpoyuku87"]
+
+[ext_resource type="Script" uid="uid://dlwahujwxjfnc" path="res://scripts/mods/mod_entry.gd" id="1_ikkfx"]
+[ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="2_oijca"]
+[ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="2_sco0y"]
+[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod.gd" id="3_4l6g4"]
+[ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/mods/effect.gd" id="3_k1koa"]
+[ext_resource type="Texture2D" uid="uid://bo17defv3te4u" path="res://resources/text_icons/revolver.tres" id="4_x1nwu"]
+[ext_resource type="Resource" uid="uid://dvmlfcbqqrwyt" path="res://resources/property_points/health_pp.tres" id="6_4t8e6"]
+[ext_resource type="Resource" uid="uid://l1jf64rne3tu" path="res://resources/property_points/knockback_pp.tres" id="7_eurjy"]
+
+[sub_resource type="Resource" id="Resource_efdk7"]
+script = ExtResource("2_sco0y")
+special = false
+_property_type = "RangedCooldownProp"
+_factor = 0.4
+_target = 0
+metadata/_custom_type_script = "uid://bv5qyje0vek6w"
+
+[sub_resource type="Resource" id="Resource_4flpq"]
+script = ExtResource("3_k1koa")
+_property_type = "HealthProp"
+_interval = -1.0
+_repeat = 0
+_factor = 12.0
+metadata/_custom_type_script = "uid://cr0bo4trqg3j1"
+
+[sub_resource type="Resource" id="Resource_lraoj"]
+script = ExtResource("3_k1koa")
+_property_type = "KnockbackProp"
+_interval = -1.0
+_repeat = 0
+_factor = 150.0
+metadata/_custom_type_script = "uid://cr0bo4trqg3j1"
+
+[resource]
+script = ExtResource("3_4l6g4")
+name = "Revolver"
+icon = ExtResource("4_x1nwu")
+description = "Gives your gun an additional punch for some extra reload time"
+property_points = Dictionary[ExtResource("2_oijca"), int]({
+ExtResource("6_4t8e6"): 2,
+ExtResource("7_eurjy"): 1
+})
+value = 400
+entries = Array[ExtResource("1_ikkfx")]([SubResource("Resource_efdk7"), SubResource("Resource_4flpq"), SubResource("Resource_lraoj")])
+metadata/_custom_type_script = "uid://cntpggq7q3bfh"

@@ -1,0 +1,60 @@
+[gd_resource type="Resource" script_class="Mod" load_steps=12 format=3 uid="uid://baul7hq7kvfey"]
+
+[ext_resource type="Script" uid="uid://dlwahujwxjfnc" path="res://scripts/mods/mod_entry.gd" id="1_2vfdw"]
+[ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="2_8gf0x"]
+[ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="2_xeny7"]
+[ext_resource type="Texture2D" uid="uid://bcevwxc873x3h" path="res://resources/text_icons/rocket_launcher.tres" id="3_7ie7j"]
+[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod.gd" id="3_8gf0x"]
+[ext_resource type="Resource" uid="uid://btlyda8bvnqes" path="res://resources/property_points/size_pp.tres" id="5_7ie7j"]
+
+[sub_resource type="Resource" id="Resource_2cvue"]
+script = ExtResource("2_8gf0x")
+special = false
+_property_type = "SpeedProp"
+_factor = -20.0
+_target = 0
+metadata/_custom_type_script = "uid://bv5qyje0vek6w"
+
+[sub_resource type="Resource" id="Resource_rhv2s"]
+script = ExtResource("2_8gf0x")
+special = false
+_property_type = "SizeProp"
+_factor = 1.5
+_target = 2
+metadata/_custom_type_script = "uid://bv5qyje0vek6w"
+
+[sub_resource type="Resource" id="Resource_80216"]
+script = ExtResource("2_8gf0x")
+special = false
+_property_type = "SpeedProp"
+_factor = -300.0
+_target = 1
+metadata/_custom_type_script = "uid://bv5qyje0vek6w"
+
+[sub_resource type="Resource" id="Resource_ufrg0"]
+script = ExtResource("2_8gf0x")
+special = false
+_property_type = "RangedCooldownProp"
+_factor = 0.75
+_target = 0
+metadata/_custom_type_script = "uid://bv5qyje0vek6w"
+
+[sub_resource type="Resource" id="Resource_8gf0x"]
+script = ExtResource("2_8gf0x")
+special = false
+_property_type = "SizeProp"
+_factor = 1.5
+_target = 1
+metadata/_custom_type_script = "uid://bv5qyje0vek6w"
+
+[resource]
+script = ExtResource("3_8gf0x")
+name = "Rocket Launcher"
+icon = ExtResource("3_7ie7j")
+description = "Turns your shots into slow moving rockets with large explosions"
+property_points = Dictionary[ExtResource("2_xeny7"), int]({
+ExtResource("5_7ie7j"): 4
+})
+value = 500
+entries = Array[ExtResource("1_2vfdw")]([SubResource("Resource_2cvue"), SubResource("Resource_rhv2s"), SubResource("Resource_80216"), SubResource("Resource_ufrg0"), SubResource("Resource_8gf0x")])
+metadata/_custom_type_script = "uid://cntpggq7q3bfh"

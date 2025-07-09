@@ -1,0 +1,62 @@
+[gd_resource type="Resource" script_class="Mod" load_steps=13 format=3 uid="uid://ctlrhffeyita0"]
+
+[ext_resource type="Script" uid="uid://dlwahujwxjfnc" path="res://scripts/mods/mod_entry.gd" id="1_8a5gv"]
+[ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="2_2hxbu"]
+[ext_resource type="Texture2D" uid="uid://dpsgq7pa4g3op" path="res://resources/text_icons/grenade_launcher.tres" id="2_8degq"]
+[ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="2_pvumi"]
+[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod.gd" id="3_8degq"]
+[ext_resource type="Resource" uid="uid://btlyda8bvnqes" path="res://resources/property_points/size_pp.tres" id="5_3w4ap"]
+[ext_resource type="Resource" uid="uid://dumsg6lvj4ux4" path="res://resources/property_points/copy_pp.tres" id="6_uf4l3"]
+
+[sub_resource type="Resource" id="Resource_6nc7v"]
+script = ExtResource("2_2hxbu")
+special = false
+_property_type = "SpeedProp"
+_factor = -350.0
+_target = 1
+metadata/_custom_type_script = "uid://bv5qyje0vek6w"
+
+[sub_resource type="Resource" id="Resource_m0p3f"]
+script = ExtResource("2_2hxbu")
+special = false
+_property_type = "CopyProp"
+_factor = 5.0
+_target = 1
+metadata/_custom_type_script = "uid://bv5qyje0vek6w"
+
+[sub_resource type="Resource" id="Resource_iat3d"]
+script = ExtResource("2_2hxbu")
+special = false
+_property_type = "SizeProp"
+_factor = 1.5
+_target = 1
+metadata/_custom_type_script = "uid://bv5qyje0vek6w"
+
+[sub_resource type="Resource" id="Resource_tchht"]
+script = ExtResource("2_2hxbu")
+special = false
+_property_type = "SizeProp"
+_factor = 0.5
+_target = 2
+metadata/_custom_type_script = "uid://bv5qyje0vek6w"
+
+[sub_resource type="Resource" id="Resource_2hxbu"]
+script = ExtResource("2_2hxbu")
+special = false
+_property_type = "TimeoutProp"
+_factor = -2.0
+_target = 1
+metadata/_custom_type_script = "uid://bv5qyje0vek6w"
+
+[resource]
+script = ExtResource("3_8degq")
+name = "Grenade Launcher"
+icon = ExtResource("2_8degq")
+description = "Turn your shots into large explosion generating grenades"
+property_points = Dictionary[ExtResource("2_pvumi"), int]({
+ExtResource("5_3w4ap"): 1,
+ExtResource("6_uf4l3"): 5
+})
+value = 500
+entries = Array[ExtResource("1_8a5gv")]([SubResource("Resource_6nc7v"), SubResource("Resource_m0p3f"), SubResource("Resource_iat3d"), SubResource("Resource_tchht"), SubResource("Resource_2hxbu")])
+metadata/_custom_type_script = "uid://cntpggq7q3bfh"

@@ -67,12 +67,12 @@ metadata/_custom_type_script = "uid://ci2gb64dwfmjh"
 
 [node name="SpreadProp" type="Node" parent="Properties"]
 script = ExtResource("5_26lx3")
-_spread = 0.1
+_spread = 3.0
 metadata/_custom_type_script = "uid://3wplgpaykhjn"
 
 [node name="TimeoutProp" type="Node" parent="Properties"]
 script = ExtResource("6_26lx3")
-time = 3.0
+time = 15.0
 
 [node name="Components" type="Node2D" parent="."]
 

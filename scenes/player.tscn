@@ -1,4 +1,4 @@
-[gd_scene load_steps=116 format=3 uid="uid://ytw0s5xnqwvt"]
+[gd_scene load_steps=114 format=3 uid="uid://ytw0s5xnqwvt"]
 
 [ext_resource type="Script" uid="uid://c8f8kowfp34yp" path="res://scripts/player_scene/player.gd" id="1_f1ej7"]
 [ext_resource type="Texture2D" uid="uid://dvanyjoqcolwr" path="res://assets/sprites/player_spritesheet.png" id="2_y4r1p"]
@@ -38,9 +38,7 @@
 [ext_resource type="Script" uid="uid://dg0wh1lngb3ha" path="res://scripts/components/blueprint_comp.gd" id="23_bj30b"]
 [ext_resource type="Resource" uid="uid://ido6g1b0tgpf" path="res://resources/mods/upgrade_mods/base_speed_upgrade.tres" id="23_jc3p3"]
 [ext_resource type="Texture2D" uid="uid://cai86xvs48gye" path="res://assets/sprites/gunblast_spritesheet.png" id="23_pf23h"]
-[ext_resource type="Resource" uid="uid://bydi2urhshhcg" path="res://resources/mods/sidegrade_mods/minigun_sidegrade.tres" id="25_8svfe"]
 [ext_resource type="Resource" uid="uid://dwfvxifo18je3" path="res://resources/mods/upgrade_mods/enlargement_upgrade.tres" id="25_j2b1d"]
-[ext_resource type="Resource" uid="uid://rqs73wy4rnus" path="res://resources/mods/sidegrade_mods/sniper_sidegrade.tres" id="26_2a3c5"]
 [ext_resource type="Resource" uid="uid://cg1gbxue54288" path="res://resources/mods/upgrade_mods/shrink_upgrade.tres" id="26_cs1tg"]
 [ext_resource type="Resource" uid="uid://dk6e5yyhtcbel" path="res://resources/mods/upgrade_mods/larger_bullet_upgrade.tres" id="27_cs1tg"]
 [ext_resource type="AudioStream" uid="uid://cba76dqigqmco" path="res://assets/audio/sound_effects/metal_hit.wav" id="28_pf23h"]
@@ -531,6 +529,7 @@ script = ExtResource("9_giy8y")
 
 [node name="SpreadProp" type="Node" parent="Properties"]
 script = ExtResource("10_fdfoy")
+_spread = 0.5
 
 [node name="RepeatProp" type="Node" parent="Properties"]
 script = ExtResource("11_6e8lb")
@@ -625,7 +624,6 @@ shape = SubResource("CircleShape2D_wqfne")
 
 [node name="InventoryComp" type="Node" parent="Components" node_paths=PackedStringArray("mod_targeting_comp", "blueprint_comp")]
 script = ExtResource("20_wnwbv")
-initial_mods = Array[ExtResource("10_md1ol")]([ExtResource("25_8svfe"), ExtResource("26_2a3c5")])
 initial_scraps = 60
 mod_targeting_comp = NodePath("../ModTargetingComp")
 blueprint_comp = NodePath("../BlueprintComp")
