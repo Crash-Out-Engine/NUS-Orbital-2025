@@ -6,6 +6,6 @@
 [node name="MapIcon" type="Sprite2D"]
 visible = false
 texture = ExtResource("1_2yqxl")
-hframes = 5
+hframes = 6
 region_rect = Rect2(1, 1, 24, 24)
 script = ExtResource("2_73uoh")
