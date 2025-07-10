@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://u6jcdubmrey0" path="res://scripts/game_scene/ui/map_icon.gd" id="2_73uoh"]
 
 [node name="MapIcon" type="Sprite2D"]
-visible = false
 texture = ExtResource("1_2yqxl")
 hframes = 6
 region_rect = Rect2(1, 1, 24, 24)
