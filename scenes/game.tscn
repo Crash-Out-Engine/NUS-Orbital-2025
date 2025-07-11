@@ -31,7 +31,7 @@
 [ext_resource type="Script" uid="uid://bxej7b3iw18rm" path="res://scripts/managers/entity_manager.gd" id="19_bhx41"]
 [ext_resource type="Script" uid="uid://cjibf46shciwg" path="res://scripts/game_scene/game_over_panel.gd" id="19_bt5mj"]
 [ext_resource type="AudioStream" uid="uid://d1v6522e76f16" path="res://assets/audio/songs/8_bit_mission.wav" id="21_5newe"]
-[ext_resource type="Script" uid="uid://bqi3wylgyav4h" path="res://scripts/game_scene/tile_map_generator.gd" id="23_bhx41"]
+[ext_resource type="Script" uid="uid://bqi3wylgyav4h" path="res://scripts/systems/tilemap_generator.gd" id="23_bhx41"]
 [ext_resource type="Script" uid="uid://cu3yjuf8cf25w" path="res://scripts/managers/power_manager.gd" id="24_e1j6l"]
 [ext_resource type="Script" uid="uid://bds110rob8go" path="res://scripts/systems/tilemap_gen_system.gd" id="25_pl11u"]
 [ext_resource type="Script" uid="uid://btqbnfgfkwbk2" path="res://scripts/game_scene/fault_generator.gd" id="26_qnb83"]
@@ -693,7 +693,7 @@ metadata/_custom_type_script = "uid://cu3yjuf8cf25w"
 [node name="TilemapGenSystem" type="Node" parent="." node_paths=PackedStringArray("layers")]
 process_mode = 1
 script = ExtResource("25_pl11u")
-layers = [NodePath("SandTileGenerator"), NodePath("OverlayTileGenerator"), NodePath("FaultGenerator")]
+layers = [NodePath("SandTileGenerator"), NodePath("OverlayTileGenerator")]
 load_chunk_radius = Vector2i(7, 7)
 unload_chunk_radius = Vector2i(7, 7)
 metadata/_custom_type_script = "uid://bds110rob8go"

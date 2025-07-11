@@ -3,7 +3,7 @@ extends Node
 
 const CHUNK_SIZE: Vector2i = Vector2i(128, 128)
 
-@export var layers: Array[ChunkGeneratorBase]
+@export var layers: Array[TilemapGenerator]
 
 @export_group("Settings")
 @export_custom(PROPERTY_HINT_LINK, "suffix: chunks") var load_chunk_radius: Vector2i
