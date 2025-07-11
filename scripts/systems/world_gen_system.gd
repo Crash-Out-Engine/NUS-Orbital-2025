@@ -60,67 +60,22 @@ func _refresh_chunks(player_chunk_pos: Vector2i) -> void:
 		_load_rect_chunks(_active_chunks_boundary)
 
 	else:
-		# Left side
-		var left_size = - (_active_chunks_boundary.position.x - player_chunk_pos.x)
-		var left_ideal_size = clampi(left_size, load_chunk_radius.x, unload_chunk_radius.x)
-		if left_size != left_ideal_size:
-			_active_chunks_boundary = _active_chunks_boundary.grow_side(SIDE_LEFT,
-					left_ideal_size - left_size)
-			_handle_rect_chunks(
-				Rect2i(
-					_get_rect_corner(_active_chunks_boundary, CORNER_TOP_LEFT),
-					Vector2i(left_ideal_size - left_size, _active_chunks_boundary.size.y)
-				)
-			)
-
-		# right side
-		var right_size = _active_chunks_boundary.end.x - player_chunk_pos.x - 1
-		var right_ideal_size = clampi(right_size, load_chunk_radius.x, unload_chunk_radius.x)
-		if right_size != right_ideal_size:
-			_handle_rect_chunks(
-				Rect2i(
-					_get_rect_corner(_active_chunks_boundary, CORNER_TOP_RIGHT),
-					Vector2i(right_ideal_size - right_size, _active_chunks_boundary.size.y)
-				)
-			)
-			_active_chunks_boundary = _active_chunks_boundary.grow_side(SIDE_RIGHT,
-					right_ideal_size - right_size)
-
-		# top side
-		var top_size = - (_active_chunks_boundary.position.y - player_chunk_pos.y)
-		var top_ideal_size = clampi(top_size, load_chunk_radius.y, unload_chunk_radius.y)
-		if top_size != top_ideal_size:
-			_active_chunks_boundary = _active_chunks_boundary.grow_side(SIDE_TOP,
-					top_ideal_size - top_size)
-			_handle_rect_chunks(
-				Rect2i(
-					_get_rect_corner(_active_chunks_boundary, CORNER_TOP_LEFT),
-					Vector2i(_active_chunks_boundary.size.x, top_ideal_size - top_size)
-				)
-			)
-
-		# bottom side
-		var bottom_size = _active_chunks_boundary.end.y - player_chunk_pos.y - 1
-		var bottom_ideal_size = clampi(bottom_size, load_chunk_radius.y, unload_chunk_radius.y)
-		if bottom_size != bottom_ideal_size:
-			_handle_rect_chunks(
-				Rect2i(
-					_get_rect_corner(_active_chunks_boundary, CORNER_BOTTOM_LEFT),
-					Vector2i(_active_chunks_boundary.size.x, bottom_ideal_size - bottom_size)
-				)
-			)
-			_active_chunks_boundary = _active_chunks_boundary.grow_side(SIDE_BOTTOM,
-					bottom_ideal_size - bottom_size)
-
-
-func _handle_rect_chunks(rect: Rect2i) -> void:
-	match rect.get_area():
-		0:
-			return
-		var pos when pos > 0:
-			_load_rect_chunks(rect.abs())
-		var neg when neg < 0:
-			_unload_rect_chunks(rect.abs())
+		for side in 4:
+			var size := _get_rect_side_margin(_active_chunks_boundary, player_chunk_pos, side)
+			var ideal_size := clampi(size, load_chunk_radius[side % 2], unload_chunk_radius[side % 2])
+			var diff := ideal_size - size
+			if diff != 0:
+				var diff_rect := Rect2i(
+						_get_rect_corner(_active_chunks_boundary, side as Corner), Vector2i.ZERO)
+				diff_rect = diff_rect\
+						.grow_side((side + 3) % 4, _active_chunks_boundary.size[(side + 3) % 2])\
+						.abs()\
+						.grow_side(side, diff)
+				if diff_rect.get_area() > 0:
+					_load_rect_chunks(diff_rect.abs())
+				elif diff_rect.get_area() < 0:
+					_unload_rect_chunks(diff_rect.abs())
+				_active_chunks_boundary = _active_chunks_boundary.grow_side(side, diff)
 
 
 func _load_rect_chunks(rect: Rect2i) -> void:
@@ -152,3 +107,18 @@ static func _get_rect_corner(rect: Rect2i, corner: Corner) -> Vector2i:
 		_:
 			assert(false)
 			return Vector2i()
+
+
+static func _get_rect_side_margin(rect: Rect2i, from: Vector2i, side: Side) -> int:
+	match side:
+		SIDE_LEFT:
+			return from.x - rect.position.x
+		SIDE_RIGHT:
+			return rect.end.x - from.x - 1
+		SIDE_TOP:
+			return from.y - rect.position.y
+		SIDE_BOTTOM:
+			return rect.end.y - from.y - 1
+		_:
+			assert(false)
+			return int()
