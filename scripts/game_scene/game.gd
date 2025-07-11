@@ -130,7 +130,7 @@ func _setup(sequence: InitSequence) -> void:
 				await get_tree().process_frame
 			assert(_local_player != null, "Player should not be null.")
 		InitSequence.WORLD_GEN:
-			$WorldGenSystem.setup(get_seed(), get_local_player())
+			$TilemapGenSystem.setup(get_seed(), get_local_player())
 			$EnemySpawner.setup(get_local_player(), entity_manager)
 		InitSequence.CAMERA:
 			$Camera2D.setup(get_local_player())

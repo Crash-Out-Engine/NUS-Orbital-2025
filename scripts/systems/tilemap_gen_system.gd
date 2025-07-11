@@ -1,4 +1,4 @@
-class_name WorldGenSystem
+class_name TilemapGenSystem
 extends Node
 
 const CHUNK_SIZE: Vector2i = Vector2i(128, 128)
