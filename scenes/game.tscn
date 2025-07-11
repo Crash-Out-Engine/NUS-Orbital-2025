@@ -431,7 +431,7 @@ bbcode_enabled = true
 text = "[outline_size=8]Picked up ???[/outline_size]"
 fit_content = true
 
-[node name="HUDMap" type="Control" parent="UI"]
+[node name="HUDMiniMap" type="Control" parent="UI"]
 layout_mode = 3
 anchors_preset = 1
 anchor_left = 1.0
@@ -439,22 +439,71 @@ anchor_right = 1.0
 grow_horizontal = 0
 mouse_filter = 2
 script = ExtResource("10_5newe")
+map_scale = 8.0
 
-[node name="Map" type="Panel" parent="UI/HUDMap"]
+[node name="Map" type="Panel" parent="UI/HUDMiniMap"]
 layout_mode = 0
 offset_left = -234.0
 offset_top = 14.0
 offset_right = -14.0
 offset_bottom = 234.0
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_wljb1")
 
-[node name="MapOverlay" type="Panel" parent="UI/HUDMap"]
+[node name="MapOverlay" type="Panel" parent="UI/HUDMiniMap"]
 z_index = 10
 layout_mode = 0
 offset_left = -244.0
 offset_top = 4.0
 offset_right = -4.0
 offset_bottom = 244.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_1kice")
+
+[node name="HUDOverlayMap" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+script = ExtResource("10_5newe")
+map_scale = 4.0
+
+[node name="Map" type="Panel" parent="UI/HUDOverlayMap"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.774
+anchor_top = 0.015
+anchor_right = 0.774
+anchor_bottom = 0.015
+offset_left = -862.4
+offset_top = 12.5
+offset_right = -14.4
+offset_bottom = 860.5
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_wljb1")
+
+[node name="MapOverlay" type="Panel" parent="UI/HUDOverlayMap"]
+z_index = 10
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -434.0
+offset_top = -434.0
+offset_right = 434.0
+offset_bottom = 434.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(434, 434)
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_1kice")
 
 [node name="InventoryUI" parent="UI" instance=ExtResource("12_bt5mj")]
