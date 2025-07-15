@@ -75,7 +75,7 @@ func _setup_mods() -> void:
 	var effects := Mod.compile_effects(_mods)
 	attack_comp.effects.assign(effects)
 
-	attack_comp.mods = _mods
+	attack_comp.mods.assign(_mods)
 	updated.emit(_mods.size(), _capacity)
 
 

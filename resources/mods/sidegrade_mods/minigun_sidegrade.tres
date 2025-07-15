@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="Mod" load_steps=10 format=3 uid="uid://bydi2urhshhcg"]
+
+[ext_resource type="Script" uid="uid://dlwahujwxjfnc" path="res://scripts/mods/mod_entry.gd" id="1_b1sqc"]
+[ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="2_7s2v2"]
+[ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="2_15fce"]
+[ext_resource type="Texture2D" uid="uid://r5ij8muc8ty8" path="res://resources/text_icons/minigun.tres" id="2_sd35o"]
+[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod.gd" id="3_sd35o"]
+[ext_resource type="Resource" uid="uid://biniuv5ug1m4x" path="res://resources/property_points/time_pp.tres" id="5_xydl8"]
+[ext_resource type="Resource" uid="uid://d1a2felxieh8m" path="res://resources/property_points/speed_pp.tres" id="6_p0vmq"]
+
+[sub_resource type="Resource" id="Resource_xydl8"]
+script = ExtResource("2_7s2v2")
+special = false
+_property_type = "RangedCooldownProp"
+_factor = -0.25
+_target = 0
+metadata/_custom_type_script = "uid://bv5qyje0vek6w"
+
+[sub_resource type="Resource" id="Resource_p0vmq"]
+script = ExtResource("2_7s2v2")
+special = false
+_property_type = "SpeedProp"
+_factor = -60.0
+_target = 0
+metadata/_custom_type_script = "uid://bv5qyje0vek6w"
+
+[resource]
+script = ExtResource("3_sd35o")
+name = "Minigun"
+icon = ExtResource("2_sd35o")
+description = "Makes your gun fire rapidly and incredibly heavy"
+property_points = Dictionary[ExtResource("2_15fce"), int]({
+ExtResource("5_xydl8"): 5,
+ExtResource("6_p0vmq"): 3
+})
+value = 500
+entries = Array[ExtResource("1_b1sqc")]([SubResource("Resource_xydl8"), SubResource("Resource_p0vmq")])
+metadata/_custom_type_script = "uid://cntpggq7q3bfh"

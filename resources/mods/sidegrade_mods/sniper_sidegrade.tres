@@ -1,0 +1,71 @@
+[gd_resource type="Resource" script_class="Mod" load_steps=15 format=3 uid="uid://rqs73wy4rnus"]
+
+[ext_resource type="Script" uid="uid://dlwahujwxjfnc" path="res://scripts/mods/mod_entry.gd" id="1_318ie"]
+[ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="2_i5i02"]
+[ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/mods/effect.gd" id="2_tus8y"]
+[ext_resource type="Texture2D" uid="uid://crx7enirhyxvw" path="res://resources/text_icons/sniper_rifle.tres" id="3_2hnfv"]
+[ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="3_4h1yc"]
+[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod.gd" id="3_43kge"]
+[ext_resource type="Resource" uid="uid://dvmlfcbqqrwyt" path="res://resources/property_points/health_pp.tres" id="5_4h1yc"]
+[ext_resource type="Resource" uid="uid://cfjsdmeafbke8" path="res://resources/property_points/health_capacity_pp.tres" id="6_k1tht"]
+
+[sub_resource type="Resource" id="Resource_dagas"]
+script = ExtResource("2_tus8y")
+_property_type = "HealthProp"
+_interval = -1.0
+_repeat = 0
+_factor = -60.0
+metadata/_custom_type_script = "uid://cr0bo4trqg3j1"
+
+[sub_resource type="Resource" id="Resource_k1tht"]
+script = ExtResource("2_tus8y")
+_property_type = "HealthCapacityProp"
+_interval = 5.0
+_repeat = 0
+_factor = -16.0
+metadata/_custom_type_script = "uid://cr0bo4trqg3j1"
+
+[sub_resource type="Resource" id="Resource_adwp3"]
+script = ExtResource("3_4h1yc")
+special = false
+_property_type = "RangedCooldownProp"
+_factor = 4.5
+_target = 0
+metadata/_custom_type_script = "uid://bv5qyje0vek6w"
+
+[sub_resource type="Resource" id="Resource_8otfo"]
+script = ExtResource("3_4h1yc")
+special = false
+_property_type = "SizeProp"
+_factor = -0.9
+_target = 2
+metadata/_custom_type_script = "uid://bv5qyje0vek6w"
+
+[sub_resource type="Resource" id="Resource_p00v4"]
+script = ExtResource("3_4h1yc")
+special = false
+_property_type = "TimeoutProp"
+_factor = 5.0
+_target = 1
+metadata/_custom_type_script = "uid://bv5qyje0vek6w"
+
+[sub_resource type="Resource" id="Resource_2hnfv"]
+script = ExtResource("3_4h1yc")
+special = false
+_property_type = "RepeatProp"
+_factor = 2.0
+_target = 1
+metadata/_custom_type_script = "uid://bv5qyje0vek6w"
+
+[resource]
+script = ExtResource("3_43kge")
+name = "Sniper Rifle"
+icon = ExtResource("3_2hnfv")
+description = "A very high damage output for a long reload time, requires high precision and permanently damages target on impact"
+property_points = Dictionary[ExtResource("2_i5i02"), int]({
+ExtResource("5_4h1yc"): 5,
+ExtResource("6_k1tht"): 2
+})
+value = 500
+entries = Array[ExtResource("1_318ie")]([SubResource("Resource_dagas"), SubResource("Resource_k1tht"), SubResource("Resource_adwp3"), SubResource("Resource_8otfo"), SubResource("Resource_p00v4"), SubResource("Resource_2hnfv")])
+metadata/_custom_type_script = "uid://cntpggq7q3bfh"

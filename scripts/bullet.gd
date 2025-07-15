@@ -48,9 +48,9 @@ func _on_body_entered(body: Node2D) -> void:
 
 	if (body.has_node(^"Components/HitboxComp")
 			and body.get_node(^"Components/HitboxComp").is_targeted_by(attack.target_filter)):
-		var pos_offset = (copy_prop.value) * spread_prop.value * Vector2(1.0, 1.0) as Vector2
-		var interval = 2 * PI / (copy_prop.value + 1)
-		for i in copy_prop.value + 1:
+		var pos_offset = copy_prop.value * spread_prop.value * Vector2(1.0, 1.0) as Vector2
+		var interval = 2 * PI / copy_prop.value
+		for i in copy_prop.value:
 			var explosion = _EXPLOSION_SCENE.instantiate()
 			explosion.global_position = global_position + pos_offset.rotated(i * interval)
 			explosion.assign_mods(bullet_mods_comp.mods)

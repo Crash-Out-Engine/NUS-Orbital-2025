@@ -1,7 +1,8 @@
 extends Control
 
-const MAP_SCALE := Vector2(8.0, 8.0)
 const _MAP_ICON_SCENE := preload("res://scenes/map_icon.tscn")
+
+@export var map_scale : float
 
 var active: bool = false
 var _player: Player
@@ -33,7 +34,7 @@ func setup(player: Player, entity_manager: EntityManager) -> void:
 func _process(_delta: float) -> void:
 	if active:
 		for entity: Node2D in _entities_icons.keys():
-			var icon = _entities_icons.get(entity)
+			var icon = _entities_icons.get(entity) as MapIcon
 			icon.position = _to_map_coord(entity.global_position)
 			icon.visible = _is_within_map(icon.position)
 
@@ -42,7 +43,7 @@ func setup_icon(node: Node) -> void:
 	if node in _entities_icons:
 		return
 
-	if not (node is Player or node is Fault or node is Turret):
+	if not (node is Player or node is Fault or node is Turret or node is Enemy):
 		return
 
 	var icon = _MAP_ICON_SCENE.instantiate()
@@ -60,6 +61,8 @@ func setup_icon(node: Node) -> void:
 		var swapper = func(_from, to: Turret.State):
 				icon.swap(icon_map.get(to, icon.Icon.EMPTY))
 		node.state_changed.connect(swapper)
+	elif node is Enemy:
+		icon.frame = MapIcon.Icon.ENEMY
 	else: # Node is not an entity to be mapped.
 		assert(false, "This should be unreachable.")
 
@@ -71,7 +74,7 @@ func setup_icon(node: Node) -> void:
 
 
 func _to_map_coord(pos: Vector2) -> Vector2:
-	return (pos - _player.global_position) / MAP_SCALE + _center
+	return (pos - _player.global_position) / Vector2(map_scale, map_scale) + _center
 
 
 func _is_within_map(mapped_pos: Vector2) -> bool:

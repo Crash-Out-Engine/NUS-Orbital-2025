@@ -80,6 +80,16 @@ func _unhandled_key_input(event: InputEvent) -> void:
 				else:
 					$UI/InventoryUI.defocus_element()
 
+			if event.is_action_pressed("map"):
+				get_viewport().set_input_as_handled()
+				if not $UI/InventoryUI.is_open():
+					$UI/HUDMiniMap.visible = false
+					$UI/HUDOverlayMap.visible = true
+			if event.is_action_released("map"):
+				get_viewport().set_input_as_handled()
+				$UI/HUDMiniMap.visible = true
+				$UI/HUDOverlayMap.visible = false
+
 		State.PAUSED:
 			if event.is_action_pressed("esc"):
 				get_viewport().set_input_as_handled()
@@ -137,7 +147,8 @@ func _setup(sequence: InitSequence) -> void:
 			$Camera2D.setup(get_local_player())
 		InitSequence.UI:
 			$UI/HUDBars.setup(get_local_player(), power_manager)
-			$UI/HUDMap.setup(get_local_player(), entity_manager)
+			$UI/HUDMiniMap.setup(get_local_player(), entity_manager)
+			$UI/HUDOverlayMap.setup(get_local_player(), entity_manager)
 			$UI/InventoryUI.setup(self, get_local_player())
 			$UI/DebugPanel.setup(get_seed(), get_local_player(), entity_manager, power_manager, $EnemySpawner)
 			$UI/PauseMenu.setup(self)

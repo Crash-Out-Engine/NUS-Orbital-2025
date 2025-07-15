@@ -7,6 +7,7 @@ enum Icon { # Based on icon position in the texture, should be edited when textu
 	FAULT,
 	PLANNED_TURRET,
 	BUILT_TURRET,
+	ENEMY
 }
 
 func swap(icon: Icon) -> void:

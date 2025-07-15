@@ -16,7 +16,7 @@
 [ext_resource type="Script" uid="uid://3wplgpaykhjn" path="res://scripts/properties/spread_prop.gd" id="10_rogs8"]
 [ext_resource type="Script" uid="uid://bwysxkiq506ps" path="res://scripts/properties/target_priority_prop.gd" id="11_w8i8w"]
 [ext_resource type="Script" uid="uid://bvhh7lwu4sovf" path="res://scripts/properties/knockback_prop.gd" id="11_wrm80"]
-[ext_resource type="Script" uid="uid://cg7x3m1w75avm" path="res://scripts/properties/knockback_resistance_prop.gd" id="12_6awcb"]
+[ext_resource type="Script" path="res://scripts/properties/knockback_resistance_prop.gd" id="12_6awcb"]
 [ext_resource type="Script" uid="uid://b5m4xwnftefoj" path="res://scripts/properties/size_prop.gd" id="12_lioqc"]
 [ext_resource type="Script" uid="uid://b003j8v8bhc26" path="res://scripts/enemy_scene/visuals.gd" id="13_j0cyh"]
 [ext_resource type="Script" uid="uid://ci2gb64dwfmjh" path="res://scripts/properties/speed_prop.gd" id="13_wjec0"]
@@ -26,7 +26,7 @@
 [ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod.gd" id="17_lioqc"]
 [ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="18_0lg75"]
 [ext_resource type="Texture2D" uid="uid://fi3oi3y0iiwk" path="res://assets/sprites/ranged_enemy_spritesheet.png" id="20_wrm80"]
-[ext_resource type="Script" uid="uid://ytlqj8sxugss" path="res://scripts/components/movement_AI_comp.gd" id="21_i4rgx"]
+[ext_resource type="Script" path="res://scripts/components/movement_AI_comp.gd" id="21_i4rgx"]
 [ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="22_2sbpf"]
 [ext_resource type="AudioStream" uid="uid://dc66si5kieoq4" path="res://assets/audio/sound_effects/laser_gunshot.wav" id="29_1f82d"]
 
