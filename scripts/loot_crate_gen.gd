@@ -1,7 +1,7 @@
-class_name FaultGen
+class_name LootCrateGen
 extends StructureGenBase
 
-const _BOUNDING_SIZE := Vector2i(32, 32)
+const _BOUNDING_SIZE := Vector2i(20, 20)
 
 @export var noise: Noise
 @export var curve: Curve
@@ -69,13 +69,12 @@ func generate_chunk_points(chunk_pos: Vector2i) -> Array[StructureGenManager.Str
 	ret_array.assign(points.map(
 			func(point):
 				var spawn_data := StructureGenManager.StructureSpawnData.new()
-				spawn_data.entity_type_string = "Fault"
+				spawn_data.entity_type_string = "LootCrate"
 				spawn_data.position = point
 				spawn_data.bounding_box = Utils.offset_rect(Rect2i(Vector2i.ZERO, _BOUNDING_SIZE), point)
 				var temp_data := {} # HACK: Prefer to use formal class object
-				temp_data["global_position"] = point
-				temp_data["state"] = Fault.State.SABOTAGED
-				temp_data["build.value"] = 0.0
+				temp_data["position"] = point
+				temp_data["HealthProp"] = var_to_bytes({"value": 10.0, "min_value": 0.0, "max_value": INF})
 				spawn_data.load_data = var_to_bytes(temp_data)
 				return spawn_data
 	))
@@ -113,3 +112,4 @@ static func _is_valid_point(
 				return false
 	
 	return true
+

@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://c3y7gurn6a6pv"]
+[gd_scene load_steps=72 format=3 uid="uid://c3y7gurn6a6pv"]
 
 [ext_resource type="Script" uid="uid://d2o1hku0svi7t" path="res://scripts/game_scene/game.gd" id="1_yqjtg"]
 [ext_resource type="Script" uid="uid://b4nnqgafyjd1u" path="res://scripts/game_scene/camera_debug.gd" id="4_37s47"]
@@ -35,6 +35,8 @@
 [ext_resource type="Script" uid="uid://cu3yjuf8cf25w" path="res://scripts/managers/power_manager.gd" id="24_e1j6l"]
 [ext_resource type="Script" uid="uid://bds110rob8go" path="res://scripts/systems/tilemap_gen_system.gd" id="25_pl11u"]
 [ext_resource type="Script" uid="uid://dh80ow274molx" path="res://scripts/managers/structure_gen_manager.gd" id="35_02fa5"]
+[ext_resource type="Script" uid="uid://bvxy4628r1qai" path="res://scripts/walled_gen.gd" id="35_nepv3"]
+[ext_resource type="Script" uid="uid://duvbkegjw6tg0" path="res://scripts/loot_crate_gen.gd" id="36_02fa5"]
 [ext_resource type="Script" uid="uid://buus32epgpmbk" path="res://scripts/fault_gen.gd" id="36_nepv3"]
 
 [sub_resource type="Environment" id="Environment_yqjtg"]
@@ -186,6 +188,24 @@ texture = ExtResource("16_264po")
 
 [sub_resource type="TileSet" id="TileSet_1kice"]
 sources/0 = SubResource("TileSetAtlasSource_264po")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7025r"]
+noise_type = 0
+frequency = 1.0
+
+[sub_resource type="Curve" id="Curve_m4url"]
+_limits = [0.0, 1.0, -1.0, 1.0]
+_data = [Vector2(-1, 0), 0.0, 0.0, 0, 0, Vector2(1, 0.168605), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_nepv3"]
+noise_type = 0
+frequency = 0.0432
+
+[sub_resource type="Curve" id="Curve_7025r"]
+_limits = [0.0, 1.0, -1.0, 1.0]
+_data = [Vector2(-1, 0.00369978), 0.0, 0.0, 0, 0, Vector2(1, 0.214286), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_1kice"]
 noise_type = 0
@@ -733,10 +753,22 @@ metadata/_custom_type_script = "uid://dlfl58jvcogf5"
 
 [node name="StructureGenManager" type="Node" parent="." node_paths=PackedStringArray("layers")]
 script = ExtResource("35_02fa5")
-layers = [NodePath("FaultGen")]
+layers = [NodePath("WalledGen"), NodePath("LootCrateGen"), NodePath("FaultGen")]
 load_chunk_radius = Vector2i(2, 2)
 unload_chunk_radius = Vector2i(3, 3)
 metadata/_custom_type_script = "uid://dh80ow274molx"
+
+[node name="WalledGen" type="Node" parent="StructureGenManager"]
+script = ExtResource("35_nepv3")
+noise = SubResource("FastNoiseLite_7025r")
+curve = SubResource("Curve_m4url")
+metadata/_custom_type_script = "uid://bvxy4628r1qai"
+
+[node name="LootCrateGen" type="Node" parent="StructureGenManager"]
+script = ExtResource("36_02fa5")
+noise = SubResource("FastNoiseLite_nepv3")
+curve = SubResource("Curve_7025r")
+metadata/_custom_type_script = "uid://duvbkegjw6tg0"
 
 [node name="FaultGen" type="Node" parent="StructureGenManager"]
 script = ExtResource("36_nepv3")

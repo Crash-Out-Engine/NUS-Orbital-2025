@@ -19,7 +19,7 @@ func _die() -> void:
 
 	var loot = _LOOT_SCENE.instantiate()
 	loot.setup_scrap_loot(randi_range(1, 5)) # TODO: Implement proper loot drop chances.
-	loot.global_position = global_position
+	loot.position = position
 	entity_spawned.emit(loot)
 	get_parent().server_remove_entity(self)
 
@@ -28,7 +28,7 @@ func _die() -> void:
 
 func save_scene() -> PackedByteArray:
 	var dict := {}
-	dict["global_position"] = global_position
+	dict["position"] = position
 	for property_node: PropertyBase in $Properties.get_children():
 		dict[property_node.name] = property_node.save()
 	return var_to_bytes(dict)
@@ -36,7 +36,7 @@ func save_scene() -> PackedByteArray:
 
 func load_saved_scene(data: PackedByteArray) -> void:
 	var dict = bytes_to_var(data) as Dictionary
-	global_position = dict["global_position"]
+	position = dict["position"]
 	for property_node: PropertyBase in $Properties.get_children():
 		property_node.load_saved(dict[property_node.name])
 

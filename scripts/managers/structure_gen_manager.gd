@@ -14,7 +14,7 @@ enum Direction8 {
 	NW,
 }
 
-const CHUNK_SIZE: Vector2i = Vector2i(128, 128)
+const CHUNK_SIZE: Vector2i = Vector2i(512, 512)
 
 @export var layers: Array[StructureGenBase]
 

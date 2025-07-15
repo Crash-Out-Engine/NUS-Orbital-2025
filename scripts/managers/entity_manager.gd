@@ -12,6 +12,8 @@ const _ENTITY_PACKED_SCENE: Dictionary[String, PackedScene] = {
 	"Explosion": preload("res://scenes/explosion.tscn"),
 	"Loot": preload("res://scenes/loot.tscn"),
 	"Fault": preload("res://scenes/fault.tscn"),
+	"LootCrate": preload("res://scenes/structures/loot_crate.tscn"),
+	"Wall": preload("res://scenes/structures/wall.tscn"),
 }
 
 @export var _power_manager: PowerManager
