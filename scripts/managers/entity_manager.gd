@@ -15,6 +15,7 @@ const _ENTITY_PACKED_SCENE: Dictionary[String, PackedScene] = {
 }
 
 @export var _power_manager: PowerManager
+@export var _structure_gen_manager: StructureGenManager
 
 ## Synced variable to record entity spawn status across clients.
 ## [br]
@@ -28,6 +29,20 @@ var _load_queue: Dictionary[NodePath, PackedByteArray] = {}
 func _ready() -> void:
 	assert(!is_multiplayer_authority() or multiplayer.is_server(), "Server should be authority.")
 	spawned.connect(_on_remote_spawned)
+
+
+## Loads an entity to the game based on [param load_data] .
+## [br]
+## Note: method call will be ignored if [param source] is not authority.
+func server_load_entity(entity_type_string: String, load_data: PackedByteArray, source: Node) -> void:
+	assert(entity_type_string in _ENTITY_PACKED_SCENE, "\"%s\" is not a valid entity type." % entity_type_string)
+	if not source.is_multiplayer_authority():
+		return
+
+	if is_multiplayer_authority():
+		_server_add_entity(entity_type_string, load_data)
+	else:
+		_server_add_entity.rpc_id(1, entity_type_string, load_data)
 
 
 ## Adds an [param entity] to the game.
@@ -47,6 +62,13 @@ func server_remove_entity(entity: Node2D) -> void:
 	assert(entity in get_children(), "Entity is not a child and cannot be removed.")
 	_synced_update_entity_count.rpc(entity.get_path(), true)
 	_server_remove_entity.rpc(get_path_to(entity))
+
+
+func create_entity(entity_type_string: String, load_data) -> Node2D:
+	assert(entity_type_string in _ENTITY_PACKED_SCENE, "\"%s\" is not a valid entity type." % entity_type_string)
+	var entity = _ENTITY_PACKED_SCENE[entity_type_string].instantiate()
+	entity.load_saved_scene(load_data)
+	return entity
 
 
 @rpc("any_peer", "call_local", "reliable")
@@ -95,6 +117,8 @@ func _add_entity(entity: Node2D) -> void:
 	call_deferred("add_child", entity, true)
 	if entity is Fault:
 		_power_manager.register_fault(entity)
+	if entity is Player:
+		_structure_gen_manager.register_player(entity)
 	call_deferred("_connect_entity_spawned", entity)
 	MotionTracker.attach_to(entity)
 

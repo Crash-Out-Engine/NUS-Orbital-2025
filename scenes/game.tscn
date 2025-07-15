@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://c3y7gurn6a6pv"]
+[gd_scene load_steps=68 format=3 uid="uid://c3y7gurn6a6pv"]
 
 [ext_resource type="Script" uid="uid://d2o1hku0svi7t" path="res://scripts/game_scene/game.gd" id="1_yqjtg"]
 [ext_resource type="Script" uid="uid://b4nnqgafyjd1u" path="res://scripts/game_scene/camera_debug.gd" id="4_37s47"]
@@ -35,6 +35,8 @@
 [ext_resource type="Script" uid="uid://cu3yjuf8cf25w" path="res://scripts/managers/power_manager.gd" id="24_e1j6l"]
 [ext_resource type="Script" uid="uid://bds110rob8go" path="res://scripts/systems/tilemap_gen_system.gd" id="25_pl11u"]
 [ext_resource type="Script" uid="uid://btqbnfgfkwbk2" path="res://scripts/game_scene/fault_generator.gd" id="26_qnb83"]
+[ext_resource type="Script" uid="uid://dh80ow274molx" path="res://scripts/managers/structure_gen_manager.gd" id="35_02fa5"]
+[ext_resource type="Script" uid="uid://buus32epgpmbk" path="res://scripts/fault_gen.gd" id="36_nepv3"]
 
 [sub_resource type="Environment" id="Environment_yqjtg"]
 background_mode = 3
@@ -188,12 +190,17 @@ sources/0 = SubResource("TileSetAtlasSource_264po")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_1kice"]
 noise_type = 0
-frequency = 0.1809
+frequency = 0.328
 cellular_distance_function = 1
 
-[sub_resource type="Curve" id="Curve_37s47"]
+[sub_resource type="Curve" id="Curve_02fa5"]
 _data = [Vector2(0.00445434, 0), 0.0, 0.0, 0, 0, Vector2(0.418708, 0), 0.0, 0.0, 0, 0, Vector2(0.719376, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 4
+
+[sub_resource type="Curve" id="Curve_nepv3"]
+_limits = [0.0, 1.0, -1.0, 1.0]
+_data = [Vector2(-0.98916, 0), 0.0, 0.0, 0, 0, Vector2(1, 0.395349), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [node name="Game" type="Node2D"]
 process_mode = 3
@@ -678,12 +685,13 @@ size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("9_kvuet")
 text = "Close Game"
 
-[node name="EntityManager" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("_power_manager")]
+[node name="EntityManager" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("_power_manager", "_structure_gen_manager")]
 process_mode = 1
 _spawnable_scenes = PackedStringArray("uid://b52amtg2hmpm6", "uid://kcqha4xx46r7", "uid://df7vaxvbmprk4", "uid://dhntafslopc4h", "uid://cqq2h867dq6v3", "uid://ytw0s5xnqwvt", "uid://iqyedsof74fp")
 spawn_path = NodePath(".")
 script = ExtResource("19_bhx41")
 _power_manager = NodePath("../PowerManager")
+_structure_gen_manager = NodePath("../StructureGenManager")
 
 [node name="PowerManager" type="Node" parent="."]
 process_mode = 1
@@ -726,7 +734,7 @@ tile_set = SubResource("TileSet_1kice")
 [node name="FaultGenerator" type="Node" parent="TilemapGenSystem" node_paths=PackedStringArray("entity_manager")]
 script = ExtResource("26_qnb83")
 noise = SubResource("FastNoiseLite_1kice")
-curve = SubResource("Curve_37s47")
+curve = SubResource("Curve_02fa5")
 entity_manager = NodePath("../../EntityManager")
 metadata/_custom_type_script = "uid://btqbnfgfkwbk2"
 
@@ -734,6 +742,19 @@ metadata/_custom_type_script = "uid://btqbnfgfkwbk2"
 script = ExtResource("10_vtaks")
 player_camera = NodePath("../../Camera2D")
 metadata/_custom_type_script = "uid://dlfl58jvcogf5"
+
+[node name="StructureGenManager" type="Node" parent="." node_paths=PackedStringArray("layers")]
+script = ExtResource("35_02fa5")
+layers = [NodePath("FaultGen")]
+load_chunk_radius = Vector2i(2, 2)
+unload_chunk_radius = Vector2i(3, 3)
+metadata/_custom_type_script = "uid://dh80ow274molx"
+
+[node name="FaultGen" type="Node" parent="StructureGenManager"]
+script = ExtResource("36_nepv3")
+noise = SubResource("FastNoiseLite_1kice")
+curve = SubResource("Curve_nepv3")
+metadata/_custom_type_script = "uid://buus32epgpmbk"
 
 [node name="GameMusic" type="AudioStreamPlayer" parent="."]
 process_mode = 1

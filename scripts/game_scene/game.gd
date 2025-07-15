@@ -131,6 +131,7 @@ func _setup(sequence: InitSequence) -> void:
 			assert(_local_player != null, "Player should not be null.")
 		InitSequence.WORLD_GEN:
 			$TilemapGenSystem.setup(get_seed(), get_local_player())
+			$StructureGenManager.setup(get_seed(), entity_manager)
 			$EnemySpawner.setup(get_local_player(), entity_manager)
 		InitSequence.CAMERA:
 			$Camera2D.setup(get_local_player())

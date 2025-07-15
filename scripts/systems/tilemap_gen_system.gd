@@ -61,12 +61,12 @@ func _refresh_chunks(player_chunk_pos: Vector2i) -> void:
 
 	else:
 		for side in 4:
-			var size := _get_rect_side_margin(_active_chunks_boundary, player_chunk_pos, side)
+			var size := Utils.get_rect_side_margin(_active_chunks_boundary, player_chunk_pos, side)
 			var ideal_size := clampi(size, load_chunk_radius[side % 2], unload_chunk_radius[side % 2])
 			var diff := ideal_size - size
 			if diff != 0:
 				var diff_rect := Rect2i(
-						_get_rect_corner(_active_chunks_boundary, side as Corner), Vector2i.ZERO)
+						Utils.get_rect_corner(_active_chunks_boundary, side as Corner), Vector2i.ZERO)
 				diff_rect = diff_rect\
 						.grow_side((side + 3) % 4, _active_chunks_boundary.size[(side + 3) % 2])\
 						.abs()\
@@ -92,33 +92,3 @@ func _unload_rect_chunks(rect: Rect2i) -> void:
 			for layer in layers:
 				var chunk_pos := Vector2i(x, y)
 				layer.clear_chunk(chunk_pos)
-
-
-static func _get_rect_corner(rect: Rect2i, corner: Corner) -> Vector2i:
-	match corner:
-		CORNER_TOP_LEFT:
-			return rect.position
-		CORNER_TOP_RIGHT:
-			return Vector2i(rect.end.x, rect.position.y)
-		CORNER_BOTTOM_RIGHT:
-			return rect.end
-		CORNER_BOTTOM_LEFT:
-			return Vector2i(rect.position.x, rect.end.y)
-		_:
-			assert(false)
-			return Vector2i()
-
-
-static func _get_rect_side_margin(rect: Rect2i, from: Vector2i, side: Side) -> int:
-	match side:
-		SIDE_LEFT:
-			return from.x - rect.position.x
-		SIDE_RIGHT:
-			return rect.end.x - from.x - 1
-		SIDE_TOP:
-			return from.y - rect.position.y
-		SIDE_BOTTOM:
-			return rect.end.y - from.y - 1
-		_:
-			assert(false)
-			return int()
