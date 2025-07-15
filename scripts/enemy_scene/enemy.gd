@@ -5,7 +5,11 @@ signal entity_spawned(Node2D)
 
 enum Type {
 	MELEE,
-	RANGED
+	RANGED,
+	MINI,
+	BERSERKER,
+	SNIPER,
+	SUPPORT
 }
 
 const _LOOT_SCENE = preload("res://scenes/loot.tscn")
@@ -18,15 +22,52 @@ const _LOOT_SCENE = preload("res://scenes/loot.tscn")
 var type: Type
 
 @onready var visuals := $Visuals as EnemyVisuals
-
+@onready var hitbox_collision_shape := $HitboxCollisionShape as CollisionShape2D
+@onready var head_hurtbox := $Components/MeleeComp/HeadCollisionShape as CollisionShape2D
+@onready var body_hurtbox := $Components/MeleeComp/BodyCollisionShape as CollisionShape2D
 
 func _ready() -> void:
 	match type:
 		Type.MELEE:
 			ranged_comp.active = false
+			hitbox_collision_shape.shape = load(
+				"res://resources/collision_shapes/default_enemy_hitbox.tres")
+			head_hurtbox.shape = load("res://resources/collision_shapes/default_enemy_head.tres")
+			body_hurtbox.shape = load("res://resources/collision_shapes/default_enemy_body.tres")
+			body_hurtbox.position.y = 11
 		Type.RANGED:
 			ranged_comp.active = true
 			ranged_comp.bullet_spawned.connect(entity_spawned.emit)
+			hitbox_collision_shape.shape = load(
+				"res://resources/collision_shapes/default_enemy_hitbox.tres")
+			head_hurtbox.shape = load("res://resources/collision_shapes/default_enemy_head.tres")
+			body_hurtbox.shape = load("res://resources/collision_shapes/default_enemy_body.tres")
+			body_hurtbox.position.y = 11
+		Type.MINI:
+			ranged_comp.active = false
+			hitbox_collision_shape.shape = load(
+				"res://resources/collision_shapes/mini_enemy_hitbox.tres")
+			head_hurtbox.shape = load("res://resources/collision_shapes/mini_enemy_head.tres")
+			body_hurtbox.shape = load("res://resources/collision_shapes/mini_enemy_body.tres")
+			body_hurtbox.position.y = 9.5
+			$Properties/SpeedProp.value *= 1.5
+		Type.BERSERKER:
+			ranged_comp.active = false
+			hitbox_collision_shape.shape = load(
+				"res://resources/collision_shapes/berserker_enemy_hitbox.tres")
+			head_hurtbox.shape = load("res://resources/collision_shapes/berserker_enemy_head.tres")
+			body_hurtbox.disabled = true
+			$Properties/SpeedProp.value *= 4
+			$Properties/HealthCapacityProp.value *= 5
+			$Properties/HealthProp.value *= 5
+		Type.SNIPER:
+			ranged_comp.active = true
+			ranged_comp.bullet_spawned.connect(entity_spawned.emit)
+			hitbox_collision_shape.shape = load(
+				"res://resources/collision_shapes/default_enemy_hitbox.tres")
+			head_hurtbox.shape = load("res://resources/collision_shapes/default_enemy_head.tres")
+			body_hurtbox.disabled = true
+			$Properties/SpeedProp.value = 0
 	health_prop.emptied.connect(die)
 
 func add_mod(mod: Mod):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://c3y7gurn6a6pv"]
+[gd_scene load_steps=66 format=3 uid="uid://c3y7gurn6a6pv"]
 
 [ext_resource type="Script" uid="uid://d2o1hku0svi7t" path="res://scripts/game_scene/game.gd" id="1_yqjtg"]
 [ext_resource type="Script" uid="uid://b4nnqgafyjd1u" path="res://scripts/game_scene/camera_debug.gd" id="4_37s47"]
@@ -41,6 +41,8 @@ background_mode = 3
 glow_enabled = true
 glow_blend_mode = 0
 glow_hdr_threshold = 0.93
+
+[sub_resource type="Curve" id="Curve_gxtfn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1kice"]
 atlas = ExtResource("6_1kice")
@@ -217,6 +219,7 @@ metadata/_custom_type_script = "uid://rpe1k6t1qksx"
 process_mode = 1
 script = ExtResource("5_iywne")
 mods = Array[ExtResource("11_sww3w")]([ExtResource("6_m4url"), ExtResource("13_sgl2t"), ExtResource("13_sgl2t"), ExtResource("9_pr1ej"), ExtResource("10_05nbr"), ExtResource("11_0sl42"), ExtResource("12_oaba0"), ExtResource("13_458eo"), ExtResource("14_h3rex"), ExtResource("15_8ool0")])
+curve = SubResource("Curve_gxtfn")
 
 [node name="SpawnTimer" type="Timer" parent="EnemySpawner"]
 wait_time = 1.5
