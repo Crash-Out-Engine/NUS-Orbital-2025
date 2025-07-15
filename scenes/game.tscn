@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://c3y7gurn6a6pv"]
+[gd_scene load_steps=66 format=3 uid="uid://c3y7gurn6a6pv"]
 
 [ext_resource type="Script" uid="uid://d2o1hku0svi7t" path="res://scripts/game_scene/game.gd" id="1_yqjtg"]
 [ext_resource type="Script" uid="uid://b4nnqgafyjd1u" path="res://scripts/game_scene/camera_debug.gd" id="4_37s47"]
@@ -34,7 +34,6 @@
 [ext_resource type="Script" uid="uid://bqi3wylgyav4h" path="res://scripts/systems/tilemap_generator.gd" id="23_bhx41"]
 [ext_resource type="Script" uid="uid://cu3yjuf8cf25w" path="res://scripts/managers/power_manager.gd" id="24_e1j6l"]
 [ext_resource type="Script" uid="uid://bds110rob8go" path="res://scripts/systems/tilemap_gen_system.gd" id="25_pl11u"]
-[ext_resource type="Script" uid="uid://btqbnfgfkwbk2" path="res://scripts/game_scene/fault_generator.gd" id="26_qnb83"]
 [ext_resource type="Script" uid="uid://dh80ow274molx" path="res://scripts/managers/structure_gen_manager.gd" id="35_02fa5"]
 [ext_resource type="Script" uid="uid://buus32epgpmbk" path="res://scripts/fault_gen.gd" id="36_nepv3"]
 
@@ -192,10 +191,6 @@ sources/0 = SubResource("TileSetAtlasSource_264po")
 noise_type = 0
 frequency = 0.328
 cellular_distance_function = 1
-
-[sub_resource type="Curve" id="Curve_02fa5"]
-_data = [Vector2(0.00445434, 0), 0.0, 0.0, 0, 0, Vector2(0.418708, 0), 0.0, 0.0, 0, 0, Vector2(0.719376, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 4
 
 [sub_resource type="Curve" id="Curve_nepv3"]
 _limits = [0.0, 1.0, -1.0, 1.0]
@@ -730,13 +725,6 @@ metadata/_custom_type_script = "uid://bqi3wylgyav4h"
 [node name="OverlayTileMap" type="TileMapLayer" parent="TilemapGenSystem/OverlayTileGenerator"]
 z_index = -100
 tile_set = SubResource("TileSet_1kice")
-
-[node name="FaultGenerator" type="Node" parent="TilemapGenSystem" node_paths=PackedStringArray("entity_manager")]
-script = ExtResource("26_qnb83")
-noise = SubResource("FastNoiseLite_1kice")
-curve = SubResource("Curve_02fa5")
-entity_manager = NodePath("../../EntityManager")
-metadata/_custom_type_script = "uid://btqbnfgfkwbk2"
 
 [node name="ChunkDebug" type="Node2D" parent="TilemapGenSystem" node_paths=PackedStringArray("player_camera")]
 script = ExtResource("10_vtaks")
