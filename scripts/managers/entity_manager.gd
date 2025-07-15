@@ -36,8 +36,12 @@ func _ready() -> void:
 ## Loads an entity to the game based on [param load_data] .
 ## [br]
 ## Note: method call will be ignored if [param source] is not authority.
-func server_load_entity(entity_type_string: String, load_data: PackedByteArray, source: Node) -> void:
-	assert(entity_type_string in _ENTITY_PACKED_SCENE, "\"%s\" is not a valid entity type." % entity_type_string)
+func server_load_entity(
+		entity_type_string: String,
+		load_data: PackedByteArray,
+		source: Node) -> void:
+	assert(entity_type_string in _ENTITY_PACKED_SCENE,
+			"\"%s\" is not a valid entity type." % entity_type_string)
 	if not source.is_multiplayer_authority():
 		return
 
@@ -67,7 +71,8 @@ func server_remove_entity(entity: Node2D) -> void:
 
 
 func create_entity(entity_type_string: String, load_data) -> Node2D:
-	assert(entity_type_string in _ENTITY_PACKED_SCENE, "\"%s\" is not a valid entity type." % entity_type_string)
+	assert(entity_type_string in _ENTITY_PACKED_SCENE,
+			"\"%s\" is not a valid entity type." % entity_type_string)
 	var entity = _ENTITY_PACKED_SCENE[entity_type_string].instantiate()
 	entity.load_saved_scene(load_data)
 	return entity

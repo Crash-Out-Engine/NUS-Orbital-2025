@@ -18,7 +18,7 @@ static func get_entity_bounds(entity: CollisionObject2D) -> Rect2:
 			bounds = bounds.merge(entity.shape_owner_get_shape(owner, 0).get_rect())
 
 	return bounds
-	
+
 
 static func get_rect_corner(rect: Rect2i, corner: Corner) -> Vector2i:
 	match corner:

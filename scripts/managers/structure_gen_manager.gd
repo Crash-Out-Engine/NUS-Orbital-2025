@@ -1,7 +1,7 @@
 class_name StructureGenManager
 extends Node
 
-signal _refresh_requested(player_chunk_pos: Vector2i)
+signal refresh_requested(player_chunk_pos: Vector2i)
 
 enum Direction8 {
 	N,
@@ -55,11 +55,11 @@ func setup(game_seed: int, entity_manager: EntityManager) -> void:
 	_rng.seed = game_seed
 	_entity_manager = entity_manager
 
-	_refresh_requested.connect(_refresh_chunks)
+	refresh_requested.connect(_refresh_chunks)
 
 	for layer in layers:
 		layer.setup(_rng.randi(), CHUNK_SIZE)
-	
+
 	for player in _players:
 		_check_refresh(player, true)
 
@@ -74,7 +74,7 @@ func _check_refresh(player: Player, force: bool = false) -> void:
 	var player_chunk_pos := floor(player.position / (CHUNK_SIZE as Vector2)) as Vector2i
 
 	if force or player_chunk_pos != _prev_players_chunk_pos[player]:
-		_refresh_requested.emit(player_chunk_pos)
+		refresh_requested.emit(player_chunk_pos)
 
 	_prev_players_chunk_pos[player] = player_chunk_pos
 
@@ -140,9 +140,9 @@ func _load_rect_chunks(rect: Rect2i) -> void:
 					var diff := Vector2.from_angle(angle).snappedf(1.0) as Vector2i
 					var neighbour_chunk_pos = chunk_pos + diff
 					neighbour_points.append_array(initial_points[neighbour_chunk_pos])
-				
+
 				first_pass_points.set(chunk_pos, first_pass_cull_points(chunk_points, neighbour_points))
-		
+
 		# Second pass: with previous layers
 
 		for x in range(second_pass_rect.position.x, second_pass_rect.end.x):
@@ -156,7 +156,7 @@ func _load_rect_chunks(rect: Rect2i) -> void:
 						var diff := Vector2i(dx, dy)
 						var neighbour_chunk_pos = chunk_pos + diff
 						neighbour_points.append_array(first_pass_accum.get(neighbour_chunk_pos, []))
-				
+
 				spawn_data.get_or_add(chunk_pos, []).append_array(
 						second_pass_cull_points(chunk_points, neighbour_points))
 
@@ -165,13 +165,13 @@ func _load_rect_chunks(rect: Rect2i) -> void:
 			for y in range(first_pass_rect.position.y, first_pass_rect.end.y):
 				var chunk_pos := Vector2i(x, y)
 				first_pass_accum.get_or_add(chunk_pos, []).append_array(first_pass_points[chunk_pos])
-	
+
 	for chunk_pos in spawn_data:
 		if _chunks_load_count.get(chunk_pos, 0) == 0:
 			var chunk_spawn: Array[StructureSpawnData]
 			chunk_spawn.assign(spawn_data[chunk_pos])
 			_spawn_chunk(chunk_pos, chunk_spawn)
-		
+
 		_chunks_load_count.set(chunk_pos, _chunks_load_count.get(chunk_pos, 0) + 1)
 
 
@@ -193,7 +193,7 @@ func _spawn_chunk(chunk_pos: Vector2i, chunk_data: Array[StructureSpawnData]) ->
 		var structure = _entity_manager.create_entity(spawn_data.entity_type_string, spawn_data.load_data)
 		_entity_manager.server_add_entity(structure, self)
 		structures.append(structure)
-	
+
 	_loaded_structures.set(chunk_pos, structures)
 
 
@@ -227,10 +227,10 @@ static func first_pass_cull_points(
 
 static func second_pass_cull_points(
 		points: Array[StructureSpawnData],
-		others: Array[StructureSpawnData], 
+		others: Array[StructureSpawnData],
 		) -> Array[StructureSpawnData]:
 	return points.filter(
-			func(point: StructureSpawnData): 
+			func(point: StructureSpawnData):
 				return not others.any(
 						func(other: StructureSpawnData):
 							return point.bounding_box.intersects(other.bounding_box)
@@ -255,7 +255,7 @@ class StructureSpawnData:
 		set(value):
 			if bounding_box == Rect2():
 				bounding_box = value
-	
+
 
 	static func from_entity(entity: Node2D) -> StructureSpawnData:
 		var spawn_data := new()
@@ -264,12 +264,12 @@ class StructureSpawnData:
 		spawn_data.position = entity.position
 		spawn_data.bounding_box = Utils.get_entity_bounds(entity)
 		return spawn_data
-	
+
 
 	func intersects(other: StructureSpawnData) -> bool:
 		return bounding_box.intersects(other.bounding_box)
-	
-	
+
+
 	##region Save/load
 
 	static func from(data: PackedByteArray) -> StructureSpawnData:
@@ -289,12 +289,12 @@ class StructureSpawnData:
 		dict["position"] = position
 		dict["bounding_box"] = bounding_box
 		return var_to_bytes(dict)
-	
+
 	##endregion
-	
+
 
 	func _to_string() -> String:
-		return ("StructureSpawnData { %s, %s, %s, %s }"  
+		return ("StructureSpawnData { %s, %s, %s, %s }"
 				% [
 					"entity_type_string: %s" % entity_type_string,
 					"load_data: %s" % load_data.hex_encode(),

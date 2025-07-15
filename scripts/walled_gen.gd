@@ -16,7 +16,7 @@ func setup(_seed: int, chunk_size: Vector2i) -> void:
 
 func generate_chunk_points(chunk_pos: Vector2i) -> Array[StructureGenManager.StructureSpawnData]:
 	const NUM_SAMPLES_TILL_REJECTION := 30
-	var density := curve.sample(noise.get_noise_2dv(chunk_pos)) 
+	var density := curve.sample(noise.get_noise_2dv(chunk_pos))
 	var rng := RandomNumberGenerator.new()
 	rng.seed = ("%s%s" % [chunk_pos, density]).hash()
 
@@ -25,25 +25,25 @@ func generate_chunk_points(chunk_pos: Vector2i) -> Array[StructureGenManager.Str
 	var cell_size := _BOUNDING_SIZE.length()
 	var radius := cell_size * sqrt(2)
 	var grid: Array[Array]
-	
+
 	for row_index in ceilf(region.size.y / cell_size):
 		grid.append(Array())
 		for col_index in ceilf(region.size.x / cell_size):
 			grid[row_index].append(-1)
-	
+
 	var points: Array[Vector2i]
 	var spawn_points: Array[Vector2i]
-	
+
 	var rand_x := rng.randi_range(region.position.x, region.end.x - 1)
 	var rand_y := rng.randi_range(region.position.y, region.end.y - 1)
 	spawn_points.push_front(Vector2i(rand_x, rand_y))
-	
+
 	while not spawn_points.is_empty():
 		var spawn_index := rng.randi_range(0, spawn_points.size() - 1)
 		var spawn_center := spawn_points[spawn_index]
-		
+
 		var candidate_accepted := false
-		
+
 		for i in NUM_SAMPLES_TILL_REJECTION:
 			var angle := rng.randf() * 2 * PI
 			var dir := Vector2.from_angle(angle)
@@ -56,15 +56,14 @@ func generate_chunk_points(chunk_pos: Vector2i) -> Array[StructureGenManager.Str
 				spawn_points.append(candidate)
 				candidate_accepted = true
 				break
-		
+
 		if not candidate_accepted:
 			spawn_points.remove_at(spawn_index)
-	
 
 	seed(rng.randi())
 	points.shuffle()
 	points.resize(int(points.size() * density))
-	
+
 	var ret_array: Array[StructureGenManager.StructureSpawnData]
 	ret_array.assign(points.map(
 			func(point):
@@ -80,8 +79,8 @@ func generate_chunk_points(chunk_pos: Vector2i) -> Array[StructureGenManager.Str
 				return spawn_data
 	))
 	return ret_array
-	
-	
+
+
 static func _is_valid_point(
 		candidate: Vector2i,
 		sample_region: Rect2i,
@@ -91,9 +90,9 @@ static func _is_valid_point(
 		grid: Array[Array]) -> bool:
 	if not sample_region.has_point(candidate):
 		return false
-	
+
 	var candidate_pos := (candidate - sample_region.position) / cell_size as Vector2i
-	
+
 	for dx in range(-2, 3):
 		for dy in range(-2, 3):
 			var diff = Vector2i(dx, dy)
@@ -103,14 +102,14 @@ static func _is_valid_point(
 					and 0 <= neighbour_pos.x
 					and neighbour_pos.x < grid.front().size()):
 				continue
-			
+
 			var neighbour_index: int = grid[neighbour_pos.y][neighbour_pos.x]
 			if neighbour_index == -1:
 				continue
-			
+
 			var dist_squared := candidate.distance_squared_to(points[neighbour_index])
 			if dist_squared < radius ** 2:
 				return false
-	
+
 	return true
 
