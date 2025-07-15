@@ -30,18 +30,10 @@ func _ready() -> void:
 	match type:
 		Type.MELEE:
 			ranged_comp.active = false
-			hitbox_collision_shape.shape = load(
-				"res://resources/collision_shapes/default_enemy_hitbox.tres")
-			head_hurtbox.shape = load("res://resources/collision_shapes/default_enemy_head.tres")
-			body_hurtbox.shape = load("res://resources/collision_shapes/default_enemy_body.tres")
 			body_hurtbox.position.y = 11
 		Type.RANGED:
 			ranged_comp.active = true
 			ranged_comp.bullet_spawned.connect(entity_spawned.emit)
-			hitbox_collision_shape.shape = load(
-				"res://resources/collision_shapes/default_enemy_hitbox.tres")
-			head_hurtbox.shape = load("res://resources/collision_shapes/default_enemy_head.tres")
-			body_hurtbox.shape = load("res://resources/collision_shapes/default_enemy_body.tres")
 			body_hurtbox.position.y = 11
 		Type.MINI:
 			ranged_comp.active = false
@@ -63,9 +55,6 @@ func _ready() -> void:
 		Type.SNIPER:
 			ranged_comp.active = true
 			ranged_comp.bullet_spawned.connect(entity_spawned.emit)
-			hitbox_collision_shape.shape = load(
-				"res://resources/collision_shapes/default_enemy_hitbox.tres")
-			head_hurtbox.shape = load("res://resources/collision_shapes/default_enemy_head.tres")
 			body_hurtbox.disabled = true
 			$Properties/SpeedProp.value = 0
 	health_prop.emptied.connect(die)
