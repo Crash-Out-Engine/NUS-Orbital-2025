@@ -3,7 +3,7 @@ extends DebugVisualsBase
 
 @export var player_camera: Camera2D
 
-@onready var parent := get_parent() as WorldGenSystem
+@onready var parent := get_parent() as TilemapGenSystem
 
 
 func _draw() -> void:

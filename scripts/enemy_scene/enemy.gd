@@ -1,7 +1,7 @@
 class_name Enemy
 extends RigidBody2D
 
-signal entity_spawned(Node2D)
+signal entity_spawned(entity: Node2D)
 
 enum Type {
 	MELEE,

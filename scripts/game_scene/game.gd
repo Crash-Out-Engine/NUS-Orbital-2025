@@ -140,7 +140,8 @@ func _setup(sequence: InitSequence) -> void:
 				await get_tree().process_frame
 			assert(_local_player != null, "Player should not be null.")
 		InitSequence.WORLD_GEN:
-			$WorldGenSystem.setup(get_seed(), get_local_player())
+			$TilemapGenSystem.setup(get_seed(), get_local_player())
+			$StructureGenManager.setup(get_seed(), entity_manager)
 			$EnemySpawner.setup(get_local_player(), entity_manager)
 		InitSequence.CAMERA:
 			$Camera2D.setup(get_local_player())
@@ -149,7 +150,8 @@ func _setup(sequence: InitSequence) -> void:
 			$UI/HUDMiniMap.setup(get_local_player(), entity_manager)
 			$UI/HUDOverlayMap.setup(get_local_player(), entity_manager)
 			$UI/InventoryUI.setup(self, get_local_player())
-			$UI/DebugPanel.setup(get_local_player(), entity_manager, power_manager, $EnemySpawner)
+			$UI/DebugPanel.setup(
+					get_seed(), get_local_player(), entity_manager, power_manager, $EnemySpawner)
 			$UI/PauseMenu.setup(self)
 			$UI/GameOverPanel.setup(self)
 

@@ -15,7 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://dk7lmxukxhhcr" path="res://assets/audio/sound_effects/error.wav" id="10_sp3rc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8twt2"]
-size = Vector2(28, 28)
+size = Vector2(32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rtx38"]
 atlas = ExtResource("2_k0tyb")

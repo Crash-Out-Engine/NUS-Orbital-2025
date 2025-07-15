@@ -33,7 +33,7 @@ var _scraps: int:
 
 func _ready() -> void:
 	for mod in initial_mods:
-		_local_add_mod(mod)
+		_add_mod(mod)
 	_scraps = initial_scraps
 
 
@@ -176,12 +176,12 @@ func remove_mod(mod: Mod) -> void:
 	_synced_remove_mod.rpc(mod.save())
 
 
-func _local_add_mod(mod: Mod) -> void:
+func _add_mod(mod: Mod) -> void:
 	_mods[mod] = _mods.get_or_add(mod, 0) + 1
 	collected_mod.emit(mod)
 
 
-func _local_remove_mod(mod: Mod) -> void:
+func _remove_mod(mod: Mod) -> void:
 	assert(mod in _mods and _mods[mod] > 0,
 		"Mod not found in inventory.")
 	_mods[mod] -= 1
@@ -197,12 +197,12 @@ func _synced_set_scraps(value: int) -> void:
 @rpc("any_peer", "call_local", "reliable")
 func _synced_add_mod(mod_data: PackedByteArray) -> void:
 	var mod = Mod.from_saved(mod_data)
-	_local_add_mod(mod)
+	_add_mod(mod)
 
 
 @rpc("any_peer", "call_local", "reliable")
 func _synced_remove_mod(mod_data: PackedByteArray) -> void:
 	var mod = Mod.from_saved(mod_data)
-	_local_remove_mod(mod)
+	_remove_mod(mod)
 
 #endregion

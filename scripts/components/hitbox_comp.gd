@@ -7,6 +7,8 @@ signal hit_by(attack: Attack)
 @export var team: Enums.Team
 
 @export_group("Components")
+
+## Movement component, nullable for static entites.
 @export var movement: MovementBaseComp
 
 var _effect_signatures: Dictionary[PackedByteArray, Effect.LingeringTimer]
