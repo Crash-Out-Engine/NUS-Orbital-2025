@@ -1,5 +1,5 @@
-class_name TileMapGenerator
-extends ChunkGeneratorBase
+class_name TilemapGenerator
+extends Node
 
 @export var noise: Noise
 @export var curve: Curve

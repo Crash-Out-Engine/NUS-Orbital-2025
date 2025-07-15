@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://c3y7gurn6a6pv"]
+[gd_scene load_steps=72 format=3 uid="uid://c3y7gurn6a6pv"]
 
 [ext_resource type="Script" uid="uid://d2o1hku0svi7t" path="res://scripts/game_scene/game.gd" id="1_yqjtg"]
 [ext_resource type="Script" uid="uid://b4nnqgafyjd1u" path="res://scripts/game_scene/camera_debug.gd" id="4_37s47"]
@@ -31,10 +31,13 @@
 [ext_resource type="Script" uid="uid://bxej7b3iw18rm" path="res://scripts/managers/entity_manager.gd" id="19_bhx41"]
 [ext_resource type="Script" uid="uid://cjibf46shciwg" path="res://scripts/game_scene/game_over_panel.gd" id="19_bt5mj"]
 [ext_resource type="AudioStream" uid="uid://d1v6522e76f16" path="res://assets/audio/songs/8_bit_mission.wav" id="21_5newe"]
-[ext_resource type="Script" uid="uid://bqi3wylgyav4h" path="res://scripts/game_scene/tile_map_generator.gd" id="23_bhx41"]
+[ext_resource type="Script" uid="uid://bqi3wylgyav4h" path="res://scripts/systems/tilemap_generator.gd" id="23_bhx41"]
 [ext_resource type="Script" uid="uid://cu3yjuf8cf25w" path="res://scripts/managers/power_manager.gd" id="24_e1j6l"]
-[ext_resource type="Script" uid="uid://bds110rob8go" path="res://scripts/systems/world_gen_system.gd" id="25_pl11u"]
-[ext_resource type="Script" uid="uid://btqbnfgfkwbk2" path="res://scripts/game_scene/fault_generator.gd" id="26_qnb83"]
+[ext_resource type="Script" uid="uid://bds110rob8go" path="res://scripts/systems/tilemap_gen_system.gd" id="25_pl11u"]
+[ext_resource type="Script" uid="uid://dh80ow274molx" path="res://scripts/managers/structure_gen_manager.gd" id="35_02fa5"]
+[ext_resource type="Script" uid="uid://bvxy4628r1qai" path="res://scripts/walled_gen.gd" id="35_nepv3"]
+[ext_resource type="Script" uid="uid://duvbkegjw6tg0" path="res://scripts/loot_crate_gen.gd" id="36_02fa5"]
+[ext_resource type="Script" uid="uid://buus32epgpmbk" path="res://scripts/fault_gen.gd" id="36_nepv3"]
 
 [sub_resource type="Environment" id="Environment_yqjtg"]
 background_mode = 3
@@ -186,14 +189,33 @@ texture = ExtResource("16_264po")
 [sub_resource type="TileSet" id="TileSet_1kice"]
 sources/0 = SubResource("TileSetAtlasSource_264po")
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7025r"]
+noise_type = 0
+frequency = 1.0
+
+[sub_resource type="Curve" id="Curve_m4url"]
+_limits = [0.0, 1.0, -1.0, 1.0]
+_data = [Vector2(-1, 0), 0.0, 0.0, 0, 0, Vector2(1, 0.168605), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_nepv3"]
+noise_type = 0
+frequency = 0.0432
+
+[sub_resource type="Curve" id="Curve_7025r"]
+_limits = [0.0, 1.0, -1.0, 1.0]
+_data = [Vector2(-1, 0.00369978), 0.0, 0.0, 0, 0, Vector2(1, 0.214286), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_1kice"]
 noise_type = 0
-frequency = 0.1809
+frequency = 0.328
 cellular_distance_function = 1
 
-[sub_resource type="Curve" id="Curve_37s47"]
-_data = [Vector2(0.00445434, 0), 0.0, 0.0, 0, 0, Vector2(0.418708, 0), 0.0, 0.0, 0, 0, Vector2(0.719376, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 4
+[sub_resource type="Curve" id="Curve_nepv3"]
+_limits = [0.0, 1.0, -1.0, 1.0]
+_data = [Vector2(-0.98916, 0), 0.0, 0.0, 0, 0, Vector2(1, 0.395349), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [node name="Game" type="Node2D"]
 process_mode = 3
@@ -727,27 +749,28 @@ size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("9_kvuet")
 text = "Close Game"
 
-[node name="EntityManager" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("_power_manager")]
+[node name="EntityManager" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("_power_manager", "_structure_gen_manager")]
 process_mode = 1
 _spawnable_scenes = PackedStringArray("uid://b52amtg2hmpm6", "uid://kcqha4xx46r7", "uid://df7vaxvbmprk4", "uid://dhntafslopc4h", "uid://cqq2h867dq6v3", "uid://ytw0s5xnqwvt", "uid://iqyedsof74fp")
 spawn_path = NodePath(".")
 script = ExtResource("19_bhx41")
 _power_manager = NodePath("../PowerManager")
+_structure_gen_manager = NodePath("../StructureGenManager")
 
 [node name="PowerManager" type="Node" parent="."]
 process_mode = 1
 script = ExtResource("24_e1j6l")
 metadata/_custom_type_script = "uid://cu3yjuf8cf25w"
 
-[node name="WorldGenSystem" type="Node" parent="." node_paths=PackedStringArray("layers")]
+[node name="TilemapGenSystem" type="Node" parent="." node_paths=PackedStringArray("layers")]
 process_mode = 1
 script = ExtResource("25_pl11u")
-layers = [NodePath("SandTileGenerator"), NodePath("OverlayTileGenerator"), NodePath("FaultGenerator")]
+layers = [NodePath("SandTileGenerator"), NodePath("OverlayTileGenerator")]
 load_chunk_radius = Vector2i(7, 7)
 unload_chunk_radius = Vector2i(7, 7)
 metadata/_custom_type_script = "uid://bds110rob8go"
 
-[node name="SandTileGenerator" type="Node" parent="WorldGenSystem" node_paths=PackedStringArray("tile_map_layer")]
+[node name="SandTileGenerator" type="Node" parent="TilemapGenSystem" node_paths=PackedStringArray("tile_map_layer")]
 script = ExtResource("23_bhx41")
 noise = SubResource("FastNoiseLite_vtaks")
 curve = SubResource("Curve_kvpfn")
@@ -755,11 +778,11 @@ tile_map_layer = NodePath("SandTileMap")
 tileset_dimensions = Vector2i(4, 4)
 metadata/_custom_type_script = "uid://bqi3wylgyav4h"
 
-[node name="SandTileMap" type="TileMapLayer" parent="WorldGenSystem/SandTileGenerator"]
+[node name="SandTileMap" type="TileMapLayer" parent="TilemapGenSystem/SandTileGenerator"]
 z_index = -100
 tile_set = SubResource("TileSet_dinhu")
 
-[node name="OverlayTileGenerator" type="Node" parent="WorldGenSystem" node_paths=PackedStringArray("tile_map_layer")]
+[node name="OverlayTileGenerator" type="Node" parent="TilemapGenSystem" node_paths=PackedStringArray("tile_map_layer")]
 script = ExtResource("23_bhx41")
 noise = SubResource("FastNoiseLite_264po")
 curve = SubResource("Curve_5newe")
@@ -768,21 +791,39 @@ tileset_dimensions = Vector2i(3, 4)
 zeroth_tile = Vector2i(4, 0)
 metadata/_custom_type_script = "uid://bqi3wylgyav4h"
 
-[node name="OverlayTileMap" type="TileMapLayer" parent="WorldGenSystem/OverlayTileGenerator"]
+[node name="OverlayTileMap" type="TileMapLayer" parent="TilemapGenSystem/OverlayTileGenerator"]
 z_index = -100
 tile_set = SubResource("TileSet_1kice")
 
-[node name="FaultGenerator" type="Node" parent="WorldGenSystem" node_paths=PackedStringArray("entity_manager")]
-script = ExtResource("26_qnb83")
-noise = SubResource("FastNoiseLite_1kice")
-curve = SubResource("Curve_37s47")
-entity_manager = NodePath("../../EntityManager")
-metadata/_custom_type_script = "uid://btqbnfgfkwbk2"
-
-[node name="ChunkDebug" type="Node2D" parent="WorldGenSystem" node_paths=PackedStringArray("player_camera")]
+[node name="ChunkDebug" type="Node2D" parent="TilemapGenSystem" node_paths=PackedStringArray("player_camera")]
 script = ExtResource("10_vtaks")
 player_camera = NodePath("../../Camera2D")
 metadata/_custom_type_script = "uid://dlfl58jvcogf5"
+
+[node name="StructureGenManager" type="Node" parent="." node_paths=PackedStringArray("layers")]
+script = ExtResource("35_02fa5")
+layers = [NodePath("WalledGen"), NodePath("LootCrateGen"), NodePath("FaultGen")]
+load_chunk_radius = Vector2i(2, 2)
+unload_chunk_radius = Vector2i(3, 3)
+metadata/_custom_type_script = "uid://dh80ow274molx"
+
+[node name="WalledGen" type="Node" parent="StructureGenManager"]
+script = ExtResource("35_nepv3")
+noise = SubResource("FastNoiseLite_7025r")
+curve = SubResource("Curve_m4url")
+metadata/_custom_type_script = "uid://bvxy4628r1qai"
+
+[node name="LootCrateGen" type="Node" parent="StructureGenManager"]
+script = ExtResource("36_02fa5")
+noise = SubResource("FastNoiseLite_nepv3")
+curve = SubResource("Curve_7025r")
+metadata/_custom_type_script = "uid://duvbkegjw6tg0"
+
+[node name="FaultGen" type="Node" parent="StructureGenManager"]
+script = ExtResource("36_nepv3")
+noise = SubResource("FastNoiseLite_1kice")
+curve = SubResource("Curve_nepv3")
+metadata/_custom_type_script = "uid://buus32epgpmbk"
 
 [node name="GameMusic" type="AudioStreamPlayer" parent="."]
 process_mode = 1
