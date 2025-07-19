@@ -43,7 +43,7 @@ func setup_icon(node: Node) -> void:
 	if node in _entities_icons:
 		return
 
-	if not (node is Player or node is Fault or node is Turret or node is Enemy):
+	if not (node is Player or node is Fault or node is Turret or node is Enemy or node is LootCrate):
 		return
 
 	var icon = _MAP_ICON_SCENE.instantiate()
@@ -63,6 +63,8 @@ func setup_icon(node: Node) -> void:
 		node.state_changed.connect(swapper)
 	elif node is Enemy:
 		icon.frame = MapIcon.Icon.ENEMY
+	elif node is LootCrate:
+		icon.frame = MapIcon.Icon.LOOT_CRATE
 	else: # Node is not an entity to be mapped.
 		assert(false, "This should be unreachable.")
 

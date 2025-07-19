@@ -112,4 +112,3 @@ static func _is_valid_point(
 				return false
 
 	return true
-
