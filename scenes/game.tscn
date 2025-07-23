@@ -204,7 +204,7 @@ frequency = 0.0432
 
 [sub_resource type="Curve" id="Curve_7025r"]
 _limits = [0.0, 1.0, -1.0, 1.0]
-_data = [Vector2(-1, 0.00369978), 0.0, 0.0, 0, 0, Vector2(1, 0.214286), 0.0, 0.0, 0, 0]
+_data = [Vector2(-1, 0.00369978), 0.0, 0.0, 0, 0, Vector2(1, 0.044926), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_1kice"]
@@ -214,7 +214,7 @@ cellular_distance_function = 1
 
 [sub_resource type="Curve" id="Curve_nepv3"]
 _limits = [0.0, 1.0, -1.0, 1.0]
-_data = [Vector2(-0.98916, 0), 0.0, 0.0, 0, 0, Vector2(1, 0.395349), 0.0, 0.0, 0, 0]
+_data = [Vector2(-0.98916, 0), 0.0, 0.0, 0, 0, Vector2(1, 0.0857143), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [node name="Game" type="Node2D"]
