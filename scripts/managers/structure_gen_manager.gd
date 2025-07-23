@@ -172,7 +172,7 @@ func _unload_rect_chunks(rect: Rect2i) -> void:
 
 func _spawn_chunk(chunk_pos: Vector2i, chunk_data: Array[StructureSpawnData]) -> void:
 	_chunks_load_count.set(chunk_pos, _chunks_load_count.get(chunk_pos, 0) + 1)
-	
+
 	if _chunks_load_count[chunk_pos] != 1:
 		return
 

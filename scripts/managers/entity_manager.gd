@@ -47,9 +47,9 @@ func server_load_entity(
 
 	if is_multiplayer_authority():
 		return _server_add_entity(entity_type_string, load_data)
-	else:
-		_server_add_entity.rpc_id(1, entity_type_string, load_data)
-		return null
+
+	_server_add_entity.rpc_id(1, entity_type_string, load_data)
+	return null
 
 
 ## Adds an [param entity] to the game.
@@ -62,9 +62,9 @@ func server_add_entity(entity: Node2D, source: Node) -> Node2D:
 	if is_multiplayer_authority():
 		_add_entity(entity)
 		return entity
-	else:
-		_server_add_entity.rpc_id(1, entity.get_script().get_global_name(), entity.save_scene())
-		return null
+
+	_server_add_entity.rpc_id(1, entity.get_script().get_global_name(), entity.save_scene())
+	return null
 
 
 func server_remove_entity(entity: Node2D) -> void:
