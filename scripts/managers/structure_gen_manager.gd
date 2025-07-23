@@ -171,15 +171,14 @@ func _unload_rect_chunks(rect: Rect2i) -> void:
 
 
 func _spawn_chunk(chunk_pos: Vector2i, chunk_data: Array[StructureSpawnData]) -> void:
-	_chunks_load_count.set(chunk_pos, _chunks_load_count.get(chunk_pos, 0) + 1)
-
-	if _chunks_load_count[chunk_pos] != 1:
+	if _chunks_load_count.get_or_add(chunk_pos, 0) != 0:
 		return
+	_chunks_load_count[chunk_pos] += 1
 
 	var structures: Array[Node2D]
 
 	if chunk_pos in _chunks_data:
-		chunk_data.assign(bytes_to_var(_chunks_data[chunk_pos])\
+		chunk_data.assign(bytes_to_var(_chunks_data[chunk_pos]) \
 				.map(func(data): return StructureSpawnData.from(data)))
 
 	for spawn_data: StructureSpawnData in chunk_data:
@@ -191,12 +190,15 @@ func _spawn_chunk(chunk_pos: Vector2i, chunk_data: Array[StructureSpawnData]) ->
 
 
 func _clear_chunk(chunk_pos: Vector2i) -> void:
+	while not chunk_pos in _chunks_load_count:
+		# HACK: might not be best solution to wait for _spawn_chunk
+		await get_tree().physics_frame
 	_chunks_load_count[chunk_pos] -= 1
 
 	if _chunks_load_count[chunk_pos] == 0:
-		var spawn_data := _loaded_structures[chunk_pos]\
-				.filter(func(entity: Node2D): return entity != null)\
-				.map(func(entity: Node2D): return StructureSpawnData.from_entity(entity).save())
+		var spawn_data := _loaded_structures[chunk_pos] \
+				.filter(func(entity): return entity != null) \
+				.map(func(entity): return StructureSpawnData.from_entity(entity).save())
 		var data := var_to_bytes(spawn_data)
 		_chunks_data.set(chunk_pos, data)
 
