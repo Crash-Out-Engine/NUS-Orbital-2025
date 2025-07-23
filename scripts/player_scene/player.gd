@@ -181,7 +181,7 @@ func _handle_state_changed(_from: State, to: State) -> void:
 			hand.unlock()
 			hand.action = Hand.Action.HOLDING_GUN
 			hand.lock()
-			$CollisionShape2D.disabled = true
+			$CollisionShape2D.set_deferred("disabled", true)
 			$Components/MovementComp.active = false
 			ranged.active = false
 			$Components/HitboxComp.team = 0

@@ -65,19 +65,40 @@ func generate_chunk_points(chunk_pos: Vector2i) -> Array[StructureGenManager.Str
 	points.resize(int(points.size() * density))
 
 	var ret_array: Array[StructureGenManager.StructureSpawnData]
-	ret_array.assign(points.map(
-			func(point):
-				var spawn_data := StructureGenManager.StructureSpawnData.new()
-				spawn_data.entity_type_string = "Wall"
-				spawn_data.position = point
-				spawn_data.bounding_box = Utils.offset_rect(Rect2i(Vector2i.ZERO, _BOUNDING_SIZE), point)
-				var temp_data := {} # HACK: Prefer to use formal class object
-				temp_data["position"] = point
-				temp_data["size"] = Vector2i(rng.randi_range(50, 100), rng.randi_range(50, 100))
-				temp_data["HealthProp"] = var_to_bytes({"value": 10.0, "min_value": 0.0, "max_value": INF})
-				spawn_data.load_data = var_to_bytes(temp_data)
-				return spawn_data
-	))
+	for point in points:
+		var start_side := rng.randi_range(0, 3) as Side
+		var box_size = Vector2i(rng.randi_range(60, 100), rng.randi_range(60, 100)).snappedi(2)
+		var width := rng.randi_range(10, 25)
+		width -= width % 2
+		for i in rng.randi_range(1, 3):
+			var side := (start_side + i) % 4 as Side
+			var position := point
+			var size: Vector2i
+			match side:
+				SIDE_LEFT:
+					position += Vector2i((width - box_size.x) / 2, width / 2)
+					size = Vector2i(width, box_size.y - width)
+				SIDE_TOP:
+					position += Vector2i(width / 2, (box_size.y - width) / 2)
+					size = Vector2i(box_size.x - width, width)
+				SIDE_RIGHT:
+					position += Vector2i((box_size.x - width) / 2, -width / 2)
+					size = Vector2i(width, box_size.y - width)
+				SIDE_BOTTOM:
+					position += Vector2i(-width / 2, (width - box_size.y) / 2)
+					size = Vector2i(box_size.x - width, width)
+			var spawn_data := StructureGenManager.StructureSpawnData.new()
+			spawn_data.entity_type_string = "Wall"
+			spawn_data.position = position
+			spawn_data.bounding_box = Utils.offset_rect(Rect2i(Vector2i.ZERO, size), position)
+			var temp_data := {} # HACK: Prefer to use formal class object
+			temp_data["position"] = position
+			temp_data["size"] = size
+			temp_data["HealthProp"] = var_to_bytes(
+					{"value": size.x * size.y * 0.5, "min_value": 0.0, "max_value": INF})
+			spawn_data.load_data = var_to_bytes(temp_data)
+
+			ret_array.append(spawn_data)
 	return ret_array
 
 
