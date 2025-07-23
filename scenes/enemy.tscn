@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://kcqha4xx46r7"]
+[gd_scene load_steps=75 format=3 uid="uid://kcqha4xx46r7"]
 
 [ext_resource type="Script" uid="uid://b2oqcghmenmfd" path="res://scripts/enemy_scene/enemy.gd" id="1_7p1mj"]
 [ext_resource type="Shape2D" uid="uid://bqngx786anq0y" path="res://resources/collision_shapes/default_enemy_hitbox.tres" id="2_2sbpf"]
@@ -27,7 +27,6 @@
 [ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod.gd" id="17_lioqc"]
 [ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="18_0lg75"]
 [ext_resource type="Shape2D" uid="uid://bv7mdovfb14lk" path="res://resources/collision_shapes/default_enemy_head.tres" id="18_78kod"]
-[ext_resource type="Shape2D" uid="uid://bxgp43sdx1rlc" path="res://resources/collision_shapes/default_enemy_body.tres" id="19_2sbpf"]
 [ext_resource type="Texture2D" uid="uid://fi3oi3y0iiwk" path="res://assets/sprites/ranged_enemy_spritesheet.png" id="20_wrm80"]
 [ext_resource type="Script" uid="uid://ytlqj8sxugss" path="res://scripts/components/movement_AI_comp.gd" id="21_i4rgx"]
 [ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="22_2sbpf"]
@@ -419,13 +418,6 @@ _melee_cooldown = NodePath("../../Properties/MeleeCooldownProp")
 [node name="HeadCollisionShape" type="CollisionShape2D" parent="Components/MeleeComp"]
 z_index = 100
 shape = ExtResource("18_78kod")
-debug_color = Color(0.7, 0, 0, 0.419608)
-
-[node name="BodyCollisionShape" type="CollisionShape2D" parent="Components/MeleeComp"]
-z_index = 100
-position = Vector2(0, 11)
-rotation = 1.5708
-shape = ExtResource("19_2sbpf")
 debug_color = Color(0.7, 0, 0, 0.419608)
 
 [node name="ModSlotComp" type="Node" parent="Components" node_paths=PackedStringArray("entity", "attack_comp")]

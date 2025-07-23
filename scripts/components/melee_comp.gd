@@ -3,6 +3,8 @@ extends Area2D
 
 signal executed(entities: Array[Node2D])
 
+@export var active: bool = true
+
 @export_range(0, 100, 0.0001, "suffix:s") var delay: float = 0.0
 @export var _automated: bool = true
 @export var target_filter: TargetFilter
@@ -15,7 +17,7 @@ func _physics_process(_delta: float) -> void:
 	if not is_multiplayer_authority():
 		return
 
-	if not _automated:
+	if not _automated or not active:
 		return
 	if _get_hittable_bodies().size() > 0:
 		activate()
