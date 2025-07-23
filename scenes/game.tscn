@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://c3y7gurn6a6pv"]
+[gd_scene load_steps=73 format=3 uid="uid://c3y7gurn6a6pv"]
 
 [ext_resource type="Script" uid="uid://d2o1hku0svi7t" path="res://scripts/game_scene/game.gd" id="1_yqjtg"]
 [ext_resource type="Script" uid="uid://b4nnqgafyjd1u" path="res://scripts/game_scene/camera_debug.gd" id="4_37s47"]
@@ -754,7 +754,7 @@ text = "Close Game"
 
 [node name="EntityManager" type="MultiplayerSpawner" parent="." node_paths=PackedStringArray("_power_manager", "_structure_gen_manager")]
 process_mode = 1
-_spawnable_scenes = PackedStringArray("uid://b52amtg2hmpm6", "uid://kcqha4xx46r7", "uid://df7vaxvbmprk4", "uid://dhntafslopc4h", "uid://cqq2h867dq6v3", "uid://ytw0s5xnqwvt", "uid://iqyedsof74fp")
+_spawnable_scenes = PackedStringArray("uid://b52amtg2hmpm6", "uid://kcqha4xx46r7", "uid://df7vaxvbmprk4", "uid://dhntafslopc4h", "uid://cqq2h867dq6v3", "uid://ytw0s5xnqwvt", "uid://iqyedsof74fp", "uid://4bwhd5wkdu37", "uid://cuvu1ikd3ndwp")
 spawn_path = NodePath(".")
 script = ExtResource("19_bhx41")
 _power_manager = NodePath("../PowerManager")
