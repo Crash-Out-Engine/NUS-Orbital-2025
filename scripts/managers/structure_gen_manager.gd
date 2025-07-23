@@ -1,19 +1,6 @@
 class_name StructureGenManager
 extends Node
 
-signal refresh_requested(player_chunk_pos: Vector2i)
-
-enum Direction8 {
-	N,
-	NE,
-	E,
-	SE,
-	S,
-	SW,
-	W,
-	NW,
-}
-
 const CHUNK_SIZE: Vector2i = Vector2i(512, 512)
 
 @export var layers: Array[StructureGenBase]
@@ -55,8 +42,6 @@ func setup(game_seed: int, entity_manager: EntityManager) -> void:
 	_rng.seed = game_seed
 	_entity_manager = entity_manager
 
-	refresh_requested.connect(_refresh_chunks)
-
 	for layer in layers:
 		layer.setup(_rng.randi(), CHUNK_SIZE)
 
@@ -74,12 +59,12 @@ func _check_refresh(player: Player, force: bool = false) -> void:
 	var player_chunk_pos := floor(player.position / (CHUNK_SIZE as Vector2)) as Vector2i
 
 	if force or player_chunk_pos != _prev_players_chunk_pos[player]:
-		refresh_requested.emit(player_chunk_pos)
+		_refresh_chunks(player_chunk_pos, force)
 
 	_prev_players_chunk_pos[player] = player_chunk_pos
 
 
-func _refresh_chunks(player_chunk_pos: Vector2i) -> void:
+func _refresh_chunks(player_chunk_pos: Vector2i, blocking: bool = false) -> void:
 	if !_active_chunks_boundary.has_area():
 		_active_chunks_boundary.position = Vector2i(
 				player_chunk_pos.x - load_chunk_radius.x,
@@ -88,7 +73,10 @@ func _refresh_chunks(player_chunk_pos: Vector2i) -> void:
 				player_chunk_pos.x + load_chunk_radius.x + 1,
 				player_chunk_pos.y + load_chunk_radius.y + 1)
 
-		_load_rect_chunks(_active_chunks_boundary)
+		if blocking:
+			_load_rect_chunks(_active_chunks_boundary)
+		else:
+			WorkerThreadPool.add_task(_load_rect_chunks.bind(_active_chunks_boundary))
 
 	else:
 		for side in 4:
@@ -103,7 +91,10 @@ func _refresh_chunks(player_chunk_pos: Vector2i) -> void:
 						.abs() \
 						.grow_side(side, diff)
 				if diff_rect.get_area() > 0:
-					_load_rect_chunks(diff_rect.abs())
+					if blocking:
+						_load_rect_chunks(diff_rect.abs())
+					else:
+						WorkerThreadPool.add_task(_load_rect_chunks.bind(diff_rect.abs()))
 				elif diff_rect.get_area() < 0:
 					_unload_rect_chunks(diff_rect.abs())
 				_active_chunks_boundary = _active_chunks_boundary.grow_side(side, diff)
@@ -167,12 +158,9 @@ func _load_rect_chunks(rect: Rect2i) -> void:
 				first_pass_accum.get_or_add(chunk_pos, []).append_array(first_pass_points[chunk_pos])
 
 	for chunk_pos in spawn_data:
-		if _chunks_load_count.get(chunk_pos, 0) == 0:
-			var chunk_spawn: Array[StructureSpawnData]
-			chunk_spawn.assign(spawn_data[chunk_pos])
-			_spawn_chunk(chunk_pos, chunk_spawn)
-
-		_chunks_load_count.set(chunk_pos, _chunks_load_count.get(chunk_pos, 0) + 1)
+		var chunk_spawn: Array[StructureSpawnData]
+		chunk_spawn.assign(spawn_data[chunk_pos])
+		call_deferred("_spawn_chunk", chunk_pos, chunk_spawn)
 
 
 func _unload_rect_chunks(rect: Rect2i) -> void:
@@ -183,6 +171,11 @@ func _unload_rect_chunks(rect: Rect2i) -> void:
 
 
 func _spawn_chunk(chunk_pos: Vector2i, chunk_data: Array[StructureSpawnData]) -> void:
+	_chunks_load_count.set(chunk_pos, _chunks_load_count.get(chunk_pos, 0) + 1)
+
+	if _chunks_load_count[chunk_pos] != 1:
+		return
+
 	var structures: Array[Node2D]
 
 	if chunk_pos in _chunks_data:
@@ -190,8 +183,8 @@ func _spawn_chunk(chunk_pos: Vector2i, chunk_data: Array[StructureSpawnData]) ->
 				.map(func(data): return StructureSpawnData.from(data)))
 
 	for spawn_data: StructureSpawnData in chunk_data:
-		var structure = _entity_manager.create_entity(spawn_data.entity_type_string, spawn_data.load_data)
-		_entity_manager.server_add_entity(structure, self)
+		var structure = _entity_manager.server_load_entity(
+				spawn_data.entity_type_string, spawn_data.load_data, self)
 		structures.append(structure)
 
 	_loaded_structures.set(chunk_pos, structures)
