@@ -39,29 +39,32 @@ func _ready() -> void:
 func server_load_entity(
 		entity_type_string: String,
 		load_data: PackedByteArray,
-		source: Node) -> void:
+		source: Node) -> Node2D:
 	assert(entity_type_string in _ENTITY_PACKED_SCENE,
 			"\"%s\" is not a valid entity type." % entity_type_string)
 	if not source.is_multiplayer_authority():
-		return
+		return null
 
 	if is_multiplayer_authority():
-		_server_add_entity(entity_type_string, load_data)
+		return _server_add_entity(entity_type_string, load_data)
 	else:
 		_server_add_entity.rpc_id(1, entity_type_string, load_data)
+		return null
 
 
 ## Adds an [param entity] to the game.
 ## [br]
 ## Note: method call will be ignored if [param source] is not authority.
-func server_add_entity(entity: Node2D, source: Node) -> void:
+func server_add_entity(entity: Node2D, source: Node) -> Node2D:
 	if not source.is_multiplayer_authority():
-		return
+		return null
 
 	if is_multiplayer_authority():
 		_add_entity(entity)
+		return entity
 	else:
 		_server_add_entity.rpc_id(1, entity.get_script().get_global_name(), entity.save_scene())
+		return null
 
 
 func server_remove_entity(entity: Node2D) -> void:
@@ -82,14 +85,15 @@ func create_entity(entity_type_string: String, load_data) -> Node2D:
 func _server_add_entity(
 		entity_type_string: String,
 		data: PackedByteArray,
-		) -> void:
+		) -> Node2D:
 	if not is_multiplayer_authority():
-		return
+		return null
 
 	var entity = _ENTITY_PACKED_SCENE[entity_type_string].instantiate()
 
 	entity.load_saved_scene(data)
 	_add_entity(entity)
+	return entity
 
 
 @rpc("any_peer", "call_local", "reliable")
