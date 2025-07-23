@@ -12,7 +12,7 @@ script = ExtResource("1_1jefv")
 health = NodePath("Properties/HealthProp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-top_level = true
+z_index = 100
 shape = SubResource("RectangleShape2D_gnurj")
 
 [node name="Properties" type="Node" parent="."]
@@ -26,6 +26,7 @@ metadata/_custom_type_script = "uid://bg2iinlcp53aa"
 [node name="HitboxComp" type="Node" parent="Components" node_paths=PackedStringArray("_entity")]
 script = ExtResource("3_mc1qh")
 _entity = NodePath("../..")
+team = 4
 metadata/_custom_type_script = "uid://wwqkkrfhwiyn"
 
 [node name="Visuals" type="Node2D" parent="."]
