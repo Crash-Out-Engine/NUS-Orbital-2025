@@ -12,7 +12,8 @@ const FLIP_THRESHOLD: float = 0.001
 @export var movement_comp: MovementBaseComp
 
 @onready var body_sprite := $BodySprite as AnimatedSprite2D
-
+@onready var flames_sprite := $BodySprite/FlamesSprite as AnimatedSprite2D
+@onready var legs_sprite := $BodySprite/LegsSprite as AnimatedSprite2D
 
 func _ready() -> void:
 	health.emptied.connect(
@@ -36,7 +37,27 @@ func _ready() -> void:
 					if is_multiplayer_authority() and entity is Bullet:
 						_play_fire_anim.rpc()
 			)
-
+		Enemy.Type.MINI:
+			body_sprite.play("mini")
+			flames_sprite.offset.y = 11.0
+			legs_sprite.play("mini")
+		Enemy.Type.BERSERKER:
+			body_sprite.play("berserker")
+			body_sprite.offset.y = 0
+			flames_sprite.visible = false
+			legs_sprite.visible = false
+		Enemy.Type.SNIPER:
+			body_sprite.play("sniper")
+			body_sprite.offset.y = 0
+			flames_sprite.visible = false
+			legs_sprite.play("sniper")
+			legs_sprite.offset.y = 0
+			legs_sprite.show_behind_parent = true
+			enemy.entity_spawned.connect(
+				func(entity):
+					if is_multiplayer_authority() and entity is Bullet:
+						_play_fire_anim.rpc()
+			)
 
 func _process(delta: float) -> void:
 	if not is_multiplayer_authority():

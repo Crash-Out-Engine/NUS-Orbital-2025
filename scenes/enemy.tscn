@@ -1,6 +1,7 @@
-[gd_scene load_steps=63 format=3 uid="uid://kcqha4xx46r7"]
+[gd_scene load_steps=76 format=3 uid="uid://kcqha4xx46r7"]
 
 [ext_resource type="Script" uid="uid://b2oqcghmenmfd" path="res://scripts/enemy_scene/enemy.gd" id="1_7p1mj"]
+[ext_resource type="Shape2D" uid="uid://bqngx786anq0y" path="res://resources/collision_shapes/default_enemy_hitbox.tres" id="2_2sbpf"]
 [ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox_comp.gd" id="3_4ra3w"]
 [ext_resource type="Texture2D" uid="uid://csa25hojkjg65" path="res://assets/sprites/melee_enemy_spritesheet.png" id="3_otmr2"]
 [ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/mods/effect.gd" id="3_s1ycm"]
@@ -25,18 +26,20 @@
 [ext_resource type="Script" uid="uid://dlwahujwxjfnc" path="res://scripts/mods/mod_entry.gd" id="17_lioqa"]
 [ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod.gd" id="17_lioqc"]
 [ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="18_0lg75"]
+[ext_resource type="Shape2D" uid="uid://bv7mdovfb14lk" path="res://resources/collision_shapes/default_enemy_head.tres" id="18_78kod"]
+[ext_resource type="Shape2D" uid="uid://bxgp43sdx1rlc" path="res://resources/collision_shapes/default_enemy_body.tres" id="19_2sbpf"]
 [ext_resource type="Texture2D" uid="uid://fi3oi3y0iiwk" path="res://assets/sprites/ranged_enemy_spritesheet.png" id="20_wrm80"]
 [ext_resource type="Script" path="res://scripts/components/movement_AI_comp.gd" id="21_i4rgx"]
 [ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="22_2sbpf"]
+[ext_resource type="Texture2D" uid="uid://drvan4pg60qyh" path="res://assets/sprites/berserker_enemy_spritesheet.png" id="28_2sbpf"]
+[ext_resource type="Texture2D" uid="uid://bgjnamjqsco4y" path="res://assets/sprites/mini_enemy_spritesheet.png" id="28_lsnsy"]
 [ext_resource type="AudioStream" uid="uid://dc66si5kieoq4" path="res://assets/audio/sound_effects/laser_gunshot.wav" id="29_1f82d"]
+[ext_resource type="Texture2D" uid="uid://dwri841ublxbk" path="res://assets/sprites/sniper_enemy_spritesheet.png" id="31_ekh6n"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wrm80"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_8qclf"]
-radius = 9.0
 
 [sub_resource type="Resource" id="Resource_1x4g4"]
 script = ExtResource("9_shcg2")
@@ -58,12 +61,6 @@ _interval = -1.0
 _repeat = 0
 _factor = 200.0
 metadata/_custom_type_script = "uid://cr0bo4trqg3j1"
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_j0cyh"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s1ycm"]
-radius = 6.0
-height = 24.0
 
 [sub_resource type="Resource" id="Resource_78kod"]
 script = ExtResource("3_s1ycm")
@@ -133,9 +130,17 @@ properties/1/path = NodePath("BodySprite:self_modulate")
 properties/1/spawn = true
 properties/1/replication_mode = 1
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_vab5u"]
+atlas = ExtResource("28_2sbpf")
+region = Rect2(0, 0, 86, 86)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_shcg2"]
 atlas = ExtResource("3_otmr2")
 region = Rect2(0, 0, 20, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_thsr5"]
+atlas = ExtResource("28_lsnsy")
+region = Rect2(0, 0, 24, 17)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6awcb"]
 atlas = ExtResource("20_wrm80")
@@ -157,14 +162,50 @@ region = Rect2(80, 0, 20, 21)
 atlas = ExtResource("20_wrm80")
 region = Rect2(0, 0, 20, 21)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_78kod"]
+atlas = ExtResource("31_ekh6n")
+region = Rect2(52, 0, 26, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_605iw"]
+atlas = ExtResource("31_ekh6n")
+region = Rect2(78, 0, 26, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x6q4o"]
+atlas = ExtResource("31_ekh6n")
+region = Rect2(104, 0, 26, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2tuss"]
+atlas = ExtResource("31_ekh6n")
+region = Rect2(130, 0, 26, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7v6cf"]
+atlas = ExtResource("31_ekh6n")
+region = Rect2(26, 0, 26, 26)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_j0cyh"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vab5u")
+}],
+"loop": true,
+"name": &"berserker",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_shcg2")
 }],
 "loop": true,
 "name": &"melee",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_thsr5")
+}],
+"loop": true,
+"name": &"mini",
 "speed": 5.0
 }, {
 "frames": [{
@@ -185,6 +226,26 @@ animations = [{
 }],
 "loop": false,
 "name": &"ranged",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_78kod")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_605iw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x6q4o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2tuss")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7v6cf")
+}],
+"loop": false,
+"name": &"sniper",
 "speed": 12.0
 }]
 
@@ -230,6 +291,18 @@ region = Rect2(64, 22, 32, 16)
 atlas = ExtResource("3_otmr2")
 region = Rect2(96, 22, 32, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ekh6n"]
+atlas = ExtResource("28_lsnsy")
+region = Rect2(0, 30, 24, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2sbpf"]
+atlas = ExtResource("28_lsnsy")
+region = Rect2(24, 30, 24, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qiusc"]
+atlas = ExtResource("31_ekh6n")
+region = Rect2(0, 0, 26, 26)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_wrm80"]
 animations = [{
 "frames": [{
@@ -248,6 +321,25 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ekh6n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2sbpf")
+}],
+"loop": true,
+"name": &"mini",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qiusc")
+}],
+"loop": true,
+"name": &"sniper",
+"speed": 5.0
 }]
 
 [node name="Enemy" type="RigidBody2D" node_paths=PackedStringArray("health_prop", "movement_comp", "ranged_comp", "modslot_comp") groups=["enemies"]]
@@ -265,9 +357,9 @@ modslot_comp = NodePath("Components/ModSlotComp")
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_wrm80")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="HitboxCollisionShape" type="CollisionShape2D" parent="."]
 z_index = 100
-shape = SubResource("CircleShape2D_8qclf")
+shape = ExtResource("2_2sbpf")
 
 [node name="Properties" type="Node" parent="."]
 
@@ -324,16 +416,16 @@ _effects = Array[ExtResource("3_s1ycm")]([SubResource("Resource_ile5s"), SubReso
 _entity = NodePath("../..")
 _melee_cooldown = NodePath("../../Properties/MeleeCooldownProp")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Components/MeleeComp"]
+[node name="HeadCollisionShape" type="CollisionShape2D" parent="Components/MeleeComp"]
 z_index = 100
-shape = SubResource("CircleShape2D_j0cyh")
+shape = ExtResource("18_78kod")
 debug_color = Color(0.7, 0, 0, 0.419608)
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Components/MeleeComp"]
+[node name="BodyCollisionShape" type="CollisionShape2D" parent="Components/MeleeComp"]
 z_index = 100
 position = Vector2(0, 11)
 rotation = 1.5708
-shape = SubResource("CapsuleShape2D_s1ycm")
+shape = ExtResource("19_2sbpf")
 debug_color = Color(0.7, 0, 0, 0.419608)
 
 [node name="ModSlotComp" type="Node" parent="Components" node_paths=PackedStringArray("entity", "attack_comp")]
@@ -374,7 +466,7 @@ replication_config = SubResource("SceneReplicationConfig_rogs8")
 
 [node name="BodySprite" type="AnimatedSprite2D" parent="Visuals"]
 sprite_frames = SubResource("SpriteFrames_j0cyh")
-animation = &"ranged"
+animation = &"melee"
 offset = Vector2(0, 0.5)
 
 [node name="FlamesSprite" type="AnimatedSprite2D" parent="Visuals/BodySprite"]
