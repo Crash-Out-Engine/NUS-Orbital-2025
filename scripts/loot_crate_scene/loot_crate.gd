@@ -45,8 +45,8 @@ func _ready() -> void:
 			health.value = 60
 		Type.MEDIUM_CRATE_OPEN:
 			sprite.frame = 5
-			health._initial_health = 40
-			health.value = 40
+			health._initial_health = 20
+			health.value = 20
 		Type.BURIED:
 			sprite.frame = 2
 			health._initial_health = 80
