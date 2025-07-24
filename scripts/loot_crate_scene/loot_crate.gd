@@ -11,8 +11,6 @@ enum Type {
 	BURIED
 }
 
-var type: Type = Type.MEDIUM_CRATE_OPEN
-
 const _LOOT_SCENE := preload("res://scenes/loot.tscn")
 const _CRATE_SIZE := [
 	Vector2(20, 20),
@@ -24,6 +22,8 @@ const _CRATE_SIZE := [
 
 @export_group("Properties")
 @export var health: HealthProp
+
+var type: Type = Type.MEDIUM_CRATE_OPEN
 
 @onready var hitbox := $CollisionShape2D as CollisionShape2D
 @onready var sprite := $Visuals/Sprite2D as Sprite2D
@@ -99,7 +99,7 @@ func _die() -> void:
 			var scrap_loot = _LOOT_SCENE.instantiate()
 			scrap_loot.setup_scrap_loot(randi_range(15, 20))
 			loots.append(scrap_loot)
-			
+
 	for loot in loots:
 		loot.position = position
 		entity_spawned.emit(loot)

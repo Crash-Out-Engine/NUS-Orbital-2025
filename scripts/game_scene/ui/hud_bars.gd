@@ -1,9 +1,9 @@
 extends Control
 
 var active: bool = false
+var info_text: Array[String]
 var _player: Player
 var _power_manager: PowerManager
-var info_text: Array[String]
 
 @onready var health_bar := $VBoxContainer/HealthBar/TextureProgressBar as TextureProgressBar
 @onready var health_label := (

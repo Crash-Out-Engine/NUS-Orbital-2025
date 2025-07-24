@@ -76,7 +76,7 @@ func generate_chunk_points(chunk_pos: Vector2i) -> Array[StructureGenManager.Str
 				temp_data["HealthProp"] = var_to_bytes({"value": 10.0, "min_value": 0.0, "max_value": INF})
 				var type = rng.randf()
 				match true:
-					_ when type < 0.3: 
+					_ when type < 0.3:
 						temp_data["type"] = LootCrate.Type.SMALL_CRATE_OPEN
 					_ when type >= 0.3 && type < 0.45:
 						temp_data["type"] = LootCrate.Type.MEDIUM_CRATE_OPEN

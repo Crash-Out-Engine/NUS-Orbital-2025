@@ -28,7 +28,7 @@ func _on_spawn_timer_timeout() -> void: # TODO(multiplayer): Have more elaborate
 		enemy.type = randi_range(0, 4)
 		var type = randf()
 		match true:
-			_ when type < 0.7: 
+			_ when type < 0.7:
 				enemy.type = 0
 			_ when type >= 0.7 && type < 0.9:
 				enemy.type = 1

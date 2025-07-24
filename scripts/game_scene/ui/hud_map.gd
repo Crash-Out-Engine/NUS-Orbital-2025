@@ -67,8 +67,7 @@ func setup_icon(node: Node) -> void:
 		if (node as LootCrate).type == LootCrate.Type.BURIED:
 			icon.queue_free()
 			return
-		else:
-			icon.frame = MapIcon.Icon.LOOT_CRATE
+		icon.frame = MapIcon.Icon.LOOT_CRATE
 	else: # Node is not an entity to be mapped.
 		assert(false, "This should be unreachable.")
 
