@@ -14,7 +14,6 @@ var active: bool = false
 var _entity_manager: EntityManager
 var _players: Array[Player]
 var _active_chunks_boundary: Rect2i = Rect2i()
-var _rng := RandomNumberGenerator.new()
 var _prev_players_chunk_pos: Dictionary[Player, Vector2i]
 
 var _chunks_load_count: Dictionary[Vector2i, int]
@@ -39,11 +38,12 @@ func _process(_delta: float) -> void:
 
 
 func setup(game_seed: int, entity_manager: EntityManager) -> void:
-	_rng.seed = game_seed
+	var layer_seed = RandomNumberGenerator.new()
+	layer_seed.seed = game_seed
 	_entity_manager = entity_manager
 
 	for layer in layers:
-		layer.setup(_rng.randi(), CHUNK_SIZE)
+		layer.setup(layer_seed.randi(), CHUNK_SIZE)
 
 	for player in _players:
 		_check_refresh(player, true)
@@ -238,6 +238,28 @@ static func second_pass_cull_points(
 							return point.bounding_box.intersects(other.bounding_box)
 				)
 	)
+
+
+#region Save/load
+
+func save() -> PackedByteArray:
+	assert(is_multiplayer_authority(), "Method cannot be called at non-authority.")
+	
+	for chunk_pos in _loaded_structures.keys():
+		_clear_chunk(chunk_pos)
+	var dict := {}
+	dict["_chunks_data"] = _chunks_data
+	
+	return var_to_bytes(dict)
+
+
+func load_saved(data: PackedByteArray) -> void:
+	assert(is_multiplayer_authority(), "Method cannot be called at non-authority.")
+	
+	var dict := bytes_to_var(data) as Dictionary
+	_chunks_data = dict["_chunks_data"]
+
+#endregion
 
 
 class StructureSpawnData:
