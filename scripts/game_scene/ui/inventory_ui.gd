@@ -3,8 +3,8 @@ extends Control
 
 signal closed()
 
-const ITEM_CONTAINER = preload("res://scenes/item_container.tscn")
-const BLUEPRINT_CONTAINER = preload("res://scenes/blueprint_container.tscn")
+const ITEM_CONTAINER = preload("res://scenes/UI/item_container.tscn")
+const BLUEPRINT_CONTAINER = preload("res://scenes/UI/blueprint_container.tscn")
 const SCRAP_EMOJI = "res://resources/text_icons/scrap_icon.tres"
 const INFO_ICON = "res://resources/text_icons/info.tres"
 

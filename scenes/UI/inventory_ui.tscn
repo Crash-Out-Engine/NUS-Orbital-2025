@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cd6dttechhj5b" path="res://assets/sprites/inventorytargetanimations_spritesheet.png" id="4_iradw"]
 [ext_resource type="Resource" uid="uid://di0bb7c5sxvpc" path="res://resources/mods/effect_mods/base_increase_ranged_cooldown.tres" id="4_uwj4j"]
 [ext_resource type="Script" uid="uid://ckg514fwkuf4" path="res://scripts/game_scene/ui/item_drop_area.gd" id="6_2lmnb"]
-[ext_resource type="PackedScene" uid="uid://d4aipu4148p78" path="res://scenes/DropdownCheckboxesContainer.tscn" id="9_cwdri"]
+[ext_resource type="PackedScene" uid="uid://d4aipu4148p78" path="res://scenes/UI/DropdownCheckboxesContainer.tscn" id="9_cwdri"]
 [ext_resource type="FontFile" uid="uid://bvdfbft27q66n" path="res://assets/fonts/zeldadxt.ttf" id="9_dqfnd"]
 [ext_resource type="Script" uid="uid://cik3248uw0sp4" path="res://scripts/game_scene/ui/blueprints_button.gd" id="10_8wyaw"]
 [ext_resource type="Script" uid="uid://b8v8vds425m6f" path="res://scripts/game_scene/ui/selectable.gd" id="10_rg5pf"]

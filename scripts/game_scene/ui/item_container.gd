@@ -9,7 +9,7 @@ enum State {
 	CRAFTING
 }
 
-const _DRAGGED_ITEM = preload("res://scenes/dragged_item.tscn")
+const _DRAGGED_ITEM = preload("res://scenes/UI/dragged_item.tscn")
 
 @export var mod: Mod
 @export var count: int

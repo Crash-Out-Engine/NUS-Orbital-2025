@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://ch7r5f1txrbn3" path="res://scripts/loot_crate_scene/loot_crate.gd" id="1_lxs5t"]
 [ext_resource type="Script" uid="uid://bg2iinlcp53aa" path="res://scripts/properties/health_prop.gd" id="1_tsudb"]
 [ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox_comp.gd" id="2_lxs5t"]
-[ext_resource type="Script" path="res://scripts/loot_crate_scene/visuals.gd" id="4_vft0q"]
+[ext_resource type="Script" uid="uid://dg6wq4nyypkk5" path="res://scripts/loot_crate_scene/visuals.gd" id="4_vft0q"]
 [ext_resource type="Texture2D" uid="uid://cwkyrtmowve0o" path="res://assets/sprites/world_objects_spritesheet.png" id="5_cx7ls"]
 [ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet.png" id="6_pafuo"]
 

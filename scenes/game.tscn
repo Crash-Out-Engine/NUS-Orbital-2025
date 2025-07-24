@@ -16,7 +16,7 @@
 [ext_resource type="Resource" uid="uid://gtpo8u16foe8" path="res://resources/mods/upgrade_mods/base_ranged_cooldown_upgrade.tres" id="11_0sl42"]
 [ext_resource type="AudioStream" uid="uid://d0bs4frau5lf8" path="res://assets/audio/sound_effects/pause_sound.wav" id="11_ca42v"]
 [ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod.gd" id="11_sww3w"]
-[ext_resource type="PackedScene" uid="uid://bsk2hjudnw4rw" path="res://scenes/inventory_ui.tscn" id="12_bt5mj"]
+[ext_resource type="PackedScene" uid="uid://bsk2hjudnw4rw" path="res://scenes/UI/inventory_ui.tscn" id="12_bt5mj"]
 [ext_resource type="Resource" uid="uid://ido6g1b0tgpf" path="res://resources/mods/upgrade_mods/base_speed_upgrade.tres" id="12_oaba0"]
 [ext_resource type="Theme" uid="uid://c8t8fqq1p8n4l" path="res://resources/custom_ui.tres" id="12_ssvqc"]
 [ext_resource type="Resource" uid="uid://dwfvxifo18je3" path="res://resources/mods/upgrade_mods/enlargement_upgrade.tres" id="13_458eo"]
@@ -197,7 +197,7 @@ frequency = 1.0
 
 [sub_resource type="Curve" id="Curve_m4url"]
 _limits = [0.0, 1.0, -1.0, 1.0]
-_data = [Vector2(-1, 0), 0.0, 0.0, 0, 0, Vector2(1, 0.168605), 0.0, 0.0, 0, 0]
+_data = [Vector2(-1, 0.325632), 0.0, 0.0, 0, 0, Vector2(1, 0.574978), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_nepv3"]

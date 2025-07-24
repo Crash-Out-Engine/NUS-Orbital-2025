@@ -7,7 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://b7d1a7ob2vcpf" path="res://assets/audio/songs/8_bit_frontier_justice.wav" id="4_mw6r2"]
 [ext_resource type="Script" uid="uid://l7dn1i5hcyn7" path="res://scripts/settings_menu.gd" id="5_0b27c"]
 [ext_resource type="AudioStream" uid="uid://d0bs4frau5lf8" path="res://assets/audio/sound_effects/pause_sound.wav" id="6_yr8n5"]
-[ext_resource type="PackedScene" uid="uid://cllljmtjd3348" path="res://scenes/multiplayer_lobby_menu.tscn" id="7_yr8n5"]
+[ext_resource type="PackedScene" uid="uid://cllljmtjd3348" path="res://scenes/UI/multiplayer_lobby_menu.tscn" id="7_yr8n5"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_mw6r2"]
 font = ExtResource("2_ysvk1")
