@@ -73,11 +73,11 @@ func server_remove_entity(entity: Node2D) -> void:
 	_server_remove_entity.rpc(get_path_to(entity))
 
 
-func create_entity(entity_type_string: String, load_data) -> Node2D:
+func create_entity_from_preset(entity_type_string: String, preset: EntityPresetBase) -> Node2D:
 	assert(entity_type_string in _ENTITY_PACKED_SCENE,
 			"\"%s\" is not a valid entity type." % entity_type_string)
 	var entity = _ENTITY_PACKED_SCENE[entity_type_string].instantiate()
-	entity.load_saved_scene(load_data)
+	entity.load_preset(preset)
 	return entity
 
 

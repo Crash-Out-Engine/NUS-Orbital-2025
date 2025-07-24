@@ -179,11 +179,19 @@ func _spawn_chunk(chunk_pos: Vector2i, chunk_data: Array[StructureSpawnData]) ->
 
 	if chunk_pos in _chunks_data:
 		chunk_data.assign(bytes_to_var(_chunks_data[chunk_pos]) \
-				.map(func(data): return StructureSpawnData.from(data)))
+				.map(func(data): return StructureSpawnData.from(data as PackedByteArray)))
 
 	for spawn_data: StructureSpawnData in chunk_data:
-		var structure = _entity_manager.server_load_entity(
-				spawn_data.entity_type_string, spawn_data.load_data, self)
+		var structure
+		if spawn_data.is_preset():
+			structure = _entity_manager.create_entity_from_preset(
+					spawn_data.entity_type_string, spawn_data.preset)
+			_entity_manager.server_add_entity(structure, self)
+		elif spawn_data.is_data():
+			structure = _entity_manager.server_load_entity(
+					spawn_data.entity_type_string, spawn_data.load_data, self)
+		else:
+			assert(false, "Spawn data should be either preset or loaded data.")
 		structures.append(structure)
 
 	_loaded_structures.set(chunk_pos, structures)
@@ -196,11 +204,10 @@ func _clear_chunk(chunk_pos: Vector2i) -> void:
 	_chunks_load_count[chunk_pos] -= 1
 
 	if _chunks_load_count[chunk_pos] == 0:
-		var spawn_data := _loaded_structures[chunk_pos] \
+		var data := _loaded_structures[chunk_pos] \
 				.filter(func(entity): return entity != null) \
 				.map(func(entity): return StructureSpawnData.from_entity(entity).save())
-		var data := var_to_bytes(spawn_data)
-		_chunks_data.set(chunk_pos, data)
+		_chunks_data.set(chunk_pos, var_to_bytes(data))
 
 		for structure in _loaded_structures[chunk_pos]:
 			if structure != null:
@@ -238,6 +245,10 @@ class StructureSpawnData:
 		set(value):
 			if entity_type_string == String():
 				entity_type_string = value
+	var preset: EntityPresetBase:
+		set(value):
+			if preset == null:
+				preset = value
 	var load_data: PackedByteArray:
 		set(value):
 			if load_data == PackedByteArray():
@@ -263,6 +274,14 @@ class StructureSpawnData:
 
 	func intersects(other: StructureSpawnData) -> bool:
 		return bounding_box.intersects(other.bounding_box)
+	
+
+	func is_preset() -> bool:
+		return preset != null
+	
+
+	func is_data() -> bool:
+		return load_data != PackedByteArray()
 
 
 	##region Save/load
@@ -271,6 +290,7 @@ class StructureSpawnData:
 		var dict := bytes_to_var(data) as Dictionary
 		var spawn_data := new()
 		spawn_data.entity_type_string = dict["entity_type_string"]
+		spawn_data.preset = dict["preset"]
 		spawn_data.load_data = dict["load_data"]
 		spawn_data.position = dict["position"]
 		spawn_data.bounding_box = dict["bounding_box"]
@@ -280,6 +300,7 @@ class StructureSpawnData:
 	func save() -> PackedByteArray:
 		var dict := {}
 		dict["entity_type_string"] = entity_type_string
+		dict["preset"] = preset
 		dict["load_data"] = load_data
 		dict["position"] = position
 		dict["bounding_box"] = bounding_box
@@ -289,9 +310,10 @@ class StructureSpawnData:
 
 
 	func _to_string() -> String:
-		return ("StructureSpawnData { %s, %s, %s, %s }"
+		return ("StructureSpawnData { %s, %s, %s, %s, %s }"
 				% [
 					"entity_type_string: %s" % entity_type_string,
+					"preset: %s" % preset,
 					"load_data: %s" % load_data.hex_encode(),
 					"position: %s" % position,
 					"bounding_box: %s" % bounding_box,

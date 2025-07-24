@@ -36,7 +36,7 @@ var state: State:
 func _ready() -> void:
 	if state == State.DEFAULT:
 		state = State.SABOTAGED
-	build.changed.connect(func(_from, to): _check_repair(to))
+	build.changed.connect(func(_from, _to): _check_repair())
 	health.emptied.connect(func(): state = State.SABOTAGED)
 
 
@@ -75,16 +75,11 @@ func _handle_state_changed(from: State, to: State):
 			assert(false, "Invalid state change from %s to %s." % [State.find_key(from), State.find_key(to)])
 
 
-func _check_repair(value: float) -> void:
-	if state == State.SABOTAGED:
-		if value >= repair_target:
+func _check_repair() -> void:
+	if state == State.SABOTAGED and build.value > 0:
+		if build.value >= repair_target:
 			state = State.REBOOTING
-		repair_progressed.emit(value / repair_target)
-
-
-func _check_sabotage(new_value: bool) -> void:
-	if new_value:
-		state = State.SABOTAGED
+		repair_progressed.emit(build.value / repair_target)
 
 
 func _on_reboot_timer_timeout() -> void:
@@ -94,26 +89,33 @@ func _on_reboot_timer_timeout() -> void:
 func _on_visuals_disappear_finished() -> void:
 	get_parent().server_remove_entity(self)
 
+
 #region Save/load
 
 func save_scene() -> PackedByteArray:
 	var dict := {}
-	dict["global_position"] = global_position
+	dict["position"] = position
 	dict["state"] = state
-	dict["build.value"] = build.value
 	dict["reboot_timer.time_left"] = reboot_timer.time_left
+	for property_node: PropertyBase in $Properties.get_children():
+		dict[property_node.name] = property_node.save()
 	return var_to_bytes(dict)
+
 
 func load_saved_scene(data: PackedByteArray) -> void:
 	var dict = bytes_to_var(data)
-	global_position = dict["global_position"]
+	position = dict["position"]
+	for property_node: PropertyBase in $Properties.get_children():
+		property_node.load_saved(dict[property_node.name])
 	if !is_node_ready():
 		await ready
 	state = dict["state"]
-	match state:
-		State.SABOTAGED:
-			build.value = dict["build.value"]
-		State.REBOOTING:
-			reboot_timer.start(dict["reboot_timer.time_left"])
+	_check_repair()
+	if state == State.REBOOTING:
+		reboot_timer.start(dict["reboot_timer.time_left"])
+
+
+func load_preset(preset: FaultPreset) -> void:
+	position = preset.position
 
 #endregion

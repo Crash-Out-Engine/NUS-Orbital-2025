@@ -82,6 +82,7 @@ func deactivate():
 func save_scene() -> PackedByteArray:
 	var dict = {}
 	dict["position"] = position
+	dict["type"] = type
 	for property_node: PropertyBase in $Properties.get_children():
 		dict[property_node.name] = property_node.save()
 	return var_to_bytes(dict)
@@ -89,6 +90,7 @@ func save_scene() -> PackedByteArray:
 func load_saved_scene(data: PackedByteArray) -> void:
 	var dict = bytes_to_var(data)
 	position = dict["position"]
+	type = dict["type"]
 	for property_node: PropertyBase in $Properties.get_children():
 		property_node.load_saved(dict[property_node.name])
 

@@ -91,12 +91,11 @@ func generate_chunk_points(chunk_pos: Vector2i) -> Array[StructureGenManager.Str
 			spawn_data.entity_type_string = "Wall"
 			spawn_data.position = position
 			spawn_data.bounding_box = Utils.offset_rect(Rect2i(Vector2i.ZERO, size), position)
-			var temp_data := {} # HACK: Prefer to use formal class object
-			temp_data["position"] = position
-			temp_data["size"] = size
-			temp_data["HealthProp"] = var_to_bytes(
-					{"value": size.x * size.y * 0.5, "min_value": 0.0, "max_value": INF})
-			spawn_data.load_data = var_to_bytes(temp_data)
+			var wall_preset := WallPreset.new()
+			wall_preset.position = position
+			wall_preset.size = size
+			wall_preset.health = size.x * size.y * 0.5
+			spawn_data.preset = wall_preset
 
 			ret_array.append(spawn_data)
 	return ret_array

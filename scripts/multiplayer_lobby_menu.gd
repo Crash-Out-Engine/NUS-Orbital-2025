@@ -2,7 +2,6 @@ extends Control
 
 @export var _multiplayer_manager: MultiplayerManager
 
-var state
 var _waiting: bool = false
 
 @onready var _host_button := $Panel/MarginContainer/VBoxContainer/HBoxContainer/Host as Button

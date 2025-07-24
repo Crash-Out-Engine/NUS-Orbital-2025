@@ -38,4 +38,10 @@ func load_saved_scene(data: PackedByteArray) -> void:
 	for property_node: PropertyBase in $Properties.get_children():
 		property_node.load_saved(dict[property_node.name])
 
+
+func load_preset(preset: WallPreset) -> void:
+	position = preset.position
+	size = preset.size
+	health.value = preset.health
+
 #endregion

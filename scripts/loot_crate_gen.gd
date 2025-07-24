@@ -71,10 +71,9 @@ func generate_chunk_points(chunk_pos: Vector2i) -> Array[StructureGenManager.Str
 				spawn_data.entity_type_string = "LootCrate"
 				spawn_data.position = point
 				spawn_data.bounding_box = Utils.offset_rect(Rect2i(Vector2i.ZERO, _BOUNDING_SIZE), point)
-				var temp_data := {} # HACK: Prefer to use formal class object
-				temp_data["position"] = point
-				temp_data["HealthProp"] = var_to_bytes({"value": 10.0, "min_value": 0.0, "max_value": INF})
-				spawn_data.load_data = var_to_bytes(temp_data)
+				var preset = LootCratePreset.new()
+				preset.position = point
+				spawn_data.preset = preset
 				return spawn_data
 	))
 	return ret_array
