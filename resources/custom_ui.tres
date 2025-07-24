@@ -810,17 +810,13 @@ cache/0/16/0/glyphs/268435541/size = Vector2(9, 11)
 cache/0/16/0/glyphs/268435541/uv_rect = Rect2(182, 105, 9, 11)
 cache/0/16/0/glyphs/268435541/texture_idx = 0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6smqt"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.1, 0.1, 0.1, 0.3)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6smqt"]
+texture = ExtResource("1_c4vai")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+region_rect = Rect2(1377, 58, 52, 52)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f3nk6"]
 content_margin_left = 4.0
@@ -1856,7 +1852,7 @@ Button/constants/icon_max_width = 0
 Button/constants/outline_size = 0
 Button/font_sizes/font_size = 16
 Button/fonts/font = SubResource("FontFile_tf487")
-Button/styles/disabled = SubResource("StyleBoxFlat_6smqt")
+Button/styles/disabled = SubResource("StyleBoxTexture_6smqt")
 Button/styles/focus = SubResource("StyleBoxFlat_f3nk6")
 Button/styles/hover = SubResource("StyleBoxTexture_hsbq2")
 Button/styles/normal = SubResource("StyleBoxTexture_adfd4")
