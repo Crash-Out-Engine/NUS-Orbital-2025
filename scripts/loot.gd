@@ -21,6 +21,8 @@ func setup_scrap_loot(value: int) -> void:
 func setup_mod_loot(mod: Mod) -> void:
 	item = Item.ModItem.new(mod)
 
+func setup_blueprint_loot(mod: Mod) -> void:
+	item = Item.BlueprintItem.new(mod)
 
 func move(displacement: Vector2) -> void:
 	_synced_move.rpc(displacement)
@@ -38,6 +40,10 @@ func _handle_set_item() -> void:
 			base_sprite.frame = 1
 			overlay_sprite.visible = true
 			overlay_sprite.texture = item.mod.icon
+			scale = Vector2(1.25, 1.25)
+		Item.Type.BLUEPRINT:
+			base_sprite.frame = 2
+			overlay_sprite.visible = false
 			scale = Vector2(1.25, 1.25)
 
 

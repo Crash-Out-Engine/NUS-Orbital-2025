@@ -8,6 +8,7 @@ var size: Vector2:
 	set(value):
 		if value != size:
 			$Visuals/Polygon2D.scale = value
+			$Visuals/Sprite2D.region_rect = Rect2(Vector2(0, 0), value)
 			$CollisionShape2D.shape = RectangleShape2D.new()
 			$CollisionShape2D.shape.size = value
 

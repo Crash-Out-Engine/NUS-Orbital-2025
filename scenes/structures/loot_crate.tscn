@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://4bwhd5wkdu37"]
+[gd_scene load_steps=10 format=3 uid="uid://4bwhd5wkdu37"]
 
 [ext_resource type="Script" uid="uid://ch7r5f1txrbn3" path="res://scripts/loot_crate_scene/loot_crate.gd" id="1_lxs5t"]
 [ext_resource type="Script" uid="uid://bg2iinlcp53aa" path="res://scripts/properties/health_prop.gd" id="1_tsudb"]
@@ -8,10 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet.png" id="6_pafuo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q6ona"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_s6f6u"]
-atlas = ExtResource("5_cx7ls")
-region = Rect2(7, 7, 20, 20)
+size = Vector2(28, 18)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tt5uo"]
 atlas = ExtResource("6_pafuo")
@@ -22,6 +19,8 @@ atlas = ExtResource("6_pafuo")
 region = Rect2(1581, 89, 16, 16)
 
 [node name="LootCrate" type="StaticBody2D" node_paths=PackedStringArray("health")]
+collision_layer = 5
+collision_mask = 5
 script = ExtResource("1_lxs5t")
 health = NodePath("Properties/HealthProp")
 
@@ -48,7 +47,10 @@ script = ExtResource("4_vft0q")
 health = NodePath("../Properties/HealthProp")
 
 [node name="Sprite2D" type="Sprite2D" parent="Visuals"]
-texture = SubResource("AtlasTexture_s6f6u")
+texture = ExtResource("5_cx7ls")
+hframes = 4
+vframes = 4
+frame = 2
 
 [node name="HealthBar" type="TextureProgressBar" parent="Visuals"]
 visible = false

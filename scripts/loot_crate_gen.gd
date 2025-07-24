@@ -74,6 +74,18 @@ func generate_chunk_points(chunk_pos: Vector2i) -> Array[StructureGenManager.Str
 				var temp_data := {} # HACK: Prefer to use formal class object
 				temp_data["position"] = point
 				temp_data["HealthProp"] = var_to_bytes({"value": 10.0, "min_value": 0.0, "max_value": INF})
+				var type = rng.randf()
+				match true:
+					_ when type < 0.3: 
+						temp_data["type"] = LootCrate.Type.SMALL_CRATE_OPEN
+					_ when type >= 0.3 && type < 0.45:
+						temp_data["type"] = LootCrate.Type.MEDIUM_CRATE_OPEN
+					_ when type >= 0.45 && type < 0.8:
+						temp_data["type"] = LootCrate.Type.BURIED
+					_ when type >= 0.8 && type < 0.95:
+						temp_data["type"] = LootCrate.Type.SMALL_CRATE
+					_ when type >= 0.95:
+						temp_data["type"] = LootCrate.Type.MEDIUM_CRATE
 				spawn_data.load_data = var_to_bytes(temp_data)
 				return spawn_data
 	))

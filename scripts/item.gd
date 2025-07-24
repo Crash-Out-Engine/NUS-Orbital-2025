@@ -3,7 +3,8 @@ extends Resource
 
 enum Type {
 	SCRAP,
-	MOD
+	MOD,
+	BLUEPRINT
 }
 
 var type: Type
@@ -75,3 +76,28 @@ class ModItem:
 		return new(Mod.from_saved(dict.mod))
 
 	#endregion
+
+class BlueprintItem:
+	extends Item
+
+	var mod: Mod
+
+	#Scrap earned if player picks up said blueprint while already having said mod
+	var scrap_value = 20
+
+	func _init(_mod: Mod) -> void:
+		type = Type.BLUEPRINT
+		mod = _mod
+
+	#region Save/load
+
+	func save() -> PackedByteArray:
+		var dict = {}
+		dict["type"] = type
+		dict["mod"] = mod.save()
+		return var_to_bytes(dict)
+
+	static func from_saved(data: PackedByteArray) -> BlueprintItem:
+		var dict = bytes_to_var(data)
+		assert(dict.type == Type.BLUEPRINT, "Invalid save data.")
+		return new(Mod.from_saved(dict.mod))
