@@ -20,6 +20,10 @@ func _ready() -> void:
 	changed.connect(_check_reduced)
 
 
+func reset() -> void:
+	value = _initial_health
+
+
 func _check_empty(old_value: float, new_value: float) -> void:
 	if new_value <= 0 and old_value > 0:
 		emptied.emit()

@@ -455,14 +455,13 @@ _data = {
 &"sabotaged": SubResource("Animation_8twt2")
 }
 
-[node name="Fault" type="StaticBody2D" node_paths=PackedStringArray("build", "health", "health_capacity", "hitbox")]
+[node name="Fault" type="StaticBody2D" node_paths=PackedStringArray("build", "health", "hitbox")]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_poe5t")
 repair_target = 100.0
 build = NodePath("Properties/BuildProp")
 health = NodePath("Properties/HealthProp")
-health_capacity = NodePath("Properties/HealthCapacityProp")
 hitbox = NodePath("Components/HitboxComp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

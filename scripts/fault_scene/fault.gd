@@ -6,7 +6,7 @@ signal repair_progressed(progress: float)
 signal fixed()
 
 enum State {
-	DEFAULT,
+	UNINITIALIZED,
 	SABOTAGED,
 	REBOOTING,
 	FIXED
@@ -17,7 +17,6 @@ enum State {
 @export_group("Properties")
 @export var build: BuildProp
 @export var health: HealthProp
-@export var health_capacity: HealthCapacityProp
 
 @export_group("Components")
 @export var hitbox: HitboxComp
@@ -34,10 +33,12 @@ var state: State:
 
 
 func _ready() -> void:
-	if state == State.DEFAULT:
-		state = State.SABOTAGED
 	build.changed.connect(func(_from, _to): _check_repair())
 	health.emptied.connect(func(): state = State.SABOTAGED)
+	ready.connect(func():
+		if state == State.UNINITIALIZED:
+			state = State.SABOTAGED
+	)
 
 
 func get_time_progress_ratio() -> float:
@@ -45,30 +46,37 @@ func get_time_progress_ratio() -> float:
 
 
 func _handle_state_changed(from: State, to: State):
+	if not is_node_ready():
+		await ready
 	match [from, to]:
-		[var x, State.REBOOTING] when x in [State.DEFAULT, State.SABOTAGED]:
+		[var x, State.REBOOTING] when x in [State.UNINITIALIZED, State.SABOTAGED]:
 			set_collision_layer_value(1, true)
 			set_collision_layer_value(2, false)
 			set_collision_mask_value(1, true)
-			if reboot_timer != null:
-				reboot_timer.start()
+			reboot_timer.start()
 			hitbox.team = Enums.Team.PLAYER_BUILDING
-			health.value = health_capacity.value
+			health.reset()
 
-		[var x, State.SABOTAGED] when x in [State.DEFAULT, State.REBOOTING]:
+		[State.REBOOTING, State.SABOTAGED]:
 			set_collision_layer_value(1, false)
 			set_collision_layer_value(2, true)
 			set_collision_mask_value(1, false)
-			if reboot_timer != null:
-				reboot_timer.stop()
+			reboot_timer.stop()
 			hitbox.team = Enums.Team.TO_BUILD
 			build.reset()
-
+		
 		[State.REBOOTING, State.FIXED]:
 			hitbox.team = Enums.Team.NONE
 			fixed.emit()
 
-		[State.DEFAULT, State.FIXED]:
+		[State.UNINITIALIZED, State.SABOTAGED]:
+			set_collision_layer_value(1, false)
+			set_collision_layer_value(2, true)
+			set_collision_mask_value(1, false)
+			hitbox.team = Enums.Team.TO_BUILD
+			_check_repair()
+		
+		[State.UNINITIALIZED, State.FIXED]:
 			hitbox.team = Enums.Team.NONE
 
 		[_, _]:
@@ -104,13 +112,14 @@ func save_scene() -> PackedByteArray:
 
 func load_saved_scene(data: PackedByteArray) -> void:
 	var dict = bytes_to_var(data)
+	if not is_node_ready():
+		await ready
+
 	position = dict["position"]
+	state = dict["state"]
 	for property_node: PropertyBase in $Properties.get_children():
 		property_node.load_saved(dict[property_node.name])
-	if !is_node_ready():
-		await ready
-	state = dict["state"]
-	_check_repair()
+	
 	if state == State.REBOOTING:
 		reboot_timer.start(dict["reboot_timer.time_left"])
 

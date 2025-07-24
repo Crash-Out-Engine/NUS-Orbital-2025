@@ -47,6 +47,8 @@ func save() -> PackedByteArray:
 
 func load_saved(data: PackedByteArray) -> void:
 	var dict = bytes_to_var(data)
+	if not is_node_ready():
+		await ready
 	_syncing = true
 	value = dict["value"]
 	min_value = dict["min_value"]
