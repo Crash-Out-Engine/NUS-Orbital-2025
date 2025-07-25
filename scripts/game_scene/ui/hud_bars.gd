@@ -1,6 +1,7 @@
 extends Control
 
 var active: bool = false
+var info_text: Array[String]
 var _player: Player
 var _power_manager: PowerManager
 
@@ -32,13 +33,16 @@ var _power_manager: PowerManager
 	$"VBoxContainer/PowerBar/16Bar/Off"
 ] as Array[TextureRect]
 @onready var scrap_label := $VBoxContainer/ScrapCounter/Icon/Label as Label
-@onready var mod_label := $VBoxContainer/RichTextLabel as RichTextLabel
+@onready var info_label := $VBoxContainer/RichTextLabel as RichTextLabel
 
 func _process(delta: float) -> void:
 	if active:
 		update_power_bar(_power_manager.get_power() as int)
-	if mod_label.modulate.a > 0:
-		mod_label.modulate.a -= delta / 1.0
+	if info_label.modulate.a > 0:
+		info_label.modulate.a -= delta / 1.0
+		if info_label.modulate.a <= 0:
+			if info_text.size() > 0:
+				show_info_label()
 
 
 func setup(player: Player, power_manager: PowerManager):
@@ -51,6 +55,7 @@ func setup(player: Player, power_manager: PowerManager):
 	_player.health_changed.connect(update_health_bar)
 	_player.scraps_changed.connect(update_scraps_counter)
 	_player.inventory.collected_mod.connect(show_mod_collected)
+	_player.inventory.collected_blueprint.connect(show_blueprint_collected)
 
 
 func update_health_bar() -> void:
@@ -83,5 +88,16 @@ func update_scraps_counter() -> void:
 	scrap_label.text = str(_player.get_scraps())
 
 func show_mod_collected(mod: Mod) -> void:
-	mod_label.text = "[outline_size=8]Picked up %s%s[/outline_size]" % [mod.get_icon(), mod.name]
-	mod_label.modulate.a = 1.0
+	info_text.append("[outline_size=8]Picked up %s%s[/outline_size]" % [mod.get_icon(), mod.name])
+	if info_label.modulate.a <= 0:
+		show_info_label()
+
+func show_blueprint_collected(mod: Mod) -> void:
+	info_text.append(
+		"[outline_size=8]Gained blueprint for %s%s[/outline_size]" % [mod.get_icon(), mod.name])
+	if info_label.modulate.a <= 0:
+		show_info_label()
+
+func show_info_label() -> void:
+	info_label.text = info_text.pop_back()
+	info_label.modulate.a = 1.0

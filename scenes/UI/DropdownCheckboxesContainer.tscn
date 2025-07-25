@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://ft03jhsuqtmr" path="res://scripts/game_scene/ui/dropdown_checkboxes_container.gd" id="2_6uqlt"]
 [ext_resource type="FontFile" uid="uid://cj53anigafm5t" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="4_j384f"]
 [ext_resource type="Texture2D" uid="uid://b2lu3murg2aic" path="res://assets/sprites/ui_spritesheet.png" id="4_xysx6"]
-[ext_resource type="PackedScene" uid="uid://d1fw33am6pq2a" path="res://scenes/DropdownSelection.tscn" id="5_dtr5h"]
+[ext_resource type="PackedScene" uid="uid://d1fw33am6pq2a" path="res://scenes/UI/DropdownSelection.tscn" id="5_dtr5h"]
 [ext_resource type="Script" uid="uid://b8v8vds425m6f" path="res://scripts/game_scene/ui/selectable.gd" id="6_ukmmh"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yjmhm"]

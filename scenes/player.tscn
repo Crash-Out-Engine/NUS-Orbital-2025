@@ -1,4 +1,4 @@
-[gd_scene load_steps=120 format=3 uid="uid://ytw0s5xnqwvt"]
+[gd_scene load_steps=102 format=3 uid="uid://ytw0s5xnqwvt"]
 
 [ext_resource type="Script" uid="uid://c8f8kowfp34yp" path="res://scripts/player_scene/player.gd" id="1_f1ej7"]
 [ext_resource type="Texture2D" uid="uid://dvanyjoqcolwr" path="res://assets/sprites/player_spritesheet.png" id="2_y4r1p"]
@@ -15,7 +15,7 @@
 [ext_resource type="Script" uid="uid://leayhs5xslyy" path="res://scripts/properties/repeat_prop.gd" id="11_6e8lb"]
 [ext_resource type="AudioStream" uid="uid://dc66si5kieoq4" path="res://assets/audio/sound_effects/laser_gunshot.wav" id="12_3v2ag"]
 [ext_resource type="Script" uid="uid://bvhh7lwu4sovf" path="res://scripts/properties/knockback_prop.gd" id="12_sc3ue"]
-[ext_resource type="Script" uid="uid://cg7x3m1w75avm" path="res://scripts/properties/knockback_resistance_prop.gd" id="13_8svfe"]
+[ext_resource type="Script" path="res://scripts/properties/knockback_resistance_prop.gd" id="13_8svfe"]
 [ext_resource type="Script" uid="uid://dng6x4ecq2npd" path="res://scripts/player_scene/audio.gd" id="13_a8ls1"]
 [ext_resource type="AudioStream" uid="uid://dk7lmxukxhhcr" path="res://assets/audio/sound_effects/error.wav" id="13_f1ej7"]
 [ext_resource type="AudioStream" uid="uid://ciu1er752oye4" path="res://assets/audio/sound_effects/sand_steps.wav" id="13_jej6c"]
@@ -31,30 +31,12 @@
 [ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/mods/effect.gd" id="19_a38lo"]
 [ext_resource type="Script" uid="uid://155skx5u4uks" path="res://scripts/components/loot_collector_comp.gd" id="19_wqfne"]
 [ext_resource type="Script" uid="uid://j8sk0rxpd865" path="res://scripts/components/inventory_comp.gd" id="20_wnwbv"]
-[ext_resource type="Resource" uid="uid://ytf5ejqaa4c7" path="res://resources/mods/effect_mods/base_slowdown.tres" id="21_487ah"]
 [ext_resource type="Script" uid="uid://ueqkmve06wfj" path="res://scripts/components/mod_targeting_comp.gd" id="21_gl8cc"]
-[ext_resource type="Resource" uid="uid://c3s1g4ybomxx6" path="res://resources/mods/upgrade_mods/base_health_capacity_upgrade.tres" id="21_md1ol"]
 [ext_resource type="Texture2D" uid="uid://qffoquvsdmfp" path="res://assets/sprites/playerhand_spritesheet.png" id="22_pf23h"]
 [ext_resource type="Script" uid="uid://dg0wh1lngb3ha" path="res://scripts/components/blueprint_comp.gd" id="23_bj30b"]
-[ext_resource type="Resource" uid="uid://ido6g1b0tgpf" path="res://resources/mods/upgrade_mods/base_speed_upgrade.tres" id="23_jc3p3"]
 [ext_resource type="Texture2D" uid="uid://cai86xvs48gye" path="res://assets/sprites/gunblast_spritesheet.png" id="23_pf23h"]
-[ext_resource type="Resource" uid="uid://dwfvxifo18je3" path="res://resources/mods/upgrade_mods/enlargement_upgrade.tres" id="25_j2b1d"]
-[ext_resource type="Resource" uid="uid://cg1gbxue54288" path="res://resources/mods/upgrade_mods/shrink_upgrade.tres" id="26_cs1tg"]
-[ext_resource type="Resource" uid="uid://dk6e5yyhtcbel" path="res://resources/mods/upgrade_mods/larger_bullet_upgrade.tres" id="27_cs1tg"]
 [ext_resource type="AudioStream" uid="uid://cba76dqigqmco" path="res://assets/audio/sound_effects/metal_hit.wav" id="28_pf23h"]
 [ext_resource type="AudioStream" uid="uid://vfvy3e572ida" path="res://assets/audio/sound_effects/melee_swing.wav" id="29_dt7fs"]
-[ext_resource type="Resource" uid="uid://bk5uopkgkg01u" path="res://resources/mods/upgrade_mods/base_bullet_count_upgrade.tres" id="30_fdfoy"]
-[ext_resource type="Resource" uid="uid://gg0igq1vql1l" path="res://resources/mods/upgrade_mods/increase_bullet_spread_upgrade.tres" id="31_hhpqf"]
-[ext_resource type="Resource" uid="uid://gnm1t2fhtlvr" path="res://resources/mods/upgrade_mods/decrease_bullet_spread_upgrade.tres" id="32_g5jhy"]
-[ext_resource type="Resource" uid="uid://dsx66xpf5hf3m" path="res://resources/mods/upgrade_mods/base_explosion_count_upgrade.tres" id="33_holxr"]
-[ext_resource type="Resource" uid="uid://chylya72720me" path="res://resources/mods/upgrade_mods/base_explosion_size_upgrade.tres" id="34_mx1m4"]
-[ext_resource type="Resource" uid="uid://cci24ym6eag5g" path="res://resources/mods/upgrade_mods/piercing_upgrade.tres" id="35_4gjji"]
-[ext_resource type="Resource" uid="uid://7xydugwdpqsp" path="res://resources/mods/upgrade_mods/repeat_explosion_upgrade.tres" id="36_u2ulf"]
-[ext_resource type="Resource" uid="uid://ssedgu0f2q68" path="res://resources/mods/upgrade_mods/extra_life_upgrade.tres" id="38_2gdjj"]
-[ext_resource type="Resource" uid="uid://gtpo8u16foe8" path="res://resources/mods/upgrade_mods/base_ranged_cooldown_upgrade.tres" id="41_ha2mi"]
-[ext_resource type="Resource" uid="uid://bckq5o6xawc1n" path="res://resources/mods/upgrade_mods/base_melee_cooldown_upgrade.tres" id="42_apa73"]
-[ext_resource type="Resource" uid="uid://cwv1pbjmnp8gh" path="res://resources/mods/effect_mods/base_knockback.tres" id="43_74r1k"]
-[ext_resource type="Resource" uid="uid://dy1qmsvcg7ae8" path="res://resources/mods/effect_mods/base_damage_over_time.tres" id="45_2a3c5"]
 [ext_resource type="Script" uid="uid://c2m7j6a1noda1" path="res://scripts/components/movement_player_comp.gd" id="49_h7ic4"]
 [ext_resource type="Texture2D" uid="uid://imrneyttweqw" path="res://assets/sprites/gun_reload_level.png" id="52_42b1b"]
 
@@ -620,6 +602,8 @@ metadata/_custom_type_script = "uid://s08wfqwqu2jn"
 position = Vector2(21, 0)
 
 [node name="MeleeComp" type="Area2D" parent="Components" node_paths=PackedStringArray("_entity", "_melee_cooldown")]
+collision_layer = 5
+collision_mask = 5
 script = ExtResource("17_4r5pv")
 delay = 0.1
 _automated = false
@@ -672,7 +656,7 @@ metadata/_custom_type_script = "uid://j8sk0rxpd865"
 
 [node name="BlueprintComp" type="Node" parent="Components"]
 script = ExtResource("23_bj30b")
-unlocked_mods = Array[ExtResource("10_md1ol")]([null, ExtResource("18_31cv2"), ExtResource("45_2a3c5"), ExtResource("43_74r1k"), ExtResource("21_md1ol"), ExtResource("23_jc3p3"), ExtResource("25_j2b1d"), ExtResource("26_cs1tg"), ExtResource("21_487ah"), ExtResource("42_apa73"), ExtResource("41_ha2mi"), ExtResource("30_fdfoy"), ExtResource("33_holxr"), ExtResource("34_mx1m4"), ExtResource("32_g5jhy"), ExtResource("31_hhpqf"), ExtResource("27_cs1tg"), ExtResource("35_4gjji"), ExtResource("36_u2ulf"), ExtResource("38_2gdjj")])
+unlocked_mods = Array[ExtResource("10_md1ol")]([null, ExtResource("18_31cv2")])
 
 [node name="ModTargetingComp" type="Area2D" parent="Components"]
 script = ExtResource("21_gl8cc")

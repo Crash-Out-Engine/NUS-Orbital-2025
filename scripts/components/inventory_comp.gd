@@ -9,6 +9,7 @@ extends Node
 signal scraps_changed(from: int, to: int)
 signal slots_updated(size: int, capacity: int)
 signal collected_mod(mod: Mod)
+signal collected_blueprint(mod: Mod)
 
 @export var initial_mods: Array[Mod]
 @export var initial_scraps: int
@@ -44,6 +45,13 @@ func register_item(item: Item):
 			_synced_set_scraps.rpc(_scraps + (item as Item.ScrapItem).count)
 		Item.Type.MOD:
 			add_mod((item as Item.ModItem).mod)
+			if blueprint_comp.add_blueprint((item as Item.ModItem).mod):
+				collected_blueprint.emit((item as Item.ModItem).mod)
+		Item.Type.BLUEPRINT:
+			if blueprint_comp.add_blueprint((item as Item.BlueprintItem).mod):
+				collected_blueprint.emit((item as Item.BlueprintItem).mod)
+			else:
+				_synced_set_scraps.rpc(_scraps + (item as Item.BlueprintItem).scrap_value)
 
 
 ## Allows the entity (typically Player) to access another entity's ModSlotComp,

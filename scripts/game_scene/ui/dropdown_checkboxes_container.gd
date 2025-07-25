@@ -9,7 +9,7 @@ enum State {
 	ALL_SELECTED
 }
 
-const SELECTION = preload("res://scenes/DropdownSelection.tscn")
+const SELECTION = preload("res://scenes/UI/DropdownSelection.tscn")
 
 @export var title: String
 @export var items: Array[Selectable]

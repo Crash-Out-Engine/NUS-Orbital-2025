@@ -22,7 +22,7 @@ shape = SubResource("CircleShape2D_5os5r")
 
 [node name="BaseSprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_o0pg5")
-hframes = 2
+hframes = 3
 frame = 1
 
 [node name="OverlaySprite" type="Sprite2D" parent="."]

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cuvu1ikd3ndwp"]
+[gd_scene load_steps=6 format=3 uid="uid://cuvu1ikd3ndwp"]
 
 [ext_resource type="Script" uid="uid://chyqvs2afv2mw" path="res://scripts/wall_scene/wall.gd" id="1_1jefv"]
 [ext_resource type="Script" uid="uid://bg2iinlcp53aa" path="res://scripts/properties/health_prop.gd" id="2_xckha"]
 [ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox_comp.gd" id="3_mc1qh"]
+[ext_resource type="Texture2D" uid="uid://bvcl0ttyu7sc" path="res://assets/sprites/rock.png" id="4_mc1qh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gnurj"]
 size = Vector2(1, 1)
@@ -32,6 +33,12 @@ metadata/_custom_type_script = "uid://wwqkkrfhwiyn"
 [node name="Visuals" type="Node2D" parent="."]
 
 [node name="Polygon2D" type="Polygon2D" parent="Visuals"]
-polygon = PackedVector2Array(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5)
+polygon = PackedVector2Array(-0.5, -0.5, -0.5, 0.5, 0, 0, 0.5, -0.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+texture_repeat = 2
+texture = ExtResource("4_mc1qh")
+region_enabled = true
+region_rect = Rect2(0, 0, 360, 178.5)
 
 [node name="Audio" type="Node" parent="."]
