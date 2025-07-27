@@ -21,6 +21,7 @@ func _ready() -> void:
 	assert(is_instance_valid(attack_comp) and "effects" in attack_comp,
 			"Attack component should have an effects variable.")
 
+	await entity.ready
 	# Workaround to ensure turrets don't share the same array instance.
 	_mods = initial_mods.duplicate()
 	_setup_mods()

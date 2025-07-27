@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://kcqha4xx46r7"]
+[gd_scene load_steps=85 format=3 uid="uid://kcqha4xx46r7"]
 
 [ext_resource type="Script" uid="uid://b2oqcghmenmfd" path="res://scripts/enemy_scene/enemy.gd" id="1_7p1mj"]
 [ext_resource type="Shape2D" uid="uid://bqngx786anq0y" path="res://resources/collision_shapes/default_enemy_hitbox.tres" id="2_2sbpf"]
@@ -34,6 +34,7 @@
 [ext_resource type="Texture2D" uid="uid://drvan4pg60qyh" path="res://assets/sprites/berserker_enemy_spritesheet.png" id="28_2sbpf"]
 [ext_resource type="Texture2D" uid="uid://bgjnamjqsco4y" path="res://assets/sprites/mini_enemy_spritesheet.png" id="28_lsnsy"]
 [ext_resource type="AudioStream" uid="uid://dc66si5kieoq4" path="res://assets/audio/sound_effects/laser_gunshot.wav" id="29_1f82d"]
+[ext_resource type="Texture2D" uid="uid://drvas2x6qil0w" path="res://assets/sprites/kamikaze_enemy_spritesheet.png" id="29_78kod"]
 [ext_resource type="Texture2D" uid="uid://dwri841ublxbk" path="res://assets/sprites/sniper_enemy_spritesheet.png" id="31_ekh6n"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wrm80"]
@@ -114,6 +115,11 @@ metadata/_custom_type_script = "uid://d2qeqei6awjb1"
 
 [sub_resource type="Resource" id="Resource_2pwtc"]
 script = ExtResource("9_shcg2")
+targets = Array[int]([1, 4])
+metadata/_custom_type_script = "uid://bc5nkvlgktyor"
+
+[sub_resource type="Resource" id="Resource_7v6cf"]
+script = ExtResource("9_shcg2")
 targets = Array[int]([1, 4, 5])
 metadata/_custom_type_script = "uid://bc5nkvlgktyor"
 
@@ -133,6 +139,26 @@ properties/1/replication_mode = 1
 [sub_resource type="AtlasTexture" id="AtlasTexture_vab5u"]
 atlas = ExtResource("28_2sbpf")
 region = Rect2(0, 0, 86, 86)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ie7m"]
+atlas = ExtResource("29_78kod")
+region = Rect2(0, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ya47j"]
+atlas = ExtResource("29_78kod")
+region = Rect2(20, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hyejq"]
+atlas = ExtResource("29_78kod")
+region = Rect2(40, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j0dkt"]
+atlas = ExtResource("29_78kod")
+region = Rect2(60, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sdxul"]
+atlas = ExtResource("29_78kod")
+region = Rect2(80, 0, 20, 20)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_shcg2"]
 atlas = ExtResource("3_otmr2")
@@ -191,6 +217,47 @@ animations = [{
 "loop": true,
 "name": &"berserker",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ie7m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ya47j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hyejq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j0dkt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sdxul")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sdxul")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sdxul")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sdxul")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sdxul")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sdxul")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sdxul")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sdxul")
+}],
+"loop": true,
+"name": &"kamikaze",
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -291,6 +358,14 @@ region = Rect2(64, 22, 32, 16)
 atlas = ExtResource("3_otmr2")
 region = Rect2(96, 22, 32, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_e7lhw"]
+atlas = ExtResource("29_78kod")
+region = Rect2(0, 21, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gst0f"]
+atlas = ExtResource("29_78kod")
+region = Rect2(32, 21, 32, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_ekh6n"]
 atlas = ExtResource("28_lsnsy")
 region = Rect2(0, 30, 24, 16)
@@ -321,6 +396,17 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e7lhw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gst0f")
+}],
+"loop": true,
+"name": &"kamikaze",
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -442,6 +528,7 @@ metadata/_custom_type_script = "uid://bnt7cwx8k0nm0"
 script = ExtResource("8_8qclf")
 barrel = NodePath("Barrel")
 target_filter = SubResource("Resource_2pwtc")
+bullet_target_filter = SubResource("Resource_7v6cf")
 _entity = NodePath("../..")
 _copy_prop = NodePath("../../Properties/CopyProp")
 _spread_prop = NodePath("../../Properties/SpreadProp")
@@ -457,11 +544,12 @@ target_filter = SubResource("Resource_2mchx")
 entity = NodePath("../..")
 _speed = NodePath("../../Properties/SpeedProp")
 
-[node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("enemy", "health", "movement_comp")]
+[node name="Visuals" type="Node2D" parent="." node_paths=PackedStringArray("enemy", "health", "movement_comp", "ranged")]
 script = ExtResource("13_j0cyh")
 enemy = NodePath("..")
 health = NodePath("../Properties/HealthProp")
 movement_comp = NodePath("../Components/MovementAIComp")
+ranged = NodePath("../Components/RangedComp")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Visuals"]
 replication_config = SubResource("SceneReplicationConfig_rogs8")
@@ -478,7 +566,7 @@ sprite_frames = SubResource("SpriteFrames_shcg2")
 autoplay = "default"
 offset = Vector2(0, 13)
 
-[node name="LegsSprite" type="AnimatedSprite2D" parent="Visuals/BodySprite"]
+[node name="LegsSprite" type="AnimatedSprite2D" parent="Visuals"]
 material = SubResource("ShaderMaterial_s1ycm")
 use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_wrm80")

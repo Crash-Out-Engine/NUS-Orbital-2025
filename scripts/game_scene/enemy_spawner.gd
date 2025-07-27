@@ -27,18 +27,19 @@ func _on_spawn_timer_timeout() -> void: # TODO(multiplayer): Have more elaborate
 		enemy.global_position = center + radius * angle_vector
 		enemy.type = randi_range(0, 4)
 		var type = randf()
-		match true:
-			_ when type < 0.7:
-				enemy.type = 0
-			_ when type >= 0.7 && type < 0.9:
-				enemy.type = 1
-			_ when type >= 0.9 && type < 0.95:
-				enemy.type = 2
-				enemy_count = randi_range(6, 10)
-			_ when type >= 0.95 && type < 0.975:
-				enemy.type = 3
-			_ when type >= 0.975:
-				enemy.type = 4
+		#match true:
+			#_ when type < 0.7:
+				#enemy.type = 0
+			#_ when type >= 0.7 && type < 0.9:
+				#enemy.type = 1
+			#_ when type >= 0.9 && type < 0.95:
+				#enemy.type = 2
+				#enemy_count = randi_range(6, 10)
+			#_ when type >= 0.95 && type < 0.975:
+				#enemy.type = 3
+			#_ when type >= 0.975:
+				#enemy.type = 4
+		enemy.type = 4
 		var total_mods = floor(rng.randf_range(0, count/80))
 		var mod_comp: Array[Mod]
 		for mod in total_mods:

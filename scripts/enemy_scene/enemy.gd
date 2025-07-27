@@ -9,6 +9,7 @@ enum Type {
 	MINI,
 	BERSERKER,
 	SNIPER,
+	KAMIKAZE,
 	SUPPORT
 }
 
@@ -57,6 +58,12 @@ func _ready() -> void:
 			ranged_comp.bullet_spawned.connect(entity_spawned.emit)
 			body_hurtbox.disabled = true
 			$Properties/SpeedProp.value = 0
+			modslot_comp.initial_mods.remove_at(1)
+		Type.KAMIKAZE:
+			ranged_comp.active = true
+			ranged_comp.bullet_spawned.connect(entity_spawned.emit)
+			body_hurtbox.position.y = 11
+			ranged_comp.bullet_target_filter.append(Enums.Team.ENEMY)
 	health_prop.emptied.connect(die)
 
 func add_mod(mod: Mod):

@@ -7,13 +7,17 @@ const BLEED_TIME = 0.04
 const V_MODULATE = 100000000
 const FLIP_THRESHOLD: float = 0.001
 
+@export_group("Properties")
 @export var enemy: Enemy
 @export var health: HealthProp
 @export var movement_comp: MovementBaseComp
 
+@export_group("Components")
+@export var ranged: RangedBaseComp
+
 @onready var body_sprite := $BodySprite as AnimatedSprite2D
 @onready var flames_sprite := $BodySprite/FlamesSprite as AnimatedSprite2D
-@onready var legs_sprite := $BodySprite/LegsSprite as AnimatedSprite2D
+@onready var legs_sprite := $LegsSprite as AnimatedSprite2D
 
 func _ready() -> void:
 	health.emptied.connect(
@@ -58,6 +62,10 @@ func _ready() -> void:
 					if is_multiplayer_authority() and entity is Bullet:
 						_play_fire_anim.rpc()
 			)
+		Enemy.Type.KAMIKAZE:
+			body_sprite.play("kamikaze")
+			legs_sprite.play("kamikaze")
+			flames_sprite.visible = false
 
 func _process(delta: float) -> void:
 	if not is_multiplayer_authority():
@@ -74,7 +82,9 @@ func _process(delta: float) -> void:
 	var x_velocity = movement_comp.movement_direction.x
 	if absf(x_velocity) > FLIP_THRESHOLD:
 		var flip_h = x_velocity < 0
-		body_sprite.flip_h = flip_h
+		if enemy.type != Enemy.Type.SNIPER:
+			body_sprite.flip_h = flip_h
+			legs_sprite.flip_h = flip_h
 
 
 @rpc("any_peer", "call_local", "reliable")
@@ -88,4 +98,8 @@ func _play_bleed_effect():
 
 @rpc("any_peer", "call_local", "reliable")
 func _play_fire_anim() -> void:
-	body_sprite.play("ranged")
+	if enemy.type == Enemy.Type.RANGED:
+		body_sprite.play("ranged")
+	elif enemy.type == Enemy.Type.SNIPER:
+		body_sprite.rotation = ranged.rotation
+		body_sprite.play("sniper")

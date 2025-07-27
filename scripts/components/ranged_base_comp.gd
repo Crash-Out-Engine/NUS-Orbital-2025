@@ -8,6 +8,7 @@ const _BULLET_SCENE = preload("res://scenes/bullet.tscn")
 @export var active: bool = false
 @export var barrel: Node2D
 @export var target_filter: TargetFilter
+@export var bullet_target_filter: TargetFilter
 @export var mods: Array[Mod]
 @export var effects: Array[Effect]
 
@@ -17,7 +18,6 @@ const _BULLET_SCENE = preload("res://scenes/bullet.tscn")
 @export var _copy_prop: CopyProp
 @export var _spread_prop: SpreadProp
 @export var _ranged_cooldown_prop: RangedCooldownProp
-
 
 func _init() -> void:
 	assert(get_class() != "RangedBaseComp",
@@ -48,7 +48,7 @@ func activate() -> void:
 
 	for i in bullet_count:
 		var bullet := _BULLET_SCENE.instantiate() as Bullet
-		bullet.attack = Attack.from(_entity, effects, target_filter)
+		bullet.attack = Attack.from(_entity, effects, bullet_target_filter)
 		bullet.assign_mods(mods)
 		bullet.global_position = barrel.global_position
 		bullet.direction = starting_angle + i * interval
