@@ -31,7 +31,7 @@ func _process(_delta: float) -> void:
 			% ["%02d" % floor((Time.get_ticks_msec() as int - _start_time) / 60000),
 			"%02d" % (((Time.get_ticks_msec() as int - _start_time) / 1000) % 60)])
 	tree.spawn_statistics.set_text(0,
-			"Wave: %s\nDifficulty: %d\nSpawn: %s\nAccumulated difficulty: %s\nDiffculty tier: %d" 
+			"Wave: %s\nDifficulty: %d\nSpawn: %s\nAccumulated difficulty: %s\nDiffculty tier: %d"
 			% [_enemy_spawner.enemy_wave.name,
 			_enemy_spawner.enemy_wave.difficulty_rating,
 			_enemy_spawner.enemy_wave.spawn_time,

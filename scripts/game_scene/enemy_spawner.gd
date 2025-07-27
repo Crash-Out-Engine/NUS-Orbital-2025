@@ -55,6 +55,7 @@ func _on_spawn_timer_timeout() -> void: # TODO(multiplayer): Have more elaborate
 				current_difficulty += 1
 				enemy_wave = DOWNTIME_ENEMY_WAVE
 			else:
-				enemy_wave = enemy_wave_list.filter(func(wave): return wave.difficulty_rating <= current_difficulty).pick_random()
+				enemy_wave = enemy_wave_list.filter(
+					func(wave): return wave.difficulty_rating <= current_difficulty).pick_random()
 			timer.wait_time = enemy_wave.spawn_time
 			time_elapsed = 0
