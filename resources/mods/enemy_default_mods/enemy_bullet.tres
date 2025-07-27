@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="Mod" load_steps=7 format=3 uid="uid://ct3rj6lcbtjna"]
+
+[ext_resource type="Script" uid="uid://dlwahujwxjfnc" path="res://scripts/mods/mod_entry.gd" id="1_sbjg6"]
+[ext_resource type="Script" uid="uid://bv5qyje0vek6w" path="res://scripts/mods/upgrade.gd" id="2_lykc2"]
+[ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="3_3vsgh"]
+[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod.gd" id="4_kddrw"]
+
+[sub_resource type="Resource" id="Resource_x6q4o"]
+script = ExtResource("2_lykc2")
+special = false
+_property_type = "SpeedProp"
+_factor = -600.0
+_target = 1
+metadata/_custom_type_script = "uid://bv5qyje0vek6w"
+
+[sub_resource type="Resource" id="Resource_1f82d"]
+script = ExtResource("2_lykc2")
+special = false
+_property_type = "SizeProp"
+_factor = 0.5
+_target = 1
+metadata/_custom_type_script = "uid://bv5qyje0vek6w"
+
+[resource]
+script = ExtResource("4_kddrw")
+name = ""
+description = ""
+property_points = Dictionary[ExtResource("3_3vsgh"), int]({})
+value = 0
+entries = Array[ExtResource("1_sbjg6")]([SubResource("Resource_x6q4o"), SubResource("Resource_1f82d")])
+metadata/_custom_type_script = "uid://d2qeqei6awjb1"

@@ -28,11 +28,10 @@ func _physics_process(_delta: float) -> void:
 
 	if is_nan(predicted_position.x) or is_nan(predicted_position.y) or (
 		predicted_position.distance_to(barrel.global_position) > bullet_speed * bullet_lifetime):
-		return # Formula failed for whatever reason.
+		return # Formula failed or target too far away
 
 	# Ranged now has a valid target and can fire.
 	look_at(predicted_position)
-
 	activate()
 
 

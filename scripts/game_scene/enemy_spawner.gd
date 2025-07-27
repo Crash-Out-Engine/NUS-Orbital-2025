@@ -18,35 +18,36 @@ func setup(player: Player, entity_manager: EntityManager) -> void:
 
 func _on_spawn_timer_timeout() -> void: # TODO(multiplayer): Have more elaborate spawning mechanisms
 	if active:
-		var enemy = _ENEMY_SCENE.instantiate()
 		var enemy_count = 1
 
 		var center = _player.global_position
 		var radius = get_viewport_rect().size.length() * 0.6
 		var angle_vector = Vector2.from_angle(randf_range(0, 2 * PI))
-		enemy.global_position = center + radius * angle_vector
-		enemy.type = randi_range(0, 4)
-		var type = randf()
-		#match true:
-			#_ when type < 0.7:
-				#enemy.type = 0
-			#_ when type >= 0.7 && type < 0.9:
-				#enemy.type = 1
-			#_ when type >= 0.9 && type < 0.95:
-				#enemy.type = 2
-				#enemy_count = randi_range(6, 10)
-			#_ when type >= 0.95 && type < 0.975:
-				#enemy.type = 3
-			#_ when type >= 0.975:
-				#enemy.type = 4
-		enemy.type = 4
+		var enemy_global_position = center + radius * angle_vector
+		var type: int
+		var type_seed = randf()
+		match true:
+			_ when type_seed < 0.7:
+				type = 0
+			_ when type_seed >= 0.7 && type_seed < 0.9:
+				type = 1
+			_ when type_seed >= 0.9 && type_seed < 0.95:
+				type = 2
+				enemy_count = randi_range(6, 10)
+			_ when type_seed >= 0.95 && type_seed < 0.975:
+				type = 3
+			_ when type_seed >= 0.975 && type_seed < 0.99:
+				type = 4
+			_ when type_seed >= 0.99:
+				type = 5
 		var total_mods = floor(rng.randf_range(0, count/80))
 		var mod_comp: Array[Mod]
 		for mod in total_mods:
 			mod_comp.append(mods[rng.randi_range(0, 9)])
 		for i in enemy_count:
-			var new_enemy = enemy.duplicate()
-			new_enemy.type = enemy.type
+			var new_enemy = _ENEMY_SCENE.instantiate()
+			new_enemy.global_position = enemy_global_position
+			new_enemy.type = type
 			new_enemy.global_position += Vector2(randf_range(-16, 16), randf_range(-16, 16))
 			_entity_manager.server_add_entity(new_enemy, self)
 			await new_enemy.ready

@@ -36,6 +36,8 @@ func _ready() -> void:
 			ranged_comp.active = true
 			ranged_comp.bullet_spawned.connect(entity_spawned.emit)
 			body_hurtbox.position.y = 11
+			add_mod(preload("res://resources/mods/enemy_default_mods/enemy_damage.tres"))
+			add_mod(preload("res://resources/mods/enemy_default_mods/enemy_bullet.tres"))
 		Type.MINI:
 			ranged_comp.active = false
 			hitbox_collision_shape.shape = load(
@@ -58,12 +60,14 @@ func _ready() -> void:
 			ranged_comp.bullet_spawned.connect(entity_spawned.emit)
 			body_hurtbox.disabled = true
 			$Properties/SpeedProp.value = 0
-			modslot_comp.initial_mods.remove_at(1)
+			add_mod(preload("res://resources/mods/enemy_default_mods/sniper_enemy.tres"))
 		Type.KAMIKAZE:
 			ranged_comp.active = true
 			ranged_comp.bullet_spawned.connect(entity_spawned.emit)
 			body_hurtbox.position.y = 11
-			ranged_comp.bullet_target_filter.append(Enums.Team.ENEMY)
+			$Properties/SpeedProp.value *= 2.5
+			ranged_comp.bullet_target_filter.targets.append(Enums.Team.ENEMY)
+			add_mod(preload("res://resources/mods/enemy_default_mods/kamikaze_enemy.tres"))
 	health_prop.emptied.connect(die)
 
 func add_mod(mod: Mod):
