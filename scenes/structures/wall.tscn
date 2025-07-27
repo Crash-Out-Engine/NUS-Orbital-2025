@@ -27,7 +27,7 @@ metadata/_custom_type_script = "uid://bg2iinlcp53aa"
 [node name="HitboxComp" type="Node" parent="Components" node_paths=PackedStringArray("_entity")]
 script = ExtResource("3_mc1qh")
 _entity = NodePath("../..")
-team = 4
+team = 5
 metadata/_custom_type_script = "uid://wwqkkrfhwiyn"
 
 [node name="Visuals" type="Node2D" parent="."]
