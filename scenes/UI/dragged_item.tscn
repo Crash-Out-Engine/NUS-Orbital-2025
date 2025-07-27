@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cs8cukrm6unxr"]
+[gd_scene load_steps=6 format=3 uid="uid://cs8cukrm6unxr"]
 
 [ext_resource type="Script" uid="uid://bpeqcqb1a5e6g" path="res://scripts/game_scene/ui/dragged_item.gd" id="1_8y4iv"]
 [ext_resource type="Texture2D" uid="uid://b2tks1tuu2rsb" path="res://assets/sprites/loot_spritesheet.png" id="2_8y4iv"]
@@ -6,6 +6,10 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0ymor"]
 size = Vector2(64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kwkdj"]
+atlas = ExtResource("2_8y4iv")
+region = Rect2(14, 1, 11, 11)
 
 [node name="DraggedItem" type="Area2D"]
 top_level = true
@@ -18,9 +22,7 @@ shape = SubResource("RectangleShape2D_0ymor")
 [node name="BaseSprite" type="Sprite2D" parent="."]
 position = Vector2(1.43051e-06, 2.5034e-06)
 scale = Vector2(5.84615, 5.84615)
-texture = ExtResource("2_8y4iv")
-hframes = 2
-frame = 1
+texture = SubResource("AtlasTexture_kwkdj")
 
 [node name="OverlaySprite" type="Sprite2D" parent="BaseSprite"]
 scale = Vector2(0.2, 0.2)

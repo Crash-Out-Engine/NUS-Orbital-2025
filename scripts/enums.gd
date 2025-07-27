@@ -6,4 +6,5 @@ enum Team {
 	ENEMY,
 	TO_BUILD,
 	PLAYER_BUILDING,
+	NEUTRAL
 }

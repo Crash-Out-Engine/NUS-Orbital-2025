@@ -47,18 +47,18 @@ func get_time_progress_ratio() -> float:
 func _handle_state_changed(from: State, to: State):
 	match [from, to]:
 		[var x, State.REBOOTING] when x in [State.DEFAULT, State.SABOTAGED]:
-			set_collision_layer_value(1, true)
+			set_collision_layer_value(3, true)
 			set_collision_layer_value(2, false)
-			set_collision_mask_value(1, true)
+			set_collision_mask_value(3, true)
 			if reboot_timer != null:
 				reboot_timer.start()
 			hitbox.team = Enums.Team.PLAYER_BUILDING
 			health.value = health_capacity.value
 
 		[var x, State.SABOTAGED] when x in [State.DEFAULT, State.REBOOTING]:
-			set_collision_layer_value(1, false)
+			set_collision_layer_value(3, false)
 			set_collision_layer_value(2, true)
-			set_collision_mask_value(1, false)
+			set_collision_mask_value(3, false)
 			if reboot_timer != null:
 				reboot_timer.stop()
 			hitbox.team = Enums.Team.TO_BUILD
