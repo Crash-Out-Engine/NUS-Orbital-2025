@@ -3,6 +3,7 @@ extends Tree
 var game_seed: TreeItem
 var fps: TreeItem
 var entities: TreeItem
+var time: TreeItem
 
 
 func _ready(): # TODO: Finish setting up Debug options
@@ -19,6 +20,7 @@ func _ready(): # TODO: Finish setting up Debug options
 	game_seed = statistics.create_child()
 	fps = statistics.create_child()
 	entities = statistics.create_child()
+	time = statistics.create_child()
 
 	# === Game ===
 	var game = root.create_child()
