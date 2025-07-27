@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EnemyWave" load_steps=2 format=3 uid="uid://bmf1yehfhbahg"]
+
+[ext_resource type="Script" uid="uid://ekp37k8cb1l7" path="res://scripts/enemy_wave.gd" id="1_bye44"]
+
+[resource]
+script = ExtResource("1_bye44")
+name = "Berserker"
+description = "May spawn berserkers"
+difficulty_rating = 4
+length = 35.0
+spawn_time = 1.2
+spawn_chances = Array[float]([0.7, 0.7, 0.9, 1.0, 0.0, 0.0, 0.0, 0.0])
+metadata/_custom_type_script = "uid://ekp37k8cb1l7"

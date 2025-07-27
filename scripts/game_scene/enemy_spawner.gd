@@ -1,15 +1,22 @@
 extends Node2D
 
 const _ENEMY_SCENE = preload("res://scenes/enemy.tscn")
+const DOWNTIME_ENEMY_WAVE = preload("res://resources/enemy_waves/0_downtime.tres")
 
 @export var active := true
 @export var mods : Array[Mod]
-@export var curve: Curve
+@export var enemy_wave: EnemyWave
+@export var enemy_wave_list: Array[EnemyWave]
 
+var time_elapsed: float = 0.0
+var accumulated_difficulty: int = 0
+var current_difficulty: int = 1
 var count: float = 0.0
 var rng = RandomNumberGenerator.new()
 var _player: Player
 var _entity_manager: EntityManager
+
+@onready var timer := $SpawnTimer as Timer
 
 func setup(player: Player, entity_manager: EntityManager) -> void:
 	_player = player
@@ -24,22 +31,9 @@ func _on_spawn_timer_timeout() -> void: # TODO(multiplayer): Have more elaborate
 		var radius = get_viewport_rect().size.length() * 0.6
 		var angle_vector = Vector2.from_angle(randf_range(0, 2 * PI))
 		var enemy_global_position = center + radius * angle_vector
-		var type: int
+		var type: Enemy.Type
 		var type_seed = randf()
-		match true:
-			_ when type_seed < 0.7:
-				type = 0
-			_ when type_seed >= 0.7 && type_seed < 0.9:
-				type = 1
-			_ when type_seed >= 0.9 && type_seed < 0.95:
-				type = 2
-				enemy_count = randi_range(6, 10)
-			_ when type_seed >= 0.95 && type_seed < 0.975:
-				type = 3
-			_ when type_seed >= 0.975 && type_seed < 0.99:
-				type = 4
-			_ when type_seed >= 0.99:
-				type = 5
+		type = enemy_wave.get_enemy_type(type_seed)
 		var total_mods = floor(rng.randf_range(0, count/80))
 		var mod_comp: Array[Mod]
 		for mod in total_mods:
@@ -54,3 +48,13 @@ func _on_spawn_timer_timeout() -> void: # TODO(multiplayer): Have more elaborate
 			for mod in mod_comp:
 				new_enemy.add_mod(mod)
 		count += 1
+		time_elapsed += timer.wait_time
+		if time_elapsed >= enemy_wave.length:
+			accumulated_difficulty += enemy_wave.difficulty_rating
+			if accumulated_difficulty > (current_difficulty * 3 - 1):
+				current_difficulty += 1
+				enemy_wave = DOWNTIME_ENEMY_WAVE
+			else:
+				enemy_wave = enemy_wave_list.filter(func(wave): return wave.difficulty_rating <= current_difficulty).pick_random()
+			timer.wait_time = enemy_wave.spawn_time
+			time_elapsed = 0

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EnemyWave" load_steps=2 format=3 uid="uid://biwe3cuhhu7wl"]
+
+[ext_resource type="Script" uid="uid://ekp37k8cb1l7" path="res://scripts/enemy_wave.gd" id="1_geeiw"]
+
+[resource]
+script = ExtResource("1_geeiw")
+name = "Melee Only"
+description = "Only melee enemies"
+difficulty_rating = 4
+length = 90.0
+spawn_time = 0.8
+spawn_chances = Array[float]([1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
+metadata/_custom_type_script = "uid://ekp37k8cb1l7"

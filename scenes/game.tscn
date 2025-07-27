@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=3 uid="uid://c3y7gurn6a6pv"]
+[gd_scene load_steps=89 format=3 uid="uid://c3y7gurn6a6pv"]
 
 [ext_resource type="Script" uid="uid://d2o1hku0svi7t" path="res://scripts/game_scene/game.gd" id="1_yqjtg"]
 [ext_resource type="Script" uid="uid://b4nnqgafyjd1u" path="res://scripts/game_scene/camera_debug.gd" id="4_37s47"]
@@ -26,14 +26,31 @@
 [ext_resource type="Resource" uid="uid://cci24ym6eag5g" path="res://resources/mods/upgrade_mods/piercing_upgrade.tres" id="14_h3rex"]
 [ext_resource type="Resource" uid="uid://gnm1t2fhtlvr" path="res://resources/mods/upgrade_mods/decrease_bullet_spread_upgrade.tres" id="15_8ool0"]
 [ext_resource type="Script" uid="uid://b5ihjg2jg7kkh" path="res://scripts/game_scene/ui/debug/debug_panel.gd" id="15_264po"]
+[ext_resource type="Resource" uid="uid://stqmoqsed8mt" path="res://resources/enemy_waves/0_downtime.tres" id="15_7025r"]
 [ext_resource type="Script" uid="uid://cse3mqdmlr8dq" path="res://scripts/game_scene/ui/debug/tree.gd" id="16_1kice"]
+[ext_resource type="Script" uid="uid://ekp37k8cb1l7" path="res://scripts/enemy_wave.gd" id="16_3hbvx"]
 [ext_resource type="Texture2D" uid="uid://ccfwh73q4xx04" path="res://assets/tilesheets/tilemap.png" id="16_264po"]
+[ext_resource type="Resource" uid="uid://ct11rcxjtel4j" path="res://resources/enemy_waves/1_melee_only.tres" id="17_q8j3a"]
+[ext_resource type="Resource" uid="uid://cxk5hr5rifckl" path="res://resources/enemy_waves/2_melee_only.tres" id="18_ms3bu"]
+[ext_resource type="Resource" uid="uid://2avse1fx5ide" path="res://resources/enemy_waves/2_melee_and_ranged.tres" id="19_7ixpq"]
 [ext_resource type="Script" uid="uid://bxej7b3iw18rm" path="res://scripts/managers/entity_manager.gd" id="19_bhx41"]
 [ext_resource type="Script" uid="uid://cjibf46shciwg" path="res://scripts/game_scene/game_over_panel.gd" id="19_bt5mj"]
+[ext_resource type="Resource" uid="uid://b4uheel5soerq" path="res://resources/enemy_waves/3_triple_threat.tres" id="20_bk1p3"]
 [ext_resource type="AudioStream" uid="uid://d1v6522e76f16" path="res://assets/audio/songs/8_bit_mission.wav" id="21_5newe"]
+[ext_resource type="Resource" uid="uid://i8ie5mamyvx3" path="res://resources/enemy_waves/3_melee_and_ranged.tres" id="21_n8ral"]
+[ext_resource type="Resource" uid="uid://chgln1atgodk8" path="res://resources/enemy_waves/3_melee_only.tres" id="22_yd4ix"]
+[ext_resource type="Resource" uid="uid://bk76d8rwngfoc" path="res://resources/enemy_waves/3_crowded.tres" id="23_66xif"]
 [ext_resource type="Script" uid="uid://bqi3wylgyav4h" path="res://scripts/systems/tilemap_generator.gd" id="23_bhx41"]
+[ext_resource type="Resource" uid="uid://bppgtgvnk7oey" path="res://resources/enemy_waves/4_crowded.tres" id="24_bnuda"]
 [ext_resource type="Script" uid="uid://cu3yjuf8cf25w" path="res://scripts/managers/power_manager.gd" id="24_e1j6l"]
+[ext_resource type="Resource" uid="uid://biwe3cuhhu7wl" path="res://resources/enemy_waves/4_melee_only.tres" id="25_0rmfi"]
 [ext_resource type="Script" uid="uid://bds110rob8go" path="res://scripts/systems/tilemap_gen_system.gd" id="25_pl11u"]
+[ext_resource type="Resource" uid="uid://fua72r5qvr4d" path="res://resources/enemy_waves/4_triple_threat.tres" id="26_xbak0"]
+[ext_resource type="Resource" uid="uid://bnvkux3nojff" path="res://resources/enemy_waves/4_melee_and_ranged.tres" id="27_3x28f"]
+[ext_resource type="Resource" uid="uid://bmf1yehfhbahg" path="res://resources/enemy_waves/4_berserker.tres" id="28_l6q63"]
+[ext_resource type="Resource" uid="uid://h3l5s0oftioc" path="res://resources/enemy_waves/4_snipers.tres" id="29_mmvbu"]
+[ext_resource type="Resource" uid="uid://c1urwicags6bo" path="res://resources/enemy_waves/4_kamikaze.tres" id="30_weeiq"]
+[ext_resource type="Resource" uid="uid://c15n8r3w1a2x8" path="res://resources/enemy_waves/5_uber_hard.tres" id="31_q8j3a"]
 [ext_resource type="Script" uid="uid://dh80ow274molx" path="res://scripts/managers/structure_gen_manager.gd" id="35_02fa5"]
 [ext_resource type="Script" uid="uid://bvxy4628r1qai" path="res://scripts/walled_gen.gd" id="35_nepv3"]
 [ext_resource type="Script" uid="uid://duvbkegjw6tg0" path="res://scripts/loot_crate_gen.gd" id="36_02fa5"]
@@ -44,8 +61,6 @@ background_mode = 3
 glow_enabled = true
 glow_blend_mode = 0
 glow_hdr_threshold = 0.93
-
-[sub_resource type="Curve" id="Curve_gxtfn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1kice"]
 atlas = ExtResource("6_1kice")
@@ -241,10 +256,11 @@ metadata/_custom_type_script = "uid://rpe1k6t1qksx"
 process_mode = 1
 script = ExtResource("5_iywne")
 mods = Array[ExtResource("11_sww3w")]([ExtResource("6_m4url"), ExtResource("13_sgl2t"), ExtResource("13_sgl2t"), ExtResource("9_pr1ej"), ExtResource("10_05nbr"), ExtResource("11_0sl42"), ExtResource("12_oaba0"), ExtResource("13_458eo"), ExtResource("14_h3rex"), ExtResource("15_8ool0")])
-curve = SubResource("Curve_gxtfn")
+enemy_wave = ExtResource("15_7025r")
+enemy_wave_list = Array[ExtResource("16_3hbvx")]([ExtResource("17_q8j3a"), ExtResource("19_7ixpq"), ExtResource("18_ms3bu"), ExtResource("23_66xif"), ExtResource("21_n8ral"), ExtResource("20_bk1p3"), ExtResource("22_yd4ix"), ExtResource("28_l6q63"), ExtResource("24_bnuda"), ExtResource("30_weeiq"), ExtResource("27_3x28f"), ExtResource("25_0rmfi"), ExtResource("29_mmvbu"), ExtResource("26_xbak0"), ExtResource("31_q8j3a")])
 
 [node name="SpawnTimer" type="Timer" parent="EnemySpawner"]
-wait_time = 1.5
+wait_time = 2.5
 autostart = true
 
 [node name="UI" type="CanvasLayer" parent="."]

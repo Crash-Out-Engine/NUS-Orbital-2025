@@ -41,7 +41,7 @@ func _ready() -> void:
 					if is_multiplayer_authority() and entity is Bullet:
 						_play_fire_anim.rpc()
 			)
-		Enemy.Type.MINI:
+		Enemy.Type.HORDE:
 			body_sprite.play("mini")
 			flames_sprite.offset.y = 11.0
 			legs_sprite.play("mini")

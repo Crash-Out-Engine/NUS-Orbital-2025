@@ -6,7 +6,7 @@ signal entity_spawned(entity: Node2D)
 enum Type {
 	MELEE,
 	RANGED,
-	MINI,
+	HORDE,
 	BERSERKER,
 	SNIPER,
 	KAMIKAZE,
@@ -38,7 +38,7 @@ func _ready() -> void:
 			body_hurtbox.position.y = 11
 			add_mod(preload("res://resources/mods/enemy_default_mods/enemy_damage.tres"))
 			add_mod(preload("res://resources/mods/enemy_default_mods/enemy_bullet.tres"))
-		Type.MINI:
+		Type.HORDE:
 			ranged_comp.active = false
 			hitbox_collision_shape.shape = load(
 				"res://resources/collision_shapes/mini_enemy_hitbox.tres")
