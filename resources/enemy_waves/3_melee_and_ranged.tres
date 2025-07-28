@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EnemyWave" load_steps=2 format=3 uid="uid://i8ie5mamyvx3"]
+
+[ext_resource type="Script" uid="uid://ekp37k8cb1l7" path="res://scripts/enemy_wave.gd" id="1_k1wo2"]
+
+[resource]
+script = ExtResource("1_k1wo2")
+name = "Melee and ranged"
+description = "Both melee and ranged can spawn"
+difficulty_rating = 3
+length = 30.0
+spawn_time = 1.4
+spawn_chances = Array[float]([0.75, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
+metadata/_custom_type_script = "uid://ekp37k8cb1l7"

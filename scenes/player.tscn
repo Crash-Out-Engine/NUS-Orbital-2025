@@ -1,4 +1,4 @@
-[gd_scene load_steps=102 format=3 uid="uid://ytw0s5xnqwvt"]
+[gd_scene load_steps=103 format=3 uid="uid://ytw0s5xnqwvt"]
 
 [ext_resource type="Script" uid="uid://c8f8kowfp34yp" path="res://scripts/player_scene/player.gd" id="1_f1ej7"]
 [ext_resource type="Texture2D" uid="uid://dvanyjoqcolwr" path="res://assets/sprites/player_spritesheet.png" id="2_y4r1p"]
@@ -53,6 +53,11 @@ radius = 5.0
 height = 26.0
 
 [sub_resource type="Resource" id="Resource_ujl30"]
+script = ExtResource("14_l71n6")
+targets = Array[int]([2])
+metadata/_custom_type_script = "uid://bc5nkvlgktyor"
+
+[sub_resource type="Resource" id="Resource_j2b1d"]
 script = ExtResource("14_l71n6")
 targets = Array[int]([2, 5])
 metadata/_custom_type_script = "uid://bc5nkvlgktyor"
@@ -591,6 +596,7 @@ metadata/_custom_type_script = "uid://bnt7cwx8k0nm0"
 script = ExtResource("7_smehm")
 barrel = NodePath("Barrel")
 target_filter = SubResource("Resource_ujl30")
+bullet_target_filter = SubResource("Resource_j2b1d")
 effects = Array[ExtResource("19_a38lo")]([ExtResource("13_l71n6")])
 _entity = NodePath("../..")
 _copy_prop = NodePath("../../Properties/CopyProp")

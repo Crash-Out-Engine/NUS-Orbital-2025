@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://iqyedsof74fp"]
+[gd_scene load_steps=36 format=3 uid="uid://iqyedsof74fp"]
 
 [ext_resource type="Script" uid="uid://47onqbsq6sc8" path="res://scripts/turret_scene/turret.gd" id="1_x3mc5"]
 [ext_resource type="Script" uid="uid://wwqkkrfhwiyn" path="res://scripts/components/hitbox_comp.gd" id="2_el7wl"]
@@ -30,6 +30,11 @@ radius = 8.0
 radius = 16.0
 
 [sub_resource type="Resource" id="Resource_8c4bs"]
+script = ExtResource("7_726tt")
+targets = Array[int]([2])
+metadata/_custom_type_script = "uid://bc5nkvlgktyor"
+
+[sub_resource type="Resource" id="Resource_8a46y"]
 script = ExtResource("7_726tt")
 targets = Array[int]([2, 5])
 metadata/_custom_type_script = "uid://bc5nkvlgktyor"
@@ -202,6 +207,7 @@ script = ExtResource("5_mqfwu")
 active = true
 barrel = NodePath("Barrel")
 target_filter = SubResource("Resource_8c4bs")
+bullet_target_filter = SubResource("Resource_8a46y")
 effects = Array[ExtResource("8_726tt")]([ExtResource("9_8c4bs")])
 _entity = NodePath("../..")
 _copy_prop = NodePath("../../Properties/CopyProp")

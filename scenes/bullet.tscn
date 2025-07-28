@@ -72,7 +72,7 @@ metadata/_custom_type_script = "uid://3wplgpaykhjn"
 
 [node name="TimeoutProp" type="Node" parent="Properties"]
 script = ExtResource("6_26lx3")
-time = 15.0
+time = 10.0
 
 [node name="Components" type="Node2D" parent="."]
 

@@ -35,6 +35,9 @@ func get_target() -> Target:
 func _can_upgrade(property: PropertyBase) -> bool:
 	return property.get_script().get_global_name() == _property_type
 
+func _can_upgrade_string(property_name: String) -> bool:
+	return property_name == _property_type
+
 #region Save/load
 
 func save(dict: Dictionary = {}) -> PackedByteArray:

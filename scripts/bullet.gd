@@ -3,8 +3,8 @@ extends Area2D
 
 signal entity_spawned(entity: Node2D)
 
-## The assumed speed of a bullet for predictive aiming.
-const ASSUMED_SPEED := 800.0 # HACK: Should calculate speed based on initial mods.
+const DEFAULT_SPEED := 800.0
+const DEFAULT_TIMEOUT := 10.0
 const _EXPLOSION_SCENE = preload("res://scenes/explosion.tscn")
 
 @export_group("Properties")

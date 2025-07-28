@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EnemyWave" load_steps=2 format=3 uid="uid://h3l5s0oftioc"]
+
+[ext_resource type="Script" uid="uid://ekp37k8cb1l7" path="res://scripts/enemy_wave.gd" id="1_glbqw"]
+
+[resource]
+script = ExtResource("1_glbqw")
+name = "Snipers"
+description = "Snipers may spawn"
+difficulty_rating = 4
+length = 35.0
+spawn_time = 1.2
+spawn_chances = Array[float]([0.6, 0.8, 0.8, 0.8, 1.0, 0.0, 0.0, 0.0])
+metadata/_custom_type_script = "uid://ekp37k8cb1l7"

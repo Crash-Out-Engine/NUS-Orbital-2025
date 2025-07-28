@@ -3,6 +3,8 @@ extends Tree
 var game_seed: TreeItem
 var fps: TreeItem
 var entities: TreeItem
+var time: TreeItem
+var spawn_statistics: TreeItem
 
 
 func _ready(): # TODO: Finish setting up Debug options
@@ -19,6 +21,7 @@ func _ready(): # TODO: Finish setting up Debug options
 	game_seed = statistics.create_child()
 	fps = statistics.create_child()
 	entities = statistics.create_child()
+	time = statistics.create_child()
 
 	# === Game ===
 	var game = root.create_child()
@@ -29,6 +32,8 @@ func _ready(): # TODO: Finish setting up Debug options
 	god.set_text(0, "God mode")
 	god.set_tooltip_text(0, "Infinite power, health, and scraps (host)")
 	god.set_editable(0, true)
+
+	spawn_statistics = statistics.create_child()
 
 	var spawn_rate = game.create_child()
 	spawn_rate.set_text(0, "Set enemy spawn rate (per sec)")

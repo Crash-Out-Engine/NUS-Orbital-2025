@@ -6,9 +6,10 @@ signal entity_spawned(entity: Node2D)
 enum Type {
 	MELEE,
 	RANGED,
-	MINI,
+	HORDE,
 	BERSERKER,
 	SNIPER,
+	KAMIKAZE,
 	SUPPORT
 }
 
@@ -35,7 +36,9 @@ func _ready() -> void:
 			ranged_comp.active = true
 			ranged_comp.bullet_spawned.connect(entity_spawned.emit)
 			body_hurtbox.position.y = 11
-		Type.MINI:
+			add_mod(preload("res://resources/mods/enemy_default_mods/enemy_damage.tres"))
+			add_mod(preload("res://resources/mods/enemy_default_mods/enemy_bullet.tres"))
+		Type.HORDE:
 			ranged_comp.active = false
 			hitbox_collision_shape.shape = load(
 				"res://resources/collision_shapes/mini_enemy_hitbox.tres")
@@ -57,6 +60,14 @@ func _ready() -> void:
 			ranged_comp.bullet_spawned.connect(entity_spawned.emit)
 			body_hurtbox.disabled = true
 			$Properties/SpeedProp.value = 0
+			add_mod(preload("res://resources/mods/enemy_default_mods/sniper_enemy.tres"))
+		Type.KAMIKAZE:
+			ranged_comp.active = true
+			ranged_comp.bullet_spawned.connect(entity_spawned.emit)
+			body_hurtbox.position.y = 11
+			$Properties/SpeedProp.value *= 2.5
+			ranged_comp.bullet_target_filter.targets.append(Enums.Team.ENEMY)
+			add_mod(preload("res://resources/mods/enemy_default_mods/kamikaze_enemy.tres"))
 	health_prop.emptied.connect(die)
 
 func add_mod(mod: Mod):

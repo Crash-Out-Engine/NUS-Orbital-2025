@@ -4,12 +4,14 @@ extends CanvasLayer
 @export var parameters: Dictionary
 
 @onready var anim_player = $AnimationPlayer as AnimationPlayer
+@onready var loading_player = $Control/TextureRect/Label/AnimationPlayer as AnimationPlayer
 
 func _ready():
 	ResourceLoader.load_threaded_request(next_scene_path)
 	anim_player.play("init")
 	if "transitioning" in get_tree().current_scene:
 		get_tree().current_scene.transitioning = true
+	loading_player.play("loading")
 
 func _process(_delta: float) -> void:
 	if ResourceLoader.load_threaded_get_status(next_scene_path) == ResourceLoader.THREAD_LOAD_LOADED:

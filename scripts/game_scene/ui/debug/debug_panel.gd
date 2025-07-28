@@ -6,6 +6,7 @@ var _player: Player
 var _entity_manager: EntityManager
 var _power_manager: PowerManager
 var _enemy_spawner: Node
+var _start_time: int
 
 @onready var tree := $VBoxContainer/Tree as Tree
 
@@ -25,6 +26,17 @@ func _process(_delta: float) -> void:
 	tree.entities.set_text(0,
 			"Entities: %s"
 			% _entity_manager.get_child_count())
+	tree.time.set_text(0,
+			"Time: %s:%s"
+			% ["%02d" % floor((Time.get_ticks_msec() as int - _start_time) / 60000),
+			"%02d" % (((Time.get_ticks_msec() as int - _start_time) / 1000) % 60)])
+	tree.spawn_statistics.set_text(0,
+			"Wave: %s\nDifficulty: %d\nSpawn: %s\nAccumulated difficulty: %s\nDiffculty tier: %d"
+			% [_enemy_spawner.enemy_wave.name,
+			_enemy_spawner.enemy_wave.difficulty_rating,
+			_enemy_spawner.enemy_wave.spawn_time,
+			_enemy_spawner.accumulated_difficulty,
+			_enemy_spawner.current_difficulty])
 
 
 func setup(
@@ -32,12 +44,14 @@ func setup(
 		player: Player,
 		entity_manager: EntityManager,
 		power_manager: PowerManager,
-		enemy_spawner: Node) -> void:
+		enemy_spawner: Node,
+		start_time: int) -> void:
 	_game_seed = game_seed
 	_player = player
 	_entity_manager = entity_manager
 	_power_manager = power_manager
 	_enemy_spawner = enemy_spawner
+	_start_time = start_time
 
 	active = true
 

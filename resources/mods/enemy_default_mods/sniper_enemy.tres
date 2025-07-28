@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="Mod" load_steps=7 format=3 uid="uid://cbnu4ekf5kaip"]
+
+[ext_resource type="Script" uid="uid://dlwahujwxjfnc" path="res://scripts/mods/mod_entry.gd" id="1_pu6wt"]
+[ext_resource type="Script" uid="uid://cr0bo4trqg3j1" path="res://scripts/mods/effect.gd" id="2_ybxg8"]
+[ext_resource type="Script" uid="uid://bik6dfo0vrxil" path="res://scripts/property_point.gd" id="3_oprwq"]
+[ext_resource type="Script" uid="uid://cntpggq7q3bfh" path="res://scripts/mods/mod.gd" id="4_dmsay"]
+
+[sub_resource type="Resource" id="Resource_pu6wt"]
+script = ExtResource("2_ybxg8")
+_property_type = "HealthProp"
+_interval = -1.0
+_repeat = 0
+_factor = -2.0
+metadata/_custom_type_script = "uid://cr0bo4trqg3j1"
+
+[sub_resource type="Resource" id="Resource_ybxg8"]
+script = ExtResource("2_ybxg8")
+_property_type = "KnockbackProp"
+_interval = -1.0
+_repeat = 0
+_factor = 200.0
+metadata/_custom_type_script = "uid://cr0bo4trqg3j1"
+
+[resource]
+script = ExtResource("4_dmsay")
+name = ""
+description = ""
+property_points = Dictionary[ExtResource("3_oprwq"), int]({})
+value = 0
+entries = Array[ExtResource("1_pu6wt")]([SubResource("Resource_pu6wt"), SubResource("Resource_ybxg8")])
