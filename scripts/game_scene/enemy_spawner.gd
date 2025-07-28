@@ -23,7 +23,7 @@ func setup(player: Player, entity_manager: EntityManager) -> void:
 	_entity_manager = entity_manager
 
 
-func _on_spawn_timer_timeout() -> void: # TODO(multiplayer): Have more elaborate spawning mechanisms
+func _on_spawn_timer_timeout() -> void:
 	if active:
 		var enemy_count = 1
 
@@ -38,6 +38,8 @@ func _on_spawn_timer_timeout() -> void: # TODO(multiplayer): Have more elaborate
 		var mod_comp: Array[Mod]
 		for mod in total_mods:
 			mod_comp.append(mods[rng.randi_range(0, 9)])
+		if type ==  Enemy.Type.HORDE:
+			enemy_count == randi_range(6, 8)
 		for i in enemy_count:
 			var new_enemy = _ENEMY_SCENE.instantiate()
 			new_enemy.global_position = enemy_global_position
@@ -53,6 +55,7 @@ func _on_spawn_timer_timeout() -> void: # TODO(multiplayer): Have more elaborate
 			accumulated_difficulty += enemy_wave.difficulty_rating
 			if accumulated_difficulty > (current_difficulty * 3 - 1):
 				current_difficulty += 1
+				accumulated_difficulty = 0
 				enemy_wave = DOWNTIME_ENEMY_WAVE
 			else:
 				enemy_wave = enemy_wave_list.filter(
